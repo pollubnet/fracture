@@ -13,15 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{91B6569B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{7FD751C0-76D7-49A4-9887-316380F8DED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PlayerCharacter.Domain", "Game.PlayerCharacter.Domain\Game.PlayerCharacter.Domain.csproj", "{8FCFE6C1-797B-4580-A5E6-BE3F8E552DC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PlayerCharacter.Domain", "Modules\PlayerCharacter\src\Game.PlayerCharacter.Domain\Game.PlayerCharacter.Domain.csproj", "{8FCFE6C1-797B-4580-A5E6-BE3F8E552DC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PlayerCharacter.Infrastructure", "Game.PlayerCharacter.Infrastructure\Game.PlayerCharacter.Infrastructure.csproj", "{9FEF1EF4-84D8-4D80-8CE2-F06F46666443}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PlayerCharacter.Infrastructure", "Modules\PlayerCharacter\src\Game.PlayerCharacter.Infrastructure\Game.PlayerCharacter.Infrastructure.csproj", "{9FEF1EF4-84D8-4D80-8CE2-F06F46666443}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PlayerCharacter.Application", "Game.PlayerCharacter.Application\Game.PlayerCharacter.Application.csproj", "{2A4865F3-C5FE-4CDE-B802-9F77DDC6D548}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PlayerCharacter.Application", "Modules\PlayerCharacter\src\Game.PlayerCharacter.Application\Game.PlayerCharacter.Application.csproj", "{2A4865F3-C5FE-4CDE-B802-9F77DDC6D548}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Shared.Abstraction", "Game.Shared.Abstraction\Game.Shared.Abstraction.csproj", "{B9547DA2-8EFD-440C-B328-A9B22B9CCBE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Shared.Infrastructure", "Shared\Game.Shared.Infrastructure\Game.Shared.Infrastructure.csproj", "{1553F5C2-8DC0-40D7-B337-054322BB2BDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Shared.Infrastructure", "Game.Shared.Infrastructure\Game.Shared.Infrastructure.csproj", "{1553F5C2-8DC0-40D7-B337-054322BB2BDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Api", "Game.Api\Game.Api.csproj", "{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Shared.Core", "Shared\Game.Shared.Core\Game.Shared.Core.csproj", "{F61789DA-0820-4550-AC66-6D09C0F0045A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,14 +43,18 @@ Global
 		{2A4865F3-C5FE-4CDE-B802-9F77DDC6D548}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A4865F3-C5FE-4CDE-B802-9F77DDC6D548}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A4865F3-C5FE-4CDE-B802-9F77DDC6D548}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9547DA2-8EFD-440C-B328-A9B22B9CCBE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9547DA2-8EFD-440C-B328-A9B22B9CCBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9547DA2-8EFD-440C-B328-A9B22B9CCBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9547DA2-8EFD-440C-B328-A9B22B9CCBE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1553F5C2-8DC0-40D7-B337-054322BB2BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1553F5C2-8DC0-40D7-B337-054322BB2BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1553F5C2-8DC0-40D7-B337-054322BB2BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1553F5C2-8DC0-40D7-B337-054322BB2BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F61789DA-0820-4550-AC66-6D09C0F0045A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F61789DA-0820-4550-AC66-6D09C0F0045A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F61789DA-0820-4550-AC66-6D09C0F0045A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F61789DA-0820-4550-AC66-6D09C0F0045A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,8 +66,8 @@ Global
 		{8FCFE6C1-797B-4580-A5E6-BE3F8E552DC9} = {F301866F-75D3-4E13-9878-DA3D64C0244C}
 		{9FEF1EF4-84D8-4D80-8CE2-F06F46666443} = {F301866F-75D3-4E13-9878-DA3D64C0244C}
 		{2A4865F3-C5FE-4CDE-B802-9F77DDC6D548} = {F301866F-75D3-4E13-9878-DA3D64C0244C}
-		{B9547DA2-8EFD-440C-B328-A9B22B9CCBE1} = {7FD751C0-76D7-49A4-9887-316380F8DED9}
 		{1553F5C2-8DC0-40D7-B337-054322BB2BDA} = {7FD751C0-76D7-49A4-9887-316380F8DED9}
+		{F61789DA-0820-4550-AC66-6D09C0F0045A} = {7FD751C0-76D7-49A4-9887-316380F8DED9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E93EB359-CDB9-425A-8064-77FF2DAE680D}
