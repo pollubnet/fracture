@@ -71,47 +71,41 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{652ED175-12A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8276486B-ECDD-45C0-906C-E1D3ADEE23CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.AccountManagement.Application", "Modules\AccountManagement\src\Game.AccountManagement.Application\Game.AccountManagement.Application.csproj", "{C038B1B3-0EDE-4630-B596-4C1F1606E0C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Fight.Application", "Modules\Fight\src\Game.Fight.Application\Game.Fight.Application.csproj", "{3B64BCB0-3AD5-4B19-92EF-E91E20B20008}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Fight.Application", "Modules\Fight\src\Game.Fight.Application\Game.Fight.Application.csproj", "{3B64BCB0-3AD5-4B19-92EF-E91E20B20008}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.GameplaySession.Application", "Modules\GameplaySession\src\Game.GameplaySession.Application\Game.GameplaySession.Application.csproj", "{BB39AF0A-9830-44B1-B4FF-A9EEE95283E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GameplaySession.Application", "Modules\GameplaySession\src\Game.GameplaySession.Application\Game.GameplaySession.Application.csproj", "{BB39AF0A-9830-44B1-B4FF-A9EEE95283E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.GoalManagment.Appliaction", "Modules\GoalManagment\src\Game.GoalManagment.Appliaction\Game.GoalManagment.Appliaction.csproj", "{E27F6FF3-1E98-4D66-B9A4-B04820279E14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GoalManagment.Appliaction", "Modules\GoalManagment\src\Game.GoalManagment.Appliaction\Game.GoalManagment.Appliaction.csproj", "{E27F6FF3-1E98-4D66-B9A4-B04820279E14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Inventory.Appliaction", "Modules\Inventory\src\Game.Inventory.Appliaction\Game.Inventory.Appliaction.csproj", "{D493E0A4-A052-43AB-8D2E-9A99BEB2871C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Inventory.Appliaction", "Modules\Inventory\src\Game.Inventory.Appliaction\Game.Inventory.Appliaction.csproj", "{D493E0A4-A052-43AB-8D2E-9A99BEB2871C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Location.Appliaction", "Modules\Location\src\Game.Location.Appliaction\Game.Location.Appliaction.csproj", "{A962AFF9-AE47-4814-93EA-BCD599EC2A37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Location.Appliaction", "Modules\Location\src\Game.Location.Appliaction\Game.Location.Appliaction.csproj", "{A962AFF9-AE47-4814-93EA-BCD599EC2A37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.MapGenerator.Application", "Modules\MapGenerator\src\Game.MapGenerator.Application\Game.MapGenerator.Application.csproj", "{3931EBB8-9BBB-4CA7-9C74-498D6A5610A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.MapGenerator.Application", "Modules\MapGenerator\src\Game.MapGenerator.Application\Game.MapGenerator.Application.csproj", "{3931EBB8-9BBB-4CA7-9C74-498D6A5610A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Fight.Infrastructure", "Modules\Fight\src\Game.Fight.Infrastructure\Game.Fight.Infrastructure.csproj", "{4B03A3BA-673D-4F87-A457-E0C1FFD795BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.AccountManagment.Infrastructure", "Modules\AccountManagement\src\Game.AccountManagment.Infrastructure\Game.AccountManagment.Infrastructure.csproj", "{C0EBF359-6697-45F4-8966-0A0AEEAB2548}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Fight.Domain", "Modules\Fight\src\Game.Fight.Domain\Game.Fight.Domain.csproj", "{4DB8ADAB-C0E8-44E5-890E-3F10E6AC70DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.AccountManagment.Domain", "Modules\AccountManagement\src\Game.AccountManagment.Domain\Game.AccountManagment.Domain.csproj", "{68E8CF3B-1A53-43FB-BA5D-D7E7C0809C4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.GameplaySession.Infrastructure", "Modules\GameplaySession\src\Game.GameplaySession.Infrastructure\Game.GameplaySession.Infrastructure.csproj", "{E0AFAABE-7FD9-4656-BB52-DC94A9C3EFFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Fight.Infrastructure", "Modules\Fight\src\Game.Fight.Infrastructure\Game.Fight.Infrastructure.csproj", "{4B03A3BA-673D-4F87-A457-E0C1FFD795BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.GameplaySession.Domain", "Modules\GameplaySession\src\Game.GameplaySession.Domain\Game.GameplaySession.Domain.csproj", "{8F70B68B-7F87-46A6-8F91-004087061BC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Fight.Domain", "Modules\Fight\src\Game.Fight.Domain\Game.Fight.Domain.csproj", "{4DB8ADAB-C0E8-44E5-890E-3F10E6AC70DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.GoalManagment.Domain", "Modules\GoalManagment\src\Game.GoalManagment.Domain\Game.GoalManagment.Domain.csproj", "{51616304-8A6C-4A64-9DBD-50208A1B84D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GameplaySession.Infrastructure", "Modules\GameplaySession\src\Game.GameplaySession.Infrastructure\Game.GameplaySession.Infrastructure.csproj", "{E0AFAABE-7FD9-4656-BB52-DC94A9C3EFFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.GoalManagment.Infrastructure", "Modules\GoalManagment\src\Game.GoalManagment.Infrastructure\Game.GoalManagment.Infrastructure.csproj", "{8294A3D9-38C7-484E-880D-1294823D9F99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GameplaySession.Domain", "Modules\GameplaySession\src\Game.GameplaySession.Domain\Game.GameplaySession.Domain.csproj", "{8F70B68B-7F87-46A6-8F91-004087061BC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Inventory.Domain", "Modules\Inventory\src\Game.Inventory.Domain\Game.Inventory.Domain.csproj", "{40025DC9-692D-46AD-8831-F79A6B76437C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GoalManagment.Domain", "Modules\GoalManagment\src\Game.GoalManagment.Domain\Game.GoalManagment.Domain.csproj", "{51616304-8A6C-4A64-9DBD-50208A1B84D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Inventory.Infrastructure", "Modules\Inventory\src\Game.Inventory.Infrastructure\Game.Inventory.Infrastructure.csproj", "{428020C7-5560-435A-835E-4AA5A165288D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GoalManagment.Infrastructure", "Modules\GoalManagment\src\Game.GoalManagment.Infrastructure\Game.GoalManagment.Infrastructure.csproj", "{8294A3D9-38C7-484E-880D-1294823D9F99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Location.Domain", "Modules\Location\src\Game.Location.Domain\Game.Location.Domain.csproj", "{7BD68D6F-EEF7-47C5-B503-372CBC2BBCBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Inventory.Domain", "Modules\Inventory\src\Game.Inventory.Domain\Game.Inventory.Domain.csproj", "{40025DC9-692D-46AD-8831-F79A6B76437C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Location.Infrastructure", "Modules\Location\src\Game.Location.Infrastructure\Game.Location.Infrastructure.csproj", "{4186DD59-4B59-49F9-BA2D-3B2E0BDE1613}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Inventory.Infrastructure", "Modules\Inventory\src\Game.Inventory.Infrastructure\Game.Inventory.Infrastructure.csproj", "{428020C7-5560-435A-835E-4AA5A165288D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.MapGenerator.Domain", "Modules\MapGenerator\src\Game.MapGenerator.Domain\Game.MapGenerator.Domain.csproj", "{CF82E3C6-48B5-4F0E-A582-99E2A6C46F06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Location.Domain", "Modules\Location\src\Game.Location.Domain\Game.Location.Domain.csproj", "{7BD68D6F-EEF7-47C5-B503-372CBC2BBCBD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Location.Infrastructure", "Modules\Location\src\Game.Location.Infrastructure\Game.Location.Infrastructure.csproj", "{4186DD59-4B59-49F9-BA2D-3B2E0BDE1613}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.MapGenerator.Domain", "Modules\MapGenerator\src\Game.MapGenerator.Domain\Game.MapGenerator.Domain.csproj", "{CF82E3C6-48B5-4F0E-A582-99E2A6C46F06}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.MapGenerator.Infrastructure", "Modules\MapGenerator\src\Game.MapGenerator.Infrastructure\Game.MapGenerator.Infrastructure.csproj", "{BD41F239-9AA6-430D-ABD7-03455BB4A47B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.MapGenerator.Infrastructure", "Modules\MapGenerator\src\Game.MapGenerator.Infrastructure\Game.MapGenerator.Infrastructure.csproj", "{BD41F239-9AA6-430D-ABD7-03455BB4A47B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DialogManagement", "DialogManagement", "{7161A41D-4DFC-48B5-B69B-F2C73886C023}"
 EndProject
@@ -119,11 +113,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D285A11E-394
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BFE2800B-294D-4CA1-A718-C5EE37F1967B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.DialogManagement.Application", "Modules\DialogManagement\src\Game.DialogManagement.Application\Game.DialogManagement.Application.csproj", "{51712C64-41F5-46E5-B0A9-AA0B32667015}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.DialogManagement.Application", "Modules\DialogManagement\src\Game.DialogManagement.Application\Game.DialogManagement.Application.csproj", "{51712C64-41F5-46E5-B0A9-AA0B32667015}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.DialogManagement.Domain", "Modules\DialogManagement\src\Game.DialogManagement.Domain\Game.DialogManagement.Domain.csproj", "{9D2383C1-54D8-4AD5-9B72-8B671CA827D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.DialogManagement.Domain", "Modules\DialogManagement\src\Game.DialogManagement.Domain\Game.DialogManagement.Domain.csproj", "{9D2383C1-54D8-4AD5-9B72-8B671CA827D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.DialogManagement.Infrastracture", "Modules\DialogManagement\src\Game.DialogManagement.Infrastracture\Game.DialogManagement.Infrastracture.csproj", "{9FF6512E-D94A-4694-8450-629ED4FC64ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.DialogManagement.Infrastracture", "Modules\DialogManagement\src\Game.DialogManagement.Infrastracture\Game.DialogManagement.Infrastracture.csproj", "{9FF6512E-D94A-4694-8450-629ED4FC64ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D068A0C8-9656-4392-A57B-E648074DE002}"
 EndProject
@@ -133,17 +127,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9A7831B-481
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4BF2480A-41AA-46BC-AFEB-2AC4CBF7645D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Ranking.Application", "Modules\Ranking\src\Game.Ranking.Application\Game.Ranking.Application.csproj", "{467DC390-D79A-4497-BD45-85F76CB59A96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Ranking.Application", "Modules\Ranking\src\Game.Ranking.Application\Game.Ranking.Application.csproj", "{467DC390-D79A-4497-BD45-85F76CB59A96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Ranking.Infrastructure", "Modules\Ranking\src\Game.Ranking.Infrastructure\Game.Ranking.Infrastructure.csproj", "{FF88CB11-EF0F-4A19-BC7C-F38729DE7CB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Ranking.Infrastructure", "Modules\Ranking\src\Game.Ranking.Infrastructure\Game.Ranking.Infrastructure.csproj", "{FF88CB11-EF0F-4A19-BC7C-F38729DE7CB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Ranking.Domain", "Modules\Ranking\src\Game.Ranking.Domain\Game.Ranking.Domain.csproj", "{6B35CDD2-B5A9-4FBB-8EF6-7547D99F10BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Ranking.Domain", "Modules\Ranking\src\Game.Ranking.Domain\Game.Ranking.Domain.csproj", "{6B35CDD2-B5A9-4FBB-8EF6-7547D99F10BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tavern.Application", "Modules\Tavern\src\Game.Tavern.Application\Game.Tavern.Application.csproj", "{EC42B0F6-54A1-4E21-A533-0B112541727B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Tavern.Application", "Modules\Tavern\src\Game.Tavern.Application\Game.Tavern.Application.csproj", "{EC42B0F6-54A1-4E21-A533-0B112541727B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tavern.Infrastructure", "Modules\Tavern\src\Game.Tavern.Infrastructure\Game.Tavern.Infrastructure.csproj", "{1114ED44-3654-4A2D-9583-468E6B82A622}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Tavern.Infrastructure", "Modules\Tavern\src\Game.Tavern.Infrastructure\Game.Tavern.Infrastructure.csproj", "{1114ED44-3654-4A2D-9583-468E6B82A622}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tavern.Domain", "Modules\Tavern\src\Game.Tavern.Domain\Game.Tavern.Domain.csproj", "{386EAB65-51E6-4F61-B80A-0E9015B0FC7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Tavern.Domain", "Modules\Tavern\src\Game.Tavern.Domain\Game.Tavern.Domain.csproj", "{386EAB65-51E6-4F61-B80A-0E9015B0FC7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.AccountManagement.Application", "Modules\AccountManagement\src\Game.AccountManagement.Application\Game.AccountManagement.Application.csproj", "{519D875B-DB13-4CD2-8557-85B0CA34747F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.AccountManagement.Domain", "Modules\AccountManagement\src\Game.AccountManagement.Domain\Game.AccountManagement.Domain.csproj", "{94BCF4C2-E28A-4CDC-A65B-C675F340025A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.AccountManagement.Infrastructure", "Modules\AccountManagement\src\Game.AccountManagement.Infrastructure\Game.AccountManagement.Infrastructure.csproj", "{747F720E-95FC-4FAF-B919-5254795748F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -175,10 +175,6 @@ Global
 		{F61789DA-0820-4550-AC66-6D09C0F0045A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F61789DA-0820-4550-AC66-6D09C0F0045A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F61789DA-0820-4550-AC66-6D09C0F0045A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C038B1B3-0EDE-4630-B596-4C1F1606E0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C038B1B3-0EDE-4630-B596-4C1F1606E0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C038B1B3-0EDE-4630-B596-4C1F1606E0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C038B1B3-0EDE-4630-B596-4C1F1606E0C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B64BCB0-3AD5-4B19-92EF-E91E20B20008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B64BCB0-3AD5-4B19-92EF-E91E20B20008}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B64BCB0-3AD5-4B19-92EF-E91E20B20008}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -203,14 +199,6 @@ Global
 		{3931EBB8-9BBB-4CA7-9C74-498D6A5610A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3931EBB8-9BBB-4CA7-9C74-498D6A5610A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3931EBB8-9BBB-4CA7-9C74-498D6A5610A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0EBF359-6697-45F4-8966-0A0AEEAB2548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0EBF359-6697-45F4-8966-0A0AEEAB2548}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0EBF359-6697-45F4-8966-0A0AEEAB2548}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0EBF359-6697-45F4-8966-0A0AEEAB2548}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68E8CF3B-1A53-43FB-BA5D-D7E7C0809C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68E8CF3B-1A53-43FB-BA5D-D7E7C0809C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68E8CF3B-1A53-43FB-BA5D-D7E7C0809C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68E8CF3B-1A53-43FB-BA5D-D7E7C0809C4B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B03A3BA-673D-4F87-A457-E0C1FFD795BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B03A3BA-673D-4F87-A457-E0C1FFD795BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B03A3BA-673D-4F87-A457-E0C1FFD795BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -295,6 +283,18 @@ Global
 		{386EAB65-51E6-4F61-B80A-0E9015B0FC7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{386EAB65-51E6-4F61-B80A-0E9015B0FC7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{386EAB65-51E6-4F61-B80A-0E9015B0FC7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{519D875B-DB13-4CD2-8557-85B0CA34747F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{519D875B-DB13-4CD2-8557-85B0CA34747F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{519D875B-DB13-4CD2-8557-85B0CA34747F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{519D875B-DB13-4CD2-8557-85B0CA34747F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94BCF4C2-E28A-4CDC-A65B-C675F340025A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94BCF4C2-E28A-4CDC-A65B-C675F340025A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94BCF4C2-E28A-4CDC-A65B-C675F340025A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94BCF4C2-E28A-4CDC-A65B-C675F340025A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{747F720E-95FC-4FAF-B919-5254795748F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{747F720E-95FC-4FAF-B919-5254795748F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{747F720E-95FC-4FAF-B919-5254795748F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{747F720E-95FC-4FAF-B919-5254795748F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -331,15 +331,12 @@ Global
 		{DB2DE2FB-0B25-48F2-9F31-E458DC7F1A3A} = {E85B360C-BFBF-4215-9001-B5F622D5579F}
 		{652ED175-12A6-4EC1-9A4B-53F7CC9D111A} = {0441A132-4ED5-41A4-BAA6-3AB66C0F863F}
 		{8276486B-ECDD-45C0-906C-E1D3ADEE23CC} = {0441A132-4ED5-41A4-BAA6-3AB66C0F863F}
-		{C038B1B3-0EDE-4630-B596-4C1F1606E0C2} = {9B464848-067E-4176-98FB-3B4078DECE29}
 		{3B64BCB0-3AD5-4B19-92EF-E91E20B20008} = {2FBB1F49-3415-4D3C-8AB7-F329ADF8E15A}
 		{BB39AF0A-9830-44B1-B4FF-A9EEE95283E4} = {E1CAF66F-5B3F-4DAF-A090-54BD53952E84}
 		{E27F6FF3-1E98-4D66-B9A4-B04820279E14} = {7FD96DCF-DE38-46D0-AAFC-073CE5812F17}
 		{D493E0A4-A052-43AB-8D2E-9A99BEB2871C} = {8D65E44B-8A77-4999-9215-3063DC1449F8}
 		{A962AFF9-AE47-4814-93EA-BCD599EC2A37} = {2AF954C4-D7D9-4AA0-8537-6161B0D1C60C}
 		{3931EBB8-9BBB-4CA7-9C74-498D6A5610A7} = {652ED175-12A6-4EC1-9A4B-53F7CC9D111A}
-		{C0EBF359-6697-45F4-8966-0A0AEEAB2548} = {9B464848-067E-4176-98FB-3B4078DECE29}
-		{68E8CF3B-1A53-43FB-BA5D-D7E7C0809C4B} = {9B464848-067E-4176-98FB-3B4078DECE29}
 		{4B03A3BA-673D-4F87-A457-E0C1FFD795BE} = {2FBB1F49-3415-4D3C-8AB7-F329ADF8E15A}
 		{4DB8ADAB-C0E8-44E5-890E-3F10E6AC70DD} = {2FBB1F49-3415-4D3C-8AB7-F329ADF8E15A}
 		{E0AFAABE-7FD9-4656-BB52-DC94A9C3EFFA} = {E1CAF66F-5B3F-4DAF-A090-54BD53952E84}
@@ -368,6 +365,9 @@ Global
 		{EC42B0F6-54A1-4E21-A533-0B112541727B} = {C9A7831B-4813-4161-BE5E-03B3D03BB643}
 		{1114ED44-3654-4A2D-9583-468E6B82A622} = {C9A7831B-4813-4161-BE5E-03B3D03BB643}
 		{386EAB65-51E6-4F61-B80A-0E9015B0FC7C} = {C9A7831B-4813-4161-BE5E-03B3D03BB643}
+		{519D875B-DB13-4CD2-8557-85B0CA34747F} = {9B464848-067E-4176-98FB-3B4078DECE29}
+		{94BCF4C2-E28A-4CDC-A65B-C675F340025A} = {9B464848-067E-4176-98FB-3B4078DECE29}
+		{747F720E-95FC-4FAF-B919-5254795748F8} = {9B464848-067E-4176-98FB-3B4078DECE29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E93EB359-CDB9-425A-8064-77FF2DAE680D}
