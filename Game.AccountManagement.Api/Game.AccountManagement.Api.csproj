@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Game.AccountManagement.Domain\Game.AccountManagement.Domain.csproj" />
+    <ProjectReference Include="..\Modules\AccountManagement\src\Game.AccountManagement.Application\Game.AccountManagement.Application.csproj" />
+    <ProjectReference Include="..\Modules\AccountManagement\src\Game.AccountManagement.Infrastructure\Game.AccountManagement.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,14 @@ namespace Game.AccountManagement.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            var assembly = typeof(DependencyInjection).Assembly;
+            services.AddMediatR(configuration =>
+            {
+                configuration.RegisterServicesFromAssemblies(assembly);
+            });
+
+            services.AddValidatorsFromAssembly(assembly);
+
             return services;
         }
     }

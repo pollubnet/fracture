@@ -145,7 +145,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.AccountManagement.Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Shared.External", "Shared\Game.Shared.External\Game.Shared.External.csproj", "{DE4324F4-335A-4B29-8CC2-CC774817049A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.AccountManagement.Presentation", "Game.AccountManagement.Presentation\Game.AccountManagement.Presentation.csproj", "{B161143A-9BCE-4132-B584-01A87CF36176}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.AccountManagement.Api", "Modules\AccountManagement\src\Game.AccountManagement.Api\Game.AccountManagement.Api.csproj", "{9B38794A-0C9B-43A2-BA5C-A4ED2FAACCB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -297,10 +297,10 @@ Global
 		{DE4324F4-335A-4B29-8CC2-CC774817049A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE4324F4-335A-4B29-8CC2-CC774817049A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE4324F4-335A-4B29-8CC2-CC774817049A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B161143A-9BCE-4132-B584-01A87CF36176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B161143A-9BCE-4132-B584-01A87CF36176}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B161143A-9BCE-4132-B584-01A87CF36176}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B161143A-9BCE-4132-B584-01A87CF36176}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B38794A-0C9B-43A2-BA5C-A4ED2FAACCB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B38794A-0C9B-43A2-BA5C-A4ED2FAACCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B38794A-0C9B-43A2-BA5C-A4ED2FAACCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B38794A-0C9B-43A2-BA5C-A4ED2FAACCB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -374,7 +374,7 @@ Global
 		{94BCF4C2-E28A-4CDC-A65B-C675F340025A} = {9B464848-067E-4176-98FB-3B4078DECE29}
 		{747F720E-95FC-4FAF-B919-5254795748F8} = {9B464848-067E-4176-98FB-3B4078DECE29}
 		{DE4324F4-335A-4B29-8CC2-CC774817049A} = {7FD751C0-76D7-49A4-9887-316380F8DED9}
-		{B161143A-9BCE-4132-B584-01A87CF36176} = {9B464848-067E-4176-98FB-3B4078DECE29}
+		{9B38794A-0C9B-43A2-BA5C-A4ED2FAACCB1} = {9B464848-067E-4176-98FB-3B4078DECE29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E93EB359-CDB9-425A-8064-77FF2DAE680D}
