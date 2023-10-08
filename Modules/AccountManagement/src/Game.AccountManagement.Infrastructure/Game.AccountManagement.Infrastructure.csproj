@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Game.Shared.External\Game.Shared.External.csproj" />
     <ProjectReference Include="..\Game.AccountManagement.Domain\Game.AccountManagement.Domain.csproj" />
   </ItemGroup>
 

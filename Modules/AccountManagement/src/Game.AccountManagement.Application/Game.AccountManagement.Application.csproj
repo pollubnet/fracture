@@ -12,7 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Game.Shared.Core\Game.Shared.Core.csproj" />
     <ProjectReference Include="..\Game.AccountManagement.Domain\Game.AccountManagement.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Contracts\Commands\" />
+    <Folder Include="Handlers\Commands\" />
   </ItemGroup>
 
 </Project>

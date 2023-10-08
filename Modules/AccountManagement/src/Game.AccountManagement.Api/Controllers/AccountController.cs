@@ -4,17 +4,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.AccountManagement.Application.Contracts.Queries;
+using MediatR;
+using Game.AccountManagement.Domain.Data.Entities;
 
 namespace Game.AccountManagement.Api.Controllers
 {
     [ApiController]
     [Route("/[controller]")]
+    [Area("AccountManagemnt")]
     public class AccountController : ControllerBase
     {
-        [HttpGet("")]
-        public IActionResult GetAccounts()
+        private readonly IMediator _mediator;
+
+        public AccountController(IMediator mediator)
         {
-            return Ok();
+            _mediator = mediator;
+        }
+
+        [HttpGet("")]
+        public ActionResult<Account> GetAccounts()
+        {
+            var getAllAccountsQuery = new GetAllAccountsQuery();
+            var accounts = _mediator.Send(getAllAccountsQuery);
+            return Ok(accounts);
         }
     }
 }
