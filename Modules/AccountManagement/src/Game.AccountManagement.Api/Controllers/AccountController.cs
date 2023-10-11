@@ -23,10 +23,10 @@ namespace Game.AccountManagement.Api.Controllers
         }
 
         [HttpGet("")]
-        public ActionResult<Account> GetAccounts()
+        public async Task<ActionResult<Account>> GetAccounts()
         {
             var getAllAccountsQuery = new GetAllAccountsQuery();
-            var accounts = _mediator.Send(getAllAccountsQuery);
+            var accounts = await _mediator.Send(getAllAccountsQuery);
             return Ok(accounts);
         }
     }

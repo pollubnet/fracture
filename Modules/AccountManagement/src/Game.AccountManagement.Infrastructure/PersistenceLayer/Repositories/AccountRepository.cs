@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.AccountManagement.Infrastructure.Repositories
+namespace Game.AccountManagement.Infrastructure.PersistenceLayer.Repositories
 {
     internal class AccountRepository : IAccountRepository
     {
         public IEnumerable<Account> GetAllAccount()
         {
-            return new List<Account>() { 
-                new Account{ 
-                    Id = Guid.NewGuid(), 
+            return new List<Account>() {
+                new Account{
+                    Id = Guid.NewGuid(),
                     Name = "Example1"
                     },
              new Account{

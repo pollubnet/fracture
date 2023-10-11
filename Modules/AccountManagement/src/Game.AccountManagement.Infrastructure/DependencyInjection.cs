@@ -1,5 +1,5 @@
 ﻿using Game.AccountManagement.Domain.Repositories;
-using Game.AccountManagement.Infrastructure.Repositories;
+using Game.AccountManagement.Infrastructure.PersistenceLayer.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
