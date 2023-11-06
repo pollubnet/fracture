@@ -13,11 +13,9 @@ namespace Game.AccountManagement.Api
     {
         public static IServiceCollection AddAccountMangementModule(this IServiceCollection services)
         {
-            services.AddApplication().
-                AddInfrastructure();
-                
+            services.AddApplication().AddInfrastructure();
+
             return services;
         }
-
     }
 }

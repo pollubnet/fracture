@@ -12,15 +12,11 @@ namespace Game.AccountManagement.Infrastructure.PersistenceLayer.Repositories
     {
         public IEnumerable<Account> GetAllAccount()
         {
-            return new List<Account>() {
-                new Account{
-                    Id = Guid.NewGuid(),
-                    Name = "Example1"
-                    },
-             new Account{
-                    Id = Guid.NewGuid(),
-                    Name = "Example2"
-                    }};
+            return new List<Account>()
+            {
+                new Account { Id = Guid.NewGuid(), Name = "Example1" },
+                new Account { Id = Guid.NewGuid(), Name = "Example2" }
+            };
         }
     }
 }

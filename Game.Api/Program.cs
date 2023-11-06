@@ -2,8 +2,6 @@ using Game.AccountManagement.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
 builder.Services.AddAccountMangementModule();
 builder.Services.AddControllers();

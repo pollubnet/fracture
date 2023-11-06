@@ -10,15 +10,20 @@ using System.Threading.Tasks;
 
 namespace Game.AccountManagement.Application.Handlers.Queries
 {
-    internal class GetAllAccountsHandler : IRequestHandler<GetAllAccountsQuery, IEnumerable<Account>>
+    internal class GetAllAccountsHandler
+        : IRequestHandler<GetAllAccountsQuery, IEnumerable<Account>>
     {
         private readonly IAccountRepository _accountRepository;
+
         public GetAllAccountsHandler(IAccountRepository accountRepository)
         {
             _accountRepository = accountRepository;
         }
 
-        public async Task<IEnumerable<Account>> Handle(GetAllAccountsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Account>> Handle(
+            GetAllAccountsQuery request,
+            CancellationToken cancellationToken
+        )
         {
             return _accountRepository.GetAllAccount();
         }
