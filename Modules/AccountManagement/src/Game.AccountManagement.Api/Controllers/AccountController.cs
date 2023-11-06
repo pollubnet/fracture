@@ -12,7 +12,7 @@ namespace Game.AccountManagement.Api.Controllers
 {
     [ApiController]
     [Route("/[controller]")]
-    [Area("AccountManagemnt")]
+    [Area("AccountManagement")]
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
