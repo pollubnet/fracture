@@ -1,0 +1,25 @@
+name: Validate PR
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    name: Checks
+    steps:
+    - uses: actions/checkout@v3      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Check Formatting
+      run: |
+          dotnet tool restore
+          dotnet csharpier --check .
+
+    - name: Restore Dependencies
+      run: dotnet restore Game.sln
+
+    - name: Build
+      run: dotnet build --no-restore Game.sln
