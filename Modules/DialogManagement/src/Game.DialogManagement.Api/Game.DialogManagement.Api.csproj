@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Game.DialogManagement.Application\Game.DialogManagement.Application.csproj" />
+    <ProjectReference Include="..\Game.DialogManagement.Infrastracture\Game.DialogManagement.Infrastracture.csproj" />
+  </ItemGroup>
+
 </Project>
