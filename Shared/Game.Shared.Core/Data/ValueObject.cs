@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace Game.Shared.Core.Data
 {
-    public record ValueObject
-    {
-    }
+    public record ValueObject { }
 }
