@@ -1,11 +1,11 @@
 using Game.AccountManagement.Api;
+using Game.DialogManagement.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
-builder.Services.AddAccountMangementModule();
+builder.Services.AddAccountMangementModule().AddDialogManagementModule();
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
