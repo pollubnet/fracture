@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Game.Shared.External.Providers.Ai
 {
@@ -28,6 +29,7 @@ namespace Game.Shared.External.Providers.Ai
         /// <param name="prompt">The prompt we're generating with.</param>
         /// <param name="stopTokens">The tokens the AI model should stop on.</param>
         /// <param name="tokenCount">The amount of tokens to generate.</param>
+        [SetsRequiredMembers]
         public AiGenerationContext(string prompt, string[] stopTokens, int tokenCount = 128)
         {
             Prompt = prompt;
