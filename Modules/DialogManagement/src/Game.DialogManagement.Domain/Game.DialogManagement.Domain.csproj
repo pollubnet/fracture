@@ -9,4 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\Game.Shared.Core\Game.Shared.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="2.7.4" />
+  </ItemGroup>
 </Project>
