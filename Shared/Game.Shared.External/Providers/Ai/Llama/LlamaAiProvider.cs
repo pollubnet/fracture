@@ -32,7 +32,7 @@ namespace Game.Shared.External.Providers.Ai.Llama
             var jsonPrompt = new JsonPrompt
             {
                 Prompt = context.Prompt,
-                N_predict = context.TokenCount,
+                NumberPredicted = context.TokenCount,
                 Stop = context.StopTokens,
             };
 
