@@ -44,6 +44,7 @@ namespace Game.Shared.External.Providers.Ai.Llama
         {
             var request = new HttpRequestMessage
             {
+                Method = HttpMethod.Post,
                 Content = new StringContent(GenerateJSONPrompt(context))
             };
 
