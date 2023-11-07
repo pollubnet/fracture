@@ -10,4 +10,15 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="PersistenceLayer\" />
+    <None Remove="PersistenceLayer\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PersistenceLayer\" />
+    <Folder Include="PersistenceLayer\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Game.DialogManagement.Domain\Game.DialogManagement.Domain.csproj" />
+  </ItemGroup>
 </Project>
