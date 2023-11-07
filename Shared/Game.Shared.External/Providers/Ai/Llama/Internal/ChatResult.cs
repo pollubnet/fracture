@@ -1,10 +1,13 @@
-﻿namespace Game.Shared.External.Providers.Ai.Llama.Internal
+﻿using System.Text.Json.Serialization;
+
+namespace Game.Shared.External.Providers.Ai.Llama.Internal
 {
     /// <summary>
     /// The result of calling the Llama endpoint.
     /// </summary>
     internal class ChatResult
     {
+        [JsonPropertyName("content")]
         public string Content { get; set; } = null!;
         public string Model { get; set; } = null!;
         public string Prompt { get; set; } = null!;
