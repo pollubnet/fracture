@@ -1,11 +1,15 @@
 using Game.AccountManagement.Api;
 using Game.DialogManagement.Api;
+using Game.Shared.External;
+using Game.Shared.External.Providers.Ai;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddAccountMangementModule().AddDialogManagementModule();
+builder.Services.Configure<AiEndpointConfig>(builder.Configuration.GetSection("AiEndpoint"));
+builder.Services.AddAiProvider();
 
+builder.Services.AddAccountMangementModule().AddDialogManagementModule();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
