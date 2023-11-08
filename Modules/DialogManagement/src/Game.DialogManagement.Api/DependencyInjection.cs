@@ -1,11 +1,6 @@
 ﻿using Game.DialogManagement.Application;
 using Game.DialogManagement.Infrastracture;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game.DialogManagement.Api
 {
@@ -13,7 +8,9 @@ namespace Game.DialogManagement.Api
     {
         public static IServiceCollection AddDialogManagementModule(this IServiceCollection services)
         {
-            services.AddApplication().AddInfrastructure();
+            // TODO: This should be passed from within the appsettings.
+            const string connectionString = "localhost";
+            services.AddApplication().AddInfrastructure(connectionString);
 
             return services;
         }
