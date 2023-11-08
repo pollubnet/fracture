@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<AiEndpointConfig>(builder.Configuration.GetSection("AiEndpoint"));
 builder.Services.AddAiProvider<LlamaAiProvider>();
 
-builder.Services.AddAccountMangementModule().AddDialogManagementModule();
+builder.Services.AddAccountManagementModule().AddDialogManagementModule();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
