@@ -2,12 +2,13 @@ using Game.AccountManagement.Api;
 using Game.DialogManagement.Api;
 using Game.Shared.External;
 using Game.Shared.External.Providers.Ai;
+using Game.Shared.External.Providers.Ai.Llama;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<AiEndpointConfig>(builder.Configuration.GetSection("AiEndpoint"));
-builder.Services.AddAiProvider();
+builder.Services.AddAiProvider<LlamaAiProvider>();
 
 builder.Services.AddAccountMangementModule().AddDialogManagementModule();
 builder.Services.AddControllers();
