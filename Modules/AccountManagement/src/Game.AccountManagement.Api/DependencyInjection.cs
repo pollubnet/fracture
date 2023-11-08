@@ -11,7 +11,9 @@ namespace Game.AccountManagement.Api
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddAccountMangementModule(this IServiceCollection services)
+        public static IServiceCollection AddAccountManagementModule(
+            this IServiceCollection services
+        )
         {
             services.AddApplication().AddInfrastructure();
 
