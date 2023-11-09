@@ -40,10 +40,11 @@ namespace Game.DialogManagement.Domain.Data.Entities
         /// <summary>
         /// Adds a message to this dialogue's context backlog.
         /// </summary>
+        /// <param name="sender">The message's sender.</param>
         /// <param name="message">The message.</param>
-        public void AddMessageToBacklog(string message)
+        public void AddMessageToBacklog(string sender, string message)
         {
-            Context.MessageLog.Add(new(message));
+            Context.MessageLog.Add(new(sender, message));
         }
     }
 }
