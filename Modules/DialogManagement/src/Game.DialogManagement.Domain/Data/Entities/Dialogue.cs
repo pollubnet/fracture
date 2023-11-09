@@ -29,12 +29,13 @@ namespace Game.DialogManagement.Domain.Data.Entities
         /// </summary>
         /// <param name="playerId">The player's id.</param>
         /// <param name="npcId">The npc's id.</param>
-        public Dialogue(Guid playerId, Guid npcId)
+        /// <param name="context">The dialogue context.</param>
+        public Dialogue(Guid playerId, Guid npcId, DialogueContext context)
         {
             PlayerId = playerId;
             NpcId = npcId;
 
-            Context = new();
+            Context = context;
         }
 
         /// <summary>
