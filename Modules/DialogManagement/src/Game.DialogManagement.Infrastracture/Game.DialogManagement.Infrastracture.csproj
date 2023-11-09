@@ -14,12 +14,15 @@
   <ItemGroup>
     <None Remove="PersistenceLayer\" />
     <None Remove="PersistenceLayer\Repositories\" />
+    <None Remove="Providers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PersistenceLayer\" />
     <Folder Include="PersistenceLayer\Repositories\" />
+    <Folder Include="Providers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.DialogManagement.Domain\Game.DialogManagement.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Game.Shared.External\Game.Shared.External.csproj" />
   </ItemGroup>
 </Project>

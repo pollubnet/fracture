@@ -2,6 +2,8 @@
 using StackExchange.Redis;
 using Game.DialogManagement.Domain.Repositories;
 using Game.DialogManagement.Infrastracture.PersistenceLayer.Repositories;
+using Game.DialogManagement.Domain.Providers;
+using Game.DialogManagement.Infrastracture.Providers;
 
 namespace Game.DialogManagement.Infrastracture
 {
@@ -16,6 +18,7 @@ namespace Game.DialogManagement.Infrastracture
                 ConnectionMultiplexer.Connect(redisConnectionString)
             );
             services.AddScoped<IDialogueRepository, RedisDialogueRepository>();
+            services.AddSingleton<IAiChatProvider, AiChatProvider>();
             return services;
         }
     }
