@@ -12,4 +12,23 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Contracts\" />
+    <None Remove="Contracts\Queries\" />
+    <None Remove="Handlers\" />
+    <None Remove="Handlers\Queries\" />
+    <None Remove="Handlers\Commands\" />
+    <None Remove="Contracts\Commands\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="Contracts\Queries\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Handlers\Queries\" />
+    <Folder Include="Handlers\Commands\" />
+    <Folder Include="Contracts\Commands\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Game.DialogManagement.Domain\Game.DialogManagement.Domain.csproj" />
+  </ItemGroup>
 </Project>
