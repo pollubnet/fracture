@@ -15,6 +15,6 @@ namespace Game.DialogManagement.Domain.Providers
         /// <param name="ctx">The context of the dialogue.</param>
         /// <param name="userMessage">The message the user has sent.</param>
         /// <returns>The next predicted dialogue message.</returns>
-        string Chat(DialogueContext ctx, string userMessage);
+        Task<string> Chat(DialogueContext ctx, string userMessage);
     }
 }
