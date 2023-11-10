@@ -27,7 +27,7 @@ namespace Game.DialogManagement.Domain.Data.ValueObjects
         /// <summary>
         /// The message log for this dialogue context.
         /// </summary>
-        public List<DialogueMessage> MessageLog { get; private set; } = null!;
+        public List<DialogueMessage> MessageLog { get; init; } = null!;
 
         /// <summary>
         /// Constructs a default dialogue context.
