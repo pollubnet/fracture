@@ -12,10 +12,11 @@ namespace Game.NonPlayerCharacter.Api
     public static class DependencyInjection
     {
         public static IServiceCollection AddNonPlayerCharacterModule(
-            this IServiceCollection services
+            this IServiceCollection services,
+            string NPCDbContextConnectionString
         )
         {
-            services.AddApplication().AddInfrastructure();
+            services.AddApplication().AddInfrastructure(NPCDbContextConnectionString);
 
             return services;
         }
