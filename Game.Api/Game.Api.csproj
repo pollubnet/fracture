@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Modules\AccountManagement\src\Game.AccountManagement.Api\Game.AccountManagement.Api.csproj" />
     <ProjectReference Include="..\Modules\DialogManagement\src\Game.DialogManagement.Api\Game.DialogManagement.Api.csproj" />
+    <ProjectReference Include="..\Modules\NonPlayerCharacter\src\Game.NonPlayerCharacter.Api\Game.NonPlayerCharacter.Api.csproj" />
   </ItemGroup>
   <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
     <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />
