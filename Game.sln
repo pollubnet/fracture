@@ -147,7 +147,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.Shared.External", "Sha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.AccountManagement.Api", "Modules\AccountManagement\src\Game.AccountManagement.Api\Game.AccountManagement.Api.csproj", "{9B38794A-0C9B-43A2-BA5C-A4ED2FAACCB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.DialogManagement.Api", "Modules\DialogManagement\src\Game.DialogManagement.Api\Game.DialogManagement.Api.csproj", "{B96855C5-890B-4A75-B345-5BB8FDA65082}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.DialogManagement.Api", "Modules\DialogManagement\src\Game.DialogManagement.Api\Game.DialogManagement.Api.csproj", "{B96855C5-890B-4A75-B345-5BB8FDA65082}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NonPlayerCharacter", "NonPlayerCharacter", "{BB8636EC-31E8-43EB-9B7F-8A47C8E9F2AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E1E578EF-D969-42D8-9AC7-6958FB4EDBEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{78ED8FDA-3CCB-45E8-AB40-AA6D9A3ADFF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.NonPlayerCharacter.Domain", "Modules\NonPlayerCharacter\src\Game.NonPlayerCharacter.Domain\Game.NonPlayerCharacter.Domain.csproj", "{F48F15CD-1E1C-448C-BEB2-EC43C3A8A3AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.NonPlayerCharacter.Application", "Modules\NonPlayerCharacter\src\Game.NonPlayerCharacter.Application\Game.NonPlayerCharacter.Application.csproj", "{196E344B-26A5-4EBB-86F4-8A2D93738FE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.NonPlayerCharacter.Infrastructure", "Modules\NonPlayerCharacter\src\Game.NonPlayerCharacter.Infrastructure\Game.NonPlayerCharacter.Infrastructure.csproj", "{D85B5CB5-E301-4735-A5E9-BD73FD0D8B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.NonPlayerCharacter.Api", "Modules\NonPlayerCharacter\src\Game.NonPlayerCharacter.Api\Game.NonPlayerCharacter.Api.csproj", "{1B1C0674-4BD0-4689-B834-503F797CA0C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -307,6 +321,22 @@ Global
 		{B96855C5-890B-4A75-B345-5BB8FDA65082}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B96855C5-890B-4A75-B345-5BB8FDA65082}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B96855C5-890B-4A75-B345-5BB8FDA65082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F48F15CD-1E1C-448C-BEB2-EC43C3A8A3AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48F15CD-1E1C-448C-BEB2-EC43C3A8A3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48F15CD-1E1C-448C-BEB2-EC43C3A8A3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48F15CD-1E1C-448C-BEB2-EC43C3A8A3AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{196E344B-26A5-4EBB-86F4-8A2D93738FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196E344B-26A5-4EBB-86F4-8A2D93738FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196E344B-26A5-4EBB-86F4-8A2D93738FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196E344B-26A5-4EBB-86F4-8A2D93738FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D85B5CB5-E301-4735-A5E9-BD73FD0D8B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D85B5CB5-E301-4735-A5E9-BD73FD0D8B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D85B5CB5-E301-4735-A5E9-BD73FD0D8B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D85B5CB5-E301-4735-A5E9-BD73FD0D8B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B1C0674-4BD0-4689-B834-503F797CA0C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B1C0674-4BD0-4689-B834-503F797CA0C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B1C0674-4BD0-4689-B834-503F797CA0C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B1C0674-4BD0-4689-B834-503F797CA0C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -382,6 +412,13 @@ Global
 		{DE4324F4-335A-4B29-8CC2-CC774817049A} = {7FD751C0-76D7-49A4-9887-316380F8DED9}
 		{9B38794A-0C9B-43A2-BA5C-A4ED2FAACCB1} = {9B464848-067E-4176-98FB-3B4078DECE29}
 		{B96855C5-890B-4A75-B345-5BB8FDA65082} = {D285A11E-3947-4F45-B53D-E8003E7D131E}
+		{BB8636EC-31E8-43EB-9B7F-8A47C8E9F2AF} = {9941341F-1EAF-42DD-925F-7C861E823BDA}
+		{E1E578EF-D969-42D8-9AC7-6958FB4EDBEE} = {BB8636EC-31E8-43EB-9B7F-8A47C8E9F2AF}
+		{78ED8FDA-3CCB-45E8-AB40-AA6D9A3ADFF5} = {BB8636EC-31E8-43EB-9B7F-8A47C8E9F2AF}
+		{F48F15CD-1E1C-448C-BEB2-EC43C3A8A3AE} = {E1E578EF-D969-42D8-9AC7-6958FB4EDBEE}
+		{196E344B-26A5-4EBB-86F4-8A2D93738FE8} = {E1E578EF-D969-42D8-9AC7-6958FB4EDBEE}
+		{D85B5CB5-E301-4735-A5E9-BD73FD0D8B3A} = {E1E578EF-D969-42D8-9AC7-6958FB4EDBEE}
+		{1B1C0674-4BD0-4689-B834-503F797CA0C3} = {E1E578EF-D969-42D8-9AC7-6958FB4EDBEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E93EB359-CDB9-425A-8064-77FF2DAE680D}
