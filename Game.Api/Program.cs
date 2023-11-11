@@ -14,7 +14,10 @@ builder.Services.AddAiProvider<LlamaAiProvider>();
 builder.Services
     .AddAccountManagementModule()
     .AddDialogManagementModule()
-    .AddNonPlayerCharacterModule();
+    .AddNonPlayerCharacterModule(
+        builder.Configuration.GetConnectionString("NonPlayerCharacterDbContext")!
+    );
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

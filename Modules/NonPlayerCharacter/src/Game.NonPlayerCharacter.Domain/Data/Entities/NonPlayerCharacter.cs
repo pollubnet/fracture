@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game.NonPlayerCharacter.Domain.Data.Entities
 {
-    public sealed class NonPlayerCharacter : Entity
+    public class NonPlayerCharacter : Entity
     {
         public required string Name { get; init; }
         public required NonPlayerCharacterStory Story { get; init; }
