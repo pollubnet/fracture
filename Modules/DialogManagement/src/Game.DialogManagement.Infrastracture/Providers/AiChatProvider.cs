@@ -14,7 +14,7 @@ namespace Game.DialogManagement.Infrastracture.Providers
         /// <summary>
         /// The AI provider we're using for prompts.
         /// </summary>
-        private readonly IAiProvider _aiProvider;
+        private readonly IAiBackendProvider _aiProvider;
 
         /// <summary>
         /// The amount of tokens to generate.
@@ -26,7 +26,7 @@ namespace Game.DialogManagement.Infrastracture.Providers
         /// Constructs a new AI chat provider.
         /// </summary>
         /// <param name="aiProvider">The backing AI provider.</param>
-        public AiChatProvider(IAiProvider aiProvider)
+        public AiChatProvider(IAiBackendProvider aiProvider)
         {
             _aiProvider = aiProvider;
         }

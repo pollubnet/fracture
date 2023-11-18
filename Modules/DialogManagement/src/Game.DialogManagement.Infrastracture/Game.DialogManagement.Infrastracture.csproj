@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="PersistenceLayer\" />
     <Folder Include="PersistenceLayer\Repositories\" />
-    <Folder Include="Providers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.DialogManagement.Domain\Game.DialogManagement.Domain.csproj" />

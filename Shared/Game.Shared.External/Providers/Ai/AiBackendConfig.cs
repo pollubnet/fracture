@@ -3,7 +3,7 @@
     /// <summary>
     /// The config for the AI provider's endpoint.
     /// </summary>
-    public class AiEndpointConfig
+    public class AiBackendConfig
     {
         /// <summary>
         /// The endpoint's URL.
