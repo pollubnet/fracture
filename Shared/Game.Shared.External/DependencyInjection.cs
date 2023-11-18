@@ -1,5 +1,4 @@
 ﻿using Game.Shared.External.Providers.Ai;
-using Game.Shared.External.Providers.AI;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Game.Shared.External
@@ -15,7 +14,18 @@ namespace Game.Shared.External
         public static IServiceCollection AddAiProvider<TProvider>(this IServiceCollection services)
             where TProvider : class, IAiBackendProvider
         {
-            services.AddSingleton<IAiBackendProvider, TProvider>();
+            return services.AddAiProvider(typeof(TProvider));
+        }
+
+        /// <summary>
+        /// Adds the shared external modules into the dependency injection container.
+        /// </summary>
+        public static IServiceCollection AddAiProvider(
+            this IServiceCollection services,
+            Type provider
+        )
+        {
+            services.AddSingleton(typeof(IAiBackendProvider), provider);
             return services;
         }
 
@@ -27,7 +37,18 @@ namespace Game.Shared.External
         )
             where TProvider : class, IPromptTemplateProvider
         {
-            services.AddSingleton<IPromptTemplateProvider, TProvider>();
+            return services.AddAiProvider(typeof(TProvider));
+        }
+
+        /// <summary>
+        /// Adds the shared external modules into the dependency injection container.
+        /// </summary>
+        public static IServiceCollection AddPromptTemplateProvider(
+            this IServiceCollection services,
+            Type provider
+        )
+        {
+            services.AddSingleton(typeof(IPromptTemplateProvider), provider);
             return services;
         }
     }
