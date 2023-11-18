@@ -7,7 +7,7 @@ using Game.Shared.External.Providers.Ai.Llama;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<AiEndpointConfig>(builder.Configuration.GetSection("AiEndpoint"));
+builder.Services.Configure<AiBackendConfig>(builder.Configuration.GetSection("AiEndpoint"));
 builder.Services.AddAiProvider<LlamaAiProvider>();
 
 builder.Services.AddAccountManagementModule().AddDialogManagementModule();

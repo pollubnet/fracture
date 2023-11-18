@@ -1,4 +1,5 @@
 ﻿using Game.Shared.External.Providers.Ai;
+using Game.Shared.External.Providers.AI;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Game.Shared.External
@@ -12,9 +13,9 @@ namespace Game.Shared.External
         /// Adds the shared external modules into the dependency injection container.
         /// </summary>
         public static IServiceCollection AddAiProvider<TProvider>(this IServiceCollection services)
-            where TProvider : class, IAiProvider
+            where TProvider : class, IAiBackendProvider
         {
-            services.AddSingleton<IAiProvider, TProvider>();
+            services.AddSingleton<IAiBackendProvider, TProvider>();
             return services;
         }
     }

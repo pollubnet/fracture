@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Game.Shared.External.Providers.Ai;
+using System;
 
 namespace Game.Shared.External.Providers.Ai
 {
     /// <summary>
     /// Provides the ability to generate the response to a prompt.
     /// </summary>
-    public interface IAiProvider
+    public interface IAiBackendProvider
     {
         /// <summary>
         /// Generates the response to a prompt.
