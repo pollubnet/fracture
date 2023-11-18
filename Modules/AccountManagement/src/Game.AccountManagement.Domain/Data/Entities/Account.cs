@@ -9,6 +9,6 @@ namespace Game.AccountManagement.Domain.Data.Entities
 {
     public class Account : Entity
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
     }
 }
