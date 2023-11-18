@@ -1,13 +1,13 @@
 ﻿using System.Text.Json;
-using Game.Shared.External.Providers.Ai.Llama.Internal;
+using Game.Shared.External.Providers.Ai.LlamaCpp.Internal;
 using Microsoft.Extensions.Options;
 
-namespace Game.Shared.External.Providers.Ai.Llama
+namespace Game.Shared.External.Providers.Ai.LlamaCpp
 {
     /// <summary>
     /// Provides access to the Llama AI model.
     /// </summary>
-    public class LlamaAiProvider : IAiProvider
+    public class LlamaCppAiProvider : IAiProvider
     {
         /// <summary>
         /// The client used to communicate with the AI provider.
@@ -17,7 +17,7 @@ namespace Game.Shared.External.Providers.Ai.Llama
         /// <summary>
         /// Constructs a new Llama provider.
         /// </summary>
-        public LlamaAiProvider(IOptions<AiEndpointConfig> opts)
+        public LlamaCppAiProvider(IOptions<AiEndpointConfig> opts)
         {
             _client = new HttpClient { BaseAddress = new(opts.Value.EndpointUrl) };
         }
