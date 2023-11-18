@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Game.Shared.External.Providers.Ai.Llama.Internal
+namespace Game.Shared.External.Providers.Ai.LlamaCpp.Internal
 {
     /// <summary>
     /// The JSON prompt we're sending to the Llama AI.
