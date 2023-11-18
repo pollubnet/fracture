@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Game.NonPlayerCharacter.Domain\Game.NonPlayerCharacter.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PersistenceLayer\Migrations\" />
+  </ItemGroup>
+
 </Project>
