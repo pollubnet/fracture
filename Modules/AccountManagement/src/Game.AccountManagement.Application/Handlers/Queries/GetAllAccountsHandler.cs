@@ -20,12 +20,12 @@ namespace Game.AccountManagement.Application.Handlers.Queries
             _accountRepository = accountRepository;
         }
 
-        public async Task<IEnumerable<Account>> Handle(
+        public Task<IEnumerable<Account>> Handle(
             GetAllAccountsQuery request,
             CancellationToken cancellationToken
         )
         {
-            return _accountRepository.GetAllAccount();
+            return Task.FromResult(_accountRepository.GetAllAccount());
         }
     }
 }
