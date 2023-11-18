@@ -15,6 +15,7 @@ namespace Game.DialogManagement.Infrastracture.Providers
         /// The AI provider we're using for prompts.
         /// </summary>
         private readonly IAiBackendProvider _aiProvider;
+        private readonly IPromptTemplateProvider _templateProvider;
 
         /// <summary>
         /// The amount of tokens to generate.
@@ -25,10 +26,15 @@ namespace Game.DialogManagement.Infrastracture.Providers
         /// <summary>
         /// Constructs a new AI chat provider.
         /// </summary>
-        /// <param name="aiProvider">The backing AI provider.</param>
-        public AiChatProvider(IAiBackendProvider aiProvider)
+        /// <param name="aiProvider">The AI backen service provider.</param>
+        /// <param name="templateProvider">The AI prompt templating provider</param>
+        public AiChatProvider(
+            IAiBackendProvider aiProvider,
+            IPromptTemplateProvider templateProvider
+        )
         {
             _aiProvider = aiProvider;
+            _templateProvider = templateProvider;
         }
 
         /// <summary>
@@ -37,7 +43,7 @@ namespace Game.DialogManagement.Infrastracture.Providers
         /// <param name="ctx">The dialogue context.</param>
         /// <param name="message">The new message.</param>
         /// <returns>The prompt to be sent to the AI.</returns>
-        private static string GeneratePrompt(DialogueContext ctx, string message)
+        private string GeneratePrompt(DialogueContext ctx, string message)
         {
             // TODO: Should these prompts be passed from somewhere else?
             //       (i.e. appsettings, or some other module)
@@ -47,16 +53,14 @@ namespace Game.DialogManagement.Infrastracture.Providers
 
             var dialogue = GenerateDialogue(ctx, message);
 
-            return $"""
-                {systemPrompt}
-
-                ### Instruction:
-                {ctx.NpcStory}
-                {dialogue}
-
-                ### Response {responsePrompt}:
-                {ctx.NpcName}: 
-                """;
+            var promptTemplate = new PromptTemplate
+            {
+                System = systemPrompt,
+                Input = ctx.NpcStory + "\n" + dialogue,
+                Response = ctx.NpcName + ":",
+                ResponseParams = responsePrompt
+            };
+            return _templateProvider.GetPrompt(promptTemplate);
         }
 
         /// <summary>

@@ -18,5 +18,17 @@ namespace Game.Shared.External
             services.AddSingleton<IAiBackendProvider, TProvider>();
             return services;
         }
+
+        /// <summary>
+        /// Adds the shared external modules into the dependency injection container.
+        /// </summary>
+        public static IServiceCollection AddPromptTemplateProvider<TProvider>(
+            this IServiceCollection services
+        )
+            where TProvider : class, IPromptTemplateProvider
+        {
+            services.AddSingleton<IPromptTemplateProvider, TProvider>();
+            return services;
+        }
     }
 }
