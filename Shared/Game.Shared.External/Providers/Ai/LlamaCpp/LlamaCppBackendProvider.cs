@@ -4,7 +4,7 @@ using Game.Shared.External.Providers.Ai.Llama.Internal;
 using Game.Shared.External.Providers.Ai.LlamaCpp.Internal;
 using Microsoft.Extensions.Options;
 
-namespace Game.Shared.External.Providers.AI.LlamaCpp
+namespace Game.Shared.External.Providers.Ai.LlamaCpp
 {
     /// <summary>
     /// Provides access to the Llama AI model.

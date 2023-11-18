@@ -2,13 +2,14 @@ using Game.AccountManagement.Api;
 using Game.DialogManagement.Api;
 using Game.Shared.External;
 using Game.Shared.External.Providers.Ai;
-using Game.Shared.External.Providers.Ai.Llama;
+using Game.Shared.External.Providers.Ai.LlamaCpp;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<AiBackendConfig>(builder.Configuration.GetSection("AiEndpoint"));
-builder.Services.AddAiProvider<LlamaAiProvider>();
+builder.Services.AddAiProvider<LlamaCppBackendProvider>();
+builder.Services.AddPromptTemplateProvider<AlpacaPromptProvider>();
 
 builder.Services.AddAccountManagementModule().AddDialogManagementModule();
 builder.Services.AddControllers();
