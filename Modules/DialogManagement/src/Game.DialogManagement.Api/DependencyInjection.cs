@@ -9,7 +9,7 @@ namespace Game.DialogManagement.Api
         public static IServiceCollection AddDialogManagementModule(this IServiceCollection services)
         {
             // TODO: This should be passed from within the appsettings.
-            const string connectionString = "192.168.0.136,password=password";
+            const string connectionString = "localhost";
             services.AddApplication().AddInfrastructure(connectionString);
 
             return services;
