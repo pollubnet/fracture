@@ -1,0 +1,11 @@
+
+version: '3'
+
+services:
+  llama_cpp:
+    image: ghcr.io/ggerganov/llama.cpp:${LLAMA_VARIANT}
+    ports:
+      - 8080:8080
+    volumes:
+      - ${MODEL_PATH}:/model.gguf
+    command: -s -m /model.gguf
