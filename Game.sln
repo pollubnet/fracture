@@ -163,23 +163,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.NonPlayerCharacter.Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.NonPlayerCharacter.Api", "Modules\NonPlayerCharacter\src\Game.NonPlayerCharacter.Api\Game.NonPlayerCharacter.Api.csproj", "{1B1C0674-4BD0-4689-B834-503F797CA0C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Fight.Api", "Game.Fight.Api\Game.Fight.Api.csproj", "{E9658103-61ED-4641-9B53-C113093F4694}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Fight.Api", "Modules\Fight\src\Game.Fight.Api\Game.Fight.Api.csproj", "{E9658103-61ED-4641-9B53-C113093F4694}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GameplaySession.Api", "Game.GameplaySession.Api\Game.GameplaySession.Api.csproj", "{493BB24C-7285-4303-BB91-377440F6DDB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GameplaySession.Api", "Modules\GameplaySession\src\Game.GameplaySession.Api\Game.GameplaySession.Api.csproj", "{493BB24C-7285-4303-BB91-377440F6DDB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GoalManagement.Api", "Game.GoalManagement.Api\Game.GoalManagement.Api.csproj", "{FA28BF60-082E-46C2-B694-94F590776842}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.GoalManagement.Api", "Modules\GoalManagement\src\Game.GoalManagement.Api\Game.GoalManagement.Api.csproj", "{FA28BF60-082E-46C2-B694-94F590776842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Inventory.Api", "Game.Inventory.Api\Game.Inventory.Api.csproj", "{F0BB2D81-DB33-4FD4-A44E-95DA8D884F62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Inventory.Api", "Modules\Inventory\src\Game.Inventory.Api\Game.Inventory.Api.csproj", "{F0BB2D81-DB33-4FD4-A44E-95DA8D884F62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Location.Api", "Game.Location.Api\Game.Location.Api.csproj", "{927AF0AD-24C7-49E1-9F97-6BC5DA54FA6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Location.Api", "Modules\Location\src\Game.Location.Api\Game.Location.Api.csproj", "{927AF0AD-24C7-49E1-9F97-6BC5DA54FA6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.MapGenerator.Api", "Game.MapGenerator.Api\Game.MapGenerator.Api.csproj", "{5AF603A2-F722-4CAB-980D-1DB8ECD4C504}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.MapGenerator.Api", "Modules\MapGenerator\src\Game.MapGenerator.Api\Game.MapGenerator.Api.csproj", "{5AF603A2-F722-4CAB-980D-1DB8ECD4C504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PlayerCharacter.Api", "Game.PlayerCharacter.Api\Game.PlayerCharacter.Api.csproj", "{236DFB56-0022-48B3-8FF4-14F4606EA882}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.PlayerCharacter.Api", "Modules\PlayerCharacter\src\Game.PlayerCharacter.Api\Game.PlayerCharacter.Api.csproj", "{236DFB56-0022-48B3-8FF4-14F4606EA882}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Ranking.Api", "Game.Ranking.Api\Game.Ranking.Api.csproj", "{015C6BE5-41FE-43DF-A48C-62CC273A02B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Ranking.Api", "Modules\Ranking\src\Game.Ranking.Api\Game.Ranking.Api.csproj", "{015C6BE5-41FE-43DF-A48C-62CC273A02B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tavern.Api", "Game.Tavern.Api\Game.Tavern.Api.csproj", "{26494001-A893-44F2-9A97-674BD3B85D5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tavern.Api", "Modules\Tavern\src\Game.Tavern.Api\Game.Tavern.Api.csproj", "{26494001-A893-44F2-9A97-674BD3B85D5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
