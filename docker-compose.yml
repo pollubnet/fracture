@@ -48,7 +48,7 @@ services:
     environment:
       REDIS_HOSTS: redis
       REDIS_HOST: redis
-      REEDIS_PORT: redis:6379
+      REDIS_PORT: redis:6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
       HTTP_USER: ${REDIS_HTTP_USER}
       HTTP_PASSWORD: ${REDIS_HTTP_PASSWORD}
