@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modules\AccountManagement\src\Fracture.AccountManagement.Api\Fracture.AccountManagement.Api.csproj" />
+    <ProjectReference Include="..\Modules\DialogManagement\src\Fracture.DialogManagement.Api\Fracture.DialogManagement.Api.csproj" />
+    <ProjectReference Include="..\Modules\NonPlayerCharacter\src\Fracture.NonPlayerCharacter.Api\Fracture.NonPlayerCharacter.Api.csproj" />
+  </ItemGroup>
+  <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
+    <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />
+    <Exec Command="dotnet husky install" StandardOutputImportance="Low" StandardErrorImportance="High" WorkingDirectory=".." />
+  </Target>
+</Project>

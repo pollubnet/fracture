@@ -19,10 +19,10 @@ jobs:
           dotnet csharpier --check .
 
     - name: Restore Dependencies
-      run: dotnet restore Game.sln
+      run: dotnet restore Fracture.sln
 
     - name: Build
-      run: dotnet build --no-restore Game.sln
+      run: dotnet build --no-restore Fracture.sln
 
     - name: Find secrets
       uses: trufflesecurity/trufflehog@main
