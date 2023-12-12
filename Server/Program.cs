@@ -1,6 +1,8 @@
 using Fracture.AccountManagement.Api;
+using Fracture.Client.Pages;
 using Fracture.DialogManagement.Api;
 using Fracture.NonPlayerCharacter.Api;
+using Fracture.Server.Components;
 using Fracture.Shared.External;
 using Fracture.Shared.External.Providers.Ai;
 
@@ -23,6 +25,11 @@ builder.Services
         builder.Configuration.GetConnectionString("NonPlayerCharacterDbContext")!
     );
 
+builder.Services
+    .AddRazorComponents()
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -36,11 +43,23 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseWebAssemblyDebugging();
+}
+else
+{
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
 }
 
+app.UseStaticFiles();
 app.UseAuthorization();
 
+app.UseRouting();
+app.UseAntiforgery();
 app.MapControllers();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode()
+    .AddAdditionalAssemblies(typeof(Counter).Assembly);
 
 app.Run();
 

@@ -7,8 +7,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Client\Fracture.Client.csproj" />
     <ProjectReference Include="..\Modules\AccountManagement\src\Fracture.AccountManagement.Api\Fracture.AccountManagement.Api.csproj" />
     <ProjectReference Include="..\Modules\DialogManagement\src\Fracture.DialogManagement.Api\Fracture.DialogManagement.Api.csproj" />
     <ProjectReference Include="..\Modules\NonPlayerCharacter\src\Fracture.NonPlayerCharacter.Api\Fracture.NonPlayerCharacter.Api.csproj" />
