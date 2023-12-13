@@ -15,6 +15,9 @@
     <ProjectReference Include="..\Modules\DialogManagement\src\Fracture.DialogManagement.Api\Fracture.DialogManagement.Api.csproj" />
     <ProjectReference Include="..\Modules\NonPlayerCharacter\src\Fracture.NonPlayerCharacter.Api\Fracture.NonPlayerCharacter.Api.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
   <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
     <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />
     <Exec Command="dotnet husky install" StandardOutputImportance="Low" StandardErrorImportance="High" WorkingDirectory=".." />
