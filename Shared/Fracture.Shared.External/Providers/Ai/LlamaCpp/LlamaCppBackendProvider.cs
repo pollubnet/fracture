@@ -34,8 +34,10 @@ namespace Fracture.Shared.External.Providers.Ai.LlamaCpp
             var jsonPrompt = new JsonPrompt
             {
                 Prompt = context.Prompt,
-                NumberPredicted = context.TokenCount,
+                MaxTokens = context.MaxTokens,
                 Stop = context.StopTokens,
+                Temperature = context.Temperature,
+                TopP = context.TopP,
             };
 
             return JsonSerializer.Serialize(jsonPrompt);
