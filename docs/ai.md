@@ -48,14 +48,30 @@ aplikacji głównej.
 
 ## Konfiguracja backendu AI w aplikacji
 
-W pliku `Server/appsettings.json`, możesz zdefiniować ścieżkę do URL serwera
-llama.cpp, na przykład:
+Konfiguracja backendu AI jest oparta o plik sekretów (`secrets.json`).
+[Przeczytaj
+dokumentację.](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-8.0&tabs=linux).
+
+Sekrety aplikacji definiują URL serwera llama.cpp, na przykład:
 
 ```json
 "AiEndpoint": {
     "EndpointUrl": "http://127.0.0.1:8080/completion"
 }
 ```
+
+Opcjonalnie można również dostarczyć klucz API wykorzystywany do komunikacji:
+
+```json
+{
+  "AiEndpoint": {
+    "EndpointUrl": "http://127.0.0.1:8080/completion",
+    "ApiKey": "this-is-secret"
+  }
+}
+```
+
+URL i klucz API serwera uczelnianego są na Discordzie.
 
 Niezbędne jest również wybranie modułów odpowiedzialnych za komunikację z
 backendem AI i przygotowaniem promptów, które to należy wybrać jako pełne nazwy
