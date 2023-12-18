@@ -22,6 +22,11 @@ namespace Fracture.Shared.External.Providers.Ai.LlamaCpp
         public LlamaCppBackendProvider(IOptions<AiBackendConfig> opts)
         {
             _client = new HttpClient { BaseAddress = new(opts.Value.EndpointUrl) };
+
+            if (opts.Value.ApiKey is not null)
+            {
+                _client.DefaultRequestHeaders.Add("X-ApiKey", opts.Value.ApiKey);
+            }
         }
 
         /// <summary>
