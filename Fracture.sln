@@ -181,8 +181,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fracture.Ranking.Api", "Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fracture.Tavern.Api", "Modules\Tavern\src\Fracture.Tavern.Api\Fracture.Tavern.Api.csproj", "{26494001-A893-44F2-9A97-674BD3B85D5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fracture.Client", "Client\Fracture.Client.csproj", "{2196F216-7F95-4E36-A181-958594BD6D6B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -393,10 +391,6 @@ Global
 		{26494001-A893-44F2-9A97-674BD3B85D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26494001-A893-44F2-9A97-674BD3B85D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26494001-A893-44F2-9A97-674BD3B85D5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2196F216-7F95-4E36-A181-958594BD6D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2196F216-7F95-4E36-A181-958594BD6D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2196F216-7F95-4E36-A181-958594BD6D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2196F216-7F95-4E36-A181-958594BD6D6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
