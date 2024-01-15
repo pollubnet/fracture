@@ -1,0 +1,64 @@
+﻿html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+* {
+    color: white;
+    text-shadow: 0px 0px 5px black;
+}
+
+.sidebar-container {
+    flex: 0.2;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-container {
+    flex: 0.6;
+    background-color: black;
+}
+
+.stats-flex {
+    flex: 0.4;
+    background-color: blue;
+}
+
+.equipment-flex {
+    flex: 0.6;
+    background-color: maroon;
+}
+
+.journal-flex {
+    flex: 0.6;
+    background-color: green;
+}
+
+.map-flex {
+    flex: 0.3;
+    background-color: pink;
+}
+
+.button-container-flex {
+    flex: 0.1;
+    background-color: yellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
