@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Modules\AccountManagement\src\Fracture.AccountManagement.Api\Fracture.AccountManagement.Api.csproj" />
     <ProjectReference Include="..\Modules\DialogManagement\src\Fracture.DialogManagement.Api\Fracture.DialogManagement.Api.csproj" />
+    <ProjectReference Include="..\Modules\ItemGenerator\ItemGenerator.Domain\ItemGenerator.Domain.csproj" />
     <ProjectReference Include="..\Modules\NonPlayerCharacter\src\Fracture.NonPlayerCharacter.Api\Fracture.NonPlayerCharacter.Api.csproj" />
   </ItemGroup>
   <ItemGroup>

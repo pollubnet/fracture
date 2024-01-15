@@ -1,11 +1,15 @@
 ﻿@page "/game"
 @using Fracture.Server.Components.Layout
+@using Fracture.Server.Components.UI
+@using ItemGeneratorModels
+
 @layout GameLayout
 
 <div id="container">
 	<div class="sidebar-container">
 		<div class="stats-flex">
 			STATYSTYKI
+			<UserStats Equipment="equipment"></UserStats>
 		</div>
 		<div class="equipment-flex">
 			EKWIPUNEK
@@ -43,5 +47,5 @@
 
 
 @code {
-
+	private List<Item> equipment = new();
 }

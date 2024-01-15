@@ -181,6 +181,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fracture.Ranking.Api", "Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fracture.Tavern.Api", "Modules\Tavern\src\Fracture.Tavern.Api\Fracture.Tavern.Api.csproj", "{26494001-A893-44F2-9A97-674BD3B85D5C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItemGenerator.Domain", "Modules\ItemGenerator\ItemGenerator.Domain\ItemGenerator.Domain.csproj", "{F0FD1C00-83D8-411D-ADE4-7F896108C067}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ItemGenerator", "ItemGenerator", "{3DB6FE6B-A9A9-4A63-A678-4286C4539CE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -391,6 +395,10 @@ Global
 		{26494001-A893-44F2-9A97-674BD3B85D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26494001-A893-44F2-9A97-674BD3B85D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26494001-A893-44F2-9A97-674BD3B85D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0FD1C00-83D8-411D-ADE4-7F896108C067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0FD1C00-83D8-411D-ADE4-7F896108C067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0FD1C00-83D8-411D-ADE4-7F896108C067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0FD1C00-83D8-411D-ADE4-7F896108C067}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -482,6 +490,8 @@ Global
 		{236DFB56-0022-48B3-8FF4-14F4606EA882} = {F301866F-75D3-4E13-9878-DA3D64C0244C}
 		{015C6BE5-41FE-43DF-A48C-62CC273A02B4} = {D068A0C8-9656-4392-A57B-E648074DE002}
 		{26494001-A893-44F2-9A97-674BD3B85D5C} = {C9A7831B-4813-4161-BE5E-03B3D03BB643}
+		{F0FD1C00-83D8-411D-ADE4-7F896108C067} = {3DB6FE6B-A9A9-4A63-A678-4286C4539CE3}
+		{3DB6FE6B-A9A9-4A63-A678-4286C4539CE3} = {9941341F-1EAF-42DD-925F-7C861E823BDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E93EB359-CDB9-425A-8064-77FF2DAE680D}

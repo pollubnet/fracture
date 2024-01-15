@@ -1,0 +1,17 @@
+﻿@using ItemGeneratorModels
+
+<table class="table">
+    @foreach (var itemStat in Enum.GetValues<ItemStat>())
+    {
+        var stat = Equipment.Sum(x => x.Statistics[itemStat]);
+        var color = "";
+        @if (stat <= 0)
+            color = "text-danger";
+
+        <tr><td>@itemStat</td><td class="@color text-end">@stat</td></tr>
+    }
+</table>
+
+@code {
+    [Parameter] public required List<Item> Equipment { get; set; }
+}
