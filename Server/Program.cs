@@ -1,8 +1,8 @@
 using Fracture.AccountManagement.Api;
-using Fracture.Client.Pages;
 using Fracture.DialogManagement.Api;
 using Fracture.NonPlayerCharacter.Api;
 using Fracture.Server.Components;
+using Fracture.Server;
 using Fracture.Shared.External;
 using Fracture.Shared.External.Providers.Ai;
 
@@ -58,8 +58,7 @@ app.UseAntiforgery();
 app.MapControllers();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
-    .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Counter).Assembly);
+    .AddInteractiveWebAssemblyRenderMode();
 
 app.Run();
 
