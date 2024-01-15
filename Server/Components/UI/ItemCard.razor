@@ -1,0 +1,67 @@
+@using ItemGeneratorModels
+
+<div class="col">
+    <div class="card" style="width: 15rem;">
+        <div class="card-header" style="background-color: @_color">
+            @Item.Name
+        </div>
+        <div class="card-body">
+            <button class="btn btn-primary" @onmouseover="ShowItemHistoryAsync" @onmouseleave="HideItemHistoryAsync" data-bs-toggle="collapse" data-bs-target="#collapse-@guid">Item History </button>
+            <div class="collapse" id="collapse-@guid">
+                <p class="card-text">@Item.History</p>
+            </div>
+            <ItemStats Item="@Item"></ItemStats>
+
+            @if (IsEquipped)
+            {
+                <button class="btn btn-danger" @onclick="OnUnequipClicked">Unequip this</button>
+            }
+            else
+            {
+                <button class="btn btn-primary" @onclick="OnEquipClicked">Equip this</button>
+            }
+        </div>
+    </div>
+</div>
+<div class="collapse">
+    @foreach (var item in messages)
+    {
+        <p>
+            @item
+        </p>
+    }
+</div>
+@code {
+    private readonly Guid guid = Guid.NewGuid();
+
+    List<string> messages = new List<string>();
+    private async Task ShowItemHistoryAsync() { } //await collapse1.ShowAsync();
+    private async Task HideItemHistoryAsync() { } //await collapse1.HideAsync();
+    [Parameter] public Item Item { get; set; } = null!;
+    [Parameter] public bool IsEquipped { get; set; }
+    [Parameter] public bool ItemHistory { get; set; }
+    [Parameter] public EventCallback OnEquipClicked { get; set; }
+    [Parameter] public EventCallback OnUnequipClicked { get; set; }
+
+    private string _color = "gray";
+
+    protected override void OnInitialized()
+    {
+        //ChangeColor();
+        base.OnInitialized();
+    }
+
+    private void ChangeColor()
+    {
+        _color = Item.Rarity switch
+        {
+            ItemRarity.Common => "gray",
+            ItemRarity.Uncommon => "#8ef059",
+            ItemRarity.Rare => "#5963f0",
+            ItemRarity.Insane => "#f54c40",
+            ItemRarity.Epic => "#b423f7",
+            ItemRarity.Legendary => "gold",
+            _ => _color
+        };
+    }
+}

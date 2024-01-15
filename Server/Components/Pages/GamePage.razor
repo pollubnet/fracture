@@ -14,12 +14,16 @@
 		<div class="equipment-flex">
 			EKWIPUNEK
 
+			<ItemCard Item="item"></ItemCard>
+
 			Siatka aktualnie założonych
 			+ ostatnio zdobyte
 		</div>
 	</div>
 	<div class="text-container">
 		TEKST
+
+		<Fracture.Server.Components.Popups.EquipmentPopup></Fracture.Server.Components.Popups.EquipmentPopup>
 	</div>
 	<div class="sidebar-container">
 		<div class="journal-flex">
@@ -48,4 +52,15 @@
 
 @code {
 	private List<Item> equipment = new();
+	private Item item;
+
+	protected override Task OnInitializedAsync()
+	{
+		var ItemGeneratorUrl = "http://eiga.pollub.net/item";
+
+		var hc = new HttpClient();
+		item = hc.GetFromJsonAsync<Item>(ItemGeneratorUrl).Result;
+
+		return base.OnInitializedAsync();
+	}
 }
