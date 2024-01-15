@@ -1,0 +1,12 @@
+@using ItemGeneratorModels
+
+<table class="table table-striped">
+    @foreach (var itemStat in Enum.GetValues<ItemStat>())
+    {
+        <tr><td>@itemStat</td><td class="text-end">@Item.Statistics[itemStat]</td></tr>
+    }
+</table>
+
+@code {
+    [Parameter] public Item Item { get; set; } = null!;
+}
