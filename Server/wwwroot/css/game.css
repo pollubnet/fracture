@@ -62,3 +62,12 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+:root {
+    --rarity-common: #808080;
+    --rarity-uncommon: #8ef059;
+    --rarity-rare: #5963f0;
+    --rarity-insane: #f54c40;
+    --rarity-epic: #b423f7;
+    --rarity-legendary: gold;
+}
