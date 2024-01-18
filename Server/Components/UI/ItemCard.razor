@@ -2,7 +2,7 @@
 
 <div class="col">
     <div class="card" style="width: 15rem;">
-        <div class="card-header" style="background-color: @_color">
+        <div class="card-header" style="background-color: var(@_color)">
             @Item.Name
         </div>
         <div class="card-body">
@@ -43,7 +43,7 @@
     [Parameter] public EventCallback OnEquipClicked { get; set; }
     [Parameter] public EventCallback OnUnequipClicked { get; set; }
 
-    private string _color = "gray";
+    private string _color = "--rarity-common";
 
     protected override void OnInitialized()
     {
@@ -55,12 +55,12 @@
     {
         _color = Item.Rarity switch
         {
-            ItemRarity.Common => "gray",
-            ItemRarity.Uncommon => "#8ef059",
-            ItemRarity.Rare => "#5963f0",
-            ItemRarity.Insane => "#f54c40",
-            ItemRarity.Epic => "#b423f7",
-            ItemRarity.Legendary => "gold",
+            ItemRarity.Common => "--rarity-common",
+            ItemRarity.Uncommon => "--rarity-uncommon",
+            ItemRarity.Rare => "--rarity-rare",
+            ItemRarity.Insane => "--rarity-insane",
+            ItemRarity.Epic => "--rarity-epic",
+            ItemRarity.Legendary => "--rarity-legendary",
             _ => _color
         };
     }
