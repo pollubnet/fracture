@@ -25,6 +25,7 @@ body {
 }
 
 .text-container {
+    position: relative;
     flex: 0.6;
     background-color: black;
 }
@@ -63,6 +64,19 @@ body {
     align-items: center;
 }
 
+.popup {
+    position: absolute;
+    width: calc(100% - (var(--popup-padding) * 2));
+    height: calc(100% - (var(--popup-padding) * 2));
+    background-color: rgba(255, 0, 0, 0.3);
+    top: var(--popup-padding);
+    left: var(--popup-padding);
+}
+
+.hidden {
+    display: none;
+}
+
 :root {
     --rarity-common: #808080;
     --rarity-uncommon: #8ef059;
@@ -70,4 +84,6 @@ body {
     --rarity-insane: #f54c40;
     --rarity-epic: #b423f7;
     --rarity-legendary: gold;
+    
+    --popup-padding: 10px;
 }
