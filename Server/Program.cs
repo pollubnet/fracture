@@ -20,7 +20,6 @@ RegisterTypeFromConfiguration(
 
 builder.Services
     .AddAccountManagementModule()
-    .AddDialogManagementModule(builder.Configuration.GetConnectionString("RedisDialogue")!)
     .AddNonPlayerCharacterModule(
         builder.Configuration.GetConnectionString("NonPlayerCharacterDbContext")!
     );
