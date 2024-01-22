@@ -1,68 +1,76 @@
 ﻿@page "/game"
+@rendermode InteractiveServer
+
 @using Fracture.Server.Components.Layout
+@using Fracture.Server.Components.Popups
 @using Fracture.Server.Components.UI
 @using ItemGeneratorModels
 
 @layout GameLayout
 
 <div id="container">
-	<div class="sidebar-container">
-		<div class="stats-flex">
-			STATYSTYKI
-			<UserStats Equipment="equipment"></UserStats>
-		</div>
-		<div class="equipment-flex">
-			EKWIPUNEK
+    <div class="sidebar-container">
+        <div class="stats-flex">
+            STATYSTYKI
+            <UserStats Equipment="equipment"></UserStats>
+        </div>
+        <div class="equipment-flex">
+            <div @onclick="ShowEquipmentPopup">EKWIPUNEK</div>
 
-			<ItemCard Item="item"></ItemCard>
+            <ItemCard Item="item"></ItemCard>
 
-			Siatka aktualnie założonych
-			+ ostatnio zdobyte
-		</div>
-	</div>
-	<div class="text-container">
-		<div class="popup hidden">
-			This is a popup!
-		</div>
-		text<br/>
-		text 2<br/>
-	</div>
-	<div class="sidebar-container">
-		<div class="journal-flex">
-			JOURNAL
-		</div>
-		<div class="map-flex">
-			MINIMAPA
-		</div>
-		<div class="button-container-flex">
-			<div class="action-button">
-				1
-			</div>
-			<div class="action-button">
-				2
-			</div>
-			<div class="action-button">
-				3
-			</div>
-			<div class="action-button">
-				4
-			</div>
-		</div>
-	</div>
+            Siatka aktualnie założonych
+            + ostatnio zdobyte
+        </div>
+    </div>
+    <div class="text-container">
+        <PopupContainer @ref="popup"></PopupContainer>
+
+        tutaj log mojej gry<br />
+        tutaj log mojej gry<br />
+    </div>
+    <div class="sidebar-container">
+        <div class="journal-flex">
+            JOURNAL
+        </div>
+        <div class="map-flex">
+            MINIMAPA
+        </div>
+        <div class="button-container-flex">
+            <div class="action-button">
+                1
+            </div>
+            <div class="action-button">
+                2
+            </div>
+            <div class="action-button">
+                3
+            </div>
+            <div class="action-button">
+                4
+            </div>
+        </div>
+    </div>
 </div>
 
 
 @code {
-	private List<Item> equipment = new();
-	private Item item;
+    private List<Item> equipment = new();
+    private Item item;
+    private PopupContainer popup;
 
-	protected override Task OnInitializedAsync()
-	{
-		var ItemGeneratorUrl = "http://eiga.pollub.net/item";
+    protected override Task OnInitializedAsync()
+    {
+        var ItemGeneratorUrl = "http://eiga.pollub.net/item";
 
-		var hc = new HttpClient();
-		item = hc.GetFromJsonAsync<Item>(ItemGeneratorUrl).Result;
+        var hc = new HttpClient();
+        item = hc.GetFromJsonAsync<Item>(ItemGeneratorUrl).Result;
 
-		return base.OnInitializedAsync();
-	}
+        return base.OnInitializedAsync();
+    }
+
+    private void ShowEquipmentPopup(MouseEventArgs e)
+    {
+        popup.ShowComponent<EquipmentPopup>(null);
+    }
 }

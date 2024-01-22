@@ -1,0 +1,26 @@
+﻿@rendermode InteractiveServer
+
+<div class="popup @(IsVisible? "" : "hidden")">
+    @if (_componentType is not null)
+    {
+        <DynamicComponent Type="@_componentType" Parameters="@_parameters" />
+    }
+
+    <button @onclick="() => IsVisible = false">X</button>
+</div>
+
+@code {
+    public bool IsVisible { get; set; }
+
+    public void ShowComponent<T>(IDictionary<string, object> parameters)
+    {
+        _componentType = typeof(T);
+        _parameters = parameters;
+
+        IsVisible = true;
+        StateHasChanged();
+    }
+
+    private Type? _componentType = null;
+    private IDictionary<string, object>? _parameters;
+}
