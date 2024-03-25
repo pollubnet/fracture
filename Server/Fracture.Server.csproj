@@ -11,12 +11,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Modules\AccountManagement\src\Fracture.AccountManagement.Api\Fracture.AccountManagement.Api.csproj" />
-    <ProjectReference Include="..\Modules\DialogManagement\src\Fracture.DialogManagement.Api\Fracture.DialogManagement.Api.csproj" />
-    <ProjectReference Include="..\Modules\ItemGenerator\ItemGenerator.Domain\ItemGenerator.Domain.csproj" />
-    <ProjectReference Include="..\Modules\NonPlayerCharacter\src\Fracture.NonPlayerCharacter.Api\Fracture.NonPlayerCharacter.Api.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
   <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
