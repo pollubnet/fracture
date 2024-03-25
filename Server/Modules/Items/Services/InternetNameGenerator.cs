@@ -1,6 +1,7 @@
 using System.Text.Json;
+using Fracture.Server.Modules.Shared;
 
-namespace ExampleItemGenerator.Services.Generators;
+namespace Fracture.Server.Modules.Items.Services;
 
 public class InternetNameGenerator : INameGenerator
 {

@@ -1,6 +1,5 @@
-using ExampleItemGenerator.Api;
-using ExampleItemGenerator.Services.Generators;
 using Fracture.Server.Components;
+using Fracture.Server.Modules.Items.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

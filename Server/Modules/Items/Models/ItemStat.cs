@@ -1,4 +1,4 @@
-namespace ItemGeneratorModels;
+namespace Fracture.Server.Modules.Items.Models;
 
 public enum ItemStat
 {

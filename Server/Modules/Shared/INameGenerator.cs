@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExampleItemGenerator.Services.Generators
+namespace Fracture.Server.Modules.Shared
 {
     public interface INameGenerator
     {
