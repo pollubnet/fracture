@@ -1,0 +1,158 @@
+[
+  {
+    "ValueBelow": 0.01,
+    "Rarity": 5,
+    "StatRanges": {
+      "Agility": {
+        "MinValue": -100,
+        "MaxValue": 100
+      },
+      "Strength": {
+        "MinValue": -20,
+        "MaxValue": 60
+      },
+      "Intelligence": {
+        "MinValue": -7,
+        "MaxValue": 10
+      },
+      "Defense": {
+        "MinValue": -15,
+        "MaxValue": 30
+      },
+      "Health": {
+        "MinValue": -30,
+        "MaxValue": 40
+      }
+    }
+  },
+  {
+    "ValueBelow": 0.2,
+    "Rarity": 4,
+    "StatRanges": {
+      "Agility": {
+        "MinValue": -100,
+        "MaxValue": 100
+      },
+      "Strength": {
+        "MinValue": -20,
+        "MaxValue": 60
+      },
+      "Intelligence": {
+        "MinValue": -7,
+        "MaxValue": 10
+      },
+      "Defense": {
+        "MinValue": -15,
+        "MaxValue": 30
+      },
+      "Health": {
+        "MinValue": -30,
+        "MaxValue": 40
+      }
+    }
+  },
+  {
+    "ValueBelow": 0.4,
+    "Rarity": 3,
+    "StatRanges": {
+      "Agility": {
+        "MinValue": -100,
+        "MaxValue": 100
+      },
+      "Strength": {
+        "MinValue": -20,
+        "MaxValue": 60
+      },
+      "Intelligence": {
+        "MinValue": -7,
+        "MaxValue": 10
+      },
+      "Defense": {
+        "MinValue": -15,
+        "MaxValue": 30
+      },
+      "Health": {
+        "MinValue": -30,
+        "MaxValue": 40
+      }
+    }
+  },
+  {
+    "ValueBelow": 0.5,
+    "Rarity": 2,
+    "StatRanges": {
+      "Agility": {
+        "MinValue": -100,
+        "MaxValue": 100
+      },
+      "Strength": {
+        "MinValue": -20,
+        "MaxValue": 60
+      },
+      "Intelligence": {
+        "MinValue": -7,
+        "MaxValue": 10
+      },
+      "Defense": {
+        "MinValue": -15,
+        "MaxValue": 30
+      },
+      "Health": {
+        "MinValue": -30,
+        "MaxValue": 40
+      }
+    }
+  },
+  {
+    "ValueBelow": 0.6,
+    "Rarity": 1,
+    "StatRanges": {
+      "Agility": {
+        "MinValue": -100,
+        "MaxValue": 100
+      },
+      "Strength": {
+        "MinValue": -20,
+        "MaxValue": 60
+      },
+      "Intelligence": {
+        "MinValue": -7,
+        "MaxValue": 10
+      },
+      "Defense": {
+        "MinValue": -15,
+        "MaxValue": 30
+      },
+      "Health": {
+        "MinValue": -30,
+        "MaxValue": 40
+      }
+    }
+  },
+  {
+    "ValueBelow": 1,
+    "Rarity": 0,
+    "StatRanges": {
+      "Agility": {
+        "MinValue": -100,
+        "MaxValue": 100
+      },
+      "Strength": {
+        "MinValue": -20,
+        "MaxValue": 60
+      },
+      "Intelligence": {
+        "MinValue": -7,
+        "MaxValue": 10
+      },
+      "Defense": {
+        "MinValue": -15,
+        "MaxValue": 10
+      },
+      "Health": {
+        "MinValue": -30,
+        "MaxValue": 40
+      }
+    }
+  }
+]

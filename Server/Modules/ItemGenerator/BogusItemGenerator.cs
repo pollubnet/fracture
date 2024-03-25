@@ -16,7 +16,7 @@ namespace ExampleItemGenerator.Api
         {
             _rnd = new Random();
 
-            var configData = File.ReadAllText("config.json");
+            var configData = File.ReadAllText("itemgeneratorconfig.json");
             _modifiers = JsonSerializer.Deserialize<List<RarityModifier>>(configData)!;
             lorem = new Bogus.DataSets.Lorem();
             hacker = new Bogus.DataSets.Hacker();
