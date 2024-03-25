@@ -1,4 +1,8 @@
-﻿@using ItemGeneratorModels
+﻿@using ExampleItemGenerator.Services.Generators
+@inject IItemGenerator ItemGenerator
+@using ItemGeneratorModels
+@using Fracture.Server.Components.UI
+
 <button class="btn btn-primary" @onclick="GenerateNewItem">Generate new item </button>
 
 
@@ -6,7 +10,7 @@
     <div class="col-5 border border-primary overflow-scroll" style="height: 80vh">
         <div class="row row-cols-2 g-4">
             @foreach (var item in inventory.Where(x => !IsEquipped(x)))
-            {
+            {                
                 <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
             }
         </div>
@@ -43,19 +47,12 @@
 
     public async Task GenerateNewItem()
     {
-        var hc = new HttpClient();
-        // localhost:5284
-
-        // var ItemGeneratorUrl = Configuration["ItemGeneratorUrl"];
-
-        // if (string.IsNullOrEmpty(ItemGeneratorUrl)) 
-        
-        var ItemGeneratorUrl = "http://eiga.pollub.net/item";
-
-        var item = await hc.GetFromJsonAsync<Item>(ItemGeneratorUrl);
+        var item = await ItemGenerator.Generate();
 
         if (item is not null)
             inventory.Add(item);
+        
+        StateHasChanged();
     }
 
     public void Equip(Item item)

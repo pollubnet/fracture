@@ -16,7 +16,7 @@ namespace ExampleItemGenerator.Services.Generators
 
             _rnd = new Random();
 
-            var configData = File.ReadAllText("config.json");
+            var configData = File.ReadAllText("itemgeneratorconfig.json");
             _modifiers = JsonSerializer.Deserialize<List<RarityModifier>>(configData)!;
         }
 

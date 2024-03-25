@@ -17,7 +17,7 @@
         <div class="equipment-flex">
             <div @onclick="ShowEquipmentPopup">EKWIPUNEK</div>
 
-            <ItemCard Item="item"></ItemCard>
+            @* <ItemCard Item="item"></ItemCard> *@
 
             Siatka aktualnie założonych
             + ostatnio zdobyte
@@ -61,11 +61,6 @@
 
     protected override Task OnInitializedAsync()
     {
-        var ItemGeneratorUrl = "http://eiga.pollub.net/item";
-
-        var hc = new HttpClient();
-        item = hc.GetFromJsonAsync<Item>(ItemGeneratorUrl).Result;
-
         return base.OnInitializedAsync();
     }
 
