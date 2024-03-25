@@ -1,28 +1,9 @@
-using Fracture.AccountManagement.Api;
-using Fracture.DialogManagement.Api;
-using Fracture.NonPlayerCharacter.Api;
 using Fracture.Server.Components;
-using Fracture.Server;
-using Fracture.Shared.External;
-using Fracture.Shared.External.Providers.Ai;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<AiBackendConfig>(builder.Configuration.GetSection("AiEndpoint"));
-
-RegisterTypeFromConfiguration(builder, "AiBackendProvider", builder.Services.AddAiProvider);
-RegisterTypeFromConfiguration(
-    builder,
-    "AiPromptTemplateProvider",
-    builder.Services.AddPromptTemplateProvider
-);
-
-builder.Services
-    .AddAccountManagementModule()
-    .AddNonPlayerCharacterModule(
-        builder.Configuration.GetConnectionString("NonPlayerCharacterDbContext")!
-    );
+//builder.Services.Configure<AiBackendConfig>(builder.Configuration.GetSection("AiEndpoint"));
 
 builder.Services
     .AddRazorComponents()
@@ -60,25 +41,3 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode();
 
 app.Run();
-
-static void RegisterTypeFromConfiguration(
-    WebApplicationBuilder builder,
-    string configuration,
-    Func<Type, IServiceCollection> action
-)
-{
-    string? implementationType = builder.Configuration[configuration];
-    if (implementationType == null)
-        throw new InvalidOperationException($"Invalid configuration, {configuration} is null");
-
-    Type? aiBackendType = Type.GetType(implementationType);
-
-    if (aiBackendType != null)
-    {
-        action.Invoke(aiBackendType);
-    }
-    else
-    {
-        throw new InvalidOperationException($"Invalid configuration for {configuration}");
-    }
-}
