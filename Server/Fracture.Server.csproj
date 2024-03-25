@@ -6,6 +6,7 @@
     <UserSecretsId>16f71bc9-60c6-466f-af95-a2818674e57c</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.1" />
