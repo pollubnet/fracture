@@ -1,9 +1,8 @@
 ﻿using Bogus.DataSets;
-using ItemGeneratorModels;
-using ExampleItemGenerator.Services.Generators;
 using System.Text.Json;
+using Fracture.Server.Modules.Items.Models;
 
-namespace ExampleItemGenerator.Api
+namespace Fracture.Server.Modules.Items.Services
 {
     public class BogusItemGenerator : IItemGenerator
     {
@@ -18,8 +17,8 @@ namespace ExampleItemGenerator.Api
 
             var configData = File.ReadAllText("itemgeneratorconfig.json");
             _modifiers = JsonSerializer.Deserialize<List<RarityModifier>>(configData)!;
-            lorem = new Bogus.DataSets.Lorem();
-            hacker = new Bogus.DataSets.Hacker();
+            lorem = new Lorem();
+            hacker = new Hacker();
         }
 
         public Task<Item> Generate()

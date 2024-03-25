@@ -1,7 +1,7 @@
 ﻿using System;
-using ItemGeneratorModels;
+using Fracture.Server.Modules.Items.Models;
 
-namespace ExampleItemGenerator.Services.Generators
+namespace Fracture.Server.Modules.Items.Services
 {
     public interface IItemGenerator
     {

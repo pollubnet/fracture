@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ItemGeneratorModels
+namespace Fracture.Server.Modules.Items.Models
 {
     public class Item
     {

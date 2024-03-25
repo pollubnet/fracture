@@ -1,6 +1,7 @@
 ﻿using System;
+using Fracture.Server.Modules.Items.Models;
 
-namespace ItemGeneratorModels
+namespace Fracture.Server.Modules.Items.Services
 {
     public class RarityModifier
     {

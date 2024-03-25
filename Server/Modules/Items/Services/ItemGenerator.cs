@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Text.Json;
-using ItemGeneratorModels;
+using Fracture.Server.Modules.Items.Models;
+using Fracture.Server.Modules.Shared;
 
-namespace ExampleItemGenerator.Services.Generators
+namespace Fracture.Server.Modules.Items.Services
 {
     public class ItemGenerator : IItemGenerator
     {
