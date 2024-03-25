@@ -9,63 +9,60 @@
 @layout GameLayout
 
 <div id="container">
-    <div class="sidebar-container">
-        <div class="stats-flex">
-            STATYSTYKI
-            <UserStats Equipment="equipment"></UserStats>
-        </div>
-        <div class="equipment-flex">
-            <div @onclick="ShowEquipmentPopup">EKWIPUNEK</div>
+	<div class="sidebar-container">
+		<div class="stats-flex">
+			STATYSTYKI
+			<UserStats Equipment="equipment"></UserStats>
+		</div>
+		<div class="equipment-flex">
+			<div @onclick="ShowEquipmentPopup">EKWIPUNEK</div>
 
-            @* <ItemCard Item="item"></ItemCard> *@
+			Siatka aktualnie założonych
+			+ ostatnio zdobyte
+		</div>
+	</div>
+	<div class="text-container">
+		<PopupContainer @ref="popup"></PopupContainer>
 
-            Siatka aktualnie założonych
-            + ostatnio zdobyte
-        </div>
-    </div>
-    <div class="text-container">
-        <PopupContainer @ref="popup"></PopupContainer>
-
-        tutaj log mojej gry<br />
-        tutaj log mojej gry<br />
-    </div>
-    <div class="sidebar-container">
-        <div class="journal-flex">
-            JOURNAL
-        </div>
-        <div class="map-flex">
-            MINIMAPA
-        </div>
-        <div class="button-container-flex">
-            <div class="action-button">
-                1
-            </div>
-            <div class="action-button">
-                2
-            </div>
-            <div class="action-button">
-                3
-            </div>
-            <div class="action-button">
-                4
-            </div>
-        </div>
-    </div>
+		tutaj log mojej gry<br />
+		tutaj log mojej gry<br />
+	</div>
+	<div class="sidebar-container">
+		<div class="journal-flex">
+			JOURNAL
+		</div>
+		<div class="map-flex">
+			MINIMAPA
+		</div>
+		<div class="button-container-flex">
+			<div class="action-button">
+				1
+			</div>
+			<div class="action-button">
+				2
+			</div>
+			<div class="action-button">
+				3
+			</div>
+			<div class="action-button">
+				4
+			</div>
+		</div>
+	</div>
 </div>
 
 
 @code {
-    private List<Item> equipment = new();
-    private Item item;
-    private PopupContainer popup;
+	private List<Item> equipment = new();
+	private PopupContainer popup;
 
-    protected override Task OnInitializedAsync()
-    {
-        return base.OnInitializedAsync();
-    }
+	protected override Task OnInitializedAsync()
+	{
+		return base.OnInitializedAsync();
+	}
 
-    private void ShowEquipmentPopup(MouseEventArgs e)
-    {
-        popup.ShowComponent<EquipmentPopup>(null);
-    }
+	private void ShowEquipmentPopup(MouseEventArgs e)
+	{
+		popup.ShowComponent<EquipmentPopup>(null);
+	}
 }
