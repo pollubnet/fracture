@@ -1,12 +1,12 @@
 @using Fracture.Server.Modules.Items.Models
 
 <div class="col">
-    <div class="card" style="width: 15rem;">
-        <div class="card-header" style="background-color: var(@_color)">
+    <div class="card" style="min-width: 13rem;">
+        <div class="card-header" style="background-color: var(--rarity-@Item.Rarity.ToString().ToLower())">
             @Item.Name
         </div>
         <div class="card-body">
-            <button class="btn btn-primary" @onmouseover="ShowItemHistoryAsync" @onmouseleave="HideItemHistoryAsync" data-bs-toggle="collapse" data-bs-target="#collapse-@guid">Item History </button>
+            <button class="btn btn-primary mb-3" @onmouseover="ShowItemHistoryAsync" @onmouseleave="HideItemHistoryAsync" data-bs-toggle="collapse" data-bs-target="#collapse-@guid">Item History </button>
             <div class="collapse" id="collapse-@guid">
                 <p class="card-text">@Item.History</p>
             </div>
@@ -42,26 +42,4 @@
     [Parameter] public bool ItemHistory { get; set; }
     [Parameter] public EventCallback OnEquipClicked { get; set; }
     [Parameter] public EventCallback OnUnequipClicked { get; set; }
-
-    private string _color = "--rarity-common";
-
-    protected override void OnInitialized()
-    {
-        ChangeColor();
-        base.OnInitialized();
-    }
-
-    private void ChangeColor()
-    {
-        _color = Item.Rarity switch
-        {
-            ItemRarity.Common => "--rarity-common",
-            ItemRarity.Uncommon => "--rarity-uncommon",
-            ItemRarity.Rare => "--rarity-rare",
-            ItemRarity.Insane => "--rarity-insane",
-            ItemRarity.Epic => "--rarity-epic",
-            ItemRarity.Legendary => "--rarity-legendary",
-            _ => _color
-        };
-    }
 }
