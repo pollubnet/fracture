@@ -11,11 +11,13 @@
 <div id="container">
     <div class="sidebar-container">
         <div class="stats-flex">
-            STATYSTYKI
+            <div @onclick="() => popup.ShowComponent<StatsPopup>(null)">
+                STATYSTYKI
+            </div>
             <UserStats Equipment="equipment"></UserStats>
         </div>
         <div class="equipment-flex">
-            <div @onclick="ShowEquipmentPopup">EKWIPUNEK</div>
+            <div @onclick="() => popup.ShowComponent<EquipmentPopup>(null)">EKWIPUNEK</div>
 
             @* <ItemCard Item="item"></ItemCard> *@
 
@@ -31,10 +33,14 @@
     </div>
     <div class="sidebar-container">
         <div class="journal-flex">
-            JOURNAL
+            <div @onclick="() => popup.ShowComponent<JournalPopup>(null)">
+                JOURNAL
+            </div>
         </div>
         <div class="map-flex">
-            MINIMAPA
+            <div @onclick="() => popup.ShowComponent<MapPopup>(null)">
+                MINIMAPA
+            </div>
         </div>
         <div class="button-container-flex">
             <div class="action-button">
@@ -46,7 +52,7 @@
             <div class="action-button">
                 3
             </div>
-            <div class="action-button">
+            <div class="action-button" @onclick="() => popup.ShowComponent<SettingsPopup>(null)">
                 4
             </div>
         </div>
@@ -62,10 +68,5 @@
     protected override Task OnInitializedAsync()
     {
         return base.OnInitializedAsync();
-    }
-
-    private void ShowEquipmentPopup(MouseEventArgs e)
-    {
-        popup.ShowComponent<EquipmentPopup>(null);
     }
 }
