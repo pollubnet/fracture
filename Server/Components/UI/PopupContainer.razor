@@ -12,7 +12,7 @@
 @code {
     public bool IsVisible { get; set; }
 
-    public void ShowComponent<T>(IDictionary<string, object> parameters)
+    public void ShowComponent<T>(IDictionary<string, object>? parameters = null)
     {
         _componentType = typeof(T);
         _parameters = parameters;
