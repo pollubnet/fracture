@@ -1,8 +1,9 @@
 @using Fracture.Server.Modules.Items.Models
+@using Fracture.Server.EnumExtensions
 
 <div class="col">
     <div class="card" style="min-width: 13rem;">
-        <div class="card-header" style="background-color: var(--rarity-@Item.Rarity.ToString().ToLower())">
+        <div class="card-header" style="background-color: var(@Item.Rarity.ToCssClassName())">
             @Item.Name
         </div>
         <div class="card-body">
