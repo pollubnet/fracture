@@ -4,47 +4,38 @@
 
 @inject IItemGenerator ItemGenerator
 
-<button class="btn btn-primary" @onclick="GenerateNewItem">Generate new item </button>
-
 
 <div class="row">
-	<div class="col-5 border border-primary overflow-scroll" style="height: 80vh">
-		<div class="row row-cols-2 g-4">
-			@foreach (var item in inventory.Where(x => !IsEquipped(x)))
-			{
-				<ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
-			}
-		</div>
-	</div>
-	<div class="col-5 border border-secondary overflow-scroll" style="height: 80vh">
-		<div class="row row-cols-2 g-4">
-			@foreach (var item in equipment)
-			{
-				<ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
-			}
-		</div>
-	</div>
-	<div class="col-2">
-		<table class="table">
-			@foreach (var itemStat in Enum.GetValues<ItemStat>())
-			{
-				var stat = equipment.Sum(x => x.Statistics[itemStat]);
-				var color = "";
-				@if (stat <= 0)
-					color = "text-danger";
-
-				<tr><td>@itemStat</td><td class="@color text-end">@stat</td></tr>
-			}
-		</table>
+    <div class="col-6 border border-primary overflow-scroll mt-1" style="height: 80vh">
+        <h3>Inventory</h3>
+        <div class="row row-cols-2 g-4">
+            @foreach (var item in inventory.Where(x => !IsEquipped(x)))
+            {
+                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
+            }
+        </div>
+    </div>
+    <div class="col-6 border border-secondary overflow-scroll mt-1" style="height: 80vh">
+        <h3>Equipped</h3>
+        <div class="row row-cols-2 g-4">
+            @foreach (var item in equipment)
+            {
+                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 m-3">
+        <button class="btn btn-primary" @onclick="GenerateNewItem">Generate new item </button>
 	</div>
 </div>
 
 @code {
-	private List<Item> inventory = [];
-	private List<Item> equipment = [];
+	[Parameter] public List<Item> inventory { get; set; }
+	[Parameter] public List<Item> equipment { get; set; }
+	[Parameter] public EventCallback OnEquipmentChanged { get; set; }
 	private const int slots = 6;
-
-
 
 	public async Task GenerateNewItem()
 	{
@@ -60,11 +51,13 @@
 	{
 		if (equipment.Count < slots)
 			equipment.Add(item);
+		OnEquipmentChanged.InvokeAsync();
 	}
 
 	public void Unequip(Item item)
 	{
 		equipment.Remove(item);
+		OnEquipmentChanged.InvokeAsync();
 	}
 
 	public bool IsEquipped(Item item)
