@@ -1,89 +1,281 @@
-﻿html,
-body {
-    margin: 0;
-    padding: 0;
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+html {
     height: 100%;
+}
+
+body {
     width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: rgb(96, 6, 138);
+    overflow: hidden;
+    color: white;
+    font-weight: bold;
+    font-family: "Courier", sans-serif;
+    background-size: 150% 150%;
+    background-image: linear-gradient(45deg,#3e4894,#662e68);
+    -webkit-animation: AnimateBG 10s ease infinite;
+    animation: AnimateBG 10s ease infinite;
 }
 
 #container {
+    width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: row;
-    height: 100%;
 }
 
-* {
-    color: white;
-    text-shadow: 0px 0px 5px black;
+.leftPanel {
+    height: 100vh;
+    width: 25%;
 }
 
-.sidebar-container {
-    flex: 0.2;
-    background-color: red;
+.borderPanel {
+    border: solid 2.5px rgb(0, 0, 0);
+}
+
+.midPanel {
+    height: 100vh;
+    width: 50%;
+    background-color: #ffffff00;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-size: 1.2em;
+
 }
 
-.text-container {
-    position: relative;
-    flex: 0.6;
-    background-color: black;
+.rightPanel {
+    height: 100vh;
+    width: 25%;
 }
 
-.stats-flex {
-    flex: 0.4;
-    background-color: blue;
+.cristalBox {
+    padding: 5px;
+    z-index: 1;
+    border-radius: 100%;
+    border: 5px solid rgb(0, 0, 0);
+    height: 80px;
+    width: 100px;
+    background-color: #662e68ad;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 20s infinite alternate;
 }
 
-.equipment-flex {
-    flex: 0.6;
-    background-color: maroon;
+@keyframes pulse {
+    0% {
+        background-color: #662e68ad;
+    }
+
+    50% {
+        background-color: #3e48945b;
+    }
+
+    100% {
+        background-color: #662e68ad;
+    }
 }
 
-.journal-flex {
-    flex: 0.6;
-    background-color: green;
+.cristal {
+    rotate: 45deg;
+    z-index: 2;
+    height: 50px;
+    width: 50px;
+    border: 5px solid black;
+    border-radius: 80% 80% 80% 80% / 10% 80% 10% 80%;
+    transition: 1s ease-in-out;
+    background-image: linear-gradient( 90deg, #f16bf6 30%, #57a7ed 100% );
+    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
+    animation: glow 10s alternate infinite;
 }
 
-.map-flex {
-    flex: 0.3;
-    background-color: pink;
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
+    }
+
+    to {
+        box-shadow: 0 0 5px #7ab9fc,0 0 25px #7ad1fc;
+    }
 }
 
-.button-container-flex {
-    flex: 0.1;
-    background-color: yellow;
+@keyframes rotation3d {
+    to {
+        transform: rotate3d(1,1,0,360deg);
+    }
+}
+
+.cristalLines {
+    padding-top: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-}
-
-.action-button {
-    display: flex;
-    justify-content: center;
+    width: 100%;
     align-items: center;
 }
 
-.popup {
+.line {
+    width: 50%;
+    background-color: black;
+    height: 5px;
+    border-radius: 100%;
+}
+
+.dialogueWindowBg {
+    background: url(https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg);
+    background-size: cover;
+    height: 90%;
+    width: 100%;
+}
+
+.dialogueWindow {
+    color: white;
+    height: 80%;
+    background-size: cover;
+    backdrop-filter: blur(2px) brightness(60%);
+    width: 100%
+}
+
+.map {
+    visibility: hidden;
+}
+
+.eqManager{
+    height: 90vh;
+    background-color: black;
+    position: center;
+    width: 100%;
+}
+.hidden.eqManager {
+    visibility: hidden;
+}
+
+.statManager {
+    visibility: hidden;
+}
+
+.journal {
+    height: 45%;
+    background-color: #3e4894;
+    position: relative;
+}
+
+.miniMap {
+    height: 45%;
+    background-color: #322b5b;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: #000 solid 2px;
+    border-bottom: #000 solid 2px;
+}
+
+.settings {
+    height: 10%;
+    background-color: #b0b8db;
+    display: flex;
+    flex-direction: row;
+}
+
+.settingsBtn {
+    background-color: rgba(255, 255, 255, 0.488);
+    width: 30%;
+    height: 70%;
+    margin: 5px;
+    border: solid 5px black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s ease-in-out;
+    color: #000;
+}
+
+.stats {
+    height: 45%;
+    background-color: #3e4894;
+    position: relative;
+}
+
+.equipment {
+    height: 55%;
+    background-color: #322b5b;
+    position: relative;
+    border-top: #000 solid 2px;
+}
+
+.settingsBtn:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+@-webkit-keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.info {
+    width: 20px;
+    height: 20px;
     position: absolute;
-    width: calc(100% - (var(--popup-padding) * 2));
-    height: calc(100% - (var(--popup-padding) * 2));
-    background-color: rgba(255, 0, 0, 0.3);
-    top: var(--popup-padding);
-    left: var(--popup-padding);
+    top: 5px;
+    right: 5px;
+    margin: 2px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: 0.5s;
 }
 
-.hidden {
-    display: none;
+@use 'sass:math';
+@randomM: `Math.round(Math.random() * 100)`;
+
+.cristal:hover {
+    rotate: 60deg;
+    /* animation: rotation3d 10s alternate infinite;
+    transform-style: preserve-3d; */
+    box-shadow: 0 0 5px #7ae0fc, 0 0 25px #65befd, 0 0 50px #4ba4fc, 0 0 100px #0e2aff;
+    /* animation: rotation3d 2s alternate both; */
 }
 
-:root {
-    --rarity-common: #808080;
-    --rarity-uncommon: #8ef059;
-    --rarity-rare: #5963f0;
-    --rarity-insane: #f54c40;
-    --rarity-epic: #b423f7;
-    --rarity-legendary: gold;
-    
-    --popup-padding: 10px;
+.info:hover {
+    background-color: #65befd;
+    box-shadow: 0 0 5px #7ae0fc, 0 0 25px #65befd, 0 0 50px #4ba4fc, 0 0 100px #0e2aff;
 }
+
+.miniMapTable {
+    border: #000 1px solid;
+    border-collapse: collapse;
+}
+
+    .miniMapTable tr td {
+        border: #000 1px solid;
+        width: 30px;
+        height: 30px;
+        background-color: blue;
+    }

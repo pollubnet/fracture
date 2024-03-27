@@ -1,12 +1,12 @@
 ﻿@rendermode InteractiveServer
 
-<div class="popup @(IsVisible? "" : "hidden")">
+<div class="eqManager @(IsVisible? "" : "hidden")">
+    <button @onclick="() => IsVisible = false">X</button>
     @if (_componentType is not null)
     {
         <DynamicComponent Type="@_componentType" Parameters="@_parameters" />
     }
 
-    <button @onclick="() => IsVisible = false">X</button>
 </div>
 
 @code {
