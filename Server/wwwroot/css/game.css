@@ -143,11 +143,12 @@ body {
     visibility: hidden;
 }
 
-.eqManager{
+.eqManager {
     height: 90vh;
     background-color: black;
     position: center;
     width: 100%;
+    left: var(--popup-padding);
 }
 .hidden.eqManager {
     visibility: hidden;
@@ -279,3 +280,12 @@ body {
         height: 30px;
         background-color: blue;
     }
+:root {
+    --rarity-common: #808080;
+    --rarity-uncommon: #8ef059;
+    --rarity-rare: #5963f0;
+    --rarity-insane: #f54c40;
+    --rarity-epic: #b423f7;
+    --rarity-legendary: gold;
+    --popup-padding: 10px;
+}
