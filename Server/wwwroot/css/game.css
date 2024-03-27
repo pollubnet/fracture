@@ -148,7 +148,7 @@ body {
     background-color: black;
     position: center;
     width: 100%;
-    left: var(--popup-padding);
+    vertical-align: top;
 }
 .hidden.eqManager {
     visibility: hidden;
