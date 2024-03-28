@@ -11,28 +11,28 @@
 <div id="container">
 	<div class="sidebar-container">
 		<div class="stats-flex">
-			<div @onclick="() => popup.ShowComponent<StatsPopup>()">STATYSTYKI</div>
-			<UserStats Equipment="equipment"></UserStats>
+			<div @onclick="() => _popup.ShowComponent<StatsPopup>()">STATYSTYKI</div>
+			<UserStats Equipment="_equipment"></UserStats>
 		</div>
 		<div class="equipment-flex">
-            <div @onclick="() => popup.ShowComponent<EquipmentPopup>(equipmentPopupParameters)">EKWIPUNEK</div>
+            <div @onclick="() => _popup.ShowComponent<EquipmentPopup>(_equipmentPopupParameters)">EKWIPUNEK</div>
 
 			Siatka aktualnie założonych
 			+ ostatnio zdobyte
 		</div>
 	</div>
 	<div class="text-container">
-		<PopupContainer @ref="popup"></PopupContainer>
+		<PopupContainer @ref="_popup"></PopupContainer>
 
 		tutaj log mojej gry<br />
 		tutaj log mojej gry<br />
 	</div>
 	<div class="sidebar-container">
 		<div class="journal-flex">
-			<div @onclick="() => popup.ShowComponent<JournalPopup>()">JOURNAL</div>
+			<div @onclick="() => _popup.ShowComponent<JournalPopup>()">JOURNAL</div>
 		</div>
 		<div class="map-flex">
-			<div @onclick="() => popup.ShowComponent<MapPopup>()">MINIMAPA</div>
+			<div @onclick="() => _popup.ShowComponent<MapPopup>()">MINIMAPA</div>
 		</div>
 		<div class="button-container-flex">
 			<div class="action-button">
@@ -44,7 +44,7 @@
 			<div class="action-button">
 				3
 			</div>
-			<div class="action-button" @onclick="() => popup.ShowComponent<SettingsPopup>()">
+			<div class="action-button" @onclick="() => _popup.ShowComponent<SettingsPopup>()">
 				4
 			</div>
 		</div>
@@ -53,18 +53,21 @@
 
 
 @code {
-	private List<Item> equipment = new();
-	private List<Item> inventory = new();
+	private readonly List<Item> _equipment = new();
+	private readonly List<Item> _inventory = new();
 
-    Dictionary<string, object> equipmentPopupParameters = new();
-	
-    private PopupContainer popup;
+    private Dictionary<string, object> _equipmentPopupParameters;
+
+    private PopupContainer _popup;
 
 	protected override Task OnInitializedAsync()
 	{
-	    equipmentPopupParameters.Add("inventory", inventory);
-		equipmentPopupParameters.Add("equipment", equipment);
-		equipmentPopupParameters.Add("OnEquipmentChanged", EventCallback.Factory.Create(this, HandleEquipmentChanged));
+	    _equipmentPopupParameters = new()
+	    {
+	        {"inventory", _inventory},
+	        {"equipment", _equipment},
+	        {"OnEquipmentChanged", EventCallback.Factory.Create(this, HandleEquipmentChanged)}
+	    };
 	    return base.OnInitializedAsync();
 	}
 
