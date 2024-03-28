@@ -1,6 +1,7 @@
 ﻿@using Fracture.Server.Modules.Items.Models
 
-<table class="table">
+<div class="statObject">
+    <table class="table">
     @foreach (var itemStat in Enum.GetValues<ItemStat>())
     {
         var stat = Equipment.Sum(x => x.Statistics[itemStat]);
@@ -10,8 +11,8 @@
 
         <tr><td>@itemStat</td><td class="@color text-end">@stat</td></tr>
     }
-</table>
-
+    </table>
+</div>
 @code {
     [Parameter] public required List<Item> Equipment { get; set; }
 }

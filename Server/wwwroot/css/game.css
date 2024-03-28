@@ -1,81 +1,372 @@
-﻿html,
-body {
-    margin: 0;
-    padding: 0;
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+html {
     height: 100%;
+}
+
+body {
     width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #353535;
+    overflow: hidden;
+    color: white;
+    font-weight: bold;
+    font-family: "Courier", sans-serif;
+    background-size: 150% 150%;
+    background-image: linear-gradient(45deg,#4c4c4c,#070707);
+    -webkit-animation: AnimateBG 10s ease infinite;
+    animation: AnimateBG 10s ease infinite;
+}
+
+@-webkit-keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes AnimateBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 #container {
+    width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: row;
-    height: 100%;
 }
 
-* {
-    color: white;
-    text-shadow: 0px 0px 5px black;
+.leftPanel {
+    height: 100vh;
+    width: 25%;
 }
 
-.sidebar-container {
-    flex: 0.2;
-    background-color: red;
+.midPanel {
+    height: 100vh;
+    width: 50%;
+    background-color: #ffffff00;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-size: 1.2em;
 }
 
-.text-container {
-    position: relative;
-    flex: 0.6;
-    background-color: black;
+.rightPanel {
+    height: 100vh;
+    width: 25%;
 }
 
-.stats-flex {
-    flex: 0.4;
-    background-color: blue;
+.borderPanel {
+    border: solid 2.5px rgb(0, 0, 0);
 }
 
-.equipment-flex {
-    flex: 0.6;
-    background-color: maroon;
-}
-
-.journal-flex {
-    flex: 0.6;
-    background-color: green;
-}
-
-.map-flex {
-    flex: 0.3;
-    background-color: pink;
-}
-
-.button-container-flex {
-    flex: 0.1;
-    background-color: yellow;
+.cristalBox {
+    padding-top: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-flow: row;
+    height: 20%;
 }
 
-.action-button {
+.actionButton {
+    background-color: rgba(25, 25, 25,1);
+    border-radius: 0.75em;
+    cursor: pointer;
+    height: 60%;
+    width: 100px;
+    position: relative;
+}
+
+.info {
+    background-color: rgba(25, 25, 25,1);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    margin: 2px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.settingsBtn {
+    background-color: rgba(25, 25, 25,1);
+    width: 30%;
+    height: 70%;
+    margin: 5px;
+    border-radius: 10px;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
-.popup {
+    .actionButton:hover:before, .info:hover:before, .settingsBtn:hover:before {
+        opacity: 1;
+    }
+
+    .actionButton:before, .info:before, .settingsBtn:before {
+        background: linear-gradient( 45deg, transparent 5%, rgb(255, 215, 137) 50%, transparent 99% );
+        border-radius: inherit;
+        content: "";
+        inset: 0px;
+        opacity: 0;
+        position: absolute;
+        transition: 0.4s;
+        z-index: 0;
+    }
+
+
+.actionButton-content, .info-content, .settingsBtn-content {
+    background-color: #191919;
+    border-radius: inherit;
+    inset: 1px;
     position: absolute;
-    width: calc(100% - (var(--popup-padding) * 2));
-    height: calc(100% - (var(--popup-padding) * 2));
-    background-color: rgba(255, 0, 0, 0.3);
-    top: var(--popup-padding);
-    left: var(--popup-padding);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hidden {
+.cristalCircle {
+    padding: 5px;
+    z-index: 1;
+    border-radius: 100%;
+    border: 1px solid rgb(0, 0, 0);
+    height: 90px;
+    width: 100px;
+    background-color: #353535;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 20s infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        background-color: #353535;
+    }
+
+    50% {
+        background-color: #3e48945b;
+    }
+
+    100% {
+        background-color: #353535;
+    }
+}
+
+.cristal {
+    rotate: 45deg;
+    z-index: 2;
+    height: 50px;
+    width: 50px;
+    border: 3px solid black;
+    /* border: none; */
+    border-radius: 80% 80% 80% 80% / 10% 80% 10% 80%;
+    transition: 1s ease-in-out;
+    background-image: linear-gradient( 90deg, #f16bf6 30%, #57a7ed 100% );
+    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
+    animation: glow 10s alternate infinite;
+    cursor: pointer;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
+    }
+
+    to {
+        box-shadow: 0 0 5px #7ab9fc,0 0 25px #7ad1fc;
+    }
+}
+
+.cristal:hover {
+    box-shadow: 0 0 5px #7ae0fc, 0 0 25px #65befd, 0 0 50px #4ba4fc, 0 0 100px #0e2aff;
+    width: 55px;
+    height: 55px;
+}
+
+.dialogueWindowBg {
+    background: url(https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg);
+    background-size: cover;
+    height: 90%;
+    width: 100%;
+}
+
+.dialogueWindow {
+    color: white;
+    height: 98%;
+    background-size: cover;
+    backdrop-filter: blur(2px) brightness(60%);
+    width: 100%;
+}
+
+.map {
+    visibility: hidden;
+}
+.eqManager {
     display: none;
 }
+.hidden {
+    visibility: hidden;
+}
+.popup {
+    top: var(--popup-padding);
+    left: var(--popup-padding);
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    width: calc(100% - (var(--popup-padding) * 2));
+    height: calc(100% - (var(--popup-padding) * 2));
+}
+.statManager {
+    visibility: hidden;
+}
+
+.journal {
+    height: 45%;
+    background-color: #353535;
+    position: relative;
+    display: flex;
+}
+.journalPage{
+    display: inline-block;
+    width: 70%;
+    height: 80%;
+    margin: auto auto;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    padding: 1em;
+    line-height: 1em;
+    color: #000;
+    background: rgb(252, 254, 230);
+    border: solid 5px rgb(0, 0, 0);
+    overflow: auto;
+    text-align: justify;
+    scrollbar-color: rgb(0, 0, 0) rgba(0,0,0,0);
+    scrollbar-width: auto;
+    scrollbar-arrow-color: black;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+
+    box-shadow: 0px 0px 10px #000;
+}
+
+
+    .journalPage span {
+        font-size: 1.1em;
+        font-weight: bolder;
+    }
+
+.miniMap {
+    height: 45%;
+    background-color: #272626;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: #000 solid 2px;
+    border-bottom: #000 solid 2px;
+}
+
+.miniMapTable {
+    border: #000 1px solid;
+    border-collapse: collapse;
+    box-shadow: 0px 0px 10px #000;
+}
+
+    .miniMapTable tr td {
+        border: #000 1px solid;
+        width: 30px;
+        height: 30px;
+        background-color: blue;
+    }
+
+.settings {
+    height: 10%;
+    background-color: #353535;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+.stats {
+    height: 45%;
+    background-color: #353535;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* flex-shrink: 4; */
+    font-size: 1.1em;
+}
+
+.statObject {
+    width: 80%;
+    /* height: 21%; */
+    display: flex;
+    align-items: center;
+}
+
+    .statObject span {
+        padding-left: 5px;
+    }
+
+.equipment {
+    height: 55%;
+    background-color: #272626;
+    position: relative;
+    border-top: #000 solid 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.equipmentTable {
+    border: #000 3px solid;
+    border-collapse: collapse;
+    box-shadow: 0px 0px 10px #000;
+}
+
+    .equipmentTable tr td {
+        border: #000 3px solid;
+        width: 60px;
+        height: 60px;
+        background-color: rgb(222, 222, 255);
+    }
+
+        .equipmentTable tr td:hover {
+            background-color: rgb(191, 191, 205);
+        }
+
+
+
+
 
 :root {
     --rarity-common: #808080;
