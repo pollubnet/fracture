@@ -154,14 +154,12 @@ body {
     padding: 5px;
     z-index: 1;
     border-radius: 100%;
-    border: 1px solid rgb(0, 0, 0);
-    height: 90px;
-    width: 100px;
-    background-color: #353535;
+    height: 70px;
+    width: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: pulse 20s infinite alternate;
+    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
 }
 
 @keyframes pulse {
@@ -179,19 +177,28 @@ body {
 }
 
 .cristal {
-    rotate: 45deg;
-    z-index: 2;
-    height: 50px;
-    width: 50px;
-    border: 3px solid black;
-    /* border: none; */
-    border-radius: 80% 80% 80% 80% / 10% 80% 10% 80%;
+    height: 80px;
+    width: 30px;
+    border-radius: 100%;
     transition: 1s ease-in-out;
-    background-image: linear-gradient( 90deg, #f16bf6 30%, #57a7ed 100% );
-    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
+
+
+
+    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc,0 0 50px #b27afc;
     animation: glow 10s alternate infinite;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+    .cristal img {
+        height: 100px;
+        /* width: 70px; */
+        transition: 1s ease-in-out;
+        /* z-index: 2; */
+    }
+
 
 @keyframes glow {
     from {
@@ -363,8 +370,9 @@ body {
         .equipmentTable tr td:hover {
             background-color: rgb(191, 191, 205);
         }
-
-
+.closeButton{
+    text-align: right;
+}
 
 
 
