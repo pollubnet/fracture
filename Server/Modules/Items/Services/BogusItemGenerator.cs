@@ -1,5 +1,5 @@
-﻿using Bogus.DataSets;
-using System.Text.Json;
+﻿using System.Text.Json;
+using Bogus.DataSets;
 using Fracture.Server.Modules.Items.Models;
 
 namespace Fracture.Server.Modules.Items.Services

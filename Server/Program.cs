@@ -1,12 +1,16 @@
 using Fracture.Server.Components;
 using Fracture.Server.Modules.Items.Services;
+using Fracture.Server.Modules.Shared;
+using Fracture.Server.Modules.Shared.Configuration;
+using Fracture.Server.Modules.Shared.NameGenerators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.Configure<AiBackendConfig>(builder.Configuration.GetSection("AiEndpoint"));
+builder.Services.Configure<NameGeneratorConfig>(builder.Configuration.GetSection("NameGenerator"));
 
-builder.Services.AddSingleton<IItemGenerator, BogusItemGenerator>();
+builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
+builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 
 builder.Services
     .AddRazorComponents()

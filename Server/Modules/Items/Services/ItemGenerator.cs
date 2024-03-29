@@ -11,9 +11,9 @@ namespace Fracture.Server.Modules.Items.Services
         private readonly List<RarityModifier> _modifiers;
         private readonly INameGenerator _nameGenerator;
 
-        public ItemGenerator()
+        public ItemGenerator(INameGenerator nameGenerator)
         {
-            _nameGenerator = new InternetNameGenerator();
+            _nameGenerator = nameGenerator;
 
             _rnd = new Random();
 
@@ -28,7 +28,7 @@ namespace Fracture.Server.Modules.Items.Services
 
             var item = new Item
             {
-                Name = await _nameGenerator.GenerateName(),
+                Name = await _nameGenerator.GenerateNameAsync(),
                 Rarity = modifier.Rarity
             };
 
