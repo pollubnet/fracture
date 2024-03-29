@@ -5,7 +5,7 @@ namespace Fracture.Server.Modules.Items.Services;
 
 public class InternetNameGenerator : INameGenerator
 {
-    public async Task<string> GenerateName()
+    public async Task<string> GenerateNameAsync()
     {
         var httpClient = new HttpClient();
         var response = await httpClient.GetStringAsync(
