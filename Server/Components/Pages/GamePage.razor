@@ -246,9 +246,9 @@
 	private readonly ObservableCollection<Item> _equipment = new();
 	private readonly ObservableCollection<Item> _inventory = new();
 
-	private Dictionary<string, object> _equipmentPopupParameters;
+	private Dictionary<string, object> _equipmentPopupParameters = null!;
 
-    private PopupContainer _popup;
+    private PopupContainer _popup = null!;
 
 	protected override Task OnInitializedAsync()
 	{
