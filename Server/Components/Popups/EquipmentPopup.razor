@@ -10,7 +10,7 @@
 	<div class="col-6 border border-primary overflow-scroll mt-1" style="height: 80vh">
 		<h3>Inventory</h3>
 		<div class="row row-cols-2 g-4">
-			@foreach (var item in inventory.Where(x => !IsEquipped(x)))
+			@foreach (var item in Inventory.Where(x => !IsEquipped(x)))
 			{
 				<ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
 			}
@@ -19,7 +19,7 @@
 	<div class="col-6 border border-secondary overflow-scroll mt-1" style="height: 80vh">
 		<h3>Equipped</h3>
 		<div class="row row-cols-2 g-4">
-			@foreach (var item in equipment)
+			@foreach (var item in Equipment)
 			{
 				<ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
 			}
@@ -35,8 +35,9 @@
 </div>
 </div>
 @code {
-	[Parameter] public ObservableCollection<Item> inventory { get; set; }
-	[Parameter] public ObservableCollection<Item> equipment { get; set; }
+
+    [Parameter] public required ObservableCollection<Item> Inventory { get; set; }
+    [Parameter] public required ObservableCollection<Item> Equipment { get; set; }
         
     private const int slots = 6;
 
@@ -45,22 +46,22 @@
 		var item = await ItemGenerator.Generate();
 
 		if (item is not null)
-			inventory.Add(item);
+			Inventory.Add(item);
 	}
 
 	public void Equip(Item item)
 	{
-		if (equipment.Count < slots)
-			equipment.Add(item);
+		if (Equipment.Count < slots)
+			Equipment.Add(item);
 	}
 
 	public void Unequip(Item item)
 	{
-		equipment.Remove(item);
+		Equipment.Remove(item);
 	}
 
 	public bool IsEquipped(Item item)
 	{
-		return equipment.Contains(item);
+		return Equipment.Contains(item);
 	}
 }
