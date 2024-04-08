@@ -1,10 +1,11 @@
 ﻿@using Fracture.Server.Components.UI
 @using Fracture.Server.Modules.Items.Models
 @using Fracture.Server.Modules.Items.Services
+@using System.Collections.ObjectModel
 
 @inject IItemGenerator ItemGenerator
 
-<div class="position-absolute">
+<div class="position-absolute w-100">
 	<div class="row">
 	<div class="col-6 border border-primary overflow-scroll mt-1" style="height: 80vh">
 		<h3>Inventory</h3>
@@ -31,35 +32,31 @@
 	<div class="col-12 m-3">
 		<button class="btn btn-primary" @onclick="GenerateNewItem">Generate new item </button>
 	</div>
-</div>v
+</div>
 </div>
 @code {
-	[Parameter] public List<Item> inventory { get; set; }
-	[Parameter] public List<Item> equipment { get; set; }
-	[Parameter] public EventCallback OnEquipmentChanged { get; set; }
-	private const int slots = 6;
+	[Parameter] public ObservableCollection<Item> inventory { get; set; }
+	[Parameter] public ObservableCollection<Item> equipment { get; set; }
+        
+    private const int slots = 6;
 
-	public async Task GenerateNewItem()
+    public async Task GenerateNewItem()
 	{
 		var item = await ItemGenerator.Generate();
 
 		if (item is not null)
 			inventory.Add(item);
-
-		StateHasChanged();
 	}
 
 	public void Equip(Item item)
 	{
 		if (equipment.Count < slots)
 			equipment.Add(item);
-		OnEquipmentChanged.InvokeAsync();
 	}
 
 	public void Unequip(Item item)
 	{
 		equipment.Remove(item);
-		OnEquipmentChanged.InvokeAsync();
 	}
 
 	public bool IsEquipped(Item item)

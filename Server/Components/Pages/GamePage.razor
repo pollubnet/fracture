@@ -5,6 +5,7 @@
 @using Fracture.Server.Components.Popups
 @using Fracture.Server.Components.UI
 @using Fracture.Server.Modules.Items.Models
+@using System.Collections.ObjectModel
 
 @layout GameLayout
 
@@ -242,25 +243,20 @@
 
 
 @code {
-	private readonly List<Item> _equipment = new();
-	private readonly List<Item> _inventory = new();
+	private readonly ObservableCollection<Item> _equipment = new();
+	private readonly ObservableCollection<Item> _inventory = new();
 
-	private Dictionary<string, object> _equipmentPopupParameters = new();
-	private PopupContainer _popup = null!;
+	private Dictionary<string, object> _equipmentPopupParameters;
+
+    private PopupContainer _popup;
 
 	protected override Task OnInitializedAsync()
 	{
-		_equipmentPopupParameters = new()
-		{
-			{"inventory", _inventory},
-			{"equipment", _equipment},
-			{"OnEquipmentChanged", EventCallback.Factory.Create(this, HandleEquipmentChanged)}
-		};
-		return base.OnInitializedAsync();
-	}
-
-	public async Task HandleEquipmentChanged()
-	{
-		await InvokeAsync(StateHasChanged);
+	    _equipmentPopupParameters = new()
+	    {
+	        {"inventory", _inventory},
+	        {"equipment", _equipment}
+	    };
+	    return base.OnInitializedAsync();
 	}
 }
