@@ -1,4 +1,5 @@
 using Fracture.Server.Components;
+using Fracture.Server.Modules.Database;
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
@@ -19,6 +20,11 @@ builder.Services
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<FractureDbContext>(options =>
+{
+    options.UseSqlite("Data Source=fracture.db");
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
