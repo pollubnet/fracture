@@ -9,6 +9,8 @@ namespace Fracture.Server.Modules.Items.Models
 
         public ItemRarity Rarity { get; set; } = ItemRarity.Common;
 
+        public ItemType Type { get; set; } = ItemType.Helmet;
+
         public Dictionary<ItemStat, int> Statistics { get; init; } = new();
 
         public void SetStat(ItemStat stat, int value)
