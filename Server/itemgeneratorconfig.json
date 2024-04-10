@@ -3,25 +3,21 @@
     "ValueBelow": 0.01,
     "Rarity": 5,
     "StatRanges": {
-      "Agility": {
-        "MinValue": -100,
+      "Luck": {
+        "MinValue": 50,
         "MaxValue": 100
       },
-      "Strength": {
-        "MinValue": -20,
-        "MaxValue": 60
-      },
-      "Intelligence": {
-        "MinValue": -7,
-        "MaxValue": 10
-      },
-      "Defense": {
-        "MinValue": -15,
-        "MaxValue": 30
-      },
       "Health": {
-        "MinValue": -30,
-        "MaxValue": 40
+        "MinValue": 50,
+        "MaxValue": 100
+      },
+      "Armor": {
+        "MinValue": 50,
+        "MaxValue": 100
+      },
+      "Power": {
+        "MinValue": 50,
+        "MaxValue": 100
       }
     }
   },
@@ -29,25 +25,21 @@
     "ValueBelow": 0.2,
     "Rarity": 4,
     "StatRanges": {
-      "Agility": {
-        "MinValue": -100,
-        "MaxValue": 100
-      },
-      "Strength": {
-        "MinValue": -20,
-        "MaxValue": 60
-      },
-      "Intelligence": {
-        "MinValue": -7,
-        "MaxValue": 10
-      },
-      "Defense": {
-        "MinValue": -15,
-        "MaxValue": 30
+      "Luck": {
+        "MinValue": 0,
+        "MaxValue": 85
       },
       "Health": {
-        "MinValue": -30,
-        "MaxValue": 40
+        "MinValue": 0,
+        "MaxValue": 85
+      },
+      "Armor": {
+        "MinValue": 0,
+        "MaxValue": 85
+      },
+      "Power": {
+        "MinValue": 0,
+        "MaxValue": 85
       }
     }
   },
@@ -55,25 +47,21 @@
     "ValueBelow": 0.4,
     "Rarity": 3,
     "StatRanges": {
-      "Agility": {
-        "MinValue": -100,
-        "MaxValue": 100
-      },
-      "Strength": {
-        "MinValue": -20,
-        "MaxValue": 60
-      },
-      "Intelligence": {
-        "MinValue": -7,
-        "MaxValue": 10
-      },
-      "Defense": {
-        "MinValue": -15,
-        "MaxValue": 30
+      "Luck": {
+        "MinValue": -10,
+        "MaxValue": 70
       },
       "Health": {
-        "MinValue": -30,
-        "MaxValue": 40
+        "MinValue": -10,
+        "MaxValue": 70
+      },
+      "Armor": {
+        "MinValue": -10,
+        "MaxValue": 70
+      },
+      "Power": {
+        "MinValue": -10,
+        "MaxValue": 70
       }
     }
   },
@@ -81,25 +69,21 @@
     "ValueBelow": 0.5,
     "Rarity": 2,
     "StatRanges": {
-      "Agility": {
-        "MinValue": -100,
-        "MaxValue": 100
-      },
-      "Strength": {
-        "MinValue": -20,
-        "MaxValue": 60
-      },
-      "Intelligence": {
-        "MinValue": -7,
-        "MaxValue": 10
-      },
-      "Defense": {
-        "MinValue": -15,
-        "MaxValue": 30
+      "Luck": {
+        "MinValue": -40,
+        "MaxValue": 50
       },
       "Health": {
-        "MinValue": -30,
-        "MaxValue": 40
+        "MinValue": -40,
+        "MaxValue": 50
+      },
+      "Armor": {
+        "MinValue": -40,
+        "MaxValue": 50
+      },
+      "Power": {
+        "MinValue": -40,
+        "MaxValue": 50
       }
     }
   },
@@ -107,25 +91,21 @@
     "ValueBelow": 0.6,
     "Rarity": 1,
     "StatRanges": {
-      "Agility": {
-        "MinValue": -100,
-        "MaxValue": 100
-      },
-      "Strength": {
-        "MinValue": -20,
-        "MaxValue": 60
-      },
-      "Intelligence": {
-        "MinValue": -7,
-        "MaxValue": 10
-      },
-      "Defense": {
-        "MinValue": -15,
+      "Luck": {
+        "MinValue": -70,
         "MaxValue": 30
       },
       "Health": {
-        "MinValue": -30,
-        "MaxValue": 40
+        "MinValue": -70,
+        "MaxValue": 30
+      },
+      "Armor": {
+        "MinValue": -70,
+        "MaxValue": 30
+      },
+      "Power": {
+        "MinValue": -70,
+        "MaxValue": 30
       }
     }
   },
@@ -133,25 +113,21 @@
     "ValueBelow": 1,
     "Rarity": 0,
     "StatRanges": {
-      "Agility": {
+      "Luck": {
         "MinValue": -100,
-        "MaxValue": 100
-      },
-      "Strength": {
-        "MinValue": -20,
-        "MaxValue": 60
-      },
-      "Intelligence": {
-        "MinValue": -7,
-        "MaxValue": 10
-      },
-      "Defense": {
-        "MinValue": -15,
         "MaxValue": 10
       },
       "Health": {
-        "MinValue": -30,
-        "MaxValue": 40
+        "MinValue": -100,
+        "MaxValue": 10
+      },
+      "Armor": {
+        "MinValue": -100,
+        "MaxValue": 10
+      },
+      "Power": {
+        "MinValue": -100,
+        "MaxValue": 10
       }
     }
   }
