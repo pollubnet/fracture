@@ -404,3 +404,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 **/.idea/*
+/Server/Migrations

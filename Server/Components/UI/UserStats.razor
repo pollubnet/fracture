@@ -4,7 +4,7 @@
 <table class="table">
     @foreach (var itemStat in Enum.GetValues<ItemStat>())
     {
-        var stat = Equipment.Sum(x => x.Statistics[itemStat]);
+        var stat = Equipment.Sum(x => x.Statistics.GetStatFromItemStat(itemStat));
         var color = "";
         @if (stat <= 0)
             color = "text-danger";

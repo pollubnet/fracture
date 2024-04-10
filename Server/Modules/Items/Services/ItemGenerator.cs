@@ -29,11 +29,18 @@ namespace Fracture.Server.Modules.Items.Services
             var item = new Item
             {
                 Name = await _nameGenerator.GenerateNameAsync(),
-                Rarity = modifier.Rarity
+                Rarity = modifier.Rarity,
+                CreatedAt = DateTime.UtcNow
             };
 
-            foreach (var itemStat in Enum.GetValues<ItemStat>())
-                item.SetStat(itemStat, modifier.StatRanges[itemStat].GenerateStat(_rnd));
+            var stats = new ItemStatistics { Item = item };
+
+            foreach (var stat in Enum.GetValues<ItemStat>())
+            {
+                stats.SetStatFromItemStat(stat, modifier.StatRanges[stat].GenerateStat(_rnd));
+            }
+
+            item.Statistics = stats;
 
             var rndType = _rnd.Next(0, Enum.GetValues<ItemType>().Length);
             item.Type = (ItemType)rndType;
