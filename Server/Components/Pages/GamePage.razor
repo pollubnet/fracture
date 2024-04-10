@@ -6,8 +6,12 @@
 @using Fracture.Server.Components.UI
 @using Fracture.Server.Modules.Items.Models
 @using System.Collections.ObjectModel
+@using System.Reflection.Metadata
+@using Fracture.Server.Modules.Database
+@using Fracture.Server.Modules.Users
 
 @layout GameLayout
+@inject IUsersRepository UsersRepository
 
 <div id="container">
 	<div class="leftPanel borderPanel">
@@ -75,7 +79,10 @@
 			<div class="dialogueWindow">
 				<PopupContainer @ref="_popup"></PopupContainer>
 				tutaj log mojej gry<br />
-				tutaj log mojej gry<br />
+                tutaj log mojej gry<br />
+                Nazwa użytkownika: <input type="text" @bind="_username" />
+                <button @onclick="HandleUserLogin">Zaloguj (lub stwórz)</button>
+                <h3>@_loginInfo</h3>
 			</div>
 		</div>
 		<div class="cristalBox">
@@ -246,17 +253,45 @@
 	private readonly ObservableCollection<Item> _equipment = new();
 	private readonly ObservableCollection<Item> _inventory = new();
 
-	private Dictionary<string, object> _equipmentPopupParameters = null!;
+    private User _user = new();
+	private string _username = String.Empty;
 
-    private PopupContainer _popup = null!;
+    private Dictionary<string, object> _equipmentPopupParameters = null!;
+
+	private PopupContainer _popup = null!;
+	private string _loginInfo = string.Empty;
 
 	protected override Task OnInitializedAsync()
 	{
-	    _equipmentPopupParameters = new()
+		_equipmentPopupParameters = new()
 	    {
-	        {"inventory", _inventory},
-	        {"equipment", _equipment}
-	    };
-	    return base.OnInitializedAsync();
+	        {"Inventory", _inventory},
+	        {"Equipment", _equipment},
+	        {"UserData", _user}
+		};
+		return base.OnInitializedAsync();
+	}
+
+	private async Task HandleUserLogin()
+	{
+		var user = await UsersRepository.GetUserAsync(_username);
+		if (user == null)
+		{
+			user = new User
+			{
+			    Username = _username,
+			    CreatedAt = DateTime.UtcNow
+			};
+			await UsersRepository.AddUserAsync(user);
+		}
+	    _user = user;
+		_equipmentPopupParameters["UserData"] = _user;
+	    _loginInfo = $"Zalogowano: {_user.Username}";
+        if (_popup.Component is not null && _popup.Component.Instance is not null && _popup.Component.Type == typeof(EquipmentPopup))
+	    {
+	        var equipmentPopup = (EquipmentPopup)_popup.Component.Instance;
+	        equipmentPopup.UserData = _user;
+			equipmentPopup.Refresh();
+	    }
 	}
 }

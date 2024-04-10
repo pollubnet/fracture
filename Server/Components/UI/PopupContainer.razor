@@ -7,7 +7,7 @@
     </div>
     @if (_componentType is not null)
     {
-        <DynamicComponent Type="@_componentType" Parameters="@_parameters" />
+        <DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
     }
 
 </div>
@@ -24,6 +24,8 @@
         StateHasChanged();
     }
 
+    public DynamicComponent? Component = null;
     private Type? _componentType = null;
     private IDictionary<string, object>? _parameters;
+
 }
