@@ -12,6 +12,7 @@
                 <p class="card-text">@Item.History</p>
             </div>
             <ItemStats Item="@Item"></ItemStats>
+            <div>@Item.Type.ToString()</div>
 
             @if (IsEquipped)
             {

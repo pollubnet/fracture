@@ -35,6 +35,9 @@ namespace Fracture.Server.Modules.Items.Services
             foreach (var itemStat in Enum.GetValues<ItemStat>())
                 item.SetStat(itemStat, modifier.StatRanges[itemStat].GenerateStat(_rnd));
 
+            var rndType = _rnd.Next(0, Enum.GetValues<ItemType>().Length);
+            item.Type = (ItemType)rndType;
+
             return item;
         }
     }
