@@ -4,32 +4,28 @@
 @using System.Collections.ObjectModel
 
 @inject IItemGenerator ItemGenerator
-
-<div class="position-absolute w-100">
 	<div class="row">
-		<div class="col-12 m-3">
-			<button style="vertical-align: bottom;" class="btn btn-primary" @onclick="GenerateNewItem">Generate new item </button>
+		<div>
+			<button class = "buttonEquip" @onclick="GenerateNewItem">Generate new item </button>
 		</div>
-	<div class="col-6 border border-primary overflow-scroll mt-1" style="height: 65vh">
-		<h3>Inventory</h3>
-		<div class="row row-cols-2 g-4">
+	<div class=equipmentContent style="height: 65vh">
+		<div class="eqColumn">
+			Inventory
 			@foreach (var item in Inventory.Where(x => !IsEquipped(x)))
 			{
 				<ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
 			}
 		</div>
-	</div>
-	<div class="col-6 border border-secondary overflow-scroll mt-1" style="height: 65vh">
-		<h3>Equipped</h3>
-		<div class="row row-cols-2 g-4">
+		<div class="eqColumn">
+			Equipped
 			@foreach (var item in Equipment)
 			{
 				<ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
 			}
 		</div>
+
 	</div>
-</div>
-</div>
+	</div>
 @code {
 
     [Parameter] public required ObservableCollection<Item> Inventory { get; set; }

@@ -353,7 +353,40 @@ body {
         .equipmentTable tr td:hover {
             background-color: rgb(191, 191, 205);
         }
-
+.row{
+    display: flex;
+    flex-direction: column;
+}
+.equipmentContent{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0;
+}
+.buttonEquip {
+    background-color: rgba(138, 136, 136, 0.9);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.eqColumn {
+    width: 50%;
+    height: 100%;
+    overflow-y: scroll;
+    text-align: justify;
+    scrollbar-color: rgb(0, 0, 0) rgba(0,0,0,0);
+    scrollbar-width: auto;
+    scrollbar-arrow-color: black;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+.eqCiolumn span {
+    font-size: 1.1em;
+    font-weight: bolder;
+}
 .closeBtn{
     border-radius: 100%;
     width: 30px;
@@ -363,6 +396,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
     top: 10px;
     right: 10px;
     cursor: pointer;
