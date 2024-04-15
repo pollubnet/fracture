@@ -7,7 +7,7 @@
             @Item.Name
         </div>
         <div class="card-body">
-            <button class="btn btn-primary mb-3" @onmouseover="ShowItemHistoryAsync" @onmouseleave="HideItemHistoryAsync" data-bs-toggle="collapse" data-bs-target="#collapse-@guid">Item History </button>
+            <button class="buttonEquip" @onmouseover="ShowItemHistoryAsync" @onmouseleave="HideItemHistoryAsync" data-bs-toggle="collapse" data-bs-target="#collapse-@guid">Item History </button>
             <div class="collapse" id="collapse-@guid">
                 <p class="card-text">@Item.History</p>
             </div>
@@ -15,11 +15,11 @@
 
             @if (IsEquipped)
             {
-                <button class="btn btn-danger" @onclick="OnUnequipClicked">Unequip this</button>
+                <button class="buttonEquip" @onclick="OnUnequipClicked">Unequip this</button>
             }
             else
             {
-                <button class="btn btn-primary" @onclick="OnEquipClicked">Equip this</button>
+                <button class="buttonEquip" @onclick="OnEquipClicked">Equip this</button>
             }
         </div>
     </div>
