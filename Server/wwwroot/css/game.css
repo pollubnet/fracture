@@ -162,56 +162,38 @@ body {
     box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
 }
 
-@keyframes pulse {
-    0% {
-        background-color: #353535;
-    }
 
-    50% {
-        background-color: #3e48945b;
-    }
-
-    100% {
-        background-color: #353535;
-    }
-}
-
-.cristal {
+.crystal {
     height: 80px;
-    width: 30px;
+    width: 40px;
     border-radius: 100%;
     transition: 1s ease-in-out;
     box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc,0 0 50px #b27afc;
     animation: glow 10s alternate infinite;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-    .cristal img {
-        height: 100px;
-        /* width: 70px; */
-        transition: 1s ease-in-out;
-        /* z-index: 2; */
-    }
+.crystal img {
+    height: 100px;
+    transition: 1s ease-in-out;
+    user-select: none;
+
+}
 
 
 @keyframes glow {
     from {
-        box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
+        box-shadow: 0 0 5px #cc7afc,0 0 15px #b27afc, 0 0 35px #b27afc;
     }
 
     to {
-        box-shadow: 0 0 5px #7ab9fc,0 0 25px #7ad1fc;
+        box-shadow: 0 0 5px #7ab9fc,0 0 25px #7ad1fc, 0 0 35px #7ad1fc, 0 0 50px #7ad1fc;
     }
 }
 
-.cristal:hover {
-    box-shadow: 0 0 5px #7ae0fc, 0 0 25px #65befd, 0 0 50px #4ba4fc, 0 0 100px #0e2aff;
-    width: 55px;
-    height: 55px;
-}
+
 
 .dialogueWindowBg {
     background: url(https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg);
