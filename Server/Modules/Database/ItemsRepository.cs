@@ -7,12 +7,10 @@ namespace Fracture.Server.Modules.Database
     public class ItemsRepository : IItemsRepository
     {
         private readonly FractureDbContext _dbContext;
-        private readonly IItemGenerator _itemGenerator;
 
         public ItemsRepository(FractureDbContext dbContext, IItemGenerator itemGenerator)
         {
             _dbContext = dbContext;
-            _itemGenerator = itemGenerator;
         }
 
         public async Task<Item> AddItemAsync(Item item)
