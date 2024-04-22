@@ -306,13 +306,11 @@ body {
 .stats {
     height: 45%;
     background-color: #353535;
-    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: ;
     flex-direction: column;
     flex-wrap: wrap;
-    /* flex-shrink: 4; */
     font-size: 1.1em;
 }
 

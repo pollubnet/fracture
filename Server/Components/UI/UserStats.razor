@@ -1,17 +1,16 @@
 ﻿@using Fracture.Server.Modules.Items.Models
 @using System.Collections.ObjectModel
 
-<table class="table">
+<div class="stats">
     @foreach (var itemStat in Enum.GetValues<ItemStat>())
     {
         var stat = Equipment.Sum(x => x.Statistics[itemStat]);
         var color = "";
         @if (stat <= 0)
             color = "text-danger";
-
         <tr><td>@itemStat</td><td class="@color text-end">@stat</td></tr>
     }
-</table>
+</div>
 
 @code {
 
