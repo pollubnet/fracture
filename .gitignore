@@ -404,6 +404,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 **/.idea/*
+
+# Migrations and SQLite files
 /Server/Migrations
-/Server/fracture.db-shm
-/Server/fracture.db-wal
+/Server/fracture.d*
