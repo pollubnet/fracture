@@ -87,7 +87,7 @@ namespace Fracture.Server.Modules.Items.Models
                     }
                 },
             };
-        
+
         private readonly INameGenerator _nameGenerator;
 
         public PrefixesGenerator(INameGenerator nameGenerator)
