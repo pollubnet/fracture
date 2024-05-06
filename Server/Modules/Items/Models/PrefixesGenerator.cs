@@ -24,7 +24,7 @@ namespace Fracture.Server.Modules.Items.Models
             {
                 {
                     ItemStat.Luck,
-                    new Dictionary<string, int>()
+                    new()
                     {
                         { "Destined", 81 },
                         { "Predestined", 61 },
@@ -40,7 +40,7 @@ namespace Fracture.Server.Modules.Items.Models
                 },
                 {
                     ItemStat.Health,
-                    new Dictionary<string, int>()
+                    new()
                     {
                         { "Unbreakable", 81 },
                         { "Vital", 61 },
@@ -56,7 +56,7 @@ namespace Fracture.Server.Modules.Items.Models
                 },
                 {
                     ItemStat.Armor,
-                    new Dictionary<string, int>()
+                    new()
                     {
                         { "Specialized", 81 },
                         { "Reliable", 61 },
@@ -72,7 +72,7 @@ namespace Fracture.Server.Modules.Items.Models
                 },
                 {
                     ItemStat.Power,
-                    new Dictionary<string, int>()
+                    new()
                     {
                         { "Lethal", 81 },
                         { "Brutal", 61 },
@@ -101,7 +101,7 @@ namespace Fracture.Server.Modules.Items.Models
             {
                 if (statsAverage >= perfectionIteration.Value)
                 {
-                    item.Name = perfectionIteration.Key + " " + item.Name;
+                    item.Name = $"{perfectionIteration.Key} {item.Name}";
                     return;
                 }
             }
@@ -110,7 +110,7 @@ namespace Fracture.Server.Modules.Items.Models
         private ItemStat FindMaxAbsoluteStat(Item item)
         {
             int maxAbsoluteStatValue = -1;
-            ItemStat maxAbsoluteStatName = ItemStat.Luck;
+            var maxAbsoluteStatName = ItemStat.Luck;
 
             foreach (var stat in Enum.GetValues<ItemStat>())
             {
@@ -131,7 +131,7 @@ namespace Fracture.Server.Modules.Items.Models
             {
                 if (statValue >= iteration.Value)
                 {
-                    item.Name = iteration.Key + " " + item.Name;
+                    item.Name = $"{iteration.Key} {item.Name}";
                     return;
                 }
             }
@@ -143,11 +143,13 @@ namespace Fracture.Server.Modules.Items.Models
                 .Aggregate(0, (acc, y) => acc + item.Statistics.GetStatFromItemStat(y));
             int statsNumber = Enum.GetNames(typeof(ItemStat)).Length;
             float statsAverage = (float)totalStats / statsNumber;
+
             if (statsAverage >= 81)
             {
                 item.Name = await _nameGenerator.GenerateNameAsync();
                 return;
             }
+
             ItemStat stat = FindMaxAbsoluteStat(item);
 
             AddStatPrefix(item, stat);
