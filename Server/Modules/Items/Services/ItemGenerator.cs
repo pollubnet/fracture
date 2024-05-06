@@ -10,10 +10,12 @@ namespace Fracture.Server.Modules.Items.Services
         private readonly Random _rnd;
         private readonly List<RarityModifier> _modifiers;
         private readonly INameGenerator _nameGenerator;
+        private readonly Prefixes _prefixes;
 
-        public ItemGenerator(INameGenerator nameGenerator)
+        public ItemGenerator(INameGenerator nameGenerator, Prefixes prefixes)
         {
             _nameGenerator = nameGenerator;
+            _prefixes = prefixes;
 
             _rnd = new Random();
 
@@ -26,12 +28,7 @@ namespace Fracture.Server.Modules.Items.Services
             var value = _rnd.NextSingle();
             var modifier = _modifiers.First(m => m.ValueBelow > value);
 
-            var item = new Item
-            {
-                Name = await _nameGenerator.GenerateNameAsync(),
-                Rarity = modifier.Rarity,
-                CreatedAt = DateTime.UtcNow
-            };
+            var item = new Item { Rarity = modifier.Rarity, CreatedAt = DateTime.UtcNow };
 
             var stats = new ItemStatistics { Item = item };
 
@@ -44,6 +41,8 @@ namespace Fracture.Server.Modules.Items.Services
 
             var rndType = _rnd.Next(0, Enum.GetValues<ItemType>().Length);
             item.Type = (ItemType)rndType;
+
+            _prefixes.addPrefixes(item);
 
             return item;
         }
