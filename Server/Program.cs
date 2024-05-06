@@ -1,5 +1,6 @@
 using Fracture.Server.Components;
 using Fracture.Server.Modules.Database;
+using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
@@ -13,6 +14,7 @@ builder.Services.Configure<NameGeneratorConfig>(builder.Configuration.GetSection
 
 builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
+builder.Services.AddSingleton<Prefixes>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 

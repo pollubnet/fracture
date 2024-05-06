@@ -106,13 +106,13 @@ namespace Fracture.Server.Modules.Items.Models
             int maxAbsoluteStatValue = -1;
             ItemStat maxAbsoluteStatName = ItemStat.Luck;
 
-            foreach (var stat in item.Statistics)
+            foreach (var stat in Enum.GetValues<ItemStat>())
             {
-                int absoluteStatValue = Math.Abs(stat.Value);
+                int absoluteStatValue = Math.Abs(item.Statistics.GetStatFromItemStat(stat));
                 if (absoluteStatValue > maxAbsoluteStatValue)
                 {
                     maxAbsoluteStatValue = absoluteStatValue;
-                    maxAbsoluteStatName = stat.Key;
+                    maxAbsoluteStatName = stat;
                 }
             }
             return maxAbsoluteStatName;
@@ -120,6 +120,8 @@ namespace Fracture.Server.Modules.Items.Models
 
         private void addStatPrefix(Item item, ItemStat stat)
         {
+            // TODO: findStatPrefxi(item, stat)
+
             if (stat == ItemStat.Luck)
             {
                 findStatPrefix(item, ItemStat.Luck);
@@ -144,7 +146,7 @@ namespace Fracture.Server.Modules.Items.Models
 
         private void findStatPrefix(Item item, ItemStat itemStat)
         {
-            int statValue = item.Statistics[itemStat];
+            int statValue = item.Statistics.GetStatFromItemStat(itemStat);
             foreach (var iteration in StatNames[itemStat])
             {
                 if (statValue >= iteration.Value)
@@ -157,7 +159,8 @@ namespace Fracture.Server.Modules.Items.Models
 
         public void addPrefixes(Item item)
         {
-            int totalStats = item.Statistics.Sum(x => x.Value);
+            int totalStats = Enum.GetValues<ItemStat>()
+                .Aggregate(0, (acc, y) => acc + item.Statistics.GetStatFromItemStat(y));
             int statsNumber = Enum.GetNames(typeof(ItemStat)).Length;
             float statsAverage = (float)totalStats / statsNumber;
             if (statsAverage >= 81)
