@@ -3,7 +3,7 @@ using System;
 
 namespace Fracture.Server.Modules.Items.Models
 {
-    public class Prefixes
+    public class PrefixesGenerator
     {
         private static readonly Dictionary<string, int> PerfectionNames =
             new()
@@ -87,6 +87,13 @@ namespace Fracture.Server.Modules.Items.Models
                     }
                 },
             };
+        
+        private readonly INameGenerator _nameGenerator;
+
+        public PrefixesGenerator(INameGenerator nameGenerator)
+        {
+            _nameGenerator = nameGenerator;
+        }
 
         private void AddPerfectionPrefix(Item item, float statsAverage)
         {
@@ -130,7 +137,7 @@ namespace Fracture.Server.Modules.Items.Models
             }
         }
 
-        public void AddPrefixes(Item item)
+        public async Task AddPrefixes(Item item)
         {
             int totalStats = Enum.GetValues<ItemStat>()
                 .Aggregate(0, (acc, y) => acc + item.Statistics.GetStatFromItemStat(y));
@@ -138,7 +145,7 @@ namespace Fracture.Server.Modules.Items.Models
             float statsAverage = (float)totalStats / statsNumber;
             if (statsAverage >= 81)
             {
-                // TODO: special name generator
+                item.Name = await _nameGenerator.GenerateNameAsync();
                 return;
             }
             ItemStat stat = FindMaxAbsoluteStat(item);

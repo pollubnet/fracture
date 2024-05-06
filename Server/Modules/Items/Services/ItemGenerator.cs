@@ -10,9 +10,9 @@ namespace Fracture.Server.Modules.Items.Services
         private readonly Random _rnd;
         private readonly List<RarityModifier> _modifiers;
         private readonly INameGenerator _nameGenerator;
-        private readonly Prefixes _prefixes;
+        private readonly PrefixesGenerator _prefixes;
 
-        public ItemGenerator(INameGenerator nameGenerator, Prefixes prefixes)
+        public ItemGenerator(INameGenerator nameGenerator, PrefixesGenerator prefixes)
         {
             _nameGenerator = nameGenerator;
             _prefixes = prefixes;
