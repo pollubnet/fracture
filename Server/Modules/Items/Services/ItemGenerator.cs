@@ -42,7 +42,7 @@ namespace Fracture.Server.Modules.Items.Services
             var rndType = _rnd.Next(0, Enum.GetValues<ItemType>().Length);
             item.Type = (ItemType)rndType;
 
-            _prefixes.addPrefixes(item);
+            _prefixes.AddPrefixes(item);
 
             return item;
         }
