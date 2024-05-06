@@ -117,33 +117,7 @@ namespace Fracture.Server.Modules.Items.Models
             return maxAbsoluteStatName;
         }
 
-        private void AddStatPrefix(Item item, ItemStat stat)
-        {
-            // TODO: findStatPrefxi(item, stat)
-
-            if (stat == ItemStat.Luck)
-            {
-                FindStatPrefix(item, ItemStat.Luck);
-            }
-            else if (stat == ItemStat.Health)
-            {
-                FindStatPrefix(item, ItemStat.Health);
-            }
-            else if (stat == ItemStat.Armor)
-            {
-                FindStatPrefix(item, ItemStat.Armor);
-            }
-            else if (stat == ItemStat.Power)
-            {
-                FindStatPrefix(item, ItemStat.Power);
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        private void FindStatPrefix(Item item, ItemStat itemStat)
+        private void AddStatPrefix(Item item, ItemStat itemStat)
         {
             int statValue = item.Statistics.GetStatFromItemStat(itemStat);
             foreach (var iteration in StatNames[itemStat])
@@ -168,8 +142,10 @@ namespace Fracture.Server.Modules.Items.Models
                 return;
             }
             ItemStat stat = FindMaxAbsoluteStat(item);
+
             AddStatPrefix(item, stat);
             AddPerfectionPrefix(item, statsAverage);
+            item.Name += item.Type.ToString();
         }
     }
 }
