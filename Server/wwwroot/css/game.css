@@ -229,6 +229,7 @@ body {
     background-color: rgba(0,0,0,0.5);
     width: calc(100% - (var(--popup-padding) * 2));
     height: calc(100% - (var(--popup-padding) * 2));
+    backdrop-filter: blur(1px);
 }
 
 .statManager {
@@ -357,11 +358,12 @@ body {
     display: flex;
     flex-direction: column;
 }
-.equipmentContent{
+.equipmentContent {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin: 0;
+    backdrop-filter: blur(1px);
 }
 .buttonEquip {
     background-color: rgba(138, 136, 136, 0.9);
@@ -371,6 +373,9 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 5px;
+}
+.buttonEquipBg {
+    backdrop-filter: blur(1px);
 }
 .eqColumn {
     width: 50%;
