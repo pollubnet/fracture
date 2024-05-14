@@ -1,7 +1,7 @@
 ﻿@using Fracture.Server.Modules.Items.Models
 @using System.Collections.ObjectModel
 
-<table class="table">
+<table>
     @foreach (var itemStat in Enum.GetValues<ItemStat>())
     {
         var stat = Equipment.Sum(x => x.Statistics.GetStatFromItemStat(itemStat));
@@ -9,16 +9,22 @@
         @if (stat <= 0)
             color = "text-danger";
 
-        <tr><td>@itemStat</td><td class="@color text-end">@stat</td></tr>
+        var statImage = (StatImage[])Enum.GetValues(typeof(StatImage));
+        string stringStatImage = statImage[x].ToString();
+        stringStatImage = "assets/" + stringStatImage + ".svg";
+        <tr><td><img src=@stringStatImage></td><td>@itemStat</td><td class="@color text-end">@stat</td></tr>
+        x += 1;
     }
 </table>
 
 @code {
-
+    
     [Parameter] public required ObservableCollection<Item> Equipment { get; set; }
 
     protected override void OnInitialized()
     {
         Equipment.CollectionChanged += (sender, e) => StateHasChanged();
     }
+
+    int x = 0;
 }
