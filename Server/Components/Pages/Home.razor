@@ -17,10 +17,13 @@
 @inject NavigationManager NavigationManager
 
 <div id="container">
-	Nazwa użytkownika: <input type="text" @bind="_username" />
 	<PopupContainer @ref="_popup"></PopupContainer>
-	<div @onclick="() => _popup.ShowComponent<LoginPopup>()">
-		<button @onclick="HandleUserLogin">Zaloguj (lub stwórz)</button>	
+	<div class="login">
+		LOGIN
+		<br>
+		<input type="text" @bind="_username"/>
+		<br>
+		<button @onclick="HandleUserLogin">Zaloguj (lub stwórz)</button>
 	</div>
 </div>
 

@@ -412,6 +412,19 @@ body {
         background-color: rgb(255,0,0);
         box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
     }
+.login{
+    height: fit-content;
+    display: block;
+    margin: auto;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    top: 50%;
+    right: 50%;
+    line-height: 40px;
+    
+}    
 :root {
     --rarity-common: #808080;
     --rarity-uncommon: #8ef059;
