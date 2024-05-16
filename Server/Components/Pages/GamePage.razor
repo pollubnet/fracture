@@ -83,9 +83,7 @@
 			<div class="dialogueWindow">
 				tutaj log mojej gry<br />
 				tutaj log mojej gry<br />
-				<button @onclick="HandleUserLogin">GRAJ</button>
-				<PopupContainer @ref="_popup"></PopupContainer>
-					
+                <PopupContainer @ref="_popup"></PopupContainer>
 			</div>
 		</div>
 		<div class="cristalBox">
@@ -266,8 +264,9 @@
 	private string _loginInfo = string.Empty;
 
 	
-	protected override  Task OnInitializedAsync()
+	protected override Task OnInitializedAsync()
 	{
+		HandleUserLogin();
 		_equipmentPopupParameters = new()
 	    {
 	        {"Inventory", _inventory},
