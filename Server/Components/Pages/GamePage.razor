@@ -1,4 +1,5 @@
-﻿@page "/game"
+﻿@page "/game/{_username}"
+
 @rendermode InteractiveServer
 
 @using Fracture.Server.Components.Layout
@@ -9,11 +10,14 @@
 @using System.Reflection.Metadata
 @using Fracture.Server.Modules.Database
 @using Fracture.Server.Modules.Users
-
+@using Fracture.Server.Components.Pages
 @layout GameLayout
 @inject IUsersRepository UsersRepository
+@inject NavigationManager Navigation
 
-<div id="container">
+
+
+<div id="container" >
 	<div class="leftPanel borderPanel">
 		<div class="stats">
 			<div class="info">
@@ -79,10 +83,9 @@
 			<div class="dialogueWindow">
 				tutaj log mojej gry<br />
 				tutaj log mojej gry<br />
-				Nazwa użytkownika: <input type="text" @bind="_username" />
-				<button @onclick="HandleUserLogin">Zaloguj (lub stwórz)</button>
-				<h3>@_loginInfo</h3>
+				<button @onclick="HandleUserLogin">GRAJ</button>
 				<PopupContainer @ref="_popup"></PopupContainer>
+					
 			</div>
 		</div>
 		<div class="cristalBox">
@@ -250,48 +253,49 @@
 
 
 @code {
+	private User _user = new(); 
 	private readonly ObservableCollection<Item> _equipment = new();
 	private readonly ObservableCollection<Item> _inventory = new();
 
-    private User _user = new();
-	private string _username = String.Empty;
+	private bool logged = false;
+   [Parameter] public string  _username { get; set; }
 
     private Dictionary<string, object> _equipmentPopupParameters = null!;
 
 	private PopupContainer _popup = null!;
 	private string _loginInfo = string.Empty;
 
-	protected override Task OnInitializedAsync()
+	
+	protected override  Task OnInitializedAsync()
 	{
 		_equipmentPopupParameters = new()
 	    {
 	        {"Inventory", _inventory},
 	        {"Equipment", _equipment},
-	        {"UserData", _user}
+	        {"UserData",  _user}
 		};
 		return base.OnInitializedAsync();
 	}
 
 	private async Task HandleUserLogin()
 	{
+		
 		var user = await UsersRepository.GetUserAsync(_username);
 		if (user == null)
 		{
-			user = new User
-			{
-			    Username = _username,
-			    CreatedAt = DateTime.UtcNow
-			};
-			await UsersRepository.AddUserAsync(user);
+			Navigation.NavigateTo($"/home");
 		}
-	    _user = user;
-		_equipmentPopupParameters["UserData"] = _user;
-	    _loginInfo = $"Zalogowano: {_user.Username}";
-        if (_popup.Component is not null && _popup.Component.Instance is not null && _popup.Component.Type == typeof(EquipmentPopup))
-	    {
-	        var equipmentPopup = (EquipmentPopup)_popup.Component.Instance;
-	        equipmentPopup.UserData = _user;
-			equipmentPopup.Refresh();
-	    }
+		else
+		{ 
+			_user = user;
+			_equipmentPopupParameters["UserData"] = _user;
+			if (_popup.Component is not null && _popup.Component.Instance is not null && _popup.Component.Type == typeof(EquipmentPopup))
+			{
+				var equipmentPopup = (EquipmentPopup)_popup.Component.Instance;
+				equipmentPopup.UserData = _user;
+				equipmentPopup.Refresh();
+			}
+		}
+		
 	}
 }
