@@ -286,8 +286,8 @@
         var user = await UsersRepository.GetUserAsync(username.Value!);
         if (user is null)
         {
-            NavigationManager.NavigateTo($"/");
-            return;
+            user = new User { Username = username.Value! };
+            await UsersRepository.AddUserAsync(user);
         }
 
         _user = user;
