@@ -6,7 +6,7 @@
     {
         var stat = Equipment.Sum(x => x.Statistics.GetStatFromItemStat(itemStat));
         <tr><td><img src=@("assets/" + images[itemStat])></td><td>@itemStat</td><td>@stat</td></tr>
-    }    
+    }
 </table>
 
 @code {

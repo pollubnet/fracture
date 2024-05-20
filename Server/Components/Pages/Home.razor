@@ -16,70 +16,33 @@
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
 
-<div id="container">
-	<PopupContainer @ref="_popup"></PopupContainer>
-	<div class="login">
-		LOGIN
-		<br>
-		<input type="text" @bind="_username" onkeyup="@Enter"/>
-		<br>
-		<button @onclick="HandleUserLogin">Login or create account</button>
-	</div>
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject ProtectedSessionStorage ProtectedSessionStore
+
+<div id="container">    
+    <div class="login">
+        LOGIN
+        <br>
+        <input type="text" @bind="_username" onkeyup="@Enter" />
+        <br>
+        <button @onclick="HandleUserLogin">Login or create account</button>
+    </div>
 </div>
 
 @code {
+    private async Task Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            await HandleUserLogin();
+        }
+    }
 
-	private void Enter(KeyboardEventArgs e)
-	{
-		if (e.Code == "Enter" || e.Code == "NumpadEnter")
-		{
-			HandleUserLogin();
-		}
-	}
-	
-	private readonly ObservableCollection<Item> _equipment = new();
-	private readonly ObservableCollection<Item> _inventory = new();
-	private User _user = new();
-	private string _username = String.Empty;
-	
-	private PopupContainer _popup = null!;
-	private string _loginInfo = string.Empty;
-	private Dictionary<string, object> _equipmentPopupParameters = null!;
-	protected override Task OnInitializedAsync()
-	{
-		_equipmentPopupParameters = new()
-		{
-			{"Inventory", _inventory},
-			{"Equipment", _equipment},
-			{"UserData", _user}
-		};
-		return base.OnInitializedAsync();
-	}
-	
-	private async Task HandleUserLogin()
-	{
-		
-		var user = await UsersRepository.GetUserAsync(_username);
-		if (user == null)
-		{
-			user = new User
-			{
-				Username = _username,
-				CreatedAt = DateTime.UtcNow
-			};
-			await UsersRepository.AddUserAsync(user);
-		}
-		_user = user;
-		_equipmentPopupParameters["UserData"] = _user;
-		_loginInfo = $"Zalogowano: {_user.Username}";
-		if (_popup.Component is not null && _popup.Component.Instance is not null && _popup.Component.Type == typeof(EquipmentPopup))
-		{
-			var equipmentPopup = (EquipmentPopup)_popup.Component.Instance;
-			equipmentPopup.UserData = _user;
-			equipmentPopup.Refresh();
-		}
-		NavigationManager.NavigateTo($"/game/{_username}");
-	}
+    private string _username = String.Empty;
 
-	
+    private async Task HandleUserLogin()
+    {
+        await ProtectedSessionStore.SetAsync("username", _username);
+        NavigationManager.NavigateTo($"/game");
+    }
 }
