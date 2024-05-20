@@ -6,6 +6,7 @@ using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.NameGenerators;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,5 +58,11 @@ app.MapControllers();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<FractureDbContext>();
+    db.Database.Migrate();
+}
 
 app.Run();
