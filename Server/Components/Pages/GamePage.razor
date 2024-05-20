@@ -17,7 +17,7 @@
 @layout GameLayout
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
-
+@inject IItemsRepository ItemsRepository
 
 
 <div id="container">
@@ -291,19 +291,25 @@
         }
 
         _user = user;
+
+        _inventory.Clear();
+        _equipment.Clear();
+        foreach (var item in await ItemsRepository.GetItemsOfUserAsync(_user.Id))
+        {
+            _inventory.Add(item);
+        }
+
+        foreach (var item in _inventory.ToList().Where(i => i.IsEquipped))
+        {
+            _equipment.Add(item);
+        }
+
         _equipmentPopupParameters = new()
         {
             { "UserData", _user },
             { "Equipment", _equipment },
             { "Inventory", _inventory }
         };
-
-        if (_popup.Component is not null && _popup.Component.Instance is not null && _popup.Component.Type == typeof(EquipmentPopup))
-        {
-            var equipmentPopup = (EquipmentPopup)_popup.Component.Instance;
-            equipmentPopup.UserData = _user;
-            equipmentPopup.Refresh();
-        }
 
         await base.OnInitializedAsync();
     }
