@@ -1,49 +1,73 @@
 ﻿@page "/"
+@page "/home"
+
+@rendermode InteractiveServer
+
 @using Fracture.Server.Components.Layout
-@layout BaseLayout
+@using Fracture.Server.Modules.Items.Models
+@using Fracture.Server.Components.Popups
+@using System.Collections.ObjectModel
+@using Fracture.Server.Modules.Database
+@using Fracture.Server.Modules.Users
+@using Fracture.Server.Components.UI
+@using Microsoft.AspNetCore.Mvc
 
-<PageTitle>Home</PageTitle>
+@layout GameLayout
+@inject IUsersRepository UsersRepository
+@inject NavigationManager NavigationManager
 
-<header class="py-5">
-    <div class="container px-5 pb-5">
-        <div class="row gx-5 align-items-center">
-            <div class="col-xxl-5">                
-                <div class="text-center text-xxl-start">
-                    <div class="badge bg-gradient-primary-to-secondary text-white mb-4">
-                        <div class="text-uppercase">Fun &middot; Development &middot; AI</div>
-                    </div>
-                    <div class="fs-3 fw-light text-muted">Welcome to the</div>
-                    <h1 class="display-3 fw-bolder mb-5">
-                        <span class="text-gradient d-inline">
-                            Fractured Magical World
-                        </span>
-                    </h1>
-                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
-                        <NavLink class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder"
-                           href="game">Go</NavLink>                        
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-7">                
-                <div class="d-flex justify-content-center mt-5 mt-xxl-0">                    
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<div id="container">
+	Nazwa użytkownika: <input type="text" @bind="_username" />
+	<PopupContainer @ref="_popup"></PopupContainer>
+	<div @onclick="() => _popup.ShowComponent<LoginPopup>()">
+		<button @onclick="HandleUserLogin">Zaloguj (lub stwórz)</button>	
+	</div>
+</div>
 
-<section class="bg-primary py-5">
-    <div class="container px-5">
-        <div class="row gx-5 justify-content-center">
-            <div class="col-xxl-8">
-                <div class="text-center my-5">
-                    <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">About</span></h2>
-                    <p class="lead fw-light mb-4">This is Fracture, an AI-powered web text RPG.</p>
-                    <p class="text-muted">
-                        Every day you are transported to another world full of wonders, threats, allies and enemies. Every day something new awakens. But where is the end of this strange journey?
-                    </p>                    
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@code {
+	private readonly ObservableCollection<Item> _equipment = new();
+	private readonly ObservableCollection<Item> _inventory = new();
+	private User _user = new();
+	private string _username = String.Empty;
+	
+	private PopupContainer _popup = null!;
+	private string _loginInfo = string.Empty;
+	private Dictionary<string, object> _equipmentPopupParameters = null!;
+	protected override Task OnInitializedAsync()
+	{
+		_equipmentPopupParameters = new()
+		{
+			{"Inventory", _inventory},
+			{"Equipment", _equipment},
+			{"UserData", _user}
+		};
+		return base.OnInitializedAsync();
+	}
+	
+	private async Task HandleUserLogin()
+	{
+		
+		var user = await UsersRepository.GetUserAsync(_username);
+		if (user == null)
+		{
+			user = new User
+			{
+				Username = _username,
+				CreatedAt = DateTime.UtcNow
+			};
+			await UsersRepository.AddUserAsync(user);
+		}
+		_user = user;
+		_equipmentPopupParameters["UserData"] = _user;
+		_loginInfo = $"Zalogowano: {_user.Username}";
+		if (_popup.Component is not null && _popup.Component.Instance is not null && _popup.Component.Type == typeof(EquipmentPopup))
+		{
+			var equipmentPopup = (EquipmentPopup)_popup.Component.Instance;
+			equipmentPopup.UserData = _user;
+			equipmentPopup.Refresh();
+		}
+		NavigationManager.NavigateTo($"/game/{_username}");
+	}
+
+	
+}
