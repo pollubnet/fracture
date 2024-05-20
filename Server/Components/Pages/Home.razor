@@ -21,13 +21,22 @@
 	<div class="login">
 		LOGIN
 		<br>
-		<input type="text" @bind="_username"/>
+		<input type="text" @bind="_username" onkeyup="@Enter"/>
 		<br>
-		<button @onclick="HandleUserLogin">Zaloguj (lub stwórz)</button>
+		<button @onclick="HandleUserLogin">Login or create account</button>
 	</div>
 </div>
 
 @code {
+
+	private void Enter(KeyboardEventArgs e)
+	{
+		if (e.Code == "Enter" || e.Code == "NumpadEnter")
+		{
+			HandleUserLogin();
+		}
+	}
+	
 	private readonly ObservableCollection<Item> _equipment = new();
 	private readonly ObservableCollection<Item> _inventory = new();
 	private User _user = new();
