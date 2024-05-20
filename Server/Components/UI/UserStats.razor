@@ -5,20 +5,12 @@
     @foreach (var itemStat in Enum.GetValues<ItemStat>())
     {
         var stat = Equipment.Sum(x => x.Statistics.GetStatFromItemStat(itemStat));
-        var color = "";
-        @if (stat <= 0)
-            color = "text-danger";
-
-        var statImage = (StatImage[])Enum.GetValues(typeof(StatImage));
-        string stringStatImage = statImage[x].ToString();
-        stringStatImage = "assets/" + stringStatImage + ".svg";
-        <tr><td><img src=@stringStatImage></td><td>@itemStat</td><td class="@color text-end">@stat</td></tr>
-        x += 1;
+        <tr><td><img src=@("assets/" + images[itemStat])></td><td>@itemStat</td><td>@stat</td></tr>
     }
 </table>
 
 @code {
-    
+
     [Parameter] public required ObservableCollection<Item> Equipment { get; set; }
 
     protected override void OnInitialized()
@@ -26,5 +18,11 @@
         Equipment.CollectionChanged += (sender, e) => StateHasChanged();
     }
 
-    int x = 0;
+    Dictionary<ItemStat, string> images = new()
+    {
+        { ItemStat.Power, "sword.svg" },
+        { ItemStat.Armor, "shield.svg" },
+        { ItemStat.Luck, "clover.svg" },
+        { ItemStat.Health, "heart.svg" }
+    };
 }
