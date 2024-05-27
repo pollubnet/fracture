@@ -1,0 +1,47 @@
+﻿@using Fracture.Server.Components.UI
+@using Fracture.Server.Modules.Items.Models
+@using Fracture.Server.Modules.Items.Services
+@using System.Collections.ObjectModel
+
+@rendermode InteractiveServer
+
+<table class="equipmentTable">
+    <tr>
+        @for (int i = 0; i < 3; i++)
+        {
+            if (i < Equipment.Count)
+            {
+                <td>@Equipment[i].Name</td>
+            }
+            else
+            {
+                <td></td>
+            }
+        }
+    </tr>
+
+    <tr>
+        @for (int i = 3; i < 6; i++)
+        {
+            if (i < Equipment.Count)
+            {
+                <td>@Equipment[i].Name</td>
+            }
+            else
+            {
+                <td></td>
+            }
+        }
+    </tr>
+
+
+</table>
+
+@code {
+    [Parameter] public required ObservableCollection<Item> Equipment { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Equipment.CollectionChanged += (sender, e) => StateHasChanged();
+    }
+}

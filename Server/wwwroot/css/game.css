@@ -346,8 +346,8 @@ body {
 
     .equipmentTable tr td {
         border: #000 3px solid;
-        width: 60px;
-        height: 60px;
+        width: 100px;
+        height: 100px;
         background-color: rgb(222, 222, 255);
     }
 
