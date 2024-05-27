@@ -5,6 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>16f71bc9-60c6-466f-af95-a2818674e57c</UserSecretsId>
   </PropertyGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\items.css" />
+  </ItemGroup>
   <ItemGroup>    
     <PackageReference Include="Markov" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
