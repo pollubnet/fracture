@@ -1,0 +1,11 @@
+﻿.item-reliable {
+    filter: drop-shadow(16px 16px 20px red) invert(75%);
+}
+
+.item-toxic {
+    filter: drop-shadow(16px 16px 20px green);
+}
+
+.item-poisoned {
+    font-family: Webdings;
+}
