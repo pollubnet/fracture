@@ -26,7 +26,7 @@ namespace Fracture.Server.Modules.Items.Services
         public async Task<Item> Generate()
         {
             var value = _rnd.NextSingle();
-            var modifier = _modifiers.First(m => m.ValueBelow > value
+            var modifier = _modifiers.First(m => m.ValueBelow > value);
             var item = new Item { Rarity = modifier.Rarity, CreatedAt = DateTime.UtcNow };
 
             var stats = new ItemStatistics { Item = item };
