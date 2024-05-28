@@ -1,6 +1,13 @@
-﻿/*Perfection*/
+﻿@import url('https://fonts.googleapis.com/css2?family=Anton&family=Teko:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Jaro:opsz@6..72&family=Teko:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Jaro:opsz@6..72&family=Space+Grotesk:wght@300..700&family=Teko:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jaro:opsz@6..72&family=Space+Grotesk:wght@300..700&family=Teko:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jaro:opsz@6..72&family=Pacifico&family=Space+Grotesk:wght@300..700&family=Teko:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jaro:opsz@6..72&family=Pacifico&family=Shadows+Into+Light&family=Space+Grotesk:wght@300..700&family=Teko:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jaro:opsz@6..72&family=Luxurious+Script&family=Pacifico&family=Shadows+Into+Light&family=Space+Grotesk:wght@300..700&family=Teko:wght@300..700&display=swap');
 
-
+/*Perfection*/
 .item-eldritch{
     box-shadow: 0 0 5px #8d38ff, 0 0 25px #8d38ff;
 } 
@@ -31,34 +38,62 @@
 
 /*Luck*/
 .item-destined{
-    background-color:rgba(255,226,132, 1); 
-}
+    animation: unbreakable 5s alternate infinite;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;}
 .item-predestined{
-    background-color:rgba(255,248,194, 1);
+    animation: vital 5s alternate infinite;
+    font-family: "Teko", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 .item-prosperous{
-    background-color:rgba(241,136,5, 1);
+    animation: sturdy 5s alternate infinite;
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 .item-fortunate{
-    background-color:rgba(44,234,163, 1);
+    animation: durable 5s alternate infinite;
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 .item-lucky{
     
 }
 .item-unlucky{
-    background-color:rgba(42,96,65, 0.5);
+    animation:  delicate 5s alternate infinite;
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 .item-unfortunate{
-    background-color:rgba(255,226,132, 0.5);
+    animation: feeble 5s alternate infinite;
+    font-family: "Comic Sans MS", sans-serif;
+    font-style: normal;
 }
 .item-clumsy{
-    background-color:rgba(158,95,52, 0.6);
+    animation: flimsy 5s alternate infinite;
+    font-family: "Pacifico", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 .item-fateful{
-    background-color:rgba(114,47,55, 0.7);
+    animation: fragile 5s alternate infinite;
+    font-family: "Shadows Into Light", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 .item-misfortune-laden{
-    background-color: #a089ff   ;
+    animation: ethereal 5s alternate infinite;
+    font-family: "Luxurious Script", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
 
 /*Health*/
@@ -73,6 +108,9 @@
 }
 .item-unbreakable{
     animation: unbreakable 5s alternate infinite;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 @keyframes vital {
     0%, 100% {
@@ -84,6 +122,10 @@
 }
 .item-vital{
     animation: vital 5s alternate infinite;
+    font-family: "Teko", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 @keyframes sturdy {
     0%, 100% {
@@ -95,7 +137,11 @@
 }
 .item-sturdy{
     animation: sturdy 5s alternate infinite;
-}
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}  
 @keyframes durable {
     0%, 100% {
         background-color: rgba(14, 112,132,1);
@@ -106,6 +152,10 @@
 }
 .item-durable{
     animation: durable 5s alternate infinite;
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 @keyframes delicate{
     0%, 100% {
@@ -117,6 +167,9 @@
 }
 .item-delicate{
     animation:  delicate 5s alternate infinite;
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 @keyframes feeble {
     0%, 100% {
@@ -128,6 +181,8 @@
 }
 .item-feeble{
     animation: feeble 5s alternate infinite;
+    font-family: "Comic Sans MS", sans-serif;
+    font-style: normal;
 }
 @keyframes fragile {
     0%, 100% {
@@ -138,7 +193,10 @@
     }
 }
 .item-fragile{
-    animation: fargile 5s alternate infinite;
+    animation: fragile 5s alternate infinite;
+    font-family: "Shadows Into Light", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 @keyframes flimsy {
     0%, 100% {
@@ -150,6 +208,9 @@
 }
 .item-flimsy{
     animation: flimsy 5s alternate infinite;
+    font-family: "Pacifico", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 @keyframes ethereal {
     0%, 100% {
@@ -161,4 +222,124 @@
 }
 .item-ethereal{
     animation: ethereal 5s alternate infinite;
+    font-family: "Luxurious Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*armor*/
+
+.item-specialized{
+    animation: unbreakable 5s alternate infinite;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.item-reliable{
+    animation: vital 5s alternate infinite;
+    font-family: "Teko", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.item-reinforced{
+    animation: sturdy 5s alternate infinite;
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.item-bulky{
+    animation: durable 5s alternate infinite;
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.item-crude{
+    animation:  delicate 5s alternate infinite;
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.item-plain{
+    animation: feeble 5s alternate infinite;
+    font-family: "Comic Sans MS", sans-serif;
+    font-style: normal;
+}
+.item-rusty{
+    animation: flimsy 5s alternate infinite;
+    font-family: "Pacifico", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.item-unreliable{
+    animation: fragile 5s alternate infinite;
+    font-family: "Shadows Into Light", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.item-primitive{
+    animation: ethereal 5s alternate infinite;
+    font-family: "Luxurious Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*Power*/
+.item-lethal{
+    animation: unbreakable 5s alternate infinite;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal; 
+}
+.item-brutal{
+    animation: vital 5s alternate infinite;
+    font-family: "Teko", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal; 
+}
+.item-sharp{
+    animation: sturdy 5s alternate infinite;
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.item-precise{
+    animation: durable 5s alternate infinite;
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal; 
+}
+.item-blunt{
+    animation:  delicate 5s alternate infinite;
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 400;
+    font-style: normal; 
+}
+.item-dull{
+    animation: feeble 5s alternate infinite;
+    font-family: "Comic Sans MS", sans-serif;
+    font-style: normal; 
+}
+.item-brittle{
+    animation: flimsy 5s alternate infinite;
+    font-family: "Pacifico", sans-serif;
+    font-weight: 400;
+    font-style: normal; 
+}
+.item-weak{
+    animation: fragile 5s alternate infinite;
+    font-family: "Shadows Into Light", sans-serif;
+    font-weight: 400;
+    font-style: normal; 
+}
+.item-wasteful{
+    animation: ethereal 5s alternate infinite;
+    font-family: "Luxurious Script", cursive;
+    font-weight: 400;
+    font-style: normal; 
 }
