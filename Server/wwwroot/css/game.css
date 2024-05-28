@@ -348,11 +348,11 @@ body {
         border: #000 3px solid;
         width: 100px;
         height: 100px;
-        background-color: rgb(222, 222, 255);
+        background-color: rgba(0,0,25,0.7);
     }
 
         .equipmentTable tr td:hover {
-            background-color: rgb(191, 191, 205);
+            background-color: rgba(0,0,25,0.7);
         }
 .row{
     display: flex;
