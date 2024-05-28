@@ -1,11 +1,164 @@
-﻿.item-reliable {
-    filter: drop-shadow(16px 16px 20px red) invert(75%);
-}
+﻿/*Perfection*/
 
+
+.item-eldritch{
+    box-shadow: 0 0 5px #8d38ff, 0 0 25px #8d38ff;
+} 
+.item-efficient{
+    box-shadow: 0 0 5px #32b2ff, 0 0 25px #32b2ff;
+}
+.item-versatile{
+    box-shadow: 0 0 5px #155a8f, 0 0 25px #155a81;
+}
+.item-balanced{
+    
+}
+.item-unsteady{
+    box-shadow: 0 0 5px #beb4c9, 0 0 25px #beb4c9; 
+}
+.item-poisoned{
+    box-shadow: 0 0 5px #516e43, 0 0 25px #516e43;
+}
 .item-toxic {
-    filter: drop-shadow(16px 16px 20px green);
+    box-shadow: 0 0 5px #6d3d6f, 0 0 25px #6d3d6f;    
+}
+.item-cursed{
+    box-shadow: 0 0 5px #6e0933, 0 0 25px #6e0933;
+}
+.item-demonic{
+    box-shadow: 0 0 5px #000000, 0 0 25px #000000;
 }
 
-.item-poisoned {
-    font-family: Webdings;
+/*Luck*/
+.item-destined{
+    background-color:rgba(255,226,132, 1); 
+}
+.item-predestined{
+    background-color:rgba(255,248,194, 1);
+}
+.item-prosperous{
+    background-color:rgba(241,136,5, 1);
+}
+.item-fortunate{
+    background-color:rgba(44,234,163, 1);
+}
+.item-lucky{
+    
+}
+.item-unlucky{
+    background-color:rgba(42,96,65, 0.5);
+}
+.item-unfortunate{
+    background-color:rgba(255,226,132, 0.5);
+}
+.item-clumsy{
+    background-color:rgba(158,95,52, 0.6);
+}
+.item-fateful{
+    background-color:rgba(114,47,55, 0.7);
+}
+.item-misfortune-laden{
+    background-color: #a089ff   ;
+}
+
+/*Health*/
+
+@keyframes unbreakable {
+    0%, 100% {
+        background-color: rgba(220, 20,60 ,1);
+    }
+    50% {
+        background-color: rgba(220, 20, 60, 0.5);
+    }
+}
+.item-unbreakable{
+    animation: unbreakable 5s alternate infinite;
+}
+@keyframes vital {
+    0%, 100% {
+        background-color: rgba(254, 95, 85,1);
+    }
+    50% {
+        background-color: rgba(254, 95, 85,0.5);
+    }
+}
+.item-vital{
+    animation: vital 5s alternate infinite;
+}
+@keyframes sturdy {
+    0%, 100% {
+        background-color: rgba(0, 178,149,1);
+    }
+    50% {
+        background-color: rgba(0, 178,149,0.5);
+    }
+}
+.item-sturdy{
+    animation: sturdy 5s alternate infinite;
+}
+@keyframes durable {
+    0%, 100% {
+        background-color: rgba(14, 112,132,1);
+    }
+    50% {
+        background-color: rgba(14, 112,132,0.5);
+    }
+}
+.item-durable{
+    animation: durable 5s alternate infinite;
+}
+@keyframes delicate{
+    0%, 100% {
+        background-color: rgba(227,11,93,1);
+    }
+    50% {
+        background-color: rgba(227, 11,93,0.5);
+    }
+}
+.item-delicate{
+    animation:  delicate 5s alternate infinite;
+}
+@keyframes feeble {
+    0%, 100% {
+        background-color: rgba(158, 193,163,1);
+    }
+    50% {
+        background-color: rgba(158, 193,163,0.5);
+    }
+}
+.item-feeble{
+    animation: feeble 5s alternate infinite;
+}
+@keyframes fragile {
+    0%, 100% {
+        background-color: rgba(212, 78,174,1);
+    }
+    50% {
+        background-color: rgba(212, 78,174,0.5);
+    }
+}
+.item-fragile{
+    animation: fargile 5s alternate infinite;
+}
+@keyframes flimsy {
+    0%, 100% {
+        background-color: rgba(242, 184,163,1);
+    }
+    50% {
+        background-color: rgba(242, 184,163,0.5);
+    }
+}
+.item-flimsy{
+    animation: flimsy 5s alternate infinite;
+}
+@keyframes ethereal {
+    0%, 100% {
+        background-color: rgba(135, 191,255,1);
+    }
+    50% {
+        background-color: rgba(135, 191,255,0.5);
+    }
+}
+.item-ethereal{
+    animation: ethereal 5s alternate infinite;
 }
