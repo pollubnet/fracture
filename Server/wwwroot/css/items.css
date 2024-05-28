@@ -200,7 +200,7 @@
 }
 @keyframes flimsy {
     0%, 100% {
-        background-color: rgba(242, 184,163,1)
+        background-color: rgba(242, 184,163,1);
     }
     50% {
         background-color: rgba(242, 184,163,0.5);
