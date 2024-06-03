@@ -13,9 +13,10 @@
     margin-left: auto;
     text-align: center;
     display: flex;
+    margin-right: auto;
     align-items: center;
-    width: auto;
-    height: auto;
+    width: 90%;
+    height: 90%;
 }
 
 .item-eldritch{
