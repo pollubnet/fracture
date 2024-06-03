@@ -10,54 +10,41 @@
 /*Perfection*/
 
 .item-eldritch, .item-efficient, .item-versatile, .item-balanced, .item-unsteady, .item-poisoned, .item-toxic, .item-cursed, .item-demonic{
-    margin-left: 5px;
+    margin-left: auto;
     text-align: center;
     display: flex;
     align-items: center;
+    width: auto;
+    height: auto;
 }
 
 .item-eldritch{
     box-shadow: 0 0 5px #8d38ff, 0 0 25px #8d38ff;
-    width: 90%;
-    height: 90%;
+
 } 
 .item-efficient{
     box-shadow: 0 0 5px #32b2ff, 0 0 25px #32b2ff;
-    width: 90%;
-    height: 90%;
 }
 .item-versatile{
     box-shadow: 0 0 5px #155a8f, 0 0 25px #155a81;
-    width: 90%;
-    height: 90%;
 }
 .item-balanced{
     
 }
 .item-unsteady{
     box-shadow: 0 0 5px #beb4c9, 0 0 25px #beb4c9;
-    width: 90%;
-    height: 90%;
 }
 .item-poisoned{
     box-shadow: 0 0 5px #516e43, 0 0 25px #516e43;
-    width: 90%;
-    height: 90%;
 }
 .item-toxic {
     box-shadow: 0 0 5px #6d3d6f, 0 0 25px #6d3d6f;
-    width: 90%;
-    height: 90%;
 }
 .item-cursed{
     box-shadow: 0 0 5px #6e0933, 0 0 25px #6e0933;
-    width: 90%;
-    height: 90%;
 }
 .item-demonic{
     box-shadow: 0 0 5px #000000, 0 0 25px #000000;
-    width: 90%;
-    height: 90%;
 }
 
 /*Luck*/
