@@ -1,11 +1,14 @@
-﻿@inherits LayoutComponentBase
+﻿@using Fracture.Server.Modules.Shared
+@inherits LayoutComponentBase
+@inject VersionInfoProvider VersionInfoProvider
 
 <HeadContent>
     <link rel="stylesheet" href="css/game.css">
+    <meta name="generator" content="Fracture @VersionInfoProvider.ShortVersion">
 </HeadContent>
 
 @Body
 
 @code {
-    
+
 }
