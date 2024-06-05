@@ -16,6 +16,7 @@ builder.Services.Configure<NameGeneratorConfig>(builder.Configuration.GetSection
 builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
+builder.Services.AddSingleton<VersionInfoProvider>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 

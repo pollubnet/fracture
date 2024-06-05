@@ -14,11 +14,12 @@
 @using Fracture.Server.Modules.Database
 @using Fracture.Server.Modules.Users
 @using Fracture.Server.Components.Pages
+@using Fracture.Server.Modules.Shared
 @layout GameLayout
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
 @inject IItemsRepository ItemsRepository
-
+@inject VersionInfoProvider VersionInfoProvider
 
 <div id="container">
     <div class="leftPanel borderPanel">
