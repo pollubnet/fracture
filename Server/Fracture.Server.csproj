@@ -4,6 +4,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>16f71bc9-60c6-466f-af95-a2818674e57c</UserSecretsId>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
   </PropertyGroup>
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\items.css" />
@@ -26,5 +29,8 @@
   <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
     <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />
     <Exec Command="dotnet husky install" StandardOutputImportance="Low" StandardErrorImportance="High" WorkingDirectory=".." />
+  </Target>
+  <Target Name="GitVersion" BeforeTargets="Build">
+    <Exec Command="dotnet tool run dotnet-gitversion /updateassemblyinfo AssemblyInfo.cs /ensureassemblyinfo" StandardOutputImportance="Low" StandardErrorImportance="High" />
   </Target>
 </Project>
