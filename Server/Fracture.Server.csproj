@@ -31,6 +31,6 @@
     <Exec Command="dotnet husky install" StandardOutputImportance="Low" StandardErrorImportance="High" WorkingDirectory=".." />
   </Target>
   <Target Name="GitVersion" BeforeTargets="Build">
-    <Exec Command="dotnet tool run dotnet-gitversion /updateassemblyinfo AssemblyInfo.cs /ensureassemblyinfo" StandardOutputImportance="Low" StandardErrorImportance="High" />
+    <Exec Command="dotnet dotnet-gitversion /updateassemblyinfo AssemblyInfo.cs /ensureassemblyinfo" StandardOutputImportance="High" StandardErrorImportance="High" />
   </Target>
 </Project>
