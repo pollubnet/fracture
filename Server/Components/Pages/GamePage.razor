@@ -29,170 +29,177 @@
 @inject IMapGeneratorService MapGeneratorService
 
 <div id="container">
-    <div class="leftPanel borderPanel">
-        <div class="stats">
-            <div class="info">
-                <div class="info-content">
-                    <div @onclick="() => _popup.ShowComponent<StatsPopup>()">
-                        <img src="assets/infobutton.svg" />
-                    </div>
-                </div>
-            </div>
-            <UserStats Equipment="_equipment"></UserStats>
-        </div>
-        <div class="equipment">
-            <div class="info">
-                <div class="info-content">
-                    <div @onclick="() => _popup.ShowComponent<EquipmentPopup>(_equipmentPopupParameters)">
-                        <img src="assets/infobutton.svg" />
-                    </div>
-                </div>
-            </div>
-            <EquipmentTable Equipment="@_equipment" />
-        </div>
+	<div class="leftPanel borderPanel">
+		<div class="stats">
+			<div class="info">
+				<div class="info-content">
+					<div @onclick="() => _popup.ShowComponent<StatsPopup>()">
+						<img src="assets/infobutton.svg" />
+					</div>
+				</div>
+			</div>
+			<UserStats Equipment="_equipment"></UserStats>
+		</div>
+		<div class="equipment">
+			<div class="info">
+				<div class="info-content">
+					<div @onclick="() => _popup.ShowComponent<EquipmentPopup>(_equipmentPopupParameters)">
+						<img src="assets/infobutton.svg" />
+					</div>
+				</div>
+			</div>
+			<EquipmentTable Equipment="@_equipment" />
+		</div>
 
-    </div>
-    <div class="midPanel borderPanel">
-        <div class="map">
-        </div>
-        <div class="eqManager">
-        </div>
-        <div class="statManager ">
-        </div>
-        <div class="dialogueWindowBg">
-            <div class="dialogueWindow">
-                Fracture @VersionInfoProvider.ShortVersion<br />
-                tutaj log mojej gry<br />
-                <PopupContainer @ref="_popup"></PopupContainer>
-            </div>
-        </div>
-        <div class="cristalBox">
-            <div class="actionButton"><div class="actionButton-content"><img src="assets/swordbutton.svg" /></div></div>
-            <div class="actionButton"><div class="actionButton-content"><img src="assets/shieldbutton.svg" /></div></div>
-            <div class="cristalCircle">
-                <div class="crystal">
-                    <img src="assets/crystal.png" alt="">
-                </div>
-            </div>
-            <div class="actionButton"><div class="actionButton-content"><img src="assets/skipbutton.svg" /></div></div>
-            <div class="actionButton"><div class="actionButton-content"><img src="assets/chatbutton.svg" /></div></div>
-        </div>
+	</div>
+	<div class="midPanel borderPanel">
+		<div class="map">
+		</div>
+		<div class="eqManager">
+		</div>
+		<div class="statManager ">
+		</div>
+		<div class="dialogueWindowBg">
+			<div class="dialogueWindow">
+				Fracture @VersionInfoProvider.ShortVersion<br />
+				tutaj log mojej gry<br />
+				<PopupContainer @ref="_popup"></PopupContainer>
+			</div>
+		</div>
+		<div class="cristalBox">
+			<div class="actionButton"><div class="actionButton-content"><img src="assets/swordbutton.svg" /></div></div>
+			<div class="actionButton"><div class="actionButton-content"><img src="assets/shieldbutton.svg" /></div></div>
+			<div class="cristalCircle">
+				<div class="crystal">
+					<img src="assets/crystal.png" alt="">
+				</div>
+			</div>
+			<div class="actionButton"><div class="actionButton-content"><img src="assets/skipbutton.svg" /></div></div>
+			<div class="actionButton"><div class="actionButton-content"><img src="assets/chatbutton.svg" /></div></div>
+		</div>
 
 
-    </div>
-    <div class="rightPanel borderPanel">
-        <div class="journal">
-            <div class="info">
-                <div class="info-content">
-                    <div @onclick="() => _popup.ShowComponent<JournalPopup>()"></div><img src="assets/infobutton.svg" />
-                </div>
-            </div>
+	</div>
+	<div class="rightPanel borderPanel">
+		<div class="journal">
+			<div class="info">
+				<div class="info-content">
+					<div @onclick="() => _popup.ShowComponent<JournalPopup>()"></div><img src="assets/infobutton.svg" />
+				</div>
+			</div>
 
-            <div class="journalPage">
-                <p>
-                    <span>Log1:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero delectus ex omnis ad magni, deserunt quae? Ex.
-                </p>
-                <p>
-                    <span>Log2:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero delectus ex omnis ad magni, deserunt quae? Ex.
-                </p>
-                <p>
-                    <span>Log3:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero delectus ex omnis ad magni, deserunt quae? Ex.
-                </p>
-            </div>
-        </div>
-        <div class="miniMap">
-            <div class="info">
-                <div class="info-content">
-                    <div @onclick="() => _popup.ShowComponent<MapPopup>()"></div><img src="assets/infobutton.svg" />
-                </div>
-            </div>
-            <MapView Map="_map" MapDisplayData="_mapDisplayData" Path="_path"></MapView>
-        </div>
-        <div class="settings">
-            <div class="settingsBtn">
-                <div class="settingsBtn-content">
-                    <img src="assets/settingsbutton.svg" />
-                </div>
-            </div>
-            <div class="settingsBtn">
-                <div class="settingsBtn-content">
-                    <img src="assets/hourglassbutton.svg" />
-                </div>
-            </div>
-            <div class="settingsBtn">
-                <div class="settingsBtn-content">
-                    <img src="assets/exitbutton.svg" />
-                </div>
-            </div>
+			<div class="journalPage">
+				<p>
+					<span>Log1:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero delectus ex omnis ad magni, deserunt quae? Ex.
+				</p>
+				<p>
+					<span>Log2:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero delectus ex omnis ad magni, deserunt quae? Ex.
+				</p>
+				<p>
+					<span>Log3:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero delectus ex omnis ad magni, deserunt quae? Ex.
+				</p>
+			</div>
+		</div>
+		<div class="miniMap">
+			<div class="info">
+				<div class="info-content">
+					<div @onclick="() => _popup.ShowComponent<MapPopup>(_mapPopupParameters)"><img src="assets/infobutton.svg" /></div>
+				</div>
+			</div>
+			<MapView Map="_map" MapDisplayData="_mapDisplayData" Path="_path"></MapView>
+		</div>
+		<div class="settings">
+			<div class="settingsBtn">
+				<div class="settingsBtn-content">
+					<img src="assets/settingsbutton.svg" />
+				</div>
+			</div>
+			<div class="settingsBtn">
+				<div class="settingsBtn-content">
+					<img src="assets/hourglassbutton.svg" />
+				</div>
+			</div>
+			<div class="settingsBtn">
+				<div class="settingsBtn-content">
+					<img src="assets/exitbutton.svg" />
+				</div>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 
 
 @code {
-    private User _user = new();
-    private readonly ObservableCollection<Item> _equipment = new();
-    private readonly ObservableCollection<Item> _inventory = new();
+	private User _user = new();
+	private readonly ObservableCollection<Item> _equipment = new();
+	private readonly ObservableCollection<Item> _inventory = new();
 
-    private Dictionary<string, object> _equipmentPopupParameters = null!;
+	private Dictionary<string, object> _equipmentPopupParameters = null!;
+	private Dictionary<string, object> _mapPopupParameters = null!;
 
-    private PopupContainer _popup = null!;
-    private string _loginInfo = string.Empty;
+	private PopupContainer _popup = null!;
+	private string _loginInfo = string.Empty;
 
-    private MapDisplayData _mapDisplayData = new();
-    private MapData? _map;
-    private List<IPathfindingNode>? _path { get; set; }
-    private NoiseParameters _noiseParameters = new();
+	private MapDisplayData _mapDisplayData = new();
+	private MapData? _map;
+	private List<IPathfindingNode>? _path { get; set; }
+	private NoiseParameters _noiseParameters = new();
 
-    protected override async Task OnInitializedAsync()
-    {
-        var username = await ProtectedSessionStore.GetAsync<string>("username");
+	protected override async Task OnInitializedAsync()
+	{
+		var username = await ProtectedSessionStore.GetAsync<string>("username");
 
-        // brak sesji
-        if (!username.Success)
-        {
-            NavigationManager.NavigateTo($"/");
-            return;
-        }
+		// brak sesji
+		if (!username.Success)
+		{
+			NavigationManager.NavigateTo($"/");
+			return;
+		}
 
-        if (string.IsNullOrEmpty(username.Value))
-        {
-            NavigationManager.NavigateTo($"/");
-            return;
-        }
+		if (string.IsNullOrEmpty(username.Value))
+		{
+			NavigationManager.NavigateTo($"/");
+			return;
+		}
 
-        var user = await UsersRepository.GetUserAsync(username.Value!);
-        if (user is null)
-        {
-            user = new User { Username = username.Value! };
-            await UsersRepository.AddUserAsync(user);
-        }
+		var user = await UsersRepository.GetUserAsync(username.Value!);
+		if (user is null)
+		{
+			user = new User { Username = username.Value! };
+			await UsersRepository.AddUserAsync(user);
+		}
 
-        _user = user;
+		_user = user;
 
-        _inventory.Clear();
-        _equipment.Clear();
-        foreach (var item in await ItemsRepository.GetItemsOfUserAsync(_user.Id))
-        {
-            _inventory.Add(item);
-        }
+		_inventory.Clear();
+		_equipment.Clear();
+		foreach (var item in await ItemsRepository.GetItemsOfUserAsync(_user.Id))
+		{
+			_inventory.Add(item);
+		}
 
-        foreach (var item in _inventory.ToList().Where(i => i.IsEquipped))
-        {
-            _equipment.Add(item);
-        }
+		foreach (var item in _inventory.ToList().Where(i => i.IsEquipped))
+		{
+			_equipment.Add(item);
+		}
 
-        _equipmentPopupParameters = new()
-        {
-            { "UserData", _user },
-            { "Equipment", _equipment },
-            { "Inventory", _inventory }
-        };
+		_equipmentPopupParameters = new()
+		{
+			{ "UserData", _user },
+			{ "Equipment", _equipment },
+			{ "Inventory", _inventory }
+		};
 
-        _map = await MapGeneratorService.GetMap(_noiseParameters);
-        _mapDisplayData.ShowColorMap = true;
+		_map = await MapGeneratorService.GetMap(_noiseParameters);
+		_mapDisplayData.ShowColorMap = true;
 
-        await base.OnInitializedAsync();
-    }
+		_mapPopupParameters = new()
+		{
+			{ "Map", _map },
+			{ "MapDisplayData", _mapDisplayData }
+		};
+
+		await base.OnInitializedAsync();
+	}
 }
