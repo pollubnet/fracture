@@ -281,17 +281,25 @@ body {
     border-bottom: #000 solid 2px;
 }
 
-.miniMapTable {
+.miniMapTable, .mapTable {
     border: #000 1px solid;
     border-collapse: collapse;
     box-shadow: 0px 0px 10px #000;
 }
 
-    .miniMapTable tr td {
+    .miniMapTable tr td, .mapTable tr td {
         border: #000 1px solid;
+        background-color: blue;
+    }
+
+    .miniMapTable tr td {
         width: 5px;
         height: 5px;
-        background-color: blue;
+    }
+
+    .mapTable tr td {
+        width: 20px;
+        height: 20px;
     }
 
 .settings {

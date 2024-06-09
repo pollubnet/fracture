@@ -5,7 +5,7 @@
 <div id="map">
     @if (Map != null && MapDisplayData != null)
     {
-        <table class="miniMapTable">
+        <table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
         @for (int y = 0; y < Map.Grid.GetLength(1); y++)
         {
             <tr>
@@ -48,6 +48,8 @@
     public MapDisplayData? MapDisplayData { get; set; }
     [Parameter]
     public List<IPathfindingNode>? Path { get; set; }
+
+    [Parameter] public bool IsMiniMap { get; set; } = true;
 
     private string GetTileColor(Node node)
     {
