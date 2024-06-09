@@ -1,0 +1,105 @@
+﻿@using MapGenerator.MapGenerators.Views.Data;
+@using MapGenerator.MapGenerators.Data;
+@using MapGenerator.Pathfindings.Data
+@using MapGenerator.Shared.Consts;
+
+<div id="content">
+    @if (Map != null && MapDisplayData != null)
+    {
+        <table>
+        @for (int y = 0; y < Map.Grid.GetLength(1); y++)
+        {
+            <tr>
+                @for (int x = 0; x < Map.Grid.GetLength(0); x++)
+                {
+                    @if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
+                    {
+                        <td style='background: @GetTileColor(@Map.Grid[x,y])'>
+                            x:@x<br />y:@y
+                        </td>
+                    }
+                    else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise)
+                    {
+                        <td style="background: @GetTileColor(@Map.Grid[x,y])">
+                            @Math.Round(Map.Grid[x, y].NoiseValue, 2)
+                        </td>
+                    }
+                    else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
+                    {
+                        <td style='background: @GetTileColor(@Map.Grid[x,y])'>
+                        </td>
+                    }
+                    else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
+                    {
+                        <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x,y])'>
+                            @GetPathForTile(Map.Grid[x, y])
+                        </td>
+                    }
+                }
+            </tr>
+        }
+        </table>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public MapData? Map { get; set; }
+    [Parameter]
+    public MapDisplayData? MapDisplayData { get; set; }
+    [Parameter]
+    public List<IPathfindingNode>? Path { get; set; }
+
+    private string GetTileColor(Node node)
+    {
+        if (MapDisplayData!.ShowColorMap)
+        {
+            return node.Color;
+        }
+
+        string hexValue = string.Format("{0:x}", (int)(node.NoiseValue * 255));
+        if (hexValue.Length == 1)
+        {
+            hexValue = "0" + hexValue;
+        }
+        return $"#{hexValue}{hexValue}{hexValue}";
+    }
+
+    private string GetPathForTile(Node node)
+    {
+        if (Path == null)
+        {
+            return "";
+        }
+
+        int pathNodeIndex = Path.FindIndex(n => n.XId == node.XId && n.YId == node.YId);
+        if (pathNodeIndex != -1 && pathNodeIndex + 1 < Path.Count)
+        {
+            int xDirection = Path[pathNodeIndex + 1].XId - Path[pathNodeIndex].XId;
+            int yDirection = Path[pathNodeIndex].YId - Path[pathNodeIndex + 1].YId;
+            return GetArrowForDirection(xDirection, yDirection);
+        }
+        return "";
+    }
+
+    private string GetArrowForDirection(int xDirection, int yDirection)
+    {
+        if (yDirection == 1 && xDirection == 0)
+            return SpecialChars.Arrows.Up;
+        else if (yDirection == 1 && xDirection == 1)
+            return SpecialChars.Arrows.UpRight;
+        else if (yDirection == 0 && xDirection == 1)
+            return SpecialChars.Arrows.Right;
+        else if (yDirection == -1 && xDirection == 1)
+            return SpecialChars.Arrows.DownRight;
+        else if (yDirection == -1 && xDirection == 0)
+            return SpecialChars.Arrows.Down;
+        else if (yDirection == -1 && xDirection == -1)
+            return SpecialChars.Arrows.DownLeft;
+        else if (yDirection == 0 && xDirection == -1)
+            return SpecialChars.Arrows.Left;
+        else if (yDirection == 1 && xDirection == -1)
+            return SpecialChars.Arrows.UpLeft;
+        return "";
+    }
+}
