@@ -289,8 +289,8 @@ body {
 
     .miniMapTable tr td {
         border: #000 1px solid;
-        width: 30px;
-        height: 30px;
+        width: 5px;
+        height: 5px;
         background-color: blue;
     }
 
