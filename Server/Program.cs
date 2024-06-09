@@ -1,4 +1,6 @@
 using Fracture.Server.Components;
+using Fracture.Server.Modules.AI.Models;
+using Fracture.Server.Modules.AI.Services;
 using Fracture.Server.Modules.Database;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Items.Services;
@@ -12,11 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<NameGeneratorConfig>(builder.Configuration.GetSection("NameGenerator"));
+builder.Services.Configure<AIBackendConfiguration>(builder.Configuration.GetSection("AiBackend"));
 
 builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
+builder.Services.AddSingleton<IAIInstructionProvider, OpenAICompatibleInstructionProvider>();
+
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 
