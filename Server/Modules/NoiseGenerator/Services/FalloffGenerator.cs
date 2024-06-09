@@ -1,4 +1,4 @@
-﻿namespace MapGenerator.NoiseGenerators;
+﻿namespace Fracture.Server.Modules.NoiseGenerator.Services;
 
 public static class FalloffGenerator
 {

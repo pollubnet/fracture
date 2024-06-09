@@ -1,4 +1,4 @@
-﻿namespace MapGenerator.MapGenerators.Data;
+﻿namespace Fracture.Server.Modules.MapGenerator.Models;
 
 public class MapData
 {
