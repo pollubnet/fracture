@@ -1,10 +1,11 @@
 ﻿@using Fracture.Server.Modules.MapGenerator.Models
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
-<div id="content">
+
+<div id="map">
     @if (Map != null && MapDisplayData != null)
     {
-        <table>
+        <table class="miniMapTable">
         @for (int y = 0; y < Map.Grid.GetLength(1); y++)
         {
             <tr>
