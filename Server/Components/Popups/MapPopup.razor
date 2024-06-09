@@ -1,5 +1,12 @@
-﻿<h3>MapPopup</h3>
+﻿@using Fracture.Server.Modules.MapGenerator.Models
+@using Fracture.Server.Modules.MapGenerator.UI
+@using Fracture.Server.Modules.MapGenerator.UI.Models
+
+<div class="row">
+	<MapView Map="Map" MapDisplayData="MapDisplayData" Path="null"></MapView>
+</div>
 
 @code {
-    
+	[Parameter] public required MapData Map { get; set; }
+	[Parameter] public required MapDisplayData MapDisplayData { get; set; }
 }
