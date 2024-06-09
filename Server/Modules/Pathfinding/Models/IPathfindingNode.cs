@@ -1,4 +1,4 @@
-﻿namespace MapGenerator.Pathfindings.Data;
+﻿namespace Fracture.Server.Modules.Pathfinding.Models;
 
 public interface IPathfindingNode
 {

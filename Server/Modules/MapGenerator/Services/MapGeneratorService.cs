@@ -1,9 +1,9 @@
-﻿using MapGenerator.MapGenerators.Data;
-using MapGenerator.NoiseGenerators;
-using MapGenerator.NoiseGenerators.Data;
+﻿using Fracture.Server.Modules.MapGenerator.Models;
+using Fracture.Server.Modules.NoiseGenerator.Models;
+using Fracture.Server.Modules.NoiseGenerator.Services;
 using System.Numerics;
 
-namespace MapGenerator.MapGenerators.Services;
+namespace Fracture.Server.Modules.MapGenerator.Services;
 
 public class MapGeneratorService : IMapGeneratorService
 {
@@ -55,7 +55,7 @@ public class MapGeneratorService : IMapGeneratorService
 
         Node[,] grid = new Node[width, height];
         float[,] falloffMap = FalloffGenerator.Generate(width);
-        float[,] heightMap = NoiseGenerator.Generate(
+        float[,] heightMap = PerlinNoiseGenerator.Generate(
             width,
             height,
             seed,
@@ -65,7 +65,7 @@ public class MapGeneratorService : IMapGeneratorService
             lacunarity,
             Vector2.Zero
         );
-        float[,] temperatureMap = NoiseGenerator.Generate(
+        float[,] temperatureMap = PerlinNoiseGenerator.Generate(
             width,
             height,
             seed + 1,

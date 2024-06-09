@@ -1,9 +1,8 @@
-﻿using MapGenerator.Utils;
-using System.Numerics;
+﻿using System.Numerics;
 
-namespace MapGenerator.NoiseGenerators;
+namespace Fracture.Server.Modules.NoiseGenerator.Services;
 
-public static class NoiseGenerator
+public static class PerlinNoiseGenerator
 {
     public static float[,] Generate(
         int mapWidth,

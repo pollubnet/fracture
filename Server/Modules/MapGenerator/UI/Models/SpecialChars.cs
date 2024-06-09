@@ -1,4 +1,4 @@
-﻿namespace MapGenerator.Shared.Consts;
+﻿namespace Fracture.Server.Modules.MapGenerator.UI.Models;
 
 public static class SpecialChars
 {

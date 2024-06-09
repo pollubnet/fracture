@@ -1,6 +1,6 @@
-﻿using MapGenerator.Pathfindings.Data;
+﻿using Fracture.Server.Modules.Pathfinding.Models;
 
-namespace MapGenerator.Pathfindings.Services;
+namespace Fracture.Server.Modules.Pathfinding.Services;
 
 public interface IPathfindingService
 {

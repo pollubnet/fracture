@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace MapGenerator.MapGenerators.Data;
+namespace Fracture.Server.Modules.MapGenerator.Models;
 
 public class Biome
 {

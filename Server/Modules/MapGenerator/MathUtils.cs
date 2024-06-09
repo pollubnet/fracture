@@ -1,6 +1,4 @@
-﻿namespace MapGenerator.Utils;
-
-public static class MathUtils
+﻿public static class MathUtils
 {
     public static float InverseLerp(float a, float b, float v)
     {

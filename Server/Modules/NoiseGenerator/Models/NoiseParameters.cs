@@ -1,4 +1,4 @@
-﻿namespace MapGenerator.NoiseGenerators.Data;
+﻿namespace Fracture.Server.Modules.NoiseGenerator.Models;
 
 public class NoiseParameters
 {

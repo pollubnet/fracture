@@ -1,13 +1,13 @@
 ﻿@page "/";
-@using MapGenerator.MapGenerators.Data
-@using MapGenerator.MapGenerators.Services
-@using MapGenerator.MapGenerators.Views.Data
-@using MapGenerator.NoiseGenerators.Data
-@using MapGenerator.Pathfindings.Data
-@using MapGenerator.Pathfindings.Services
+@using Fracture.Server.Modules.MapGenerator.Models
+@using Fracture.Server.Modules.MapGenerator.Services
+@using Fracture.Server.Modules.MapGenerator.UI.Models
+@using Fracture.Server.Modules.NoiseGenerator.Models
+@using Fracture.Server.Modules.Pathfinding.Models
+@using Fracture.Server.Modules.Pathfinding.Services
 
-@inject IMapGeneratorService MapGeneratorService;
-@inject IPathfindingService Pathfinding;
+@inject IMapGeneratorService MapGeneratorService
+@inject IPathfindingService Pathfinding
 
 <link href="css/mapGeneratorStyle.css" rel="stylesheet" />
 
