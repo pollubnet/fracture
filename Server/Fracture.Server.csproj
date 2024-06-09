@@ -28,6 +28,12 @@
   <ItemGroup>
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Modules\MapGenerators\Views\MapGeneratorView.razor" />
+    <None Include="Modules\MapGenerators\Views\MapView.razor" />
+    <None Include="Modules\MapGenerators\Views\NoiseParametersView.razor" />
+    <None Include="Modules\MapGenerators\Views\TileInfoView.razor" />
+  </ItemGroup>
   <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
     <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />
     <Exec Command="dotnet husky install" StandardOutputImportance="Low" StandardErrorImportance="High" WorkingDirectory=".." />
