@@ -26,7 +26,9 @@ builder.Services.AddSingleton<IAIInstructionProvider, OpenAICompatibleInstructio
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 
-builder.Services.AddFeatureManagement(builder.Configuration.GetSection("FeatureFlags"));
+builder.Services.AddFeatureManagement(
+    builder.Configuration.GetSection(FeatureFlags.CONFIG_SECTION)
+);
 
 builder.Services
     .AddRazorComponents()
