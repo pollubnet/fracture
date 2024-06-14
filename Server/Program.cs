@@ -9,6 +9,7 @@ using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.NameGenerators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddSingleton<IAIInstructionProvider, OpenAICompatibleInstructio
 
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
+
+builder.Services.AddFeatureManagement(builder.Configuration.GetSection("FeatureFlags"));
 
 builder.Services
     .AddRazorComponents()

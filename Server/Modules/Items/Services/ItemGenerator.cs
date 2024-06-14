@@ -1,6 +1,7 @@
 ﻿using Fracture.Server.Modules.AI.Services;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Shared;
+using Microsoft.FeatureManagement;
 using System.Text.Json;
 
 namespace Fracture.Server.Modules.Items.Services
@@ -12,16 +13,19 @@ namespace Fracture.Server.Modules.Items.Services
         private readonly INameGenerator _nameGenerator;
         private readonly PrefixesGenerator _prefixes;
         private readonly IAIInstructionProvider _ai;
+        private readonly IFeatureManager _featureManager;
 
         public ItemGenerator(
             INameGenerator nameGenerator,
             PrefixesGenerator prefixes,
-            IAIInstructionProvider ai
+            IAIInstructionProvider ai,
+            IFeatureManager featureManager
         )
         {
             _nameGenerator = nameGenerator;
             _prefixes = prefixes;
             _ai = ai;
+            _featureManager = featureManager;
 
             _rnd = new Random();
 
@@ -99,7 +103,10 @@ namespace Fracture.Server.Modules.Items.Services
 
             await _prefixes.AddPrefixes(item);
 
-            item.History = await GenerateDescription(item);
+            if (await _featureManager.IsEnabledAsync("UseAI"))
+            {
+                item.History = await GenerateDescription(item);
+            }
 
             return item;
         }
