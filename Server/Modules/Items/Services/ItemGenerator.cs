@@ -1,6 +1,7 @@
 ﻿using Fracture.Server.Modules.AI.Services;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Shared;
+using Fracture.Server.Modules.Shared.Configuration;
 using Microsoft.FeatureManagement;
 using System.Text.Json;
 
@@ -103,7 +104,7 @@ namespace Fracture.Server.Modules.Items.Services
 
             await _prefixes.AddPrefixes(item);
 
-            if (await _featureManager.IsEnabledAsync("UseAI"))
+            if (await _featureManager.IsEnabledAsync(FeatureFlags.USE_AI))
             {
                 item.History = await GenerateDescription(item);
             }
