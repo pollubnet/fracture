@@ -16,22 +16,20 @@ public class OpenAICompatibleInstructionProvider : IAIInstructionProvider
 
         if (_configuration.EndpointUrl is null)
         {
-            ArgumentException.ThrowIfNullOrEmpty(nameof(_configuration.ApiKey));
+            if (_configuration.ApiKey is null)
+            {
+                ArgumentException.ThrowIfNullOrEmpty(_configuration.ApiKey);
 
-            _api = new OpenAIClient(new OpenAIAuthentication(_configuration.ApiKey));
+                _api = new OpenAIClient();
+            }
+            else
+            {
+                _api = new OpenAIClient(new OpenAIAuthentication(_configuration.ApiKey));
+            }
         }
         else
         {
             var settings = new OpenAIClientSettings(domain: _configuration.EndpointUrl);
-
-            if (_configuration.ApiKey is null)
-            {
-                _api = new OpenAIClient(clientSettings: settings);
-            }
-            else
-            {
-                _api = new OpenAIClient(new OpenAIAuthentication(_configuration.ApiKey), settings);
-            }
         }
     }
 
