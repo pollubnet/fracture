@@ -13,23 +13,23 @@ public class OpenAICompatibleInstructionProvider : IAIInstructionProvider
     public OpenAICompatibleInstructionProvider(IOptions<AIBackendConfiguration> configuration)
     {
         _configuration = configuration.Value;
+        if (_configuration.ApiKey is null)
+        {
+            ArgumentException.ThrowIfNullOrEmpty(_configuration.ApiKey);
+        }
 
         if (_configuration.EndpointUrl is null)
         {
-            if (_configuration.ApiKey is null)
-            {
-                ArgumentException.ThrowIfNullOrEmpty(_configuration.ApiKey);
-
-                _api = new OpenAIClient();
-            }
-            else
-            {
-                _api = new OpenAIClient(new OpenAIAuthentication(_configuration.ApiKey));
-            }
+            _api = new OpenAIClient(new OpenAIAuthentication(_configuration.ApiKey));
         }
         else
         {
             var settings = new OpenAIClientSettings(domain: _configuration.EndpointUrl);
+
+            _api = new OpenAIClient(
+                new OpenAIAuthentication(_configuration.ApiKey),
+                clientSettings: settings
+            );
         }
     }
 
