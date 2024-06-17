@@ -10,7 +10,7 @@ public static class PerlinNoiseGenerator
         int seed,
         float scale,
         int octaves,
-        float persistance,
+        float persistence,
         float lacunarity,
         Vector2 offset
     )
@@ -57,7 +57,7 @@ public static class PerlinNoiseGenerator
 
                     noiseHeight += perlinValue * amplitude;
 
-                    amplitude *= persistance;
+                    amplitude *= persistence;
                     frequency *= lacunarity;
                 }
 

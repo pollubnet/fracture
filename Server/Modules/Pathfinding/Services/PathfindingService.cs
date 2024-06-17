@@ -12,7 +12,7 @@ public class PathfindingService : IPathfindingService
         _mapGeneratorService = mapGeneratorService;
     }
 
-    public List<IPathfindingNode> FindPath(IPathfindingNode start, IPathfindingNode stop)
+    public List<IPathfindingNode>? FindPath(IPathfindingNode start, IPathfindingNode stop)
     {
         List<IPathfindingNode> toEvaluateSet = new();
         List<IPathfindingNode> evaluatedSet = new();
@@ -21,7 +21,7 @@ public class PathfindingService : IPathfindingService
 
         while (toEvaluateSet.Count > 0)
         {
-            IPathfindingNode current = GetLowestFScoreNode(toEvaluateSet);
+            var current = GetLowestFScoreNode(toEvaluateSet);
 
             if (current.XId == stop.XId && current.YId == stop.YId)
             {
@@ -57,9 +57,9 @@ public class PathfindingService : IPathfindingService
 
     private List<IPathfindingNode> GetNeighbors(IPathfindingNode node)
     {
-        List<IPathfindingNode> neighbors = new List<IPathfindingNode>();
-        int[] dx = { 0, 1, 0, -1, 1, 1, -1, -1 };
-        int[] dy = { 1, 0, -1, 0, 1, -1, 1, -1 }; // dx and dy arrays are determining 18 different move sequences, aka dx[i] = -1, dy[i] = 1 means we are moving to a top left tile
+        var neighbors = new List<IPathfindingNode>();
+        int[] dx = [0, 1, 0, -1, 1, 1, -1, -1];
+        int[] dy = [1, 0, -1, 0, 1, -1, 1, -1]; // dx and dy arrays are determining 18 different move sequences, aka dx[i] = -1, dy[i] = 1 means we are moving to a top left tile
 
         for (int i = 0; i < 8; i++)
         {
@@ -97,8 +97,8 @@ public class PathfindingService : IPathfindingService
 
     private IPathfindingNode GetLowestFScoreNode(List<IPathfindingNode> nodes)
     {
-        IPathfindingNode lowest = nodes[0];
-        foreach (IPathfindingNode node in nodes)
+        var lowest = nodes[0];
+        foreach (var node in nodes)
         {
             if (node.FCost < lowest.FCost)
                 lowest = node;
