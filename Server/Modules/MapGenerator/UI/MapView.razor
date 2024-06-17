@@ -6,37 +6,37 @@
     @if (Map != null && MapDisplayData != null)
     {
         <table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
-        @for (int y = 0; y < Map.Grid.GetLength(1); y++)
-        {
-            <tr>
-                @for (int x = 0; x < Map.Grid.GetLength(0); x++)
-                {
-                    @if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
+            @for (int y = 0; y < Map.Grid.GetLength(1); y++)
+            {
+                <tr>
+                    @for (int x = 0; x < Map.Grid.GetLength(0); x++)
                     {
-                        <td style='background: @GetTileColor(@Map.Grid[x,y])'>
-                            x:@x<br />y:@y
-                        </td>
+                        @if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
+                        {
+                            <td style='background: @GetTileColor(@Map.Grid[x,y])'>
+                                x:@x<br />y:@y
+                            </td>
+                        }
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise)
+                        {
+                            <td style="background: @GetTileColor(@Map.Grid[x,y])">
+                                @Math.Round(Map.Grid[x, y].NoiseValue, 2)
+                            </td>
+                        }
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
+                        {
+                            <td style='background: @GetTileColor(@Map.Grid[x,y])'>
+                            </td>
+                        }
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
+                        {
+                            <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x,y])'>
+                                @GetPathForTile(Map.Grid[x, y])
+                            </td>
+                        }
                     }
-                    else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise)
-                    {
-                        <td style="background: @GetTileColor(@Map.Grid[x,y])">
-                            @Math.Round(Map.Grid[x, y].NoiseValue, 2)
-                        </td>
-                    }
-                    else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
-                    {
-                        <td style='background: @GetTileColor(@Map.Grid[x,y])'>
-                        </td>
-                    }
-                    else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
-                    {
-                        <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x,y])'>
-                            @GetPathForTile(Map.Grid[x, y])
-                        </td>
-                    }
-                }
-            </tr>
-        }
+                </tr>
+            }
         </table>
     }
 </div>
@@ -44,18 +44,21 @@
 @code {
     [Parameter]
     public MapData? Map { get; set; }
+
     [Parameter]
     public MapDisplayData? MapDisplayData { get; set; }
+
     [Parameter]
     public List<IPathfindingNode>? Path { get; set; }
 
-    [Parameter] public bool IsMiniMap { get; set; } = true;
+    [Parameter]
+    public bool IsMiniMap { get; set; } = true;
 
     private string GetTileColor(Node node)
     {
         if (MapDisplayData!.ShowColorMap)
         {
-            return node.Color;
+            return node.Color ?? string.Empty;
         }
 
         string hexValue = string.Format("{0:x}", (int)(node.NoiseValue * 255));
@@ -85,22 +88,17 @@
 
     private string GetArrowForDirection(int xDirection, int yDirection)
     {
-        if (yDirection == 1 && xDirection == 0)
-            return SpecialChars.Arrows.Up;
-        else if (yDirection == 1 && xDirection == 1)
-            return SpecialChars.Arrows.UpRight;
-        else if (yDirection == 0 && xDirection == 1)
-            return SpecialChars.Arrows.Right;
-        else if (yDirection == -1 && xDirection == 1)
-            return SpecialChars.Arrows.DownRight;
-        else if (yDirection == -1 && xDirection == 0)
-            return SpecialChars.Arrows.Down;
-        else if (yDirection == -1 && xDirection == -1)
-            return SpecialChars.Arrows.DownLeft;
-        else if (yDirection == 0 && xDirection == -1)
-            return SpecialChars.Arrows.Left;
-        else if (yDirection == 1 && xDirection == -1)
-            return SpecialChars.Arrows.UpLeft;
-        return "";
+        return yDirection switch
+        {
+            1 when xDirection == 0 => SpecialChars.Arrows.Up,
+            1 when xDirection == 1 => SpecialChars.Arrows.UpRight,
+            0 when xDirection == 1 => SpecialChars.Arrows.Right,
+            -1 when xDirection == 1 => SpecialChars.Arrows.DownRight,
+            -1 when xDirection == 0 => SpecialChars.Arrows.Down,
+            -1 when xDirection == -1 => SpecialChars.Arrows.DownLeft,
+            0 when xDirection == -1 => SpecialChars.Arrows.Left,
+            1 when xDirection == -1 => SpecialChars.Arrows.UpLeft,
+            _ => ""
+        };
     }
 }

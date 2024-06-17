@@ -6,9 +6,9 @@ public class Node : IPathfindingNode
 {
     public int XId { get; set; }
     public int YId { get; set; }
-    public Biome Biome { get; set; }
+    public Biome? Biome { get; set; }
 
-    public string Color { get; set; }
+    public string? Color { get; set; }
     public float NoiseValue { get; set; }
 
     public int GCost { get; set; }
@@ -17,7 +17,7 @@ public class Node : IPathfindingNode
     public bool Walkable { get; set; }
     public IPathfindingNode? PreviousNode { get; set; }
 
-    public Node(int xId, int yId, Biome biome)
+    public Node(int xId, int yId, Biome? biome)
     {
         XId = xId;
         YId = yId;

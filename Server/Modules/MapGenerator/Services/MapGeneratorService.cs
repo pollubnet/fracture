@@ -7,28 +7,16 @@ namespace Fracture.Server.Modules.MapGenerator.Services;
 
 public class MapGeneratorService : IMapGeneratorService
 {
-    private MapData _mapData;
+    private MapData _mapData = default!;
 
-    private float persistance = 0.5f;
-    private float lacunarity = 2f;
-    private int octaves = 5;
-    private float scale = 5f;
+    private readonly float _persistence = 0.5f;
+    private readonly float _lacunarity = 2f;
+    private readonly int _octaves = 5;
+    private readonly float _scale = 5f;
 
-    private Random rnd = new Random();
+    private Random _rnd = new Random();
 
-    //private Dictionary<(TemperatureType, HeightType), Biome> biomesDictionary = new Dictionary<(TemperatureType, HeightType), Biome>
-    //{
-    //    [(TemperatureType.Cold, HeightType.Medium)] = new Biome(BiomeType.ShallowWater, Color.Blue, 1f, 0.3f)
-    //};
-
-    //private Biome[] biomes = {
-    //     new Biome(BiomeType.ShallowWater, Color.Blue, 1f, 0.3f),
-    //     new Biome(BiomeType.Grassland, Color.Green, 1f, 0.5f),
-    //     new Biome(BiomeType.Desert, Color.Yellow, 1f, 0.5f),
-    //     new Biome(BiomeType.Mountains, Color.Gray, 0f, 0.5f)
-    // };
-
-    private int seed;
+    private int _seed;
 
     public MapData MapData
     {
@@ -39,11 +27,6 @@ public class MapGeneratorService : IMapGeneratorService
     {
         _mapData = GenerateMap(noiseParameters);
         return Task.FromResult(_mapData);
-        //if (map == null || noiseParameters.GenerateNew)
-        //{
-        //    map = GenerateMap(noiseParameters);
-        //}
-        //return Task.FromResult(map);
     }
 
     private MapData GenerateMap(NoiseParameters noiseParameters)
@@ -51,28 +34,30 @@ public class MapGeneratorService : IMapGeneratorService
         int width = 32;
         int height = 32;
         bool useFalloff = true;
-        seed = noiseParameters.UseRandomSeed ? rnd.Next(int.MaxValue) : noiseParameters.Seed;
+        _seed = noiseParameters.UseRandomSeed ? _rnd.Next(int.MaxValue) : noiseParameters.Seed;
 
-        Node[,] grid = new Node[width, height];
-        float[,] falloffMap = FalloffGenerator.Generate(width);
-        float[,] heightMap = PerlinNoiseGenerator.Generate(
+        var grid = new Node[width, height];
+
+        var falloffMap = FalloffGenerator.Generate(width);
+        var heightMap = PerlinNoiseGenerator.Generate(
             width,
             height,
-            seed,
-            scale,
-            octaves,
-            persistance,
-            lacunarity,
+            _seed,
+            _scale,
+            _octaves,
+            _persistence,
+            _lacunarity,
             Vector2.Zero
         );
-        float[,] temperatureMap = PerlinNoiseGenerator.Generate(
+
+        var temperatureMap = PerlinNoiseGenerator.Generate(
             width,
             height,
-            seed + 1,
-            scale,
-            octaves,
-            persistance,
-            lacunarity,
+            _seed + 1,
+            _scale,
+            _octaves,
+            _persistence,
+            _lacunarity,
             Vector2.Zero
         );
 
@@ -88,39 +73,42 @@ public class MapGeneratorService : IMapGeneratorService
                 grid[x, y] = new Node(x, y, null);
                 grid[x, y].NoiseValue = heightMap[x, y];
                 grid[x, y].Walkable = grid[x, y].NoiseValue > 0.2f && grid[x, y].NoiseValue < 0.7f;
-
-                if (heightMap[x, y] < 0.02f)
-                {
-                    grid[x, y].Color = "#21618C";
-                }
-                else if (heightMap[x, y] < 0.2f)
-                {
-                    grid[x, y].Color = "#2E86C1";
-                }
-                else if (heightMap[x, y] < 0.40f)
-                {
-                    grid[x, y].Color = "#F9E79F";
-                }
-                else if (heightMap[x, y] < 0.55f)
-                {
-                    grid[x, y].Color = "#28B463";
-                }
-                else if (heightMap[x, y] < 0.7f)
-                {
-                    grid[x, y].Color = "#1D8348";
-                }
-                else if (heightMap[x, y] < 0.85f)
-                {
-                    grid[x, y].Color = "#616A6B";
-                }
-                else
-                {
-                    grid[x, y].Color = "#515A5A";
-                }
+                HeightToColor(grid, heightMap, y, x);
             }
         }
 
-        MapData map = new MapData(grid);
-        return map;
+        return new MapData(grid);
+    }
+
+    private static void HeightToColor(Node[,] grid, float[,] heightMap, int y, int x)
+    {
+        if (heightMap[x, y] < 0.02f)
+        {
+            grid[x, y].Color = "#21618C";
+        }
+        else if (heightMap[x, y] < 0.2f)
+        {
+            grid[x, y].Color = "#2E86C1";
+        }
+        else if (heightMap[x, y] < 0.40f)
+        {
+            grid[x, y].Color = "#F9E79F";
+        }
+        else if (heightMap[x, y] < 0.55f)
+        {
+            grid[x, y].Color = "#28B463";
+        }
+        else if (heightMap[x, y] < 0.7f)
+        {
+            grid[x, y].Color = "#1D8348";
+        }
+        else if (heightMap[x, y] < 0.85f)
+        {
+            grid[x, y].Color = "#616A6B";
+        }
+        else
+        {
+            grid[x, y].Color = "#515A5A";
+        }
     }
 }
