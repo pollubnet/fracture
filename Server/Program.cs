@@ -8,6 +8,7 @@ using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.NameGenerators;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
 
@@ -21,7 +22,6 @@ builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
-builder.Services.AddSingleton<IAIInstructionProvider, OpenAICompatibleInstructionProvider>();
 
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
@@ -29,6 +29,8 @@ builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 builder.Services.AddFeatureManagement(
     builder.Configuration.GetSection(FeatureFlags.CONFIG_SECTION)
 );
+
+await builder.Services.AddFeatureGatedServices();
 
 builder.Services
     .AddRazorComponents()
