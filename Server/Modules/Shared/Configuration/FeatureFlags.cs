@@ -1,8 +1,66 @@
-﻿namespace Fracture.Server.Modules.Shared.Configuration
+﻿using Microsoft.FeatureManagement;
+
+namespace Fracture.Server.Modules.Shared.Configuration
 {
     public static class FeatureFlags
     {
         public const string CONFIG_SECTION = "FeatureFlags";
         public const string USE_AI = "UseAI";
+
+        public static IServiceCollection AddTransientIfFeatureEnabled<TInterface, TImplementation>(
+            this IServiceCollection services,
+            string featureName
+        )
+            where TImplementation : class, TInterface =>
+            services.AddTransientIfFeatureEnabled(
+                featureName,
+                typeof(TInterface),
+                typeof(TImplementation)
+            );
+
+        public static IServiceCollection AddTransientIfFeatureEnabled(
+            this IServiceCollection services,
+            string featureName,
+            Type serviceType,
+            Type implementationType
+        )
+        {
+            var featureManager = services
+                .BuildServiceProvider()
+                .GetRequiredService<IFeatureManagerSnapshot>();
+
+            if (featureManager.IsEnabledAsync(featureName).Result)
+                return services.AddTransient(serviceType, implementationType);
+
+            return services;
+        }
+
+        public static IServiceCollection AddSingletonIfFeatureEnabled<TInterface, TImplementation>(
+            this IServiceCollection services,
+            string featureName
+        )
+            where TImplementation : class, TInterface =>
+            services.AddSingletonIfFeatureEnabled(
+                featureName,
+                typeof(TInterface),
+                typeof(TImplementation)
+            );
+
+        public static IServiceCollection AddSingletonIfFeatureEnabled(
+            this IServiceCollection services,
+            string featureName,
+            Type serviceType,
+            Type implementationType
+        )
+        {
+            var featureManager = services
+                .BuildServiceProvider()
+                .GetRequiredService<IFeatureManagerSnapshot>();
+
+            if (featureManager.IsEnabledAsync(featureName).Result)
+                return services.AddSingleton(serviceType, implementationType);
+
+            return services;
+        }
     }
 }

@@ -30,7 +30,10 @@ builder.Services.AddFeatureManagement(
     builder.Configuration.GetSection(FeatureFlags.CONFIG_SECTION)
 );
 
-await builder.Services.AddFeatureGatedServices();
+builder.Services.AddSingletonIfFeatureEnabled<
+    IAIInstructionProvider,
+    OpenAICompatibleInstructionProvider
+>(FeatureFlags.USE_AI);
 
 builder.Services
     .AddRazorComponents()
