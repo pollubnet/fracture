@@ -368,7 +368,14 @@ body {
 .row{
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
+
+.row div {
+    display: flex;
+    justify-content: center;
+}
+
 .equipmentContent {
     display: flex;
     flex-direction: row;
