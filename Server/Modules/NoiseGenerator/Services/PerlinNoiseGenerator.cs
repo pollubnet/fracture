@@ -53,7 +53,12 @@ public static class PerlinNoiseGenerator
                     float sampleX = scalarX * frequency + octaveOffsets[i].X;
                     float sampleY = scalarY * frequency + octaveOffsets[i].Y;
 
-                    float perlinValue = (float)perlin.perlin(sampleX, sampleY, 0) * 2 - 1;
+                    //float perlinValue = (float)perlin.perlin(sampleX, sampleY, 0) * 2 - 1;
+                    float perlinValue = SimplexNoise.Noise.CalcPixel2D(
+                        (int)sampleX,
+                        (int)sampleY,
+                        scale
+                    );
 
                     noiseHeight += perlinValue * amplitude;
 

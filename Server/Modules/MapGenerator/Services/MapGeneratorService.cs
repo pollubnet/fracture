@@ -1,7 +1,8 @@
-﻿using Fracture.Server.Modules.MapGenerator.Models;
+﻿using System.Linq;
+using System.Numerics;
+using Fracture.Server.Modules.MapGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Services;
-using System.Numerics;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 
@@ -11,8 +12,8 @@ public class MapGeneratorService : IMapGeneratorService
 
     private readonly float _persistence = 0.5f;
     private readonly float _lacunarity = 2f;
-    private readonly int _octaves = 5;
-    private readonly float _scale = 5f;
+    private readonly int _octaves = 4;
+    private readonly float _scale = 10;
 
     private Random _rnd = new Random();
 
@@ -49,6 +50,13 @@ public class MapGeneratorService : IMapGeneratorService
             _lacunarity,
             Vector2.Zero
         );
+
+        //SimplexNoise.Noise.Seed = _seed;
+        //var heightMap = SimplexNoise.Noise.Calc2D(width, height, _scale);
+
+        //for (int i = 0; i < heightMap.GetLength(0); i++)
+        //    for (int j = 0; j < heightMap.GetLength(1); j++)
+        //        heightMap[i, j] /= 255;
 
         var temperatureMap = PerlinNoiseGenerator.Generate(
             width,
