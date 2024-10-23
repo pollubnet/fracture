@@ -61,6 +61,19 @@ public static class CustomPerlin
         float x1 = Lerp(Grad(aa, xf, yf), Grad(ba, xf - 1, yf), u); // Get the gradients
         float x2 = Lerp(Grad(ab, xf, yf - 1), Grad(bb, xf - 1, yf - 1), u);
 
+        Console.WriteLine("all values: " + aa + " " + ab + " " + ba + " " + bb);
+        Console.WriteLine(
+            "all gradients: "
+                + Grad(aa, xf, yf)
+                + " "
+                + Grad(ba, xf - 1, yf)
+                + " "
+                + Grad(ab, xf, yf - 1)
+                + " "
+                + Grad(bb, xf - 1, yf - 1)
+        );
+        Console.WriteLine("x1: " + x1);
+        Console.WriteLine("x2: " + x2);
         return Lerp(x1, x2, v);
     }
 
@@ -95,7 +108,8 @@ public static class CustomPerlin
         int? seed = null,
         int octaves = 1,
         float persistence = 0.5f,
-        float lacunarity = 2.0f
+        float lacunarity = 2.0f,
+        float scale = 1.0f
     )
     { // Noise map generation
         // can be called with a seed or without it
@@ -107,10 +121,18 @@ public static class CustomPerlin
         {
             for (int x = 0; x < size; x++)
             {
-                map[x, y] = PerlinOctaves(x, y, actualSeed, octaves, persistence, lacunarity);
+                float scaledX = x / (float)Math.PI / scale;
+                float scaledY = y / (float)Math.PI / scale;
+                map[x, y] = PerlinOctaves(
+                    scaledX,
+                    scaledY,
+                    actualSeed,
+                    octaves,
+                    persistence,
+                    lacunarity
+                );
             }
         }
-
         return map;
     }
 }
