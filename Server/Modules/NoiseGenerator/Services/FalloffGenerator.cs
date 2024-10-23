@@ -23,8 +23,8 @@ public static class FalloffGenerator
 
     private static float Evaluate(float value)
     {
-        const float a = 3;
-        const float b = 4.2f;
+        const float a = 1;
+        const float b = 5f;
 
         return (float)(Math.Pow(value, a) / (Math.Pow(value, a) + Math.Pow(b - b * value, a)));
     }

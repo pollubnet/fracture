@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Numerics;
+﻿using System.Numerics;
 using Fracture.Server.Modules.MapGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Services;
@@ -10,10 +9,10 @@ public class MapGeneratorService : IMapGeneratorService
 {
     private MapData _mapData = default!;
 
-    private readonly float _persistence = 0.5f;
-    private readonly float _lacunarity = 2f;
-    private readonly int _octaves = 4;
-    private readonly float _scale = 10;
+    private readonly float _persistence = 0.3f;
+    private readonly float _lacunarity = 1f;
+    private readonly int _octaves = 5;
+    private readonly float _scale = 4.5f;
 
     private Random _rnd = new Random();
 
