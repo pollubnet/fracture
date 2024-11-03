@@ -12,7 +12,7 @@
                 <tr>
                     @for (int x = 0; x < Map.Grid.GetLength(0); x++)
                     {
-                        @if (x == CharacterX && y == CharacterY)
+                        @if (x == CharacterXX && y == CharacterYY)
                             {
                                 <td style='background: @GetTileColor(@Map.Grid[x, y])'>
                                 C
@@ -62,9 +62,12 @@
     public bool IsMiniMap { get; set; } = true;
     
     private bool isMoving = false;
-    private int CharacterX { get; set; } = 16;
-    private int CharacterY { get; set; } = 16;
-    
+    public static int CharacterXX { get; set; } = 16;
+    public static int CharacterYY { get; set; } = 16;
+    [Parameter] public int CharacterX { get; set; } = CharacterXX;
+    [Parameter] public int CharacterY { get; set; } = CharacterXX;
+
+
     private readonly HashSet<string> _blockingColors = new HashSet<string>
     {
         "#21618C","#2E86C1"
@@ -122,35 +125,34 @@
     {
         if (isMoving) return; 
         isMoving = true;
-        int newX = CharacterX;
-        int newY = CharacterY;
+        int newX = CharacterXX;
+        int newY = CharacterYY;
         switch (e.Key)
         {
             case "ArrowUp":
-                if (CharacterY > 0) newY--;;
+                if (CharacterYY > 0) newY--;;
                 break;
             case "ArrowDown":
-                if (CharacterY < Map.Grid.GetLength(1) ) newY++;
+                if (CharacterYY < Map.Grid.GetLength(1)-1 ) newY++;
                 break;
             case "ArrowLeft":
-                if (CharacterX > 0) newX--;
+                if (CharacterXX > 0) newX--;
                 break;
             case "ArrowRight":
-                if (CharacterX < Map.Grid.GetLength(0) ) newX++;
+                if (CharacterXX < Map.Grid.GetLength(0)-1 ) newX++;
                 break;
         }
     
         if (CanMoveToTile(newX, newY))
         {
-            CharacterX = newX;
-            CharacterY = newY;
-            
+            CharacterXX = newX;
+            CharacterYY = newY;
+            StateHasChanged();
         }
 
         Task.Delay(100).ContinueWith(_ =>
         {
             isMoving = false; 
-            InvokeAsync(StateHasChanged); 
         });
         
     }
