@@ -1,8 +1,9 @@
 ﻿@using Fracture.Server.Modules.MapGenerator.Models
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
+@using Microsoft.AspNetCore.Components.Web
 
-<div id="map">
+<div id="map" tabindex="0" @onkeydown="HandleKeyDown">
     @if (Map != null && MapDisplayData != null)
     {
         <table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
@@ -11,26 +12,32 @@
                 <tr>
                     @for (int x = 0; x < Map.Grid.GetLength(0); x++)
                     {
-                        @if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
+                        @if (x == CharacterX && y == CharacterY)
+                            {
+                                <td style='background: @GetTileColor(@Map.Grid[x, y])'>
+                                C
+                                </td>
+                            }
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
                         {
-                            <td style='background: @GetTileColor(@Map.Grid[x,y])'>
-                                x:@x<br />y:@y
+                            <td style='background: @GetTileColor(@Map.Grid[x, y])'>
+                                x:@x<br/>y:@y
                             </td>
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise)
                         {
-                            <td style="background: @GetTileColor(@Map.Grid[x,y])">
+                            <td style="background: @GetTileColor(@Map.Grid[x, y])">
                                 @Math.Round(Map.Grid[x, y].NoiseValue, 2)
                             </td>
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
                         {
-                            <td style='background: @GetTileColor(@Map.Grid[x,y])'>
+                            <td style='background: @GetTileColor(@Map.Grid[x, y])'>
                             </td>
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
                         {
-                            <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x,y])'>
+                            <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x, y])'>
                                 @GetPathForTile(Map.Grid[x, y])
                             </td>
                         }
@@ -53,7 +60,16 @@
 
     [Parameter]
     public bool IsMiniMap { get; set; } = true;
-
+    
+    private bool isMoving = false;
+    private int CharacterX { get; set; } = 16;
+    private int CharacterY { get; set; } = 16;
+    
+    private readonly HashSet<string> _blockingColors = new HashSet<string>
+    {
+        "#21618C","#2E86C1"
+    };
+    
     private string GetTileColor(Node node)
     {
         if (MapDisplayData!.ShowColorMap)
@@ -101,4 +117,51 @@
             _ => ""
         };
     }
+    
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (isMoving) return; 
+        isMoving = true;
+        int newX = CharacterX;
+        int newY = CharacterY;
+        switch (e.Key)
+        {
+            case "ArrowUp":
+                if (CharacterY > 0) newY--;;
+                break;
+            case "ArrowDown":
+                if (CharacterY < Map.Grid.GetLength(1) ) newY++;
+                break;
+            case "ArrowLeft":
+                if (CharacterX > 0) newX--;
+                break;
+            case "ArrowRight":
+                if (CharacterX < Map.Grid.GetLength(0) ) newX++;
+                break;
+        }
+    
+        if (CanMoveToTile(newX, newY))
+        {
+            CharacterX = newX;
+            CharacterY = newY;
+            
+        }
+
+        Task.Delay(100).ContinueWith(_ =>
+        {
+            isMoving = false; 
+            InvokeAsync(StateHasChanged); 
+        });
+        
+    }
+
+    private bool CanMoveToTile(int x, int y)
+    {
+        Node targetNode = Map.Grid[x, y];
+        string tileColor = GetTileColor(targetNode);
+        
+        return !_blockingColors.Contains(tileColor);
+    }
+   
+}
 }
