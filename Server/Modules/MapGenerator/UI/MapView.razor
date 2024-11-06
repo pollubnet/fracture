@@ -3,6 +3,8 @@
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Microsoft.AspNetCore.Components.Web
 
+
+
 <div id="map" tabindex="0" @onkeydown="HandleKeyDown">
     @if (Map != null && MapDisplayData != null)
     {
@@ -13,11 +15,13 @@
                     @for (int x = 0; x < Map.Grid.GetLength(0); x++)
                     {
                         @if (x == CharacterXX && y == CharacterYY)
-                            {
-                                <td style='background: @GetTileColor(@Map.Grid[x, y])'>
+                        {
+
+
+                            <td style='background: @GetTileColor(@Map.Grid[x, y])'>
                                 C
-                                </td>
-                            }
+                            </td>
+                        }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
                         {
                             <td style='background: @GetTileColor(@Map.Grid[x, y])'>
@@ -123,37 +127,41 @@
     
     private void HandleKeyDown(KeyboardEventArgs e)
     {
-        if (isMoving) return; 
-        isMoving = true;
-        int newX = CharacterXX;
-        int newY = CharacterYY;
-        switch (e.Key)
+        if (IsMiniMap==false)
         {
-            case "ArrowUp":
-                if (CharacterYY > 0) newY--;;
-                break;
-            case "ArrowDown":
-                if (CharacterYY < Map.Grid.GetLength(1)-1 ) newY++;
-                break;
-            case "ArrowLeft":
-                if (CharacterXX > 0) newX--;
-                break;
-            case "ArrowRight":
-                if (CharacterXX < Map.Grid.GetLength(0)-1 ) newX++;
-                break;
-        }
+            if (isMoving) return; 
+            isMoving = true;
+            int newX = CharacterXX;
+            int newY = CharacterYY;
+            switch (e.Key)
+            {
+                case "ArrowUp":
+                    if (CharacterYY > 0) newY--;;
+                    break;
+                case "ArrowDown":
+                    if (CharacterYY < Map.Grid.GetLength(1)-1 ) newY++;
+                    break;
+                case "ArrowLeft":
+                    if (CharacterXX > 0) newX--;
+                    break;
+                case "ArrowRight":
+                    if (CharacterXX < Map.Grid.GetLength(0)-1 ) newX++;
+                    break;
+            }
     
-        if (CanMoveToTile(newX, newY))
-        {
-            CharacterXX = newX;
-            CharacterYY = newY;
-            StateHasChanged();
-        }
+            if (CanMoveToTile(newX, newY))
+            {
+                CharacterXX = newX;
+                CharacterYY = newY;
+                StateHasChanged();
+            }
 
-        Task.Delay(100).ContinueWith(_ =>
-        {
-            isMoving = false; 
-        });
+            Task.Delay(100).ContinueWith(_ =>
+            {
+                isMoving = false; 
+            });
+        }
+     
         
     }
 
@@ -164,6 +172,7 @@
         
         return !_blockingColors.Contains(tileColor);
     }
+
    
 }
-}
+
