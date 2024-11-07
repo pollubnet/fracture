@@ -26,7 +26,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modules\CharacterMovement\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
   <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
