@@ -8,7 +8,6 @@
 
 <div class="row">
 	<MapView Map="Map" MapDisplayData="MapDisplayData" Path="null" IsMiniMap="false" CharacterX="x" CharacterY="y"></MapView>
-	@update_map
 </div>
 
 @code {
@@ -16,9 +15,4 @@
 	[Parameter] public required MapDisplayData MapDisplayData { get; set; }
 	int x = MapView.CharacterXX;
 	int y = MapView.CharacterYY;
-	
-	private void update_map()
-	{
-		NavigationManager.NavigateTo("/map");
-	}
 }
