@@ -8,10 +8,5 @@ public enum BiomeType
     Grassland,
     Forest,
     Mountains,
-    HeightMountains,
-    Desert,
-    Snow,
-    Snow3,
-    Snow4,
-    Snow5,
+    HighMountains,
 }
