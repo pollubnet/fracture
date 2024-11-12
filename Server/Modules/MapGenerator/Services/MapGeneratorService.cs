@@ -9,10 +9,14 @@ public class MapGeneratorService : IMapGeneratorService
 {
     private MapData _mapData = default!;
 
-    private readonly float _persistence = 0.5f;
-    private readonly float _lacunarity = 2f;
-    private readonly int _octaves = 3;
-    private readonly float _scale = 10f;
+    private readonly float _persistence = 0.5f; // How much consecutive octaves contribute to the noise
+    private readonly float _lacunarity = 2f; // How fast the frequency increases for each octave
+    private readonly int _octaves = 3; // Number of octaves
+    private readonly float _scale = 3f; // Scale of the noise, bigger scale = more zoomed in
+    private readonly float _falloff = 0.3f; // How much the falloff map affects the heightmap
+    private readonly float _sharpness = 1f; // How "sharp" heightmap is. Just a power function
+    private readonly float _boost = 0.2f; // Flat boost to heightmap. Adds, then clamps
+    private readonly bool _falloffType = true; // true = lerp, false = subtract
 
     private Random _rnd = new Random();
 
@@ -31,25 +35,14 @@ public class MapGeneratorService : IMapGeneratorService
 
     private MapData GenerateMap(NoiseParameters noiseParameters)
     {
-        int width = 128;
-        int height = 128;
-        bool useFalloff = false;
+        int width = 32;
+        int height = 32;
+        bool useFalloff = true;
         _seed = noiseParameters.UseRandomSeed ? _rnd.Next(int.MaxValue) : noiseParameters.Seed;
 
         var grid = new Node[width, height];
 
-        var falloffMap = FalloffGenerator.Generate(width);
-        // var heightMap = PerlinNoiseGenerator.Generate(
-        //     width,
-        //     height,
-        //     _seed,
-        //     _scale,
-        //     _octaves,
-        //     _persistence,
-        //     _lacunarity,
-        //     Vector2.Zero
-        // );
-
+        var falloffMap = FalloffGenerator.GenerateCustom(width);
 
         var heightMap = CustomPerlin.GenerateNoiseMap(
             width,
@@ -59,14 +52,6 @@ public class MapGeneratorService : IMapGeneratorService
             _lacunarity,
             _scale
         );
-
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                heightMap[i, j] = Math.Clamp(0.3f + heightMap[i, j] * 0.8f, 0, 1);
-            }
-        }
 
         var temperatureMap = PerlinNoiseGenerator.Generate(
             width,
@@ -83,9 +68,23 @@ public class MapGeneratorService : IMapGeneratorService
         {
             for (int x = 0; x < width; x++)
             {
+                heightMap[x, y] = (float)
+                    Math.Clamp(Math.Pow(heightMap[x, y], _sharpness) + _boost, 0, 1);
+
                 if (useFalloff)
                 {
-                    heightMap[x, y] = Math.Clamp(heightMap[x, y] - falloffMap[x, y], 0, 1);
+                    heightMap[x, y] = (float)
+                        Math.Clamp(
+                            _falloffType
+                                ? CustomPerlin.Lerp(heightMap[x, y], falloffMap[x, y], _falloff)
+                                : Math.Clamp(
+                                    heightMap[x, y] - ((1 - falloffMap[x, y]) * _falloff),
+                                    0,
+                                    1
+                                ),
+                            0,
+                            1
+                        );
                 }
 
                 grid[x, y] = new Node(x, y, null);
