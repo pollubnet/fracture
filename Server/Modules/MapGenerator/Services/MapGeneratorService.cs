@@ -42,7 +42,7 @@ public class MapGeneratorService : IMapGeneratorService
 
         var grid = new Node[width, height];
 
-        var falloffMap = FalloffGenerator.GenerateCustom(width);
+        var falloffMap = FalloffGenerator.GenerateEuclideanSquared(width); // Choose falloff type here
 
         var heightMap = CustomPerlin.GenerateNoiseMap(
             width,
