@@ -8,7 +8,7 @@ public static class CustomPerlin
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
 
-    private static float Lerp(float a, float b, float t) // Linear interpolation
+    public static float Lerp(float a, float b, float t) // Linear interpolation
     { // Lerp sounds like a noob minecraft player
         return a + t * (b - a);
     }
@@ -61,19 +61,6 @@ public static class CustomPerlin
         float x1 = Lerp(Grad(aa, xf, yf), Grad(ba, xf - 1, yf), u); // Get the gradients
         float x2 = Lerp(Grad(ab, xf, yf - 1), Grad(bb, xf - 1, yf - 1), u);
 
-        Console.WriteLine("all values: " + aa + " " + ab + " " + ba + " " + bb);
-        Console.WriteLine(
-            "all gradients: "
-                + Grad(aa, xf, yf)
-                + " "
-                + Grad(ba, xf - 1, yf)
-                + " "
-                + Grad(ab, xf, yf - 1)
-                + " "
-                + Grad(bb, xf - 1, yf - 1)
-        );
-        Console.WriteLine("x1: " + x1);
-        Console.WriteLine("x2: " + x2);
         return Lerp(x1, x2, v);
     }
 
