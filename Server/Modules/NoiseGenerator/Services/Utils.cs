@@ -36,7 +36,7 @@ public class Utils
             CustomFunction2,
             CustomFunction3,
             CustomFunction4,
-            CustomFunction5
+            CustomFunction5,
         };
     }
 

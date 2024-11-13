@@ -5,5 +5,5 @@ public enum ItemStat
     Luck,
     Health,
     Armor,
-    Power
+    Power,
 }

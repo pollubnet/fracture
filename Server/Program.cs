@@ -37,8 +37,8 @@ builder.Services.AddSingletonIfFeatureEnabled<
     OpenAICompatibleInstructionProvider
 >(FeatureFlags.USE_AI);
 
-builder.Services
-    .AddRazorComponents()
+builder
+    .Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 

@@ -7,6 +7,6 @@
         Gauntlets,
         Leggings,
         Boots,
-        Ring
+        Ring,
     }
 }

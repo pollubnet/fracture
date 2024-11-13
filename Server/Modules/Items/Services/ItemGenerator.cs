@@ -1,9 +1,9 @@
-﻿using Fracture.Server.Modules.AI.Services;
+﻿using System.Text.Json;
+using Fracture.Server.Modules.AI.Services;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Microsoft.FeatureManagement;
-using System.Text.Json;
 
 namespace Fracture.Server.Modules.Items.Services
 {
@@ -54,7 +54,7 @@ namespace Fracture.Server.Modules.Items.Services
                 "Tundra",
                 "Swamp",
                 "Savanna",
-                "Desert"
+                "Desert",
             };
             List<string> enemies = new List<string>()
             {
@@ -63,7 +63,7 @@ namespace Fracture.Server.Modules.Items.Services
                 "Skeleton",
                 "Harpy",
                 "Vampire",
-                "Knight"
+                "Knight",
             };
 
             string biome = biomes[_rnd.Next(biomes.Count)];
