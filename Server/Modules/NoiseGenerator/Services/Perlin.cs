@@ -259,7 +259,7 @@ public class Perlin
         215,
         61,
         156,
-        180
+        180,
     };
 
     private static readonly int[] p; // Doubled permutation to avoid overflow

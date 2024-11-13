@@ -23,8 +23,8 @@ namespace Fracture.Server.Modules.Database
 
         public async Task<Item?> GetItemAsync(int id)
         {
-            var item = await _dbContext.Items
-                .Where(i => i.Id == id)
+            var item = await _dbContext
+                .Items.Where(i => i.Id == id)
                 .Include(i => i.Statistics)
                 .FirstOrDefaultAsync();
             return item;
@@ -32,8 +32,8 @@ namespace Fracture.Server.Modules.Database
 
         public async Task<ICollection<Item>> GetItemsOfUserAsync(int userId)
         {
-            var items = await _dbContext.Items
-                .Where(i => i.CreatedById == userId)
+            var items = await _dbContext
+                .Items.Where(i => i.CreatedById == userId)
                 .Include(i => i.Statistics)
                 .ToListAsync();
             return items;

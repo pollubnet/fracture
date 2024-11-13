@@ -1,5 +1,5 @@
-﻿using Fracture.Server.Modules.Shared;
-using System;
+﻿using System;
+using Fracture.Server.Modules.Shared;
 
 namespace Fracture.Server.Modules.Items.Models
 {
@@ -16,7 +16,7 @@ namespace Fracture.Server.Modules.Items.Models
                 { "Poisoned", -40 },
                 { "Toxic", -60 },
                 { "Cursed", -80 },
-                { "Demonic", -100 }
+                { "Demonic", -100 },
             };
 
         private static readonly Dictionary<ItemStat, Dictionary<string, int>> StatNames =
@@ -35,7 +35,7 @@ namespace Fracture.Server.Modules.Items.Models
                         { "Unfortunate", -40 },
                         { "Clumsy", -60 },
                         { "Fateful", -80 },
-                        { "Misfortune-laden", -100 }
+                        { "Misfortune-laden", -100 },
                     }
                 },
                 {
@@ -51,7 +51,7 @@ namespace Fracture.Server.Modules.Items.Models
                         { "Feeble", -40 },
                         { "Flimsy", -60 },
                         { "Fragile", -80 },
-                        { "Ethereal", -100 }
+                        { "Ethereal", -100 },
                     }
                 },
                 {
@@ -67,7 +67,7 @@ namespace Fracture.Server.Modules.Items.Models
                         { "Plain", -40 },
                         { "Rusty", -60 },
                         { "Unreliable", -80 },
-                        { "Primitive", -100 }
+                        { "Primitive", -100 },
                     }
                 },
                 {
@@ -83,7 +83,7 @@ namespace Fracture.Server.Modules.Items.Models
                         { "Dull", -40 },
                         { "Brittle", -60 },
                         { "Weak", -80 },
-                        { "Wasteful", -100 }
+                        { "Wasteful", -100 },
                     }
                 },
             };

@@ -9,7 +9,7 @@ namespace Fracture.Server.Modules.Items.Models
         Rare,
         Insane,
         Epic,
-        Legendary
+        Legendary,
     }
 }
 
@@ -29,12 +29,11 @@ namespace Fracture.Server.EnumExtensions
                 ItemRarity.Insane => "--rarity-insane",
                 ItemRarity.Epic => "--rarity-epic",
                 ItemRarity.Legendary => "--rarity-legendary",
-                _
-                    => throw new ArgumentOutOfRangeException(
-                        nameof(rarity),
-                        rarity,
-                        $"Rarity '{rarity}' does not have a corresponding CSS class."
-                    )
+                _ => throw new ArgumentOutOfRangeException(
+                    nameof(rarity),
+                    rarity,
+                    $"Rarity '{rarity}' does not have a corresponding CSS class."
+                ),
             };
         }
     }

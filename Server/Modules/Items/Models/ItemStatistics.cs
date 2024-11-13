@@ -30,7 +30,7 @@ namespace Fracture.Server.Modules.Items.Models
                 ItemStat.Health => Health,
                 ItemStat.Armor => Armor,
                 ItemStat.Power => Power,
-                _ => throw new ArgumentOutOfRangeException(nameof(stat), stat, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(stat), stat, null),
             };
         }
 
