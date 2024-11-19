@@ -115,8 +115,6 @@ body {
     justify-content: center;
     place-items: center;
     border-radius: 50px;
-    /*border: solid 0.5px;*/
-    /*border-color: black;*/
     filter: dropShadow(10px);
 }
 .data-box{
