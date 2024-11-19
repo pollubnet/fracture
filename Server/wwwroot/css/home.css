@@ -16,7 +16,7 @@ body {
     color: white;
     font-weight: bold;
     font-family: "Courier", sans-serif;
-    background-image: url("../assets/bg.jpg");
+    background-image: url("../assets/background/titleScreen.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -106,8 +106,8 @@ body {
     /*line-height: 40px;*/
 }
 .login-box{
-    height: 600px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
     background-color: rgba(76, 76, 76, 0.27);
     margin: auto;
     display: flex;
@@ -115,8 +115,8 @@ body {
     justify-content: center;
     place-items: center;
     border-radius: 50px;
-    border: solid 1px;
-    border-color: black;
+    /*border: solid 0.5px;*/
+    /*border-color: black;*/
     filter: dropShadow(10px);
 }
 .data-box{
