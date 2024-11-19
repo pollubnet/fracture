@@ -21,6 +21,7 @@
 @using Fracture.Server.Components.Pages
 @using Fracture.Server.Modules.Shared
 @using Fracture.Server.Modules.MapGenerator.UI
+@using Microsoft.AspNetCore.Session
 @layout GameLayout
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
@@ -122,7 +123,7 @@
 			</div>
 			<div class="settingsBtn">
 				<div class="settingsBtn-content">
-					<img src="assets/exitbutton.svg" />
+					<div @onclick="@Logout"><img src="assets/exitbutton.svg" /></div>
 				</div>
 			</div>
 
@@ -137,7 +138,7 @@
 
 	private Dictionary<string, object> _equipmentPopupParameters = null!;
 	private Dictionary<string, object> _mapPopupParameters = null!;
-
+	
 	private PopupContainer _popup = null!;
 	private string _loginInfo = string.Empty;
 
@@ -201,5 +202,11 @@
 		};
 
 		await base.OnInitializedAsync();
+	}
+
+	private void Logout ()
+	{
+		NavigationManager.NavigateTo("/home");
+		ProtectedSessionStore.DeleteAsync("username");
 	}
 }
