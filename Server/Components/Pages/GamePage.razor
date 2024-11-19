@@ -46,6 +46,7 @@
 				<div class="info-content">
 					<div @onclick="() => _popup.ShowComponent<EquipmentPopup>(_equipmentPopupParameters)">
 						<img src="assets/infobutton.svg" />
+						
 					</div>
 				</div>
 			</div>
@@ -85,7 +86,7 @@
 		<div class="journal">
 			<div class="info">
 				<div class="info-content">
-					<div @onclick="() => _popup.ShowComponent<JournalPopup>()"></div><img src="assets/infobutton.svg" />
+					<div @onclick="() => _popup.ShowComponent<JournalPopup>()" ></div><img src="assets/infobutton.svg" />
 				</div>
 			</div>
 
@@ -129,7 +130,6 @@
 		</div>
 	</div>
 </div>
-
 
 @code {
 	private User _user = new();

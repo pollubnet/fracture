@@ -7,7 +7,7 @@
         <DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
     }
     <div>
-        <button class="closeBtn" @onclick="() => IsVisible = false"><img src="assets/closebutton.svg" /></button>
+        <button class="closeBtn" @onclick="() => IsVisible=false"><img src="assets/closebutton.svg" /></button>
     </div>
 </div>
 
@@ -22,6 +22,7 @@
         IsVisible = true;
         StateHasChanged();
     }
+
 
     public DynamicComponent? Component = null;
     private Type? _componentType = null;
