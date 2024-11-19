@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+html {
+    height: 100%;
+}
+*{
+    overflow: hidden;
+    font-family: "Courier", sans-serif;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #353535;
+    overflow: hidden;
+    color: white;
+    font-weight: bold;
+    font-family: "Courier", sans-serif;
+    background-image: url("../assets/bg.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    backdrop-filter: blur(2.5px);
+    
+
+}
+
+#container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.logButton{
+    background-color: rgba(25, 25, 25,1);
+    width: 12rem;
+    height: 2.5rem;
+    margin: 5px;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 30px;
+    cursor: pointer;
+    /*padding-top: 5px;*/
+    line-height: 150px;
+    text-transform: uppercase;
+    line-height: 2.5rem;
+    color: white;
+    font-weight: bold;
+}
+
+
+
+.cristalCircle {
+    padding: 5px;
+    z-index: 1;
+    border-radius: 100%;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
+}
+
+
+.crystal {
+    height: 80px;
+    width: 40px;
+    border-radius: 100%;
+    transition: 1s ease-in-out;
+    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc,0 0 50px #b27afc;
+    animation: glow 10s alternate infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.crystal img {
+    height: 100px;
+    transition: 1s ease-in-out;
+    user-select: none;
+
+}
+
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px #cc7afc,0 0 15px #b27afc, 0 0 35px #b27afc;
+    }
+
+    to {
+        box-shadow: 0 0 5px #7ab9fc,0 0 25px #7ad1fc, 0 0 35px #7ad1fc, 0 0 50px #7ad1fc;
+    }
+}
+
+.login{
+    
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*line-height: 40px;*/
+}
+.login-box{
+    height: 600px;
+    width: 500px;
+    background-color: rgba(76, 76, 76, 0.27);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    place-items: center;
+    border-radius: 50px;
+    border: solid 1px;
+    border-color: black;
+    filter: dropShadow(10px);
+}
+.data-box{
+   
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 25%;
+
+}
+
+.data-box input{
+    width: 14rem;
+    padding: 5px ;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+
+}
+.data-box label{
+    position: absolute;
+    top:30px;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.data-box input:focus ~ label,
+.data-box input:valid ~ label,
+.data-box input:focus ~ label,
+.data-box input:valid ~ label{
+    top: 0px;
+    left: 0;
+    color: rgb(255, 215, 137);
+    font-size: 0.65rem;
+}
+
+.actionButton:hover:before, .info:hover:before, .settingsBtn:hover:before, .logButton:hover:before{
+    opacity: 1;
+}
+
+.actionButton:before, .info:before, .settingsBtn:before, .logButton:before{
+    background: linear-gradient( 45deg, transparent 5%, rgb(255, 215, 137) 50%, transparent 99% );
+    border-radius: inherit;
+    content: "";
+    inset: 0px;
+    opacity: 0;
+    position: absolute;
+    transition: 0.4s;
+    z-index: 0;
+}
+
+
+.actionButton-content, .info-content, .settingsBtn-content, .logButton-content{
+    background-color: #191919;
+    border-radius: inherit;
+    inset: 1px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+.logButton-content{
+    letter-spacing: 5px;
+    font-size:1.2rem ;
+    padding-top: 0.5rem;
+}
+
+:root {
+    --rarity-common: #808080;
+    --rarity-uncommon: #8ef059;
+    --rarity-rare: #5963f0;
+    --rarity-insane: #f54c40;
+    --rarity-epic: #b423f7;
+    --rarity-legendary: gold;
+    --popup-padding: 10px;
+}
+h3{
+    width: 70%;
+}
