@@ -33,6 +33,6 @@
     <Exec Command="dotnet husky install" StandardOutputImportance="Low" StandardErrorImportance="High" WorkingDirectory=".." />
   </Target>
   <Target Name="GitVersion" BeforeTargets="Build">
-    <Exec Command="dotnet dotnet-gitversion /updateassemblyinfo AssemblyInfo.cs /ensureassemblyinfo" StandardOutputImportance="High" StandardErrorImportance="High" />
+    <Exec Command="git rev-list --count HEAD > version.txt &amp;&amp; git rev-parse --abbrev-ref HEAD >> version.txt" StandardOutputImportance="High" StandardErrorImportance="High" />
   </Target>
 </Project>
