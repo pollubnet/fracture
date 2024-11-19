@@ -6,13 +6,9 @@ class VersionInfoProvider
 {
     public VersionInfoProvider()
     {
-        InformationalVersion =
-            Assembly
-                .GetEntryAssembly()
-                ?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                ?.InformationalVersion ?? string.Empty;
-
-        ShortVersion = InformationalVersion.Substring(0, InformationalVersion.IndexOf(".Branch"));
+        var lines = File.ReadAllLines("version.txt");
+        ShortVersion = lines[0];
+        InformationalVersion = $"{lines[0]}-{lines[1]}";
     }
 
     public string InformationalVersion { get; init; }
