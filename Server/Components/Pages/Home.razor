@@ -12,20 +12,28 @@
 @using Fracture.Server.Components.UI
 @using Microsoft.AspNetCore.Mvc
 
-@layout GameLayout
+@layout HomeLayout
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
 
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 
-<div id="container">    
-    <div class="login">
-        LOGIN
-        <br>
-        <input type="text" @bind="_username" onkeyup="@Enter" />
-        <br>
-        <button @onclick="HandleUserLogin">Login or create account</button>
+<div id="container">
+    <div class="login-box">
+        <div class="login">
+            <div class="data-box">
+                <input type="text" @bind="_username" onkeyup="@Enter" required="required"/>
+                <label>Login</label>
+            </div>
+            <div class="data-box">
+                <input type="password" @bind="_username" onkeyup="@Enter" required="required"/>
+                <label>password</label>
+             </div>
+            <div class="data-box">
+                <div @onclick="HandleUserLogin" class="logButton"><div class="logButton-content">Sign in</div></div>
+            </div>    
+        </div>
     </div>
 </div>
 

@@ -3,7 +3,10 @@
 html {
     height: 100%;
 }
-
+*{
+    overflow: hidden;
+    font-family: "Courier", sans-serif;
+}
 body {
     width: 100%;
     height: 100%;
@@ -111,6 +114,23 @@ body {
     border-radius: 5px;
 }
 
+.logButton{
+    background-color: rgba(25, 25, 25,1);
+    width: 12rem;
+    height: 2.5rem;
+    margin: 5px;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 30px;
+    cursor: pointer;
+    /*padding-top: 5px;*/
+    line-height: 150px;
+    text-transform: uppercase;
+    line-height: 2.5rem;
+    color: white;
+    font-weight: bold;
+}
+
 .settingsBtn {
     background-color: rgba(25, 25, 25,1);
     width: 30%;
@@ -124,31 +144,7 @@ body {
     cursor: pointer;
 }
 
-    .actionButton:hover:before, .info:hover:before, .settingsBtn:hover:before {
-        opacity: 1;
-    }
 
-    .actionButton:before, .info:before, .settingsBtn:before {
-        background: linear-gradient( 45deg, transparent 5%, rgb(255, 215, 137) 50%, transparent 99% );
-        border-radius: inherit;
-        content: "";
-        inset: 0px;
-        opacity: 0;
-        position: absolute;
-        transition: 0.4s;
-        z-index: 0;
-    }
-
-
-.actionButton-content, .info-content, .settingsBtn-content {
-    background-color: #191919;
-    border-radius: inherit;
-    inset: 1px;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .cristalCircle {
     padding: 5px;
@@ -406,7 +402,7 @@ body {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 }
-.eqCiolumn span {
+.eqColumn span {
     font-size: 1.1em;
     font-weight: bolder;
 }
@@ -431,18 +427,110 @@ body {
         box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
     }
 .login{
-    height: fit-content;
-    display: block;
+
     margin: auto;
-    width: fit-content;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    top: 50%;
-    right: 50%;
-    line-height: 40px;
+    /*line-height: 40px;*/
+}
+.login-box{
+    height: 600px;
+    width: 500px;
+    background-color: rgba(76, 76, 76, 0.27);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    place-items: center;
+    border-radius: 50px;
+    border: solid 1px;
+    border-color: black;
+    /*box-shadow: 0px 2px 1px  rgb(51, 51, 51);*/
+    filter: dropShadow(10px);
+}
+.data-box{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 25%;
     
-}    
+}
+
+.data-box input{
+    width: 14rem;
+    padding: 5px ;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+    
+}
+.data-box label{
+    position: absolute;
+    top:30px;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.data-box input:focus ~ label,
+.data-box input:valid ~ label,
+.data-box input:focus ~ label,
+.data-box input:valid ~ label{
+    top: 0px;
+    left: 0;
+    color: rgb(255, 215, 137);
+    font-size: 0.65rem;
+}
+
+.actionButton:hover:before, .info:hover:before, .settingsBtn:hover:before, .logButton:hover:before{
+    opacity: 1;
+}
+
+.actionButton:before, .info:before, .settingsBtn:before, .logButton:before{
+    background: linear-gradient( 45deg, transparent 5%, rgb(255, 215, 137) 50%, transparent 99% );
+    border-radius: inherit;
+    content: "";
+    inset: 0px;
+    opacity: 0;
+    position: absolute;
+    transition: 0.4s;
+    z-index: 0;
+}
+
+
+.actionButton-content, .info-content, .settingsBtn-content, .logButton-content{
+    background-color: #191919;
+    border-radius: inherit;
+    inset: 1px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+}
+.logButton-content{
+    letter-spacing: 5px;
+    font-size:1.2rem ;
+    padding-top: 0.5rem;
+}
+
 :root {
     --rarity-common: #808080;
     --rarity-uncommon: #8ef059;
