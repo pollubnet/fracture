@@ -35,8 +35,8 @@ public class MapGeneratorService : IMapGeneratorService
 
     private MapData GenerateMap(NoiseParameters noiseParameters)
     {
-        int width = 32;
-        int height = 32;
+        int width = 64;
+        int height = 64;
         bool useFalloff = true;
         _seed = noiseParameters.UseRandomSeed ? _rnd.Next(int.MaxValue) : noiseParameters.Seed;
 
