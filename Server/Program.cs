@@ -5,6 +5,7 @@ using Fracture.Server.Modules.Database;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator.Services;
+using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.NameGenerators;
@@ -24,7 +25,8 @@ builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
 builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
-
+builder.Services.AddSingleton<ITownWeightGeneratorService, TownWeightFromHeightGenService>();
+builder.Services.AddSingleton<ITownGeneratorService, WeightedTownGeneratorService>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 

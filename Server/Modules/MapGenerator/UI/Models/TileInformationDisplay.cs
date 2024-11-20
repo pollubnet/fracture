@@ -6,4 +6,5 @@ public enum TileInformationDisplay
     Position,
     Noise,
     Path,
+    Town,
 }

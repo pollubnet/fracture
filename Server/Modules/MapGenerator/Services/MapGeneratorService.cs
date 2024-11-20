@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using Fracture.Server.Modules.MapGenerator.Models;
+using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.NoiseGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Services;
 
@@ -18,9 +19,20 @@ public class MapGeneratorService : IMapGeneratorService
     private readonly float _boost = 0.2f; // Flat boost to heightmap. Adds, then clamps
     private readonly bool _falloffType = true; // true = lerp, false = subtract
 
+    private readonly ITownGeneratorService _townGenerator;
+    private readonly ITownWeightGeneratorService _townWeightGenerator;
     private Random _rnd = new Random();
 
     private int _seed;
+
+    public MapGeneratorService(
+        ITownGeneratorService townGenerator,
+        ITownWeightGeneratorService townWeightGenerator
+    )
+    {
+        _townWeightGenerator = townWeightGenerator;
+        _townGenerator = townGenerator;
+    }
 
     public MapData MapData
     {
@@ -93,7 +105,9 @@ public class MapGeneratorService : IMapGeneratorService
                 HeightToColor(grid, heightMap, y, x);
             }
         }
-
+        var townCount = _rnd.Next(5, 15);
+        _townWeightGenerator.GenerateWeights(ref grid, height, width);
+        _townGenerator.Generate(ref grid, height, width, _seed, townCount);
         return new MapData(grid);
     }
 

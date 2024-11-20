@@ -115,8 +115,9 @@
 				</div>
 			</div>
 			<div class="settingsBtn">
-				<div class="settingsBtn-content">
-					<img src="assets/hourglassbutton.svg" />
+				<!-- Temporary for map regen -->
+				<div class="settingsBtn-content" onclick="@(() => RegenMap())">
+					<img src="assets/hourglassbutton.svg"/>
 				</div>
 			</div>
 			<div class="settingsBtn">
@@ -193,6 +194,8 @@
 
 		_map = await MapGeneratorService.GetMap(_noiseParameters);
 		_mapDisplayData.ShowColorMap = true;
+		//Debug remove this
+		_mapDisplayData.TileInformationDisplay = TileInformationDisplay.Town;
 
 		_mapPopupParameters = new()
 		{
@@ -201,5 +204,11 @@
 		};
 
 		await base.OnInitializedAsync();
+	}
+
+	private async Task RegenMap()
+	{
+		_map = await MapGeneratorService.GetMap(_noiseParameters);
+		_mapPopupParameters["Map"] = _map;
 	}
 }

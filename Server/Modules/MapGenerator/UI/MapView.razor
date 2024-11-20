@@ -13,25 +13,31 @@
                     {
                         @if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
                         {
-                            <td style='background: @GetTileColor(@Map.Grid[x,y])'>
-                                x:@x<br />y:@y
+                            <td style='background: @GetTileColor(@Map.Grid[x, y])'>
+                                x:@x<br/>y:@y
                             </td>
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise)
                         {
-                            <td style="background: @GetTileColor(@Map.Grid[x,y])">
+                            <td style="background: @GetTileColor(@Map.Grid[x, y])">
                                 @Math.Round(Map.Grid[x, y].NoiseValue, 2)
                             </td>
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
                         {
-                            <td style='background: @GetTileColor(@Map.Grid[x,y])'>
+                            <td style='background: @GetTileColor(@Map.Grid[x, y])'>
                             </td>
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
                         {
-                            <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x,y])'>
+                            <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x, y])'>
                                 @GetPathForTile(Map.Grid[x, y])
+                            </td>
+                        }
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Town)
+                        {
+                            <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x, y]); color: @(Map.Grid[x, y].IsTown ? "#8d38ff" : "white")'>
+                                @(Map.Grid[x, y].TownWeight)
                             </td>
                         }
                     }
