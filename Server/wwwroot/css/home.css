@@ -4,7 +4,7 @@ html {
     height: 100%;
 }
 *{
-    overflow: hidden;
+    
     font-family: "Courier", sans-serif;
 }
 body {
@@ -25,12 +25,15 @@ body {
     
 
 }
+html, body{
+    position: fixed;
+}
 
 #container {
     width: 100%;
     height: 100vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .logButton{
@@ -52,16 +55,15 @@ body {
 
 
 
-.cristalCircle {
+.crystalCircle {
     padding: 5px;
     z-index: 1;
-    border-radius: 100%;
-    height: 70px;
-    width: 70px;
+    height: 0px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
+    
 }
 
 
@@ -75,13 +77,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 .crystal img {
     height: 100px;
     transition: 1s ease-in-out;
     user-select: none;
-
+    
 }
 
 
@@ -110,12 +113,14 @@ body {
     width: 400px;
     background-color: rgba(76, 76, 76, 0.27);
     margin: auto;
+    margin-top: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
     place-items: center;
     border-radius: 50px;
     filter: dropShadow(10px);
+    
 }
 .data-box{
    
@@ -195,6 +200,25 @@ body {
 .logButton-content{
     letter-spacing: 5px;
     font-size:1.2rem ;
+}
+
+.title{
+    width: 100vw;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.titleImg{
+    width: 1000px;
+    height: 400px;
+    filter: drop-shadow(5px 8px 3px rgb(0 0 0 / 0.4));
+    
+}
+canvas{
+    filter: blur(1px);
+    z-index: 10;
 }
 
 :root {

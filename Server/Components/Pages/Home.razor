@@ -20,8 +20,18 @@
 @inject ProtectedSessionStorage ProtectedSessionStore
 
 <div id="container">
+    
+    <div class="title">
+        <img class="titleImg" src="assets/background/title.svg"/>
+    </div>
+    <div class="crystalCircle">
+        <div class="crystal">
+            <img src="assets/crystal.png" alt="">
+        </div>
+    </div>
     <div class="login-box">
         <div class="login">
+            
             <div class="data-box">
                 <input type="text" @bind="_username" onkeyup="@Enter" required="required"/>
                 <label>Login</label>
@@ -29,13 +39,24 @@
             <div class="data-box">
                 <input type="password" @bind="_username" onkeyup="@Enter" required="required"/>
                 <label>password</label>
-             </div>
+            </div>
             <div class="data-box">
-                <div @onclick="HandleUserLogin" class="logButton"><div class="logButton-content">Sign in</div></div>
-            </div>    
+                <div @onclick="HandleUserLogin" class="logButton">
+                    <div class="logButton-content">Sign in</div></div>
+            </div>
+            
         </div>
     </div>
+
+  
 </div>
+
+
+
+<script >
+    
+</script>
+
 
 @code {
     private async Task Enter(KeyboardEventArgs e)
@@ -54,3 +75,4 @@
         NavigationManager.NavigateTo($"/game");
     }
 }
+
