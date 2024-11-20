@@ -81,7 +81,7 @@ body {
     border: solid 2.5px rgb(0, 0, 0);
 }
 
-.cristalBox {
+.crystalBox {
     padding-top: 10px;
     display: flex;
     flex-direction: row;
@@ -145,7 +145,7 @@ body {
 
 
 
-.cristalCircle {
+.crystalCircle {
     padding: 5px;
     z-index: 1;
     border-radius: 100%;
