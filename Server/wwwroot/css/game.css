@@ -81,7 +81,7 @@ body {
     border: solid 2.5px rgb(0, 0, 0);
 }
 
-.cristalBox {
+.crystalBox {
     padding-top: 10px;
     display: flex;
     flex-direction: row;
@@ -145,7 +145,7 @@ body {
 
 
 
-.cristalCircle {
+.crystalCircle {
     padding: 5px;
     z-index: 1;
     border-radius: 100%;
@@ -225,6 +225,9 @@ body {
     width: calc(100% - (var(--popup-padding) * 2));
     height: calc(100% - (var(--popup-padding) * 2));
     backdrop-filter: blur(1px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .statManager {
@@ -282,20 +285,20 @@ body {
     box-shadow: 0px 0px 10px #000;
 }
 
-    .miniMapTable tr td, .mapTable tr td {
-        border: #000 1px solid;
-        background-color: blue;
-    }
+.miniMapTable tr td, .mapTable tr td {
+    border: #000 1px solid;
+    background-color: blue;
+}
 
-    .miniMapTable tr td {
-        width: 5px;
-        height: 5px;
-    }
+.miniMapTable tr td {
+    width: 2px;
+    height: 2px;
+}
 
-    .mapTable tr td {
-        width: 20px;
-        height: 20px;
-    }
+.mapTable tr td {
+    width: 8px;
+    height: 8px;
+}
 
 .settings {
     height: 10%;
@@ -304,7 +307,17 @@ body {
     flex-direction: row;
     align-items: center;
 }
-
+.map{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+.mapTable{
+    margin-top: 5px
+    
+}
 
 
 .stats {
@@ -347,19 +360,19 @@ body {
     box-shadow: 0px 0px 10px #000;
 }
 
-    .equipmentTable tr td {
-        border: #000 3px solid;
-        margin-left: 5px;
-        margin-right: 5px;
-        width: 100px;
-        height: 100px;
-        background-color: rgba(0,0,25,0.7);
-        
-    }
+.equipmentTable tr td {
+    border: #000 3px solid;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0,0,25,0.7);
+    
+}
 
-        .equipmentTable tr td:hover {
-            background-color: rgba(0,0,25,0.7);
-        }
+    .equipmentTable tr td:hover {
+        background-color: rgba(0,0,25,0.7);
+    }
 .row{
     display: flex;
     flex-direction: column;
@@ -375,8 +388,9 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 0;
     backdrop-filter: blur(1px);
+    height: 200px;
+    width: 200px;
 }
 .buttonEquip {
     background-color: rgba(138, 136, 136, 0.9);
@@ -391,8 +405,6 @@ body {
     backdrop-filter: blur(1px);
 }
 .eqColumn {
-    width: 50%;
-    height: 100%;
     overflow-y: scroll;
     text-align: justify;
     scrollbar-color: rgb(0, 0, 0) rgba(0,0,0,0);
@@ -400,6 +412,7 @@ body {
     scrollbar-arrow-color: black;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+   
 }
 .eqColumn span {
     font-size: 1.1em;
