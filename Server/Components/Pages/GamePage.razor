@@ -21,7 +21,9 @@
 @using Fracture.Server.Components.Pages
 @using Fracture.Server.Modules.Shared
 @using Fracture.Server.Modules.MapGenerator.UI
+@using Fracture.Server.Modules.Shared.ImageChanger
 @using Microsoft.AspNetCore.Session
+@using Microsoft.OpenApi.Extensions
 @layout GameLayout
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
@@ -61,7 +63,7 @@
 		</div>
 		<div class="statManager ">
 		</div>
-		<div class="dialogueWindowBg">
+		<div style="background: url(@_bgImg); background-size: cover; height: 90%; width: 100%;">
 			<div class="dialogueWindow">
 				Fracture @VersionInfoProvider.InformationalVersion<br />
 				tutaj log mojej gry<br />
@@ -141,7 +143,9 @@
 	
 	private PopupContainer _popup = null!;
 	private string _loginInfo = string.Empty;
-
+	
+	string _bgImg = new BacgroundImageChanger()._bgImg;
+	BacgroundImageChanger _bacgroundImageChanger = new BacgroundImageChanger();
 	private MapDisplayData _mapDisplayData = new();
 	private MapData? _map;
 	private List<IPathfindingNode>? _path { get; set; }
@@ -204,9 +208,11 @@
 		await base.OnInitializedAsync();
 	}
 
-	private void Logout ()
+	private void Logout()
 	{
 		NavigationManager.NavigateTo("/home");
 		ProtectedSessionStore.DeleteAsync("username");
 	}
+
+
 }
