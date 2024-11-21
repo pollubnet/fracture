@@ -1,11 +1,15 @@
 ﻿@using Fracture.Server.Modules.Items.Models
 @using System.Collections.ObjectModel
 
-<table>
+<table class="stat-table">
     @foreach (var itemStat in Enum.GetValues<ItemStat>())
     {
         var stat = Equipment.Sum(x => x.Statistics.GetStatFromItemStat(itemStat));
-        <tr><td><img src=@("assets/" + images[itemStat])></td><td>@itemStat</td><td>@stat</td></tr>
+        <tr>
+            <td><img src=@("assets/" + images[itemStat])></td>
+            <td>@itemStat</td>
+            <td class="stat-value-right-align">@stat</td>
+        </tr>
     }
 </table>
 

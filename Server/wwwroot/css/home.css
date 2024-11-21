@@ -21,6 +21,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
+    background-size: 150% 150%;
     backdrop-filter: blur(2.5px);
     
 

@@ -9,25 +9,30 @@
 @inject IItemsRepository ItemsRepository
 @inject ILogger<EquipmentPopup> Logger
 
+
+
 <div class="row">
     <div class="buttonEquipBg">
         <button class = "buttonEquip" @onclick="GenerateNewItem">Generate new item </button>
     </div>
-    <div class=equipmentContent >
-        <div class="eqColumn">
-            Inventory
-            @foreach (var item in Inventory.Where(x => !IsEquipped(x)))
-            {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
-            }
-        </div>
-        <div class="eqColumn">
-            Equipped
-            @foreach (var item in Equipment)
-            {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
-            }
-        </div>
+    <div class=equipmentContent>
+	    <div>Inventory</div>
+	    <div class="eqColumn">
+
+		    @foreach (var item in Inventory.Where(x => !IsEquipped(x)))
+		    {
+			    <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
+		    }
+	    </div>
+	    <div>Equipped</div>
+	    <div class="eqColumn">
+		    
+		    @foreach (var item in Equipment)
+		    {
+			    <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
+		    }
+	    </div>
+
     </div>
 </div>
 

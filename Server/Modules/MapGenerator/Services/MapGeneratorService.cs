@@ -12,7 +12,7 @@ public class MapGeneratorService : IMapGeneratorService
     private readonly float _persistence = 0.5f; // How much consecutive octaves contribute to the noise
     private readonly float _lacunarity = 2f; // How fast the frequency increases for each octave
     private readonly int _octaves = 3; // Number of octaves
-    private readonly float _scale = 3f; // Scale of the noise, bigger scale = more zoomed in
+    private readonly float _scale = 1f; // Scale of the noise, bigger scale = more zoomed in
     private readonly float _falloff = 0.3f; // How much the falloff map affects the heightmap
     private readonly float _sharpness = 1f; // How "sharp" heightmap is. Just a power function
     private readonly float _boost = 0.2f; // Flat boost to heightmap. Adds, then clamps
@@ -35,8 +35,8 @@ public class MapGeneratorService : IMapGeneratorService
 
     private MapData GenerateMap(NoiseParameters noiseParameters)
     {
-        int width = 64;
-        int height = 64;
+        int width = 80;
+        int height = 80;
         bool useFalloff = true;
         _seed = noiseParameters.UseRandomSeed ? _rnd.Next(int.MaxValue) : noiseParameters.Seed;
 

@@ -15,39 +15,45 @@ body {
     color: white;
     font-weight: bold;
     font-family: "Courier", sans-serif;
-    background-size: 150% 150%;
-    background-image: linear-gradient(45deg,#4c4c4c,#070707);
-    -webkit-animation: AnimateBG 10s ease infinite;
-    animation: AnimateBG 10s ease infinite;
+    /*background-size: 150% 150%;*/
+    /*background-image: linear-gradient(45deg,#4c4c4c,#070707);*/
+    background-image: url("../assets/panelbg1.jpg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 125%;
+    backdrop-filter: blur(3px);
+    
+    /*-webkit-animation: AnimateBG 10s ease infinite;*/
+    /*animation: AnimateBG 10s ease infinite;*/
 }
 
-@-webkit-keyframes AnimateBG {
-    0% {
-        background-position: 0% 50%;
-    }
+/*@-webkit-keyframes AnimateBG {*/
+/*    0% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
 
-    50% {
-        background-position: 100% 50%;
-    }
+/*    50% {*/
+/*        background-position: 100% 50%;*/
+/*    }*/
 
-    100% {
-        background-position: 0% 50%;
-    }
-}
+/*    100% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*}*/
 
-@keyframes AnimateBG {
-    0% {
-        background-position: 0% 50%;
-    }
+/*@keyframes AnimateBG {*/
+/*    0% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
 
-    50% {
-        background-position: 100% 50%;
-    }
+/*    50% {*/
+/*        background-position: 100% 50%;*/
+/*    }*/
 
-    100% {
-        background-position: 0% 50%;
-    }
-}
+/*    100% {*/
+/*        background-position: 0% 50%;*/
+/*    }*/
+/*}*/
 
 #container {
     width: 100%;
@@ -77,9 +83,9 @@ body {
     width: 25%;
 }
 
-.borderPanel {
-    border: solid 2.5px rgb(0, 0, 0);
-}
+/*.borderPanel {*/
+/*    border: solid 2.5px rgb(0, 0, 0);*/
+/*}*/
 
 .crystalBox {
     padding-top: 10px;
@@ -90,6 +96,7 @@ body {
     justify-content: space-evenly;
     flex-flow: row;
     height: 20%;
+    /*background: radial-gradient(circle, rgba(155,99,255,1) 0%, rgba(41,65,79,1) 100%);*/
 }
 
 .actionButton {
@@ -191,7 +198,9 @@ body {
 
 
 .dialogueWindowBg {
-    background: url(https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg);
+    
+    background: url("../assets/background/cementery.jpg");
+    border: 5px solid black;
     background-size: cover;
     height: 100%;
     width: 100%;
@@ -228,6 +237,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 10px;
+    
 }
 
 .statManager {
@@ -236,7 +247,7 @@ body {
 
 .journal {
     height: 45%;
-    background-color: #353535;
+    /*background-color: #353535;*/
     position: relative;
     display: flex;
 }
@@ -270,23 +281,24 @@ body {
 
 .miniMap {
     height: 45%;
-    background-color: #272626;
+    /*background-color: #272626;*/
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     border-top: #000 solid 2px;
-    border-bottom: #000 solid 2px;
+    /*border-bottom: #000 solid 2px;*/
+    
 }
 
 .miniMapTable, .mapTable {
-    border: #000 1px solid;
+    /*border: #000 1px solid;*/
     border-collapse: collapse;
     box-shadow: 0px 0px 10px #000;
 }
 
 .miniMapTable tr td, .mapTable tr td {
-    border: #000 1px solid;
+    /*border: #000 1px solid;*/
     background-color: blue;
 }
 
@@ -296,13 +308,13 @@ body {
 }
 
 .mapTable tr td {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 5px;
 }
 
 .settings {
     height: 10%;
-    background-color: #353535;
+    /*background-color: #353535;*/
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -322,7 +334,11 @@ body {
 
 .stats {
     height: 45%;
-    background-color: #353535;
+    /*background-color: #353535;*/
+    /*!*background-color: #1c2833;*!*/
+    /*background-image: url("../assets/panelbg1.webp");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
     position: relative;
     display: flex;
     align-items: center;
@@ -346,12 +362,16 @@ body {
 
 .equipment {
     height: 55%;
-    background-color: #272626;
+    /*background-color: #272626;*/
+    /*background-image: url("../assets/panelbg1.webp");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
     position: relative;
     border-top: #000 solid 2px;
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 .equipmentTable {
@@ -377,47 +397,119 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: 98%;
+    
+    
+    
 }
 
 .row div {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    
+}
+.item-stats{
+    text-align: justify;
+}
+.body-buttons{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+
+    
+}
+.body-buttons button{
+    height: 40%;
+    margin: 5px;
 }
 
 .equipmentContent {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     backdrop-filter: blur(1px);
-    height: 200px;
-    width: 200px;
+    width: 100%;
+    height: 100%;
 }
-.buttonEquip {
-    background-color: rgba(138, 136, 136, 0.9);
-    color: white;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-}
-.buttonEquipBg {
-    backdrop-filter: blur(1px);
+.itemButton{
+    height: 4rem;
+    width: 4.5rem;
+    font-size: 0.8rem;
+    
 }
 .eqColumn {
-    overflow-y: scroll;
+    overflow-y: hidden;
     text-align: justify;
     scrollbar-color: rgb(0, 0, 0) rgba(0,0,0,0);
     scrollbar-width: auto;
     scrollbar-arrow-color: black;
-    scroll-snap-type: y mandatory;
+    /*scroll-snap-type: y mandatory;*/
     scroll-behavior: smooth;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 60%;
+    
    
 }
-.eqColumn span {
-    font-size: 1.1em;
-    font-weight: bolder;
+
+
+.card{
+
+    /*height: 200px;*/
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
+.card-header,.card-body, .item-card{
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    height: 150px;
+    width: 150px; 
+    text-align: center;
+}
+.card-header{
+    display: flex;
+    flex-direction: column;
+}
+.card-body{
+    
+}
+.item-card{
+    height: 100px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0.6;
+    transition: opacity 0.2s ease-in-out;
+}
+.stat-value-right-align{
+    text-align: right;
+}
+
+.item-card:hover{
+    opacity: 1;
+}
+.item-name{
+    height: 10%;
+    
+}
+.card-body>.item-card{
+    opacity: 1;
+}
+.stat-table{
+    font-size: 1.5rem;
+}
+.stat-table tr td{
+    filter: drop-shadow(3px 4px 2px black);
+}
+
 .closeBtn{
     border-radius: 100%;
     width: 30px;
@@ -477,6 +569,7 @@ body {
     --rarity-epic: #b423f7;
     --rarity-legendary: gold;
     --popup-padding: 10px;
+    --row-padding: 5px;
 }
 h3{
     width: 70%;
