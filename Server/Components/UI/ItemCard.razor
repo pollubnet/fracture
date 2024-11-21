@@ -2,26 +2,41 @@
 @using Fracture.Server.EnumExtensions
 
 <div class="col">
-    <div class="card" style="min-width: 13rem;">
-        <div class="card-header" style="background-color: var(@Item.Rarity.ToCssClassName())">
-            @Item.Name
-        </div>
-        <div class="card-body">
-            <button class="buttonEquip" @onmouseover="ShowItemHistoryAsync" @onmouseleave="HideItemHistoryAsync" data-bs-toggle="collapse" data-bs-target="#collapse-@guid">Item History </button>
-            <div class="collapse" id="collapse-@guid">
-                <p class="card-text">@Item.History</p>
-            </div>
-            <ItemStats Item="@Item"></ItemStats>
-            <div>@Item.Type.ToString()</div>
-
+    <div class="card" >
+        <div class="card-header">
+            <div class="item-name">@Item.Type.ToString()</div>
             @if (IsEquipped)
             {
-                <button class="buttonEquip" @onclick="OnUnequipClicked">Unequip this</button>
+                <div class="item-card" style="background-color: var(@Item.Rarity.ToCssClassName()); opacity: 1;">
+                    @Item.Name
+                </div>
             }
             else
             {
-                <button class="buttonEquip" @onclick="OnEquipClicked">Equip this</button>
+                <div class="item-card" style="background-color: var(@Item.Rarity.ToCssClassName())">
+                    @Item.Name
+                </div>
             }
+        </div>
+
+        <div class="card-body">
+            <div class="body-buttons">
+                <div class="actionButton itemButton" @onmouseover="ShowItemHistoryAsync" @onmouseleave="HideItemHistoryAsync" data-bs-toggle="collapse" data-bs-target="#collapse-@guid"><div class="actionButton-content">Item History </div></div>
+                @if (IsEquipped)
+                {
+                    <div class="actionButton itemButton" @onclick="OnUnequipClicked"><div class="actionButton-content">Unequip this</div></div>
+                }
+                else
+                {
+                    <div class="actionButton itemButton" @onclick="OnEquipClicked"><div class="actionButton-content">Equip this</div></div>
+                }
+            </div>
+            <div class="collapse" id="collapse-@guid">
+                <p class="card-text">@Item.History</p>
+            </div>
+            <div class="item-stats">
+                <ItemStats Item="@Item"></ItemStats>
+            </div>
         </div>
     </div>
 </div>
