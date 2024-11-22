@@ -1,9 +1,12 @@
 @using Fracture.Server.Modules.Items.Models
 
-<table>
+<table class="stat-table" style="font-size: 1.2rem;">
     @foreach (var itemStat in Enum.GetValues<ItemStat>())
     {
-        <tr><td class="stat-value-right-align">@itemStat</td><td class="stat-value">@Item.Statistics.GetStatFromItemStat(itemStat)</td></tr>
+        <tr>
+            <td class="stat-value">@itemStat</td>
+            <td class="stat-value-right-align">@Item.Statistics.GetStatFromItemStat(itemStat)</td>
+        </tr>
     }
 </table>
 
