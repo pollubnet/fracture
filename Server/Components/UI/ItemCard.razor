@@ -7,13 +7,13 @@
             <div class="item-name">@Item.Type.ToString()</div>
             @if (IsEquipped)
             {
-                <div class="item-card" style="background-color: var(@Item.Rarity.ToCssClassName()); opacity: 1;">
+                <div class="item-card" title="@Item.Type.ToString()" style="background-color: var(@Item.Rarity.ToCssClassName()); opacity: 1;">
                     @Item.Name
                 </div>
             }
             else
             {
-                <div class="item-card" style="background-color: var(@Item.Rarity.ToCssClassName())">
+                <div class="item-card" title="@Item.Type.ToString()" style="background-color: var(@Item.Rarity.ToCssClassName())">
                     @Item.Name
                 </div>
             }

@@ -488,6 +488,7 @@ body {
     text-align: center;
     opacity: 0.6;
     transition: opacity 0.2s ease-in-out;
+    
 }
 .stat-value-right-align{
     text-align: right;

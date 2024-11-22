@@ -70,11 +70,17 @@
     }
 
     private string _username = String.Empty;
+    
+    
 
     private async Task HandleUserLogin()
     {
-        await ProtectedSessionStore.SetAsync("username", _username);
-        NavigationManager.NavigateTo($"/game");
+        if (_username != String.Empty)
+        {
+            await ProtectedSessionStore.SetAsync("username", _username);
+            NavigationManager.NavigateTo($"/game");
+        }
+        
     }
 }
 
