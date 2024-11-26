@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Drawing;
+using System.Numerics;
 using Fracture.Server.Modules.MapGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Services;
@@ -64,6 +65,7 @@ public class MapGeneratorService : IMapGeneratorService
             Vector2.Zero
         );
 
+        var biomes = BiomeFactory.GetBiomes();
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -87,45 +89,20 @@ public class MapGeneratorService : IMapGeneratorService
                         );
                 }
 
-                grid[x, y] = new Node(x, y, null);
-                grid[x, y].NoiseValue = heightMap[x, y];
-                grid[x, y].Walkable = grid[x, y].NoiseValue > 0.2f && grid[x, y].NoiseValue < 0.7f;
-                HeightToColor(grid, heightMap, y, x);
+                var biome = biomes.FirstOrDefault(b =>
+                    heightMap[x, y] >= b.MinHeight && heightMap[x, y] < b.MaxHeight
+                ); //type biome in perlin range
+
+                grid[x, y] = new Node(x, y, biome)
+                {
+                    NoiseValue = heightMap[x, y],
+                    Walkable = !(biome.BiomeType is BiomeType.DeepOcean or BiomeType.ShallowWater),
+                };
+
+                //grid[x, y].Biome.Color = biome != null ? grid[x, y].Biome.Color = biome.Color : biome.Color = Color.White;
             }
         }
 
         return new MapData(grid);
-    }
-
-    private static void HeightToColor(Node[,] grid, float[,] heightMap, int y, int x)
-    {
-        if (heightMap[x, y] < 0.02f)
-        {
-            grid[x, y].Color = "#21618C";
-        }
-        else if (heightMap[x, y] < 0.2f)
-        {
-            grid[x, y].Color = "#2E86C1";
-        }
-        else if (heightMap[x, y] < 0.40f)
-        {
-            grid[x, y].Color = "#F9E79F";
-        }
-        else if (heightMap[x, y] < 0.55f)
-        {
-            grid[x, y].Color = "#28B463";
-        }
-        else if (heightMap[x, y] < 0.7f)
-        {
-            grid[x, y].Color = "#1D8348";
-        }
-        else if (heightMap[x, y] < 0.85f)
-        {
-            grid[x, y].Color = "#616A6B";
-        }
-        else
-        {
-            grid[x, y].Color = "#515A5A";
-        }
     }
 }

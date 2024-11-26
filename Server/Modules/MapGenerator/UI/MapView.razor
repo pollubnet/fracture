@@ -1,4 +1,5 @@
-﻿@using Fracture.Server.Modules.MapGenerator.Models
+﻿@using System.Drawing
+@using Fracture.Server.Modules.MapGenerator.Models
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 
@@ -56,9 +57,10 @@
 
     private string GetTileColor(Node node)
     {
-        if (MapDisplayData!.ShowColorMap)
-        {
-            return node.Color ?? string.Empty;
+        if (MapDisplayData!.ShowColorMap) {
+            Color color = node.Biome.Color;
+            string hex = $"#{color.R:X2}{color.G:X2}{color.B:X2}"; // rgb -> hex
+            return hex ?? string.Empty;
         }
 
         string hexValue = string.Format("{0:x}", (int)(node.NoiseValue * 255));
