@@ -6,54 +6,42 @@ namespace Fracture.Server.Modules.Shared.ImageChanger;
 
 public class BacgroundImageChanger
 {
-    public string _bgImg { get; set; } =
-        "https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg";
+    public string _bgImg { get; set; } = null;
 
     private MapData? _map;
 
-    public void BgImg()
+    public string BgImg()
     {
         var biome = _map?.Grid[MapView.CharacterXX, MapView.CharacterYY].Biome!.BiomeType;
         switch (biome)
         {
             case BiomeType.Forest:
             {
-                _bgImg = "../assets/background/river.jpg";
-                break;
+                return _bgImg = "../assets/background/river.jpg";
             }
             case BiomeType.Grassland:
             {
-                _bgImg = "../assets/background/river.jpg";
-                break;
+                return _bgImg = "../assets/background/river.jpg";
             }
             case BiomeType.Mountains:
             {
-                _bgImg = "../assets/background/mountains.jpg";
-                break;
+                return _bgImg = "../assets/background/mountains.jpg";
             }
             case BiomeType.Beach:
             {
-                _bgImg =
-                    "https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg";
-                break;
+                return _bgImg = "../assets/background/mountainsRiver.jpg";
             }
             case BiomeType.HighMountains:
             {
-                _bgImg = "../assets/background/mountainsRiver.jpg";
-                break;
+                return _bgImg = "../assets/background/mountainsRiver.jpg";
             }
             case BiomeType.DeepOcean:
-                _bgImg =
-                    "https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg";
-                break;
+                return _bgImg = "../assets/background/mountainsRiver.jpg";
+
             case BiomeType.ShallowWater:
-                _bgImg =
-                    "https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg";
-                break;
+                return _bgImg = "../assets/background/mountainsRiver.jpg";
             default:
-                _bgImg =
-                    "https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg";
-                break;
+                return _bgImg = "../assets/background/mountainsRiver.jpg";
         }
     }
 }
