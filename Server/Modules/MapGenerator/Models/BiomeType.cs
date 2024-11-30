@@ -9,4 +9,5 @@ public enum BiomeType
     Forest,
     Mountains,
     HighMountains,
+    Unknown,
 }

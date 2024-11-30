@@ -36,8 +36,8 @@ public class MapGeneratorService : IMapGeneratorService
 
     private MapData GenerateMap(NoiseParameters noiseParameters)
     {
-        int width = 80;
-        int height = 80;
+        int width = 42;
+        int height = 42;
         bool useFalloff = true;
         _seed = noiseParameters.UseRandomSeed ? _rnd.Next(int.MaxValue) : noiseParameters.Seed;
 
@@ -54,15 +54,13 @@ public class MapGeneratorService : IMapGeneratorService
             _scale
         );
 
-        var temperatureMap = PerlinNoiseGenerator.Generate(
+        var temperatureMap = CustomPerlin.GenerateNoiseMap(
             width,
-            height,
             _seed + 1,
-            _scale,
             _octaves,
             _persistence,
             _lacunarity,
-            Vector2.Zero
+            _scale
         );
 
         var biomes = BiomeFactory.GetBiomes();
@@ -72,6 +70,7 @@ public class MapGeneratorService : IMapGeneratorService
             {
                 heightMap[x, y] = (float)
                     Math.Clamp(Math.Pow(heightMap[x, y], _sharpness) + _boost, 0, 1);
+                Math.Clamp(Math.Pow(temperatureMap[x, y], _sharpness) + _boost, 0, 1);
 
                 if (useFalloff)
                 {
@@ -87,19 +86,61 @@ public class MapGeneratorService : IMapGeneratorService
                             0,
                             1
                         );
+                    temperatureMap[x, y] = (float)
+                        Math.Clamp(
+                            _falloffType
+                                ? CustomPerlin.Lerp(
+                                    temperatureMap[x, y],
+                                    falloffMap[x, y],
+                                    _falloff
+                                )
+                                : Math.Clamp(
+                                    temperatureMap[x, y] - ((1 - falloffMap[x, y]) * _falloff),
+                                    0,
+                                    1
+                                ),
+                            0,
+                            1
+                        );
                 }
 
                 var biome = biomes.FirstOrDefault(b =>
                     heightMap[x, y] >= b.MinHeight && heightMap[x, y] < b.MaxHeight
-                ); //type biome in perlin range
+                );
 
-                grid[x, y] = new Node(x, y, biome)
+                SubBiome? subBiome = null;
+                if (biome?.SubBiomes != null)
                 {
-                    NoiseValue = heightMap[x, y],
-                    Walkable = !(biome.BiomeType is BiomeType.DeepOcean or BiomeType.ShallowWater),
-                };
+                    subBiome = biome.SubBiomes.FirstOrDefault(sb =>
+                        temperatureMap[x, y] >= sb.MinTemperature
+                        && temperatureMap[x, y] < sb.MaxTemperature
+                    );
+                }
 
-                //grid[x, y].Biome.Color = biome != null ? grid[x, y].Biome.Color = biome.Color : biome.Color = Color.White;
+                if (subBiome != null)
+                {
+                    grid[x, y] = new Node(x, y, biome)
+                    {
+                        NoiseValue = heightMap[x, y],
+                        Walkable = !(
+                            biome.BiomeType is BiomeType.DeepOcean or BiomeType.ShallowWater
+                        ),
+                        Color =
+                            subBiome.Color // Assign sub-biome-specific color
+                        ,
+                    };
+                }
+                else
+                {
+                    grid[x, y] = new Node(x, y, biome)
+                    {
+                        NoiseValue = heightMap[x, y],
+                        Walkable = !(
+                            biome.BiomeType is BiomeType.DeepOcean or BiomeType.ShallowWater
+                        ),
+                        Color = biome?.Color ?? Color.White,
+                    };
+                }
             }
         }
 
