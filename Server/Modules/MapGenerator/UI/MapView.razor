@@ -58,7 +58,7 @@
     private string GetTileColor(Node node)
     {
         if (MapDisplayData!.ShowColorMap) {
-            Color color = node.Biome.Color;
+            Color color = node.Color;
             string hex = $"#{color.R:X2}{color.G:X2}{color.B:X2}"; // rgb -> hex
             return hex ?? string.Empty;
         }

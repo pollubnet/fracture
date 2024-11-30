@@ -9,4 +9,5 @@ public class Biome
 
     public float MaxHeight { get; set; }
     public float MinHeight { get; set; }
+    public List<SubBiome>? SubBiomes { get; set; }
 }
