@@ -1,7 +1,9 @@
 ﻿@using System.Drawing
+@using Fracture.Server.Components.Pages
 @using Fracture.Server.Modules.MapGenerator.Models
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
+@using Fracture.Server.Modules.Shared.ImageChanger
 @using Microsoft.AspNetCore.Components.Web
 
 
@@ -17,8 +19,6 @@
                     {
                         @if (x == CharacterXX && y == CharacterYY)
                         {   
-
-
                             <td style='background: @GetTileColor(@Map.Grid[x, y]); font-size:6px;'>
                                 &#128405
                             </td>
@@ -66,13 +66,13 @@
     [Parameter]
     public bool IsMiniMap { get; set; } = true;
     
+    
     private bool isMoving = false;
     public static int CharacterXX { get; set; } = 16;
     public static int CharacterYY { get; set; } = 16;
     [Parameter] public int CharacterX { get; set; } = CharacterXX;
     [Parameter] public int CharacterY { get; set; } = CharacterXX;
-
-
+    
     private readonly HashSet<string> _blockingColors = new HashSet<string>
     {
         "#21618C","#2E86C1"
@@ -80,6 +80,7 @@
     
     private string GetTileColor(Node node)
     {
+        
         if (MapDisplayData!.ShowColorMap) {
             Color color = node.Biome.Color;
             string hex = $"#{color.R:X2}{color.G:X2}{color.B:X2}"; // rgb -> hex
@@ -127,8 +128,13 @@
         };
     }
     
-    private void HandleKeyDown(KeyboardEventArgs e)
+    private async void HandleKeyDown(KeyboardEventArgs e)
     {
+        BacgroundImageChanger _bacgroundImage = new()
+        {
+            _bacgroundImage = GamePage.bacgroundImage,
+            Map = Map
+        };
         if (IsMiniMap==false)
         {
             if (isMoving) return; 
@@ -138,16 +144,33 @@
             switch (e.Key)
             {
                 case "ArrowUp":
-                    if (CharacterYY > 0) newY--;;
+                    if (CharacterYY > 0)
+                    {
+                        newY--;
+                       await _bacgroundImage.change();
+                    }
+                   
                     break;
                 case "ArrowDown":
-                    if (CharacterYY < Map.Grid.GetLength(1)-1 ) newY++;
+                    if (CharacterYY < Map.Grid.GetLength(1) - 1)
+                    {
+                        newY++;
+                        await _bacgroundImage.change();
+                    }
                     break;
                 case "ArrowLeft":
-                    if (CharacterXX > 0) newX--;
+                    if (CharacterXX > 0)
+                    {
+                        newX--;
+                       await _bacgroundImage.change();
+                    }
                     break;
                 case "ArrowRight":
-                    if (CharacterXX < Map.Grid.GetLength(0)-1 ) newX++;
+                    if (CharacterXX < Map.Grid.GetLength(0) - 1)
+                    {
+                        newX++;
+                       await _bacgroundImage.change();
+                    }
                     break;
             }
     

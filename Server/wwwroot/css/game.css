@@ -198,11 +198,9 @@ body {
 
 
 .dialogueWindowBg {
-    
-    background: url("../assets/background/cementery.jpg");
     border: 5px solid black;
-    background-size: cover;
-    height: 100%;
+    background-size: cover; 
+    height: 90%; 
     width: 100%;
 }
 

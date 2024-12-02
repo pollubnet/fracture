@@ -3,6 +3,7 @@ using System.Numerics;
 using Fracture.Server.Modules.MapGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Services;
+using Microsoft.JSInterop;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 

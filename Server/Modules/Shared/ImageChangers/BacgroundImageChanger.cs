@@ -1,4 +1,5 @@
-﻿using Fracture.Server.Modules.MapGenerator.Models;
+﻿using Fracture.Server.Components.Pages;
+using Fracture.Server.Modules.MapGenerator.Models;
 using Fracture.Server.Modules.MapGenerator.UI;
 using Microsoft.AspNetCore.Components;
 
@@ -6,42 +7,60 @@ namespace Fracture.Server.Modules.Shared.ImageChanger;
 
 public class BacgroundImageChanger
 {
-    public string _bgImg { get; set; } = null;
+    [Parameter]
+    public required BacgroundImage? _bacgroundImage { get; set; }
 
-    private MapData? _map;
+    [Parameter]
+    public required MapData Map { get; set; }
 
-    public string BgImg()
+    public Task change()
     {
-        var biome = _map?.Grid[MapView.CharacterXX, MapView.CharacterYY].Biome!.BiomeType;
+        Console.WriteLine(MapView.CharacterXX);
+        var biome = Map.Grid[MapView.CharacterXX, MapView.CharacterYY].Biome.BiomeType;
+
         switch (biome)
         {
             case BiomeType.Forest:
             {
-                return _bgImg = "../assets/background/river.jpg";
+                _bacgroundImage.bgImg = "../assets/background/river.jpg";
+                Console.WriteLine(_bacgroundImage.bgImg);
+                break;
             }
             case BiomeType.Grassland:
             {
-                return _bgImg = "../assets/background/river.jpg";
+                _bacgroundImage.bgImg = "../assets/background/river.jpg";
+                break;
             }
             case BiomeType.Mountains:
             {
-                return _bgImg = "../assets/background/mountains.jpg";
+                _bacgroundImage.bgImg = "../assets/background/mountains.jpg";
+                break;
             }
             case BiomeType.Beach:
             {
-                return _bgImg = "../assets/background/mountainsRiver.jpg";
+                _bacgroundImage.bgImg = "../assets/background/lava.jpg";
+                break;
             }
             case BiomeType.HighMountains:
             {
-                return _bgImg = "../assets/background/mountainsRiver.jpg";
+                _bacgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
+                break;
             }
             case BiomeType.DeepOcean:
-                return _bgImg = "../assets/background/mountainsRiver.jpg";
-
+            {
+                _bacgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
+                break;
+            }
             case BiomeType.ShallowWater:
-                return _bgImg = "../assets/background/mountainsRiver.jpg";
+            {
+                _bacgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
+                break;
+            }
             default:
-                return _bgImg = "../assets/background/mountainsRiver.jpg";
+                _bacgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
+                break;
         }
+
+        return Task.CompletedTask;
     }
 }
