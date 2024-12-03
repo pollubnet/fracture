@@ -181,7 +181,7 @@ body {
     height: 100px;
     transition: 1s ease-in-out;
     user-select: none;
-
+   
 }
 
 
@@ -204,6 +204,7 @@ body {
     background-size: cover;
     height: 100%;
     width: 100%;
+    
 }
 
 .dialogueWindow {
@@ -526,11 +527,11 @@ body {
     cursor: pointer;
     z-index: auto;
 }
-
-    .closeBtn:hover {
-        background-color: rgb(255,0,0);
-        box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
-    }
+    
+.closeBtn:hover {
+    background-color: rgb(255,0,0);
+    box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
+}
 
 
 .actionButton:hover:before, .info:hover:before, .settingsBtn:hover:before{
@@ -557,7 +558,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
     
 }
 
