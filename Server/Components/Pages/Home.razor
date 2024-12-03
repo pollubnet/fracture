@@ -19,9 +19,21 @@
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+
 <div id="container">
+    
+    <div class="title">
+        <img class="titleImg" src="assets/background/title.svg"/>
+    </div>
+    <div class="crystalCircle">
+        <div class="crystal">
+            <img src="assets/crystal.png" alt="">
+        </div>
+    </div>
     <div class="login-box">
         <div class="login">
+            
             <div class="data-box">
                 <input type="text" @bind="_username" onkeyup="@Enter" required="required"/>
                 <label>Login</label>
@@ -29,13 +41,24 @@
             <div class="data-box">
                 <input type="password" @bind="_username" onkeyup="@Enter" required="required"/>
                 <label>password</label>
-             </div>
+            </div>
             <div class="data-box">
-                <div @onclick="HandleUserLogin" class="logButton"><div class="logButton-content">Sign in</div></div>
-            </div>    
+                <div @onclick="HandleUserLogin" class="logButton">
+                    <div class="logButton-content">Sign in</div></div>
+            </div>
+            
         </div>
     </div>
+
+  
 </div>
+
+
+
+<script >
+    
+</script>
+
 
 @code {
     private async Task Enter(KeyboardEventArgs e)
@@ -47,10 +70,17 @@
     }
 
     private string _username = String.Empty;
+    
+    
 
     private async Task HandleUserLogin()
     {
-        await ProtectedSessionStore.SetAsync("username", _username);
-        NavigationManager.NavigateTo($"/game");
+        if (_username != String.Empty)
+        {
+            await ProtectedSessionStore.SetAsync("username", _username);
+            NavigationManager.NavigateTo($"/game");
+        }
+        
     }
 }
+
