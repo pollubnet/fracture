@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>16f71bc9-60c6-466f-af95-a2818674e57c</UserSecretsId>
@@ -13,17 +13,17 @@
   </ItemGroup>
   <ItemGroup>    
     <PackageReference Include="Markov" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />
-    <PackageReference Include="Microsoft.FeatureManagement" Version="3.3.1" />
-    <PackageReference Include="OpenAI-DotNet" Version="7.7.8" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
+    <PackageReference Include="Microsoft.FeatureManagement" Version="4.0.0" />
+    <PackageReference Include="OpenAI-DotNet" Version="8.4.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\js\" />
@@ -33,6 +33,6 @@
     <Exec Command="dotnet husky install" StandardOutputImportance="Low" StandardErrorImportance="High" WorkingDirectory=".." />
   </Target>
   <Target Name="GitVersion" BeforeTargets="Build">
-    <Exec Command="git rev-list --count HEAD > version.txt &amp;&amp; git rev-parse --abbrev-ref HEAD >> version.txt" StandardOutputImportance="High" StandardErrorImportance="High" />
+    <Exec Command="git rev-list --count HEAD &gt; version.txt &amp;&amp; git rev-parse --abbrev-ref HEAD &gt;&gt; version.txt" StandardOutputImportance="High" StandardErrorImportance="High" />
   </Target>
 </Project>
