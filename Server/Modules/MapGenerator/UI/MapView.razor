@@ -55,20 +55,8 @@
     [Parameter]
     public bool IsMiniMap { get; set; } = true;
 
-    private string GetTileColor(Node node)
-    {
-        if (MapDisplayData!.ShowColorMap) {
-            Color color = node.Color;
-            string hex = $"#{color.R:X2}{color.G:X2}{color.B:X2}"; // rgb -> hex
-            return hex ?? string.Empty;
-        }
-
-        string hexValue = string.Format("{0:x}", (int)(node.NoiseValue * 255));
-        if (hexValue.Length == 1)
-        {
-            hexValue = "0" + hexValue;
-        }
-        return $"#{hexValue}{hexValue}{hexValue}";
+    private string GetTileColor(Node node) {
+        return ColorTranslator.ToHtml(node.Biome.Color);
     }
 
     private string GetPathForTile(Node node)

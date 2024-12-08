@@ -2,12 +2,10 @@
 
 namespace Fracture.Server.Modules.MapGenerator.Models;
 
-public class Biome
+public class Biome : BiomeCategory
 {
-    public BiomeType BiomeType { get; set; }
+    public string? Name { get; set; }
     public Color Color { get; set; }
-
-    public float MaxHeight { get; set; }
-    public float MinHeight { get; set; }
-    public List<SubBiome>? SubBiomes { get; set; }
+    public float MinTemperature { get; set; }
+    public float MaxTemperature { get; set; }
 }
