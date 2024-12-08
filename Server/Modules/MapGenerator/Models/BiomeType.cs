@@ -2,11 +2,7 @@
 
 public enum BiomeType
 {
-    DeepOcean,
-    ShallowWater,
-    Beach,
-    Grassland,
-    Forest,
-    Mountains,
-    HighMountains,
+    Vulcanic,
+    Normal,
+    Desert,
 }

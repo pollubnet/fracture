@@ -1,4 +1,5 @@
-﻿@using Fracture.Server.Modules.MapGenerator.Models
+﻿@using System.Drawing
+@using Fracture.Server.Modules.MapGenerator.Models
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 
@@ -54,19 +55,8 @@
     [Parameter]
     public bool IsMiniMap { get; set; } = true;
 
-    private string GetTileColor(Node node)
-    {
-        if (MapDisplayData!.ShowColorMap)
-        {
-            return node.Color ?? string.Empty;
-        }
-
-        string hexValue = string.Format("{0:x}", (int)(node.NoiseValue * 255));
-        if (hexValue.Length == 1)
-        {
-            hexValue = "0" + hexValue;
-        }
-        return $"#{hexValue}{hexValue}{hexValue}";
+    private string GetTileColor(Node node) {
+        return ColorTranslator.ToHtml(node.Biome.Color);
     }
 
     private string GetPathForTile(Node node)
