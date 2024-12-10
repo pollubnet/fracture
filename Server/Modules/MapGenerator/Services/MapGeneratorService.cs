@@ -6,16 +6,6 @@ namespace Fracture.Server.Modules.MapGenerator.Services;
 
 public class MapGeneratorService : IMapGeneratorService
 {
-    private readonly float _boost = 0.3f; // Flat boost to heightmap. Adds, then clamps
-    private readonly float _falloff = 0.3f; // How much the falloff map affects the heightmap
-    private readonly bool _falloffType = true; // true = lerp, false = subtract
-    private readonly float _lacunarity = 2f; // How fast the frequency increases for each octave
-    private readonly int _octaves = 3; // Number of octaves
-
-    private readonly float _persistence = 0.5f; // How much consecutive octaves contribute to the noise
-    private readonly float _scale = 2.9f; // Scale of the noise, bigger scale = more zoomed in
-    private readonly float _sharpness = 1f; // How "sharp" heightmap is. Just a power function
-
     private readonly Random _rnd = new();
 
     private int _seed;
@@ -30,6 +20,16 @@ public class MapGeneratorService : IMapGeneratorService
 
     private MapData GenerateMap(NoiseParameters noiseParameters)
     {
+        float _boost = 0.29f; // Flat boost to heightmap. Adds, then clamps
+        float _falloff = 0.45f; // How much the falloff map affects the heightmap
+        bool _falloffType = true; // true = lerp, false = subtract
+        float _lacunarity = 1.6f; // How fast the frequency increases for each octave
+        int _octaves = 5; // Number of octaves
+
+        float _persistence = 0.7f; // How much consecutive octaves contribute to the noise
+        float _scale = 2.9f; // Scale of the noise, bigger scale = more zoomed in
+        float _sharpness = 1f; // How "sharp" heightmap is. Just a power function
+
         int width = 64;
         int height = 64;
         bool useFalloff = true;
@@ -37,7 +37,7 @@ public class MapGeneratorService : IMapGeneratorService
 
         var grid = new Node[width, height];
 
-        var falloffMap = FalloffGenerator.GenerateEuclideanSquared(width); // Choose falloff type here
+        var falloffMap = FalloffGenerator.GenerateCustom(width); // Choose falloff type here
 
         var heightMap = CustomPerlin.GenerateNoiseMap(
             width,
