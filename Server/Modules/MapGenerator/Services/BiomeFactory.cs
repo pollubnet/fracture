@@ -28,12 +28,12 @@ public sealed class BiomeFactory
                 BiomeType.Normal,
                 TerrainType.ShallowWater,
                 0.02f,
-                0.2f,
+                0.15f, // Zmniejszenie zakresu
                 [
                     new Biome
                     {
                         Name = "Shallow Water",
-                        Color = Color.Blue, //lets talk about collors
+                        Color = Color.Blue,
                         MinTemperature = 0.0f,
                         MaxTemperature = 1.0f,
                     },
@@ -42,8 +42,8 @@ public sealed class BiomeFactory
             CreateBiome(
                 BiomeType.Normal,
                 TerrainType.Beach,
-                0.2f,
-                0.4f,
+                0.15f, // Dopasowanie minimalnej wysokości
+                0.3f, // Dopasowanie maksymalnej wysokości
                 [
                     new Biome
                     {
@@ -57,8 +57,8 @@ public sealed class BiomeFactory
             CreateBiome(
                 BiomeType.Normal,
                 TerrainType.Grassland,
-                0.4f,
-                0.55f,
+                0.3f,
+                0.5f,
                 [
                     new Biome
                     {
@@ -72,7 +72,7 @@ public sealed class BiomeFactory
             CreateBiome(
                 BiomeType.Normal,
                 TerrainType.Forest,
-                0.55f,
+                0.5f,
                 0.7f,
                 [
                     new Biome
@@ -109,20 +109,20 @@ public sealed class BiomeFactory
                         Name = "Rainy Mountains",
                         Color = Color.SlateGray,
                         MinTemperature = 0f,
-                        MaxTemperature = 0.3f,
+                        MaxTemperature = 0.45f,
                     },
                     new Biome
                     {
                         Name = "Snowy Mountains",
                         Color = Color.Snow,
-                        MinTemperature = 0.3f,
-                        MaxTemperature = 0.7f,
+                        MinTemperature = 0.45f,
+                        MaxTemperature = 0.6f,
                     },
                     new Biome
                     {
                         Name = "Default",
                         Color = ColorTranslator.FromHtml("#616A6B"),
-                        MinTemperature = 0.7f,
+                        MinTemperature = 0.6f,
                         MaxTemperature = 1.0f,
                     },
                 ]
