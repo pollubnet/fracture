@@ -30,9 +30,9 @@ public class MapGeneratorService : IMapGeneratorService
 
     private MapData GenerateMap(NoiseParameters noiseParameters)
     {
-        var width = 64;
-        var height = 64;
-        var useFalloff = true;
+        int width = 64;
+        int height = 64;
+        bool useFalloff = true;
         _seed = noiseParameters.UseRandomSeed ? _rnd.Next(int.MaxValue) : noiseParameters.Seed;
 
         var grid = new Node[width, height];
@@ -58,8 +58,8 @@ public class MapGeneratorService : IMapGeneratorService
         );
 
         var biomeCategories = BiomeFactory.GetBiomes();
-        for (var y = 0; y < height; y++)
-        for (var x = 0; x < width; x++)
+        for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++)
         {
             heightMap[x, y] = (float)
                 Math.Clamp(Math.Pow(heightMap[x, y], _sharpness) + _boost, 0, 1);
@@ -107,7 +107,7 @@ public class MapGeneratorService : IMapGeneratorService
                     && temperatureMap[x, y] < sb.MaxTemperature
                 )!;
 
-                // If no biome is found, log it
+                // If no biome is found, log it it's really good if biome data are invalid its easy to find where
                 if (biome == null)
                 {
                     Console.WriteLine(
