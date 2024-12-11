@@ -1,0 +1,140 @@
+﻿{
+  "NoiseParameters": {
+    "Seed": 12345678,
+    "Scale": 2.9,
+    "Octaves": 5,
+    "Persistence": 0.6,
+    "Lacunarity": 1.56,
+    "Sharpness": 1.3,
+    "Boost": 0.29,
+    "Falloff": 0.45,
+    "FalloffType": true,
+    "UseRandomSeed": true
+  },
+  "Width": 64,
+  "Height": 64,
+  "BiomeCategories": [
+    {
+      "BiomeType": "Normal",
+      "TerrainType": "DeepOcean",
+      "MinHeight": 0.0,
+      "MaxHeight": 0.02,
+      "Biomes": [
+        {
+          "Name": "Deep Ocean",
+          "Color": "DarkBlue",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Normal",
+      "TerrainType": "ShallowWater",
+      "MinHeight": 0.02,
+      "MaxHeight": 0.15,
+      "Biomes": [
+        {
+          "Name": "Shallow Water",
+          "Color": "Blue",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Normal",
+      "TerrainType": "Beach",
+      "MinHeight": 0.15,
+      "MaxHeight": 0.3,
+      "Biomes": [
+        {
+          "Name": "Beach",
+          "Color": "BurlyWood",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Normal",
+      "TerrainType": "Grassland",
+      "MinHeight": 0.3,
+      "MaxHeight": 0.5,
+      "Biomes": [
+        {
+          "Name": "Grassland",
+          "Color": "ForestGreen",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Normal",
+      "TerrainType": "Forest",
+      "MinHeight": 0.5,
+      "MaxHeight": 0.7,
+      "Biomes": [
+        {
+          "Name": "Tropical Forest",
+          "Color": "DarkGreen",
+          "MinTemperature": 0.7,
+          "MaxTemperature": 1.0
+        },
+        {
+          "Name": "Temperate Forest",
+          "Color": "DarkOliveGreen",
+          "MinTemperature": 0.4,
+          "MaxTemperature": 0.7
+        },
+        {
+          "Name": "Forest",
+          "Color": "Green",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 0.4
+        }
+      ]
+    },
+    {
+      "BiomeType": "Normal",
+      "TerrainType": "Mountains",
+      "MinHeight": 0.7,
+      "MaxHeight": 0.85,
+      "Biomes": [
+        {
+          "Name": "Rainy Mountains",
+          "Color": "SlateGray",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 0.45
+        },
+        {
+          "Name": "Snowy Mountains",
+          "Color": "Snow",
+          "MinTemperature": 0.45,
+          "MaxTemperature": 0.6
+        },
+        {
+          "Name": "Default",
+          "Color": "Gray",
+          "MinTemperature": 0.6,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Normal",
+      "TerrainType": "HighMountains",
+      "MinHeight": 0.85,
+      "MaxHeight": 1.0,
+      "Biomes": [
+        {
+          "Name": "High Mountains",
+          "Color": "DarkGray",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    }
+  ]
+}
