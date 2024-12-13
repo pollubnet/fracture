@@ -89,8 +89,22 @@
 
 	public void Equip(Item item)
 	{
+		
 	    if (Equipment.Count < slots)
 	    {
+		    for (int i = 0; i < Equipment.Count; i++)
+		    {
+			    if (Equipment[i].Type.Equals(item.Type))
+			    {
+				    if (item.Type.Equals(ItemType.Ring))
+				    {
+					    item.IsEquipped = true;
+					    ItemsRepository.UpdateItemAsync(item);
+					    Equipment.Add(item);
+				    }
+				    return;
+			    }
+		    }
 	        item.IsEquipped = true;
 			ItemsRepository.UpdateItemAsync(item);
 	        Equipment.Add(item);
