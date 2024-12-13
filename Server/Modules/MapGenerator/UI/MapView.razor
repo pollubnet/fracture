@@ -6,6 +6,7 @@
 @using Fracture.Server.Modules.Shared.ImageChanger
 @using Microsoft.AspNetCore.Components.Web
 
+@inject BacgroundImageChanger Bic
 
 
 <div id="map" tabindex="0" @onkeydown="HandleKeyDown">
@@ -20,7 +21,7 @@
                         @if (x == CharacterXX && y == CharacterYY)
                         {   
                             <td style='background: @GetTileColor(@Map.Grid[x, y]); font-size:6px;'>
-                                &#128405
+                                &#128528
                             </td>
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
@@ -147,7 +148,6 @@
                     if (CharacterYY > 0)
                     {
                         newY--;
-                       await _bacgroundImage.change();
                     }
                    
                     break;
@@ -155,21 +155,18 @@
                     if (CharacterYY < Map.Grid.GetLength(1) - 1)
                     {
                         newY++;
-                        await _bacgroundImage.change();
                     }
                     break;
                 case "ArrowLeft":
                     if (CharacterXX > 0)
                     {
                         newX--;
-                       await _bacgroundImage.change();
                     }
                     break;
                 case "ArrowRight":
                     if (CharacterXX < Map.Grid.GetLength(0) - 1)
                     {
                         newX++;
-                       await _bacgroundImage.change();
                     }
                     break;
             }
@@ -199,5 +196,6 @@
     }
 
    
+
 }
 

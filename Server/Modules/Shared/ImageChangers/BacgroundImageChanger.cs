@@ -13,11 +13,11 @@ public class BacgroundImageChanger
     [Parameter]
     public required MapData Map { get; set; }
 
-    public Task change()
+    public Task changeBgImgAsync()
     {
         Console.WriteLine(MapView.CharacterXX);
         var biome = Map.Grid[MapView.CharacterXX, MapView.CharacterYY].Biome.BiomeType;
-
+        Console.WriteLine(biome);
         switch (biome)
         {
             case BiomeType.Forest:
@@ -63,4 +63,8 @@ public class BacgroundImageChanger
 
         return Task.CompletedTask;
     }
+
+    public event EventHandler<EventArgs> BgImgChanged;
+
+    public void NotifyListChanged(object sender, EventArgs e) => BgImgChanged?.Invoke(sender, e);
 }

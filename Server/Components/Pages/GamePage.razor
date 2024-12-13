@@ -5,7 +5,7 @@
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
-
+@implements IDisposable 
 @page "/game"
 
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
@@ -31,7 +31,7 @@
 @inject IItemsRepository ItemsRepository
 @inject VersionInfoProvider VersionInfoProvider
 @inject IMapGeneratorService MapGeneratorService
-
+@inject BacgroundImageChanger BIC
 <link rel="icon" type="image/png" href="assets/icons/favicon.png"/>
 
 <div id="container">
@@ -67,7 +67,7 @@
 		<div class="statManager ">
 		</div>
 		<div class="dialogueWindowBg" style="background: url(@bacgroundImage.bgImg);">
-			<div class="dialogueWindow" @onkeyup="StateHasChanged">
+			<div class="dialogueWindow" @onkeydown="GetBacgroundAsync">
 				Fracture @VersionInfoProvider.InformationalVersion<br />
 				tutaj log mojej gry<br />
 				<PopupContainer @ref="_popup" ></PopupContainer>
@@ -151,15 +151,15 @@
 	
 
 	public static BacgroundImage bacgroundImage { get; set; } = new BacgroundImage(String.Empty);
-	private BacgroundImageChanger bacgroundImageChanger = new()
-	{
-		Map = _map,
-		_bacgroundImage = bacgroundImage
-	};
+
 	private MapDisplayData _mapDisplayData = new();
 	
 	private List<IPathfindingNode>? _path { get; set; }
 	private NoiseParameters _noiseParameters = new();
+	
+	
+
+	private bool hasChanged => BIC._bacgroundImage.bgImg is not null;
 	
 	protected override async Task OnInitializedAsync()
 	{
@@ -213,9 +213,12 @@
 			{ "Map", _map },
 			{ "MapDisplayData", _mapDisplayData }
 		};
+
+		BIC.Map = _map;
+		BIC._bacgroundImage = bacgroundImage;
+		await GetBacgroundAsync();
 		
-	
-		await bacgroundImageChanger.change();
+		this.BIC.BgImgChanged += this.OnBgChanged!;
 		
 		await base.OnInitializedAsync();
 		
@@ -227,9 +230,16 @@
 		ProtectedSessionStore.DeleteAsync("username");
 	}
 
+	private async Task GetBacgroundAsync() => await BIC.changeBgImgAsync();
 
-	
+	private void OnBgChanged(object sender, EventArgs e) => this.InvokeAsync(this.StateHasChanged);
 
+	public void Dispose()
+	{
+		this.BIC.BgImgChanged -= this.OnBgChanged!;
 	}
+
+
+}
 
 
