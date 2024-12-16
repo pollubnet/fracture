@@ -92,22 +92,23 @@
 		
 	    if (Equipment.Count < slots)
 	    {
-		    for (int i = 0; i < Equipment.Count; i++)
+		    if (item.Type.Equals(ItemType.Ring))
 		    {
-			    if (Equipment[i].Type.Equals(item.Type))
+			    item.IsEquipped = true;
+			    ItemsRepository.UpdateItemAsync(item);
+			    Equipment.Add(item);
+		    }
+
+		    foreach (var equipped in Equipment)
+		    {
+			    if (equipped.Type.Equals(item.Type))
 			    {
-				    if (item.Type.Equals(ItemType.Ring))
-				    {
-					    item.IsEquipped = true;
-					    ItemsRepository.UpdateItemAsync(item);
-					    Equipment.Add(item);
-				    }
 				    return;
 			    }
 		    }
-	        item.IsEquipped = true;
-			ItemsRepository.UpdateItemAsync(item);
-	        Equipment.Add(item);
+		    item.IsEquipped = true;
+		    ItemsRepository.UpdateItemAsync(item);
+		    Equipment.Add(item);
 	    }
 	}
 
