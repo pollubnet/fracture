@@ -97,6 +97,7 @@
 			    item.IsEquipped = true;
 			    ItemsRepository.UpdateItemAsync(item);
 			    Equipment.Add(item);
+			    return;
 		    }
 
 		    foreach (var equipped in Equipment)
