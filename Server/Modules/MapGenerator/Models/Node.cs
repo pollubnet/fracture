@@ -11,6 +11,7 @@ public class Node : IPathfindingNode
     public string? Color { get; set; }
     public float NoiseValue { get; set; }
 
+    public string Description { get; set; }
     public int GCost { get; set; }
     public int HCost { get; set; }
     public int FCost => GCost + HCost;

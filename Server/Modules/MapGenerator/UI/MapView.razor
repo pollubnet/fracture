@@ -1,4 +1,5 @@
 ﻿@using Fracture.Server.Modules.MapGenerator.Models
+@using Fracture.Server.Modules.MapGenerator.Services
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 
@@ -8,12 +9,12 @@
         <table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
             @for (int y = 0; y < Map.Grid.GetLength(1); y++)
             {
-                <tr>
+                <tr >
                     @for (int x = 0; x < Map.Grid.GetLength(0); x++)
                     {
                         @if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
                         {
-                            <td style='background: @GetTileColor(@Map.Grid[x,y])'>
+                            <td style='background: @GetTileColor(@Map.Grid[x,y])' onmouseover="@GetDescription(x,y)">
                                 x:@x<br />y:@y
                             </td>
                         }
@@ -53,6 +54,8 @@
 
     [Parameter]
     public bool IsMiniMap { get; set; } = true;
+
+   
 
     private string GetTileColor(Node node)
     {
@@ -101,4 +104,15 @@
             _ => ""
         };
     }
+
+    private string GetDescription(int posX, int posY)
+    {
+        DescriptionGenerator _descriptionGenerator = new DescriptionGenerator
+        {
+            Map = Map
+        };
+
+        return _descriptionGenerator.GenerateDescription(posX, posY).Result;
+    }
+    
 }
