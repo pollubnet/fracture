@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using Fracture.Server.Modules.AI.Services;
 using Fracture.Server.Modules.Items.Models;
+using Fracture.Server.Modules.NoiseGenerator.Models;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Microsoft.FeatureManagement;
@@ -19,6 +20,7 @@ namespace Fracture.Server.Modules.Items.Services
         public ItemGenerator(
             INameGenerator nameGenerator,
             PrefixesGenerator prefixes,
+            NoiseParameters noiseParameters,
             IAIInstructionProvider? ai = null
         )
         {
@@ -26,7 +28,7 @@ namespace Fracture.Server.Modules.Items.Services
             _prefixes = prefixes;
             _ai = ai;
 
-            _rnd = new Random();
+            _rnd = new Random(noiseParameters.Seed);
 
             var configData = File.ReadAllText("itemgeneratorconfig.json");
             _modifiers = JsonSerializer.Deserialize<List<RarityModifier>>(configData)!;
