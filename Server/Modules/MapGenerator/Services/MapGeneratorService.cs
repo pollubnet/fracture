@@ -17,10 +17,10 @@ public class MapGeneratorService : IMapGeneratorService
         this.logger = logger;
     }
 
-    public Task<MapData> GetMap(MapParameters mapParameters)
+    public async Task<MapData> GetMap(MapParameters mapParameters)
     {
         MapData = GenerateMap(mapParameters);
-        return Task.FromResult(MapData);
+        return await Task.FromResult(MapData);
     }
 
     private MapData GenerateMap(MapParameters mapParameters)
