@@ -5,6 +5,7 @@ using Fracture.Server.Modules.Database;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator.Services;
+using Fracture.Server.Modules.NoiseGenerator.Models;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.NameGenerators;
