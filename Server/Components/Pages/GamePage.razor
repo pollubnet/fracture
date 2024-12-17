@@ -195,7 +195,7 @@
 			{ "Inventory", _inventory }
 		};
 		MapParameters mapParameters = MapParametersService.ReadMapParametersFromJson(
-			"Config/MapParameters/Normal1.json");
+			"Config/MapParameters/Normal.json");
 		_map = await MapGeneratorService.GetMap(mapParameters);
 		_mapDisplayData.ShowColorMap = true;
 
