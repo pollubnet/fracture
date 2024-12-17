@@ -92,16 +92,13 @@ public static class CustomPerlin
 
     public static float[,] GenerateNoiseMap(
         int size,
-        int? seed = null,
+        int seed,
         int octaves = 1,
         float persistence = 0.5f,
         float lacunarity = 2.0f,
         float scale = 1.0f
     )
     { // Noise map generation
-        // can be called with a seed or without it
-        int actualSeed = seed ?? new Random().Next();
-
         float[,] map = new float[size, size];
 
         for (int y = 0; y < size; y++)
@@ -110,14 +107,7 @@ public static class CustomPerlin
             {
                 float scaledX = x / (float)Math.PI / scale;
                 float scaledY = y / (float)Math.PI / scale;
-                map[x, y] = PerlinOctaves(
-                    scaledX,
-                    scaledY,
-                    actualSeed,
-                    octaves,
-                    persistence,
-                    lacunarity
-                );
+                map[x, y] = PerlinOctaves(scaledX, scaledY, seed, octaves, persistence, lacunarity);
             }
         }
         return map;
