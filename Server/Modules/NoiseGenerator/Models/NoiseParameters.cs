@@ -13,7 +13,4 @@ public class NoiseParameters
     public float Boost { get; set; }
     public float Falloff { get; set; }
     public bool FalloffType { get; set; }
-
-    public bool UseRandomSeed { get; set; } = true;
-    public bool GenerateNew { get; set; } = true;
 }
