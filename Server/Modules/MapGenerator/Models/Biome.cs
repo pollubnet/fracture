@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Fracture.Server.Modules.MapGenerator.Models;
 
-public class Biome : BiomeCategory
+public class Biome
 {
     public string? Name { get; set; }
     public Color Color { get; set; }

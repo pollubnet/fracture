@@ -9,21 +9,23 @@ public class MapGeneratorService : IMapGeneratorService
 {
     private readonly Random _rnd = new();
     public MapData MapData { get; private set; } = default!;
-    private MapParameters MapParameters;
-    private MapParametersService mapParametersService = new();
 
-    public Task<MapData> GetMap()
+    private ILogger<MapGeneratorService> logger;
+
+    public MapGeneratorService(ILogger<MapGeneratorService> logger)
     {
-        MapData = GenerateMap();
+        this.logger = logger;
+    }
+
+    public Task<MapData> GetMap(MapParameters mapParameters)
+    {
+        MapData = GenerateMap(mapParameters);
         return Task.FromResult(MapData);
     }
 
-    private MapData GenerateMap()
+    private MapData GenerateMap(MapParameters mapParameters)
     {
-        MapParameters = mapParametersService.ReadMapParametersFromJson(
-            "Config/MapParameters/Normal.json"
-        );
-        var noiseParameters = MapParameters.NoiseParameters;
+        var noiseParameters = mapParameters.NoiseParameters;
         noiseParameters.Seed = noiseParameters.UseRandomSeed
             ? _rnd.Next(-100000, 100000)
             : noiseParameters.Seed;
@@ -53,7 +55,7 @@ public class MapGeneratorService : IMapGeneratorService
             noiseParameters.Scale
         );
 
-        var biomeCategories = MapParameters.BiomeCategories;
+        var biomeCategories = mapParameters.BiomeCategories;
         for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++)
         {
@@ -112,8 +114,13 @@ public class MapGeneratorService : IMapGeneratorService
             // If no biome category is found, log it
             if (biomeCategory == null)
             {
-                Console.WriteLine(
-                    $"No biome category found for height {heightMap[x, y]} at ({x}, {y})."
+                logger.LogError(
+                    string.Format(
+                        "No biome category found for height {0} at ({1}, {2}).",
+                        heightMap[x, y],
+                        x,
+                        y
+                    )
                 );
             }
 
@@ -128,8 +135,14 @@ public class MapGeneratorService : IMapGeneratorService
                 // If no biome is found, log it it's really good if biome data are invalid its easy to find where
                 if (biome == null)
                 {
-                    Console.WriteLine(
-                        $"No biome found for temperature {temperatureMap[x, y]} at ({x}, {y}) within category {biomeCategory.TerrainType}"
+                    logger.LogError(
+                        string.Format(
+                            "No biome found for temperature {0} at ({1}, {2}) within category {3}",
+                            temperatureMap[x, y],
+                            x,
+                            y,
+                            biomeCategory.TerrainType
+                        )
                     );
                 }
             }
