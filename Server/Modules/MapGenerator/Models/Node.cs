@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using Fracture.Server.Modules.Pathfinding.Models;
 
 namespace Fracture.Server.Modules.MapGenerator.Models;
@@ -16,6 +17,7 @@ public class Node : IPathfindingNode
 
     [Required]
     public float NoiseValue { get; set; }
+
     public int GCost { get; set; }
     public int HCost { get; set; }
     public int FCost => GCost + HCost;

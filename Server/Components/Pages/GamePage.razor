@@ -33,6 +33,9 @@
 @inject IMapGeneratorService MapGeneratorService
 @inject BacgroundImageChanger BIC
 <link rel="icon" type="image/png" href="assets/icons/favicon.png"/>
+@inject MapParametersService MapParametersService
+
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
 
 <div id="container">
 	<div class="leftPanel borderPanel">
@@ -205,8 +208,9 @@
 			{ "Equipment", _equipment },
 			{ "Inventory", _inventory }
 		};
-
-		_map = await MapGeneratorService.GetMap(_noiseParameters);
+		MapParameters mapParameters = MapParametersService.ReadMapParametersFromJson(
+			"Config/MapParameters/Normal.json");
+		_map = await MapGeneratorService.GetMap(mapParameters);
 		_mapDisplayData.ShowColorMap = true;
 		_mapPopupParameters = new()
 		{
