@@ -16,6 +16,9 @@ public class Node : IPathfindingNode
     public Biome Biome { get; set; }
 
     [Required]
+    public TerrainType TerrainType { get; set; }
+
+    [Required]
     public float NoiseValue { get; set; }
 
     public int GCost { get; set; }

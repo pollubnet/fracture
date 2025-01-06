@@ -16,42 +16,42 @@ public class BacgroundImageChanger
     public Task changeBgImgAsync()
     {
         Console.WriteLine(MapView.CharacterXX);
-        var biome = Map.Grid[MapView.CharacterXX, MapView.CharacterYY].Biome.BiomeType;
+        var biome = Map.Grid[MapView.CharacterXX, MapView.CharacterYY].TerrainType;
         Console.WriteLine(biome);
         switch (biome)
         {
-            case BiomeType.Forest:
+            case TerrainType.Forest:
             {
                 _bacgroundImage.bgImg = "../assets/background/river.jpg";
                 Console.WriteLine(_bacgroundImage.bgImg);
                 break;
             }
-            case BiomeType.Grassland:
+            case TerrainType.Grassland:
             {
                 _bacgroundImage.bgImg = "../assets/background/river.jpg";
                 break;
             }
-            case BiomeType.Mountains:
+            case TerrainType.Mountains:
             {
                 _bacgroundImage.bgImg = "../assets/background/mountains.jpg";
                 break;
             }
-            case BiomeType.Beach:
+            case TerrainType.Beach:
             {
                 _bacgroundImage.bgImg = "../assets/background/lava.jpg";
                 break;
             }
-            case BiomeType.HighMountains:
+            case TerrainType.HighMountains:
             {
                 _bacgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
                 break;
             }
-            case BiomeType.DeepOcean:
+            case TerrainType.DeepOcean:
             {
                 _bacgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
                 break;
             }
-            case BiomeType.ShallowWater:
+            case TerrainType.ShallowWater:
             {
                 _bacgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
                 break;

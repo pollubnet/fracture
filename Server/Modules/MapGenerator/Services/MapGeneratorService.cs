@@ -157,6 +157,7 @@ public class MapGeneratorService : IMapGeneratorService
                         is TerrainType.DeepOcean
                             or TerrainType.ShallowWater
                     ),
+                TerrainType = biomeCategory!.TerrainType,
             };
         }
 
