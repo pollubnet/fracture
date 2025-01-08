@@ -202,6 +202,7 @@ body {
     background-size: cover; 
     height: 90%; 
     width: 100%;
+    background-repeat: no-repeat;
 }
 
 .dialogueWindow {

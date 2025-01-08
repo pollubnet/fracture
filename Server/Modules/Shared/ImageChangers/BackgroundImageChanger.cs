@@ -13,18 +13,17 @@ public class BackgroundImageChanger
     public required MapData Map { get; set; }
 
     private ILogger<BackgroundImageChanger> logger;
+
     public Task ChangeBgImgAsync()
     {
-        Console.WriteLine(MapView.CharacterXX);
         var biome = Map.Grid[MapView.CharacterXX, MapView.CharacterYY].TerrainType;
 
-        
         if (BackgroundImage is null)
         {
             logger.LogError("BackgroundImage is missing");
             return Task.CompletedTask;
         }
-        
+
         switch (biome)
         {
             case TerrainType.Forest:
