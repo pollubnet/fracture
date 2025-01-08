@@ -1,7 +1,6 @@
 ﻿@using Fracture.Server.Modules.MapGenerator.Models
 @using Fracture.Server.Modules.MapGenerator.Services
 @using Fracture.Server.Modules.MapGenerator.UI.Models
-@using Fracture.Server.Modules.NoiseGenerator.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
@@ -15,23 +14,19 @@
 @using Fracture.Server.Components.UI
 @using Fracture.Server.Modules.Items.Models
 @using System.Collections.ObjectModel
-@using System.Reflection.Metadata
 @using Fracture.Server.Modules.Database
 @using Fracture.Server.Modules.Users
-@using Fracture.Server.Components.Pages
 @using Fracture.Server.Modules.Shared
 @using Fracture.Server.Modules.MapGenerator.UI
-@using Modules.Shared.ImageChanger
-@using Microsoft.AspNetCore.Session
-@using Microsoft.OpenApi.Extensions
-@using SQLitePCL
+@using Fracture.Server.Modules.Shared.ImageChangers
+
 @layout GameLayout
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
 @inject IItemsRepository ItemsRepository
 @inject VersionInfoProvider VersionInfoProvider
 @inject IMapGeneratorService MapGeneratorService
-@inject BacgroundImageChanger BIC
+@inject BackgroundImageChanger BackgroundImageChanger
 <link rel="icon" type="image/png" href="assets/icons/favicon.png"/>
 @inject MapParametersService MapParametersService
 
@@ -69,7 +64,7 @@
 		</div>
 		<div class="statManager ">
 		</div>
-		<div class="dialogueWindowBg" style="background: url(@bacgroundImage.bgImg);">
+		<div class="dialogueWindowBg" style="background: url(@BackgroundImage.bgImg);">
 			<div class="dialogueWindow" @onkeydown="GetBacgroundAsync">
 				Fracture @VersionInfoProvider.InformationalVersion<br />
 				tutaj log mojej gry<br />
@@ -116,7 +111,7 @@
 					<div @onclick="() => _popup.ShowComponent<MapPopup>(_mapPopupParameters)"><img src="assets/icons/infobutton.svg" /></div>
 				</div>
 			</div>
-			<MapView Map="_map" MapDisplayData="_mapDisplayData" Path="_path"></MapView>
+			<MapView Map="Map" MapDisplayData="_mapDisplayData" Path="Path"></MapView>
 		</div>
 		<div class="settings">
 			<div class="settingsBtn">
@@ -146,23 +141,23 @@
 	
 	private Dictionary<string, object> _equipmentPopupParameters = null!;
 	private Dictionary<string, object> _mapPopupParameters = null!;
-	public static MapData? _map { get; set; }
+	public static MapData? Map { get; set; }
 
 	
 	private PopupContainer _popup = null!;
-	private string _loginInfo = string.Empty;
+
 	
 
-	public static BacgroundImage bacgroundImage { get; set; } = new BacgroundImage(String.Empty);
+	public static BackgroundImage BackgroundImage { get; set; } = new BackgroundImage(String.Empty);
 
 	private MapDisplayData _mapDisplayData = new();
 	
-	private List<IPathfindingNode>? _path { get; set; }
-	private NoiseParameters _noiseParameters = new();
+	private List<IPathfindingNode>? Path { get; set; }
+
 	
 	
 
-	private bool hasChanged => BIC._bacgroundImage.bgImg is not null;
+
 	
 	protected override async Task OnInitializedAsync()
 	{
@@ -208,21 +203,21 @@
 			{ "Equipment", _equipment },
 			{ "Inventory", _inventory }
 		};
-		MapParameters mapParameters = MapParametersService.ReadMapParametersFromJson(
+		MapParameters? mapParameters = MapParametersService.ReadMapParametersFromJson(
 			"Config/MapParameters/Normal.json");
-		_map = await MapGeneratorService.GetMap(mapParameters);
+		Map = await MapGeneratorService.GetMap(mapParameters);
 		_mapDisplayData.ShowColorMap = true;
 		_mapPopupParameters = new()
 		{
-			{ "Map", _map },
+			{ "Map", Map },
 			{ "MapDisplayData", _mapDisplayData }
 		};
 
-		BIC.Map = _map;
-		BIC._bacgroundImage = bacgroundImage;
+		BackgroundImageChanger.Map = Map;
+		BackgroundImageChanger.BackgroundImage = BackgroundImage;
 		await GetBacgroundAsync();
 		
-		this.BIC.BgImgChanged += this.OnBgChanged!;
+		this.BackgroundImageChanger.BgImgChanged += this.OnBgChanged!;
 		
 		await base.OnInitializedAsync();
 		
@@ -234,13 +229,15 @@
 		ProtectedSessionStore.DeleteAsync("username");
 	}
 
-	private async Task GetBacgroundAsync() => await BIC.changeBgImgAsync();
+	
+	//this piece of codes refreshes GamePage after changing background image. It is necessary to show new background.
+	private async Task GetBacgroundAsync() => await BackgroundImageChanger.ChangeBgImgAsync();
 
 	private void OnBgChanged(object sender, EventArgs e) => this.InvokeAsync(this.StateHasChanged);
 
 	public void Dispose()
 	{
-		this.BIC.BgImgChanged -= this.OnBgChanged!;
+		this.BackgroundImageChanger.BgImgChanged -= this.OnBgChanged!;
 	}
 
 

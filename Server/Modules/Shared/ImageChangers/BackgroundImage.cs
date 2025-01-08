@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Fracture.Server.Modules.Shared.ImageChanger;
+namespace Fracture.Server.Modules.Shared.ImageChangers;
 
-public class BacgroundImage
+public class BackgroundImage
 {
     [Required]
     public string bgImg { get; set; }
 
-    public BacgroundImage(string bgimg)
+    public BackgroundImage(string bgimg)
     {
         bgImg = bgimg;
     }

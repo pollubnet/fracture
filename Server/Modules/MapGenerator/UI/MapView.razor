@@ -3,10 +3,10 @@
 @using Fracture.Server.Modules.MapGenerator.Models
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
-@using Fracture.Server.Modules.Shared.ImageChanger
+@using Fracture.Server.Modules.Shared.ImageChangers
 @using Microsoft.AspNetCore.Components.Web
 
-@inject BacgroundImageChanger Bic
+
 
 
 <div id="map" tabindex="0" @onkeydown="HandleKeyDown">
@@ -131,9 +131,9 @@
     
     private async void HandleKeyDown(KeyboardEventArgs e)
     {
-        BacgroundImageChanger _bacgroundImage = new()
+        BackgroundImageChanger backgroundImage = new()
         {
-            _bacgroundImage = GamePage.bacgroundImage,
+            BackgroundImage = GamePage.BackgroundImage,
             Map = Map
         };
         if (IsMiniMap==false)
@@ -189,7 +189,7 @@
 
     private bool CanMoveToTile(int x, int y)
     {
-        if (Map.Grid[x,y].Walkable==true)
+        if (Map != null && Map.Grid[x,y].Walkable==true)
         {
             return true;
         }

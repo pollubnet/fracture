@@ -5,6 +5,6 @@ namespace Fracture.Server.Modules.MapGenerator.Services;
 
 public interface IMapGeneratorService
 {
-    Task<MapData> GetMap(MapParameters mapParameters);
+    Task<MapData> GetMap(MapParameters? mapParameters);
     MapData MapData { get; }
 }
