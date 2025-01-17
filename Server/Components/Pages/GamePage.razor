@@ -21,12 +21,16 @@
 @using Fracture.Server.Components.Pages
 @using Fracture.Server.Modules.Shared
 @using Fracture.Server.Modules.MapGenerator.UI
+@using Microsoft.AspNetCore.Session
 @layout GameLayout
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
 @inject IItemsRepository ItemsRepository
 @inject VersionInfoProvider VersionInfoProvider
 @inject IMapGeneratorService MapGeneratorService
+@inject MapParametersService MapParametersService
+
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
 
 <div id="container">
 	<div class="leftPanel borderPanel">
@@ -66,10 +70,10 @@
 				<PopupContainer @ref="_popup"></PopupContainer>
 			</div>
 		</div>
-		<div class="cristalBox">
+		<div class="crystalBox">
 			<div class="actionButton"><div class="actionButton-content"><img src="assets/swordbutton.svg" /></div></div>
 			<div class="actionButton"><div class="actionButton-content"><img src="assets/shieldbutton.svg" /></div></div>
-			<div class="cristalCircle">
+			<div class="crystalCircle">
 				<div class="crystal">
 					<img src="assets/crystal.png" alt="">
 				</div>
@@ -115,14 +119,13 @@
 				</div>
 			</div>
 			<div class="settingsBtn">
-				<!-- Temporary for map regen -->
-				<div class="settingsBtn-content" onclick="@(() => RegenMap())">
-					<img src="assets/hourglassbutton.svg"/>
+				<div class="settingsBtn-content">
+					<img src="assets/hourglassbutton.svg" />
 				</div>
 			</div>
 			<div class="settingsBtn">
 				<div class="settingsBtn-content">
-					<img src="assets/exitbutton.svg" />
+					<div @onclick="@Logout"><img src="assets/exitbutton.svg" /></div>
 				</div>
 			</div>
 
@@ -138,7 +141,7 @@
 
 	private Dictionary<string, object> _equipmentPopupParameters = null!;
 	private Dictionary<string, object> _mapPopupParameters = null!;
-
+	
 	private PopupContainer _popup = null!;
 	private string _loginInfo = string.Empty;
 
@@ -191,11 +194,10 @@
 			{ "Equipment", _equipment },
 			{ "Inventory", _inventory }
 		};
-
-		_map = await MapGeneratorService.GetMap(_noiseParameters);
+		MapParameters mapParameters = MapParametersService.ReadMapParametersFromJson(
+			"Config/MapParameters/Normal.json");
+		_map = await MapGeneratorService.GetMap(mapParameters);
 		_mapDisplayData.ShowColorMap = true;
-		//Debug remove this
-		_mapDisplayData.TileInformationDisplay = TileInformationDisplay.Town;
 
 		_mapPopupParameters = new()
 		{
@@ -206,9 +208,9 @@
 		await base.OnInitializedAsync();
 	}
 
-	private async Task RegenMap()
+	private void Logout ()
 	{
-		_map = await MapGeneratorService.GetMap(_noiseParameters);
-		_mapPopupParameters["Map"] = _map;
+		NavigationManager.NavigateTo("/home");
+		ProtectedSessionStore.DeleteAsync("username");
 	}
 }
