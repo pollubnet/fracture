@@ -2,9 +2,16 @@
 
 namespace Fracture.Server.Modules.MapGenerator.Services.TownGen;
 
-// Some idea - should probably be replaced when biomes get introduced
-public class TownWeightFromHeightGenService : ITownWeightGeneratorService
+public class TownBiomeWeightGenService : ITownWeightGeneratorService
 {
+    private readonly TownParameters _townParameters;
+
+    public TownBiomeWeightGenService(ILogger<TownParameters> logger)
+    {
+        _townParameters = new TownParameters(logger);
+        _townParameters.Initialize("Normal");
+    }
+
     public void GenerateWeights(ref Node[,] nodes, int height, int width)
     {
         for (int i = 0; i < height; i++)
@@ -17,7 +24,6 @@ public class TownWeightFromHeightGenService : ITownWeightGeneratorService
         }
     }
 
-    //Calculates weight of node from neighbours
     private int CalculateWeight(Node[,] nodes, int height, int width, int x, int y)
     {
         Node currentNode = nodes[x, y];
@@ -58,62 +64,16 @@ public class TownWeightFromHeightGenService : ITownWeightGeneratorService
         }
     }
 
-    private static int GetWeight(Node node)
+    private int GetWeight(Node node)
     {
-        if (node.NoiseValue < 0.02f)
-        {
-            return 0; //Deap water - none (or tweak it for special worlds/fantasy cities)
-        }
-        if (node.NoiseValue < 0.20f)
-        {
-            return 20; //Water - coastal trade, likely
-        }
-        if (node.NoiseValue < 0.40f)
-        {
-            return 4; //Coastal - likely, but decreased since it more looks like deserts currently
-        }
-        if (node.NoiseValue < 0.55f)
-        {
-            return 13; //Plains or Woods - farmlands or timber, likely
-        }
-        if (node.NoiseValue < 0.70f)
-        {
-            return 11; //Hills - good defensive, bit less likely
-        }
-        if (node.NoiseValue < 0.85f)
-        {
-            return 9; //Mountains - even better defensive, mines, hard terrain - less likely
-        }
-        return 7; //High mountains - very improbable
+        var biomeParams = _townParameters.Get(node.Biome.Name);
+        return biomeParams.Weight;
     }
 
     // Self multipliers to make a mountain city surrounded mountains or hills less likely
-    private static float GetMultiplier(Node node)
+    private float GetMultiplier(Node node)
     {
-        if (node.NoiseValue < 0.02f)
-        {
-            return 0.0f; //Deap water
-        }
-        if (node.NoiseValue < 0.20f)
-        {
-            return 0.6f; //Water
-        }
-        if (node.NoiseValue < 0.40f)
-        {
-            return 1f; //Coastal
-        }
-        if (node.NoiseValue < 0.55f)
-        {
-            return 1f; //Plains or Woods
-        }
-        if (node.NoiseValue < 0.70f)
-        {
-            return 1f; //Hills
-        }
-        if (node.NoiseValue < 0.85f)
-        {
-            return 0.7f; //Mountains
-        }
-        return 0.5f; //High mountains
+        var biomeParams = _townParameters.Get(node.Biome.Name);
+        return biomeParams.Mult;
     }
 }

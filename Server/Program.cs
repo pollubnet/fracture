@@ -26,7 +26,7 @@ builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
 builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
-builder.Services.AddSingleton<ITownWeightGeneratorService, TownWeightFromHeightGenService>();
+builder.Services.AddSingleton<ITownWeightGeneratorService, TownBiomeWeightGenService>();
 builder.Services.AddSingleton<ITownGeneratorService, WeightedTownGeneratorService>();
 builder.Services.AddSingleton<MapParametersService>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
