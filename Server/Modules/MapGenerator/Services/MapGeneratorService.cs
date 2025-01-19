@@ -11,20 +11,20 @@ public class MapGeneratorService : IMapGeneratorService
     private readonly Random _rnd = new();
     public MapData MapData { get; private set; } = default!;
 
-    private readonly ITownGeneratorService _townGenerator;
-    private readonly ITownWeightGeneratorService _townWeightGenerator;
+    private readonly ILocationGeneratorService _locationGenerator;
+    private readonly ILocationWeightGeneratorService _locationWeightGenerator;
     private ILogger<MapGeneratorService> _logger;
 
     private int _seed;
 
     public MapGeneratorService(
-        ITownGeneratorService townGenerator,
-        ITownWeightGeneratorService townWeightGenerator,
+        ILocationGeneratorService locationGenerator,
+        ILocationWeightGeneratorService locationWeightGenerator,
         ILogger<MapGeneratorService> logger
     )
     {
-        _townWeightGenerator = townWeightGenerator;
-        _townGenerator = townGenerator;
+        _locationWeightGenerator = locationWeightGenerator;
+        _locationGenerator = locationGenerator;
         _logger = logger;
     }
 
@@ -170,9 +170,22 @@ public class MapGeneratorService : IMapGeneratorService
                     ),
             };
         }
-        var townCount = _rnd.Next(5, 15);
-        _townWeightGenerator.GenerateWeights(ref grid, height, width);
-        _townGenerator.Generate(ref grid, height, width, _seed, townCount);
+        grid = GenerateTowns(grid, height, width);
         return new MapData(grid);
+    }
+
+    private Node[,] GenerateTowns(Node[,] grid, int height, int width)
+    {
+        var townCount = _rnd.Next(5, 15);
+        var weights = _locationWeightGenerator.GenerateWeights(grid, height, width);
+        return _locationGenerator.Generate(
+            grid,
+            weights,
+            height,
+            width,
+            _rnd,
+            townCount,
+            Location.Town
+        );
     }
 }

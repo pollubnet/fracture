@@ -17,12 +17,12 @@ public class Node : IPathfindingNode
 
     [Required]
     public float NoiseValue { get; set; }
+
+    public Location Location { get; set; } = Location.None;
     public int GCost { get; set; }
     public int HCost { get; set; }
     public int FCost => GCost + HCost;
     public bool Walkable { get; set; }
-    public bool IsTown { get; set; }
-    public int TownWeight { get; set; }
     public IPathfindingNode? PreviousNode { get; set; }
 
     public Node(int xId, int yId, Biome biome)

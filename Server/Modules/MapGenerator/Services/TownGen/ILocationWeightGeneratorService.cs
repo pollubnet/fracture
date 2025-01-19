@@ -2,7 +2,7 @@
 
 namespace Fracture.Server.Modules.MapGenerator.Services.TownGen;
 
-public interface ITownWeightGeneratorService
+public interface ILocationWeightGeneratorService
 {
-    public void GenerateWeights(ref Node[,] nodes, int height, int width);
+    public int[,] GenerateWeights(Node[,] nodes, int height, int width);
 }

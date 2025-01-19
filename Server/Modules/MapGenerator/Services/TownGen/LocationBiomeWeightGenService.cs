@@ -2,26 +2,28 @@
 
 namespace Fracture.Server.Modules.MapGenerator.Services.TownGen;
 
-public class TownBiomeWeightGenService : ITownWeightGeneratorService
+public class LocationBiomeWeightGenService : ILocationWeightGeneratorService
 {
     private readonly TownParameters _townParameters;
 
-    public TownBiomeWeightGenService(ILogger<TownParameters> logger)
+    public LocationBiomeWeightGenService(ILogger<TownParameters> logger)
     {
         _townParameters = new TownParameters(logger);
         _townParameters.Initialize("Normal");
     }
 
-    public void GenerateWeights(ref Node[,] nodes, int height, int width)
+    public int[,] GenerateWeights(Node[,] nodes, int height, int width)
     {
+        var weights = new int[height, width];
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
                 var weight = CalculateWeight(nodes, height, width, i, j);
-                nodes[i, j].TownWeight = weight;
+                weights[i, j] = weight;
             }
         }
+        return weights;
     }
 
     private int CalculateWeight(Node[,] nodes, int height, int width, int x, int y)
@@ -53,7 +55,7 @@ public class TownBiomeWeightGenService : ITownWeightGeneratorService
         );
         //Check for land - we don't want water cities
         bool areaHasLand =
-            neighbors.Any(n => n.NoiseValue > 0.20f) || currentNode.NoiseValue > 0.20f;
+            neighbors.Any(n => n.Walkable) || currentNode.Walkable;
         if (areaHasLand)
         {
             return (int)(neighbors.Sum(GetWeight) * GetMultiplier(currentNode));

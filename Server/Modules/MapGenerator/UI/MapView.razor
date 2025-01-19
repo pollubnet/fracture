@@ -27,18 +27,13 @@
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
                         {
                             <td style='background: @GetTileColor(@Map.Grid[x, y])'>
+                                @RenderLocation(@Map.Grid[x, y])
                             </td>
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
                         {
                             <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x, y])'>
                                 @GetPathForTile(Map.Grid[x, y])
-                            </td>
-                        }
-                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Town)
-                        {
-                            <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x, y]); color: @(Map.Grid[x, y].IsTown ? "#8d38ff" : "white")'>
-                                @(Map.Grid[x, y].TownWeight)
                             </td>
                         }
                     }
@@ -95,6 +90,16 @@
             0 when xDirection == -1 => SpecialChars.Arrows.Left,
             1 when xDirection == -1 => SpecialChars.Arrows.UpLeft,
             _ => ""
+        };
+    }
+
+    private string RenderLocation(Node node)
+    {
+        return node.Location switch
+        {
+            Location.None => string.Empty,
+            Location.Town => "T",
+            _ => string.Empty
         };
     }
 }
