@@ -16,7 +16,7 @@
                         @switch (MapDisplayData.TileInformationDisplay)
                         {
                             case TileInformationDisplay.None:
-                                <MapSquare Node="node">
+                                <MapSquare Node="node" IsMiniMap="IsMiniMap">
                                     @RenderLocation(node)
                                 </MapSquare>
                                 break;
