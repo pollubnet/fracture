@@ -30,9 +30,9 @@ public class LocationBiomeWeightGenService : ILocationWeightGeneratorService
     {
         Node currentNode = nodes[x, y];
         List<Node> neighbors = [];
-        //Defines relative coordinates where to take neighbors from
+        //Defines relative coordinates/convolution mask where to take neighbors from
         //This one is a square without the node we're testing for
-        var neighborsMask = new[]
+        var neighborsMask = new (int X, int Y)[]
         {
             (-1, -1),
             (-1, 0),
@@ -45,17 +45,11 @@ public class LocationBiomeWeightGenService : ILocationWeightGeneratorService
         };
         neighbors.AddRange(
             neighborsMask
-                .Where(n =>
-                    x + n.Item1 < height
-                    && y + n.Item2 < width
-                    && x + n.Item1 >= 0
-                    && y + n.Item2 >= 0
-                )
-                .Select(n => nodes[x + n.Item1, y + n.Item2])
+                .Where(n => x + n.X < height && y + n.Y < width && x + n.X >= 0 && y + n.Y >= 0)
+                .Select(n => nodes[x + n.X, y + n.Y])
         );
         //Check for land - we don't want water cities
-        bool areaHasLand =
-            neighbors.Any(n => n.Walkable) || currentNode.Walkable;
+        bool areaHasLand = neighbors.Any(n => n.Walkable) || currentNode.Walkable;
         if (areaHasLand)
         {
             return (int)(neighbors.Sum(GetWeight) * GetMultiplier(currentNode));
