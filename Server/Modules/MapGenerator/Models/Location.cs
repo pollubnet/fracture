@@ -2,6 +2,6 @@
 
 public enum Location
 {
-    None = 0,
+    None,
     Town,
 }

@@ -1,0 +1,10 @@
+﻿@using Fracture.Server.Modules.MapGenerator.Models
+<div class="node-info">
+    <span>Biome: @Node?.Biome.Name</span>
+    <span>Location: @Node?.Location.ToString()</span>
+</div>
+
+@code {
+    [Parameter] 
+    public Node? Node { get; set; }
+}

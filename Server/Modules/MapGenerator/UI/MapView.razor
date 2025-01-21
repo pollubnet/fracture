@@ -12,29 +12,34 @@
                 <tr>
                     @for (int x = 0; x < Map.Grid.GetLength(0); x++)
                     {
-                        @if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
+                        Node node = Map.Grid[x, y];
+                        @switch (MapDisplayData.TileInformationDisplay)
                         {
-                            <td style='background: @GetTileColor(@Map.Grid[x, y])'>
-                                x:@x<br/>y:@y
-                            </td>
-                        }
-                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise)
-                        {
-                            <td style="background: @GetTileColor(@Map.Grid[x, y])">
-                                @Math.Round(Map.Grid[x, y].NoiseValue, 2)
-                            </td>
-                        }
-                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
-                        {
-                            <td style='background: @GetTileColor(@Map.Grid[x, y])'>
-                                @RenderLocation(@Map.Grid[x, y])
-                            </td>
-                        }
-                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
-                        {
-                            <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x, y])'>
-                                @GetPathForTile(Map.Grid[x, y])
-                            </td>
+                            case TileInformationDisplay.None:
+                                <MapSquare Node="node">
+                                    @RenderLocation(node)
+                                </MapSquare>
+                                break;
+                            case TileInformationDisplay.Position:
+                                <MapSquare Node="node">
+                                    x:@x<br/>y:@y
+                                </MapSquare>
+                                break;
+                            case TileInformationDisplay.Noise:
+                                <MapSquare Node="node">
+                                    @Math.Round(node.NoiseValue, 2)
+                                </MapSquare>
+                                break;
+                            case TileInformationDisplay.Path:
+                                <MapSquare Node="node">
+                                    @GetPathForTile(node)
+                                </MapSquare>
+                                break;
+                            default:
+                                <MapSquare Node="node">
+                                    @RenderLocation(node)
+                                </MapSquare>
+                                break;
                         }
                     }
                 </tr>
@@ -56,17 +61,13 @@
     [Parameter]
     public bool IsMiniMap { get; set; } = true;
 
-    private string GetTileColor(Node node) {
-        return ColorTranslator.ToHtml(node.Biome.Color);
-    }
-
     private string GetPathForTile(Node node)
     {
         if (Path == null)
         {
             return "";
         }
-
+    
         int pathNodeIndex = Path.FindIndex(n => n.XId == node.XId && n.YId == node.YId);
         if (pathNodeIndex != -1 && pathNodeIndex + 1 < Path.Count)
         {
@@ -92,7 +93,7 @@
             _ => ""
         };
     }
-
+    
     private string RenderLocation(Node node)
     {
         return node.Location switch
