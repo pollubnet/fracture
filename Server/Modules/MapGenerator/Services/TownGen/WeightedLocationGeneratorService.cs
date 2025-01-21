@@ -22,8 +22,8 @@ public class WeightedLocationGeneratorService : ILocationGeneratorService
                 randomWeights[x, y] = random.Next(0, weights[x, y]);
             }
         }
-
-        var weights1D = new List<(int, int, int)> { };
+        //Flatten town coords and sort descending
+        var weights1D = new List<(int X, int Y, int Weigth)> { };
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -31,21 +31,25 @@ public class WeightedLocationGeneratorService : ILocationGeneratorService
                 weights1D.Add((x, y, randomWeights[x, y]));
             }
         }
-        var towns = weights1D
-            .OrderBy(w => w.Item3)
-            .TakeLast(locationCount)
-            .Select(n => (n.Item1, n.Item2))
-            .ToHashSet();
-        for (int y = 0; y < height; y++)
+        weights1D = weights1D.OrderByDescending(w => w.Weigth).ToList();
+
+        //Try creating locations from highest weight to lowest
+        int locationsCreated = 0;
+        foreach (var town in weights1D)
         {
-            for (int x = 0; x < width; x++)
+            //Shorten execution if all eligible locations created
+            if (locationsCreated == locationCount || town.Weigth == 0)
+                break;
+            foreach (var node in nodes)
             {
-                if (towns.Contains((nodes[x, y].XId, nodes[x, y].YId)))
+                if (town.X == node.XId && town.Y == node.YId && node.Location == Location.None)
                 {
-                    nodes[x, y].Location = location;
+                    node.Location = location;
+                    locationsCreated++;
                 }
             }
         }
+
         return nodes;
     }
 }
