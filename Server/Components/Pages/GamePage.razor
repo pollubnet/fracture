@@ -28,6 +28,9 @@
 @inject IItemsRepository ItemsRepository
 @inject VersionInfoProvider VersionInfoProvider
 @inject IMapGeneratorService MapGeneratorService
+@inject MapParametersService MapParametersService
+
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
 
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
 
@@ -193,8 +196,9 @@
 			{ "Equipment", _equipment },
 			{ "Inventory", _inventory }
 		};
-
-		_map = await MapGeneratorService.GetMap(_noiseParameters);
+		MapParameters mapParameters = MapParametersService.ReadMapParametersFromJson(
+			"Config/MapParameters/Normal.json");
+		_map = await MapGeneratorService.GetMap(mapParameters);
 		_mapDisplayData.ShowColorMap = true;
 
 		_mapPopupParameters = new()
