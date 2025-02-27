@@ -252,7 +252,7 @@ body {
     text-align: justify;
     scrollbar-color: rgb(0, 0, 0) rgba(0,0,0,0);
     scrollbar-width: auto;
-    scrollbar-arrow-color: black;
+    scrollbar-areqContainer-color: black;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     box-shadow: 0px 0px 10px #000;
@@ -379,19 +379,16 @@ body {
         background-color: rgba(0,0,25,0.7);
         border: #404040 3px solid;
     }
-.row{
+.eqContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 95%;
     height: 98%;
-    
-    
-    
 }
 
-.row div {
+.eqContainer div {
     display: flex;
     justify-content: space-between;
     
@@ -414,13 +411,13 @@ body {
 .equipmentContent {
     display: flex;
     flex-direction: column;
-    backdrop-filter: blur(1px);
+    /*backdrop-filter: blur(1px);*/
     width: 100%;
     height: 100%;
 }
 .itemButton{
-    height: 4rem;
-    width: 4.5rem;
+    height:6vh;
+    width: 5vw;
     font-size: 0.8rem;
     
 }
@@ -429,12 +426,11 @@ body {
     text-align: justify;
     scrollbar-color: rgb(0, 0, 0) rgba(0,0,0,0);
     scrollbar-width: auto;
-    scrollbar-arrow-color: black;
+    scrollbar-areqContainer-color: black;
     /*scroll-snap-type: y mandatory;*/
     scroll-behavior: smooth;
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-evenly;
     height: 60%;
     
@@ -443,31 +439,35 @@ body {
 
 
 .card{
-
-    /*height: 200px;*/
-    width: 200px;
+    height: 34vh;
+    width: 14vw;
     display: flex;
     flex-direction: column;
     text-align: center;
 }
 .card-header,.card-body, .item-card{
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     padding: 5px;
     border-radius: 10px;
-    height: 150px;
-    width: 150px; 
+    height: 16vh;
+    width: 14vw;
     text-align: center;
 }
 .card-header{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.card-body, .item-card{
+    /*margin-top: 5px;*/
 }
 .card-body{
     
 }
 .item-card{
-    height: 100px;
-    width: 150px;
+    height: 10vh;
+    width: 12vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -555,7 +555,7 @@ body {
     --rarity-epic: #b423f7;
     --rarity-legendary: gold;
     --popup-padding: 10px;
-    --row-padding: 5px;
+    --eqContainer-padding: 5px;
 }
 h3{
     width: 70%;
