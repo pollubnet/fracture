@@ -477,8 +477,23 @@ body {
     transition: opacity 0.2s ease-in-out;
     
 }
-.stat-value-right-align{
+.stat-table{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.stat-row{
+    display: flex;
+    flex-direction: row;
+}
+.stat-name{
+    filter: drop-shadow(3px 4px 2px black);
+}
+.stat-value{
     text-align: right;
+    filter: drop-shadow(3px 4px 2px black);
 }
 
 .item-card:hover{
@@ -491,13 +506,7 @@ body {
 .card-body>.item-card{
     opacity: 1;
 }
-.stat-table{
-    font-size: 1.5rem;
-    margin-right: 10px;
-}
-.stat-table tr td{
-    filter: drop-shadow(3px 4px 2px black);
-}
+
 
 .closeBtn{
     border-radius: 100%;
