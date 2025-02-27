@@ -39,17 +39,14 @@ html, body{
 
 .logButton{
     background-color: rgba(25, 25, 25,1);
-    width: 12rem;
-    height: 2.5rem;
+    width: 13vw;
+    height: 6vh;
     margin: 5px;
     border-radius: 10px;
     position: relative;
     margin-top: 30px;
     cursor: pointer;
-    /*padding-top: 5px;*/
-    line-height: 150px;
     text-transform: uppercase;
-    line-height: 2.5rem;
     color: white;
     font-weight: bold;
 }
@@ -110,8 +107,8 @@ html, body{
     /*line-height: 40px;*/
 }
 .login-box{
-    height: 400px;
-    width: 400px;
+    height: 40vh;
+    width: 25vw;
     background-color: rgba(76, 76, 76, 0.27);
     margin: auto;
     margin-top: 0px;
@@ -138,7 +135,7 @@ html, body{
 }
 
 .data-box input{
-    width: 14rem;
+    width: 15vw;
     padding: 5px ;
     font-size: 16px;
     color: #fff;
@@ -207,17 +204,17 @@ html, body{
 
 .title{
     width: 100vw;
-    height: 400px;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 .titleImg{
-    width: 1000px;
-    height: 400px;
+    width: 100vw;
+    height: 50vh;
     filter: drop-shadow(5px 8px 3px rgb(0 0 0 / 0.4));
-    
+    user-select: none;
 }
 canvas{
     filter: blur(1px);

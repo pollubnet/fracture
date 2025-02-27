@@ -120,22 +120,6 @@ body {
     border-radius: 5px;
 }
 
-.logButton{
-    background-color: rgba(25, 25, 25,1);
-    width: 12rem;
-    height: 2.5rem;
-    margin: 5px;
-    border-radius: 10px;
-    position: relative;
-    margin-top: 30px;
-    cursor: pointer;
-    /*padding-top: 5px;*/
-    line-height: 150px;
-    text-transform: uppercase;
-    line-height: 2.5rem;
-    color: white;
-    font-weight: bold;
-}
 
 .settingsBtn {
     background-color: rgba(25, 25, 25,1);
@@ -377,7 +361,7 @@ body {
 
 .equipmentTable {
     border: #000 3px solid;
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
     box-shadow: 0px 0px 10px #000;
 }
 
@@ -387,12 +371,13 @@ body {
     margin-right: 5px;
     width: 100px;
     height: 100px;
-    background-color: rgba(0,0,25,0.7);
-    
+    background-color: rgba(0,0,25,0.6);
+    transition: ease-in-out 0.15s;
 }
 
     .equipmentTable tr td:hover {
         background-color: rgba(0,0,25,0.7);
+        border: #404040 3px solid;
     }
 .row{
     display: flex;
