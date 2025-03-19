@@ -7,12 +7,12 @@
 @page "/map"
 
 <div class="row">
-	<MapView Map="Map" MapDisplayData="MapDisplayData" Path="null" IsMiniMap="false" CharacterX="x" CharacterY="y"></MapView>
+    <MapView Map="Map" MapDisplayData="MapDisplayData" Path="null" IsMiniMap="false" CharacterX="x" CharacterY="y"></MapView>
 </div>
 
 @code {
-	[Parameter] public required MapData Map { get; set; }
-	[Parameter] public required MapDisplayData MapDisplayData { get; set; }
-	int x = MapView.CharacterXX;
-	int y = MapView.CharacterYY;
+    [Parameter] public required MapData Map { get; set; }
+    [Parameter] public required MapDisplayData MapDisplayData { get; set; }
+    int x = MapView.CharacterXX;
+    int y = MapView.CharacterYY;
 }

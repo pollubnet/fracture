@@ -5,10 +5,10 @@ namespace Fracture.Server.Modules.Shared.ImageChangers;
 public class BackgroundImage
 {
     [Required]
-    public string bgImg { get; set; }
+    public string ImagePath { get; set; }
 
-    public BackgroundImage(string bgimg)
+    public BackgroundImage(string path)
     {
-        bgImg = bgimg;
+        ImagePath = path;
     }
 }

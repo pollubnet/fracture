@@ -10,18 +10,18 @@
     </div>
     @if (_isInfoOpen && !IsMiniMap)
     {
-        <NodeInfo Node="Node"/>
+        <NodeInfo Node="Node" />
     }
 </td>
 @code {
-    [Parameter] 
+    [Parameter]
     public Node? Node { get; set; }
     [Parameter]
     public bool IsMiniMap { get; set; }
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
     private bool _isInfoOpen = false;
-    
+
     private string GetTileColor()
     {
         if (Node == null)
@@ -38,5 +38,5 @@
     {
         _isInfoOpen = false;
     }
-    
+
 }
