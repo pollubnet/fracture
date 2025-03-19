@@ -1,11 +1,10 @@
 ﻿@using Fracture.Server.Modules.MapGenerator.Models
 @using Fracture.Server.Modules.MapGenerator.Services
 @using Fracture.Server.Modules.MapGenerator.UI.Models
-@using Fracture.Server.Modules.NoiseGenerator.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
-
+@implements IDisposable 
 @page "/game"
 
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
@@ -15,19 +14,20 @@
 @using Fracture.Server.Components.UI
 @using Fracture.Server.Modules.Items.Models
 @using System.Collections.ObjectModel
-@using System.Reflection.Metadata
 @using Fracture.Server.Modules.Database
 @using Fracture.Server.Modules.Users
-@using Fracture.Server.Components.Pages
 @using Fracture.Server.Modules.Shared
 @using Fracture.Server.Modules.MapGenerator.UI
-@using Microsoft.AspNetCore.Session
+@using Fracture.Server.Modules.Shared.ImageChangers
+
 @layout GameLayout
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
 @inject IItemsRepository ItemsRepository
 @inject VersionInfoProvider VersionInfoProvider
 @inject IMapGeneratorService MapGeneratorService
+@inject BackgroundImageChanger BackgroundImageChanger
+<link rel="icon" type="image/png" href="assets/icons/favicon.png"/>
 @inject MapParametersService MapParametersService
 
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
@@ -38,7 +38,7 @@
 			<div class="info">
 				<div class="info-content">
 					<div @onclick="() => _popup.ShowComponent<StatsPopup>()">
-						<img src="assets/infobutton.svg" />
+						<img src="assets/icons/infobutton.svg" />
 					</div>
 				</div>
 			</div>
@@ -48,7 +48,8 @@
 			<div class="info">
 				<div class="info-content">
 					<div @onclick="() => _popup.ShowComponent<EquipmentPopup>(_equipmentPopupParameters)">
-						<img src="assets/infobutton.svg" />
+						<img src="assets/icons/infobutton.svg" />
+						
 					</div>
 				</div>
 			</div>
@@ -63,23 +64,23 @@
 		</div>
 		<div class="statManager ">
 		</div>
-		<div class="dialogueWindowBg">
-			<div class="dialogueWindow">
+		<div class="dialogueWindowBg" style="background: url(@BackgroundImage.bgImg);background-repeat: no-repeat;  background-size: cover; ">
+			<div class="dialogueWindow" @onkeydown="GetBacgroundAsync">
 				Fracture @VersionInfoProvider.InformationalVersion<br />
 				tutaj log mojej gry<br />
-				<PopupContainer @ref="_popup"></PopupContainer>
+				<PopupContainer @ref="_popup" ></PopupContainer>
 			</div>
 		</div>
 		<div class="crystalBox">
-			<div class="actionButton"><div class="actionButton-content"><img src="assets/swordbutton.svg" /></div></div>
-			<div class="actionButton"><div class="actionButton-content"><img src="assets/shieldbutton.svg" /></div></div>
+			<div class="actionButton"><div class="actionButton-content"><img src="assets/icons/swordbutton.svg" /></div></div>
+			<div class="actionButton"><div class="actionButton-content"><img src="assets/icons/shieldbutton.svg" /></div></div>
 			<div class="crystalCircle">
 				<div class="crystal">
-					<img src="assets/crystal.png" alt="">
+					<img src="assets/icons/crystal.png" alt="">
 				</div>
 			</div>
-			<div class="actionButton"><div class="actionButton-content"><img src="assets/skipbutton.svg" /></div></div>
-			<div class="actionButton"><div class="actionButton-content"><img src="assets/chatbutton.svg" /></div></div>
+			<div class="actionButton"><div class="actionButton-content"><img src="assets/icons/skipbutton.svg" /></div></div>
+			<div class="actionButton"><div class="actionButton-content"><img src="assets/icons/chatbutton.svg" /></div></div>
 		</div>
 
 
@@ -88,7 +89,7 @@
 		<div class="journal">
 			<div class="info">
 				<div class="info-content">
-					<div @onclick="() => _popup.ShowComponent<JournalPopup>()"></div><img src="assets/infobutton.svg" />
+					<div @onclick="() => _popup.ShowComponent<JournalPopup>()" ></div><img src="assets/icons/infobutton.svg" />
 				</div>
 			</div>
 
@@ -107,25 +108,25 @@
 		<div class="miniMap">
 			<div class="info">
 				<div class="info-content">
-					<div @onclick="() => _popup.ShowComponent<MapPopup>(_mapPopupParameters)"><img src="assets/infobutton.svg" /></div>
+					<div @onclick="() => _popup.ShowComponent<MapPopup>(_mapPopupParameters)"><img src="assets/icons/infobutton.svg" /></div>
 				</div>
 			</div>
-			<MapView Map="_map" MapDisplayData="_mapDisplayData" Path="_path"></MapView>
+			<MapView Map="Map" MapDisplayData="_mapDisplayData" Path="Path"></MapView>
 		</div>
 		<div class="settings">
 			<div class="settingsBtn">
 				<div class="settingsBtn-content">
-					<img src="assets/settingsbutton.svg" />
+					<img src="assets/icons/settingsbutton.svg" />
 				</div>
 			</div>
 			<div class="settingsBtn">
 				<div class="settingsBtn-content">
-					<img src="assets/hourglassbutton.svg" />
+					<img src="assets/icons/hourglassbutton.svg" />
 				</div>
 			</div>
 			<div class="settingsBtn">
 				<div class="settingsBtn-content">
-					<div @onclick="@Logout"><img src="assets/exitbutton.svg" /></div>
+					<div @onclick="@Logout"><img src="assets/icons/exitbutton.svg" /></div>
 				</div>
 			</div>
 
@@ -133,23 +134,31 @@
 	</div>
 </div>
 
-
 @code {
 	private User _user = new();
 	private readonly ObservableCollection<Item> _equipment = new();
 	private readonly ObservableCollection<Item> _inventory = new();
-
+	
 	private Dictionary<string, object> _equipmentPopupParameters = null!;
 	private Dictionary<string, object> _mapPopupParameters = null!;
+	public static MapData? Map { get; set; }
+
 	
 	private PopupContainer _popup = null!;
-	private string _loginInfo = string.Empty;
+
+	
+
+	public static BackgroundImage BackgroundImage { get; set; } = new BackgroundImage(String.Empty);
 
 	private MapDisplayData _mapDisplayData = new();
-	private MapData? _map;
-	private List<IPathfindingNode>? _path { get; set; }
-	private NoiseParameters _noiseParameters = new();
+	
+	private List<IPathfindingNode>? Path { get; set; }
 
+	
+	
+
+
+	
 	protected override async Task OnInitializedAsync()
 	{
 		var username = await ProtectedSessionStore.GetAsync<string>("username");
@@ -194,23 +203,44 @@
 			{ "Equipment", _equipment },
 			{ "Inventory", _inventory }
 		};
-		MapParameters mapParameters = MapParametersService.ReadMapParametersFromJson(
+		MapParameters? mapParameters = MapParametersService.ReadMapParametersFromJson(
 			"Config/MapParameters/Normal.json");
-		_map = await MapGeneratorService.GetMap(mapParameters);
+		Map = await MapGeneratorService.GetMap(mapParameters);
 		_mapDisplayData.ShowColorMap = true;
-
 		_mapPopupParameters = new()
 		{
-			{ "Map", _map },
+			{ "Map", Map },
 			{ "MapDisplayData", _mapDisplayData }
 		};
 
+		BackgroundImageChanger.Map = Map;
+		BackgroundImageChanger.BackgroundImage = BackgroundImage;
+		await GetBacgroundAsync();
+		
+		this.BackgroundImageChanger.BgImgChanged += this.OnBgChanged!;
+		
 		await base.OnInitializedAsync();
+		
 	}
 
-	private void Logout ()
+	private void Logout()
 	{
 		NavigationManager.NavigateTo("/home");
 		ProtectedSessionStore.DeleteAsync("username");
 	}
+
+	
+	//this piece of codes refreshes GamePage after changing background image. It is necessary to show new background.
+	private async Task GetBacgroundAsync() => await BackgroundImageChanger.ChangeBgImgAsync();
+
+	private void OnBgChanged(object sender, EventArgs e) => this.InvokeAsync(this.StateHasChanged);
+
+	public void Dispose()
+	{
+		this.BackgroundImageChanger.BgImgChanged -= this.OnBgChanged!;
+	}
+
+
 }
+
+

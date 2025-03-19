@@ -17,7 +17,7 @@ body {
     font-family: "Courier", sans-serif;
     /*background-size: 150% 150%;*/
     /*background-image: linear-gradient(45deg,#4c4c4c,#070707);*/
-    background-image: url("../assets/panelbg1.jpg");
+    background-image: url("../assets/background/panelbg1.jpg");
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: 125%;
@@ -181,7 +181,7 @@ body {
     height: 100px;
     transition: 1s ease-in-out;
     user-select: none;
-   
+
 }
 
 
@@ -198,13 +198,11 @@ body {
 
 
 .dialogueWindowBg {
-    
-    background: url("../assets/background/cementery.jpg");
     border: 5px solid black;
-    background-size: cover;
-    height: 100%;
+    background-size: cover; 
+    height: 90%; 
     width: 100%;
-    
+    background-repeat: no-repeat;
 }
 
 .dialogueWindow {
@@ -527,11 +525,11 @@ body {
     cursor: pointer;
     z-index: auto;
 }
-    
-.closeBtn:hover {
-    background-color: rgb(255,0,0);
-    box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
-}
+
+    .closeBtn:hover {
+        background-color: rgb(255,0,0);
+        box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
+    }
 
 
 .actionButton:hover:before, .info:hover:before, .settingsBtn:hover:before{
@@ -558,6 +556,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
     
 }
 

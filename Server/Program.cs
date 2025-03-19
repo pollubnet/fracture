@@ -7,6 +7,7 @@ using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
+using Fracture.Server.Modules.Shared.ImageChangers;
 using Fracture.Server.Modules.Shared.NameGenerators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -26,6 +27,8 @@ builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
 builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
 builder.Services.AddSingleton<MapParametersService>();
+
+builder.Services.AddScoped<BackgroundImageChanger>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 

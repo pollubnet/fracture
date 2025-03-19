@@ -1,4 +1,5 @@
-﻿@rendermode InteractiveServer
+﻿@using Fracture.Server.Components.Pages
+@rendermode InteractiveServer
 
 
 <div class="popup @(IsVisible? "" : "hidden")">
@@ -6,17 +7,15 @@
     {
         <DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
     }
-    <div>
-        
-        <button class="closeBtn" @onclick="() => IsVisible = false"><img src="assets/closebutton.svg"/></button>
-     
-        
+    <div >
+        <button class="closeBtn" @onclick="() => IsVisible=false"><img src="assets/icons/closebutton.svg" /></button>
     </div>
 </div>
 
 @code {
+    GamePage _gamePage = new();
     public bool IsVisible { get; set; }
-
+    
     public void ShowComponent<T>(IDictionary<string, object>? parameters = null)
     {
         _componentType = typeof(T);
@@ -25,6 +24,7 @@
         IsVisible = true;
         StateHasChanged();
     }
+    
 
     public DynamicComponent? Component = null;
     private Type? _componentType = null;
