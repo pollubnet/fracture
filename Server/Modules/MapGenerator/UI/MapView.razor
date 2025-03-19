@@ -18,6 +18,8 @@
                 <tr>
                     @for (int x = 0; x < Map.Grid.GetLength(0); x++)
                     {
+                       Node node = Map.Grid[x, y];
+
                         @if (x == CharacterXX && y == CharacterYY)
                         {   
                             <td style='background: @GetTileColor(@Map.Grid[x, y]); font-size:6px;'>
@@ -26,26 +28,38 @@
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
                         {
-                            <td style="background: @GetTileColor(@Map.Grid[x, y]);">
-                                x:@x<br/>y:@y
-                            </td>
+                            <MapSquare Node="node">
+                                    x:@x<br/>y:@y
+                                </MapSquare>
+                                break;
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise)
                         {
-                            <td style="background: @GetTileColor(@Map.Grid[x, y])">
-                                @Math.Round(Map.Grid[x, y].NoiseValue, 2)
-                            </td>
+                            <MapSquare Node="node">
+                                    @Math.Round(node.NoiseValue, 2)
+                                </MapSquare>
+                                break;
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
                         {
-                            <td style='background: @GetTileColor(@Map.Grid[x, y])'>
-                            </td>
+                            <MapSquare Node="node" IsMiniMap="IsMiniMap">
+                                    @RenderLocation(node)
+                                </MapSquare>
+                                break;
                         }
                         else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
                         {
-                            <td style='font-size: 16px; background: @GetTileColor(@Map.Grid[x, y])'>
-                                @GetPathForTile(Map.Grid[x, y])
-                            </td>
+                            <MapSquare Node="node">
+                                    @GetPathForTile(node)
+                                </MapSquare>
+                                break;
+                        }
+                        else
+                        {
+                             <MapSquare Node="node">
+                                    @RenderLocation(node)
+                                </MapSquare>
+                                break;
                         }
                     }
                 </tr>
@@ -102,7 +116,7 @@
         {
             return "";
         }
-
+    
         int pathNodeIndex = Path.FindIndex(n => n.XId == node.XId && n.YId == node.YId);
         if (pathNodeIndex != -1 && pathNodeIndex + 1 < Path.Count)
         {
@@ -129,6 +143,16 @@
         };
     }
     
+    private string RenderLocation(Node node)
+    {
+        return node.Location switch
+        {
+            Location.None => string.Empty,
+            Location.Town => "T",
+            _ => string.Empty
+        };
+    }
+
     private async void HandleKeyDown(KeyboardEventArgs e)
     {
         BackgroundImageChanger backgroundImage = new()
@@ -198,8 +222,5 @@
             return false;
         }
     }
-
-   
-
 }
 

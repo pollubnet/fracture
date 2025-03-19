@@ -21,6 +21,8 @@ public class Node : IPathfindingNode
     [Required]
     public float NoiseValue { get; set; }
 
+    public Location Location { get; set; } = Location.None;
+
     public int GCost { get; set; }
     public int HCost { get; set; }
     public int FCost => GCost + HCost;

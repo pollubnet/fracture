@@ -1,0 +1,42 @@
+﻿@using System.Drawing
+@using Fracture.Server.Modules.MapGenerator.Models
+@using Microsoft.AspNetCore.Components.Web
+
+@rendermode RenderMode.InteractiveServer
+
+<td style="background: @GetTileColor(); cursor: default">
+    <div style="width: 100%; height: 100%" @onmouseenter="HandleMouseEnter" @onmouseleave="HandleMouseLeave">
+        @ChildContent
+    </div>
+    @if (_isInfoOpen && !IsMiniMap)
+    {
+        <NodeInfo Node="Node"/>
+    }
+</td>
+@code {
+    [Parameter] 
+    public Node? Node { get; set; }
+    [Parameter]
+    public bool IsMiniMap { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+    private bool _isInfoOpen = false;
+    
+    private string GetTileColor()
+    {
+        if (Node == null)
+            return "#FFFFFF";
+        return ColorTranslator.ToHtml(Node.Biome.Color);
+    }
+
+    private void HandleMouseEnter()
+    {
+        _isInfoOpen = true;
+    }
+
+    private void HandleMouseLeave()
+    {
+        _isInfoOpen = false;
+    }
+    
+}

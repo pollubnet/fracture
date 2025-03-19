@@ -5,6 +5,7 @@ using Fracture.Server.Modules.Database;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator.Services;
+using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.ImageChangers;
@@ -26,6 +27,8 @@ builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
 builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
+builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();
+builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
 builder.Services.AddSingleton<MapParametersService>();
 
 builder.Services.AddScoped<BackgroundImageChanger>();

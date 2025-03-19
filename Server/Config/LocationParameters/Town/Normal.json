@@ -1,0 +1,57 @@
+﻿[
+  {
+    "Name": "Deep Ocean",
+    "Weight": 0,
+    "Mult": 0.0
+  },
+  {
+    "Name": "Shallow Water",
+    "Weight": 20,
+    "Mult": 0.6
+  },
+  {
+    "Name": "Beach",
+    "Weight": 4,
+    "Mult": 1.0
+  },
+  {
+    "Name": "Grassland",
+    "Weight": 13,
+    "Mult": 1.0
+  },
+  {
+    "Name": "Tropical Forest",
+    "Weight": 11,
+    "Mult": 1.0
+  },
+  {
+    "Name": "Temperate Forest",
+    "Weight": 11,
+    "Mult": 1.0
+  },
+  {
+    "Name": "Forest",
+    "Weight": 11,
+    "Mult": 1.0
+  },
+  {
+    "Name": "Rainy Mountains",
+    "Weight": 9,
+    "Mult": 0.7
+  },
+  {
+    "Name": "Snowy Mountains",
+    "Weight": 9,
+    "Mult": 0.7
+  },
+  {
+    "Name": "Default",
+    "Weight": 9,
+    "Mult": 0.7
+  },
+  {
+    "Name": "High Mountains",
+    "Weight": 7,
+    "Mult": 0.5
+  }
+]
