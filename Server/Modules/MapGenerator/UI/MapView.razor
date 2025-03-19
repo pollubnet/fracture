@@ -1,9 +1,15 @@
 ﻿@using System.Drawing
+@using Fracture.Server.Components.Pages
 @using Fracture.Server.Modules.MapGenerator.Models
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
+@using Fracture.Server.Modules.Shared.ImageChangers
+@using Microsoft.AspNetCore.Components.Web
 
-<div id="map">
+
+
+
+<div id="map" tabindex="0" @onkeydown="HandleKeyDown">
     @if (Map != null && MapDisplayData != null)
     {
         <table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
@@ -12,31 +18,45 @@
                 <tr>
                     @for (int x = 0; x < Map.Grid.GetLength(0); x++)
                     {
-                        Node node = Map.Grid[x, y];
-                        @switch (MapDisplayData.TileInformationDisplay)
+                       Node node = Map.Grid[x, y];
+
+                        @if (x == CharacterXX && y == CharacterYY)
+                        {   
+                            <td style='background: @GetTileColor(@Map.Grid[x, y]); font-size:6px;'>
+                                &#128528
+                            </td>
+                        }
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
                         {
-                            case TileInformationDisplay.None:
-                                <MapSquare Node="node" IsMiniMap="IsMiniMap">
-                                    @RenderLocation(node)
-                                </MapSquare>
-                                break;
-                            case TileInformationDisplay.Position:
-                                <MapSquare Node="node">
+                            <MapSquare Node="node">
                                     x:@x<br/>y:@y
                                 </MapSquare>
                                 break;
-                            case TileInformationDisplay.Noise:
-                                <MapSquare Node="node">
+                        }
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise)
+                        {
+                            <MapSquare Node="node">
                                     @Math.Round(node.NoiseValue, 2)
                                 </MapSquare>
                                 break;
-                            case TileInformationDisplay.Path:
-                                <MapSquare Node="node">
+                        }
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
+                        {
+                            <MapSquare Node="node" IsMiniMap="IsMiniMap">
+                                    @RenderLocation(node)
+                                </MapSquare>
+                                break;
+                        }
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
+                        {
+                            <MapSquare Node="node">
                                     @GetPathForTile(node)
                                 </MapSquare>
                                 break;
-                            default:
-                                <MapSquare Node="node">
+                        }
+                        else
+                        {
+                             <MapSquare Node="node">
                                     @RenderLocation(node)
                                 </MapSquare>
                                 break;
@@ -60,6 +80,35 @@
 
     [Parameter]
     public bool IsMiniMap { get; set; } = true;
+    
+    
+    private bool isMoving = false;
+    public static int CharacterXX { get; set; } = 16;
+    public static int CharacterYY { get; set; } = 16;
+    [Parameter] public int CharacterX { get; set; } = CharacterXX;
+    [Parameter] public int CharacterY { get; set; } = CharacterXX;
+    
+    private readonly HashSet<string> _blockingColors = new HashSet<string>
+    {
+        "#21618C","#2E86C1"
+    };
+    
+    private string GetTileColor(Node node)
+    {
+        
+        if (MapDisplayData!.ShowColorMap) {
+            Color color = node.Biome.Color;
+            string hex = $"#{color.R:X2}{color.G:X2}{color.B:X2}"; // rgb -> hex
+            return hex ?? string.Empty;
+        }
+
+        string hexValue = string.Format("{0:x}", (int)(node.NoiseValue * 255));
+        if (hexValue.Length == 1)
+        {
+            hexValue = "0" + hexValue;
+        }
+        return $"#{hexValue}{hexValue}{hexValue}";
+    }
 
     private string GetPathForTile(Node node)
     {
@@ -103,4 +152,75 @@
             _ => string.Empty
         };
     }
+
+    private async void HandleKeyDown(KeyboardEventArgs e)
+    {
+        BackgroundImageChanger backgroundImage = new()
+        {
+            BackgroundImage = GamePage.BackgroundImage,
+            Map = Map
+        };
+        if (IsMiniMap==false)
+        {
+            if (isMoving) return; 
+            isMoving = true;
+            int newX = CharacterXX;
+            int newY = CharacterYY;
+            switch (e.Key)
+            {
+                case "ArrowUp":
+                    if (CharacterYY > 0)
+                    {
+                        newY--;
+                    }
+                   
+                    break;
+                case "ArrowDown":
+                    if (CharacterYY < Map.Grid.GetLength(1) - 1)
+                    {
+                        newY++;
+                    }
+                    break;
+                case "ArrowLeft":
+                    if (CharacterXX > 0)
+                    {
+                        newX--;
+                    }
+                    break;
+                case "ArrowRight":
+                    if (CharacterXX < Map.Grid.GetLength(0) - 1)
+                    {
+                        newX++;
+                    }
+                    break;
+            }
+    
+            if (CanMoveToTile(newX, newY))
+            {
+                CharacterXX = newX;
+                CharacterYY = newY;
+                StateHasChanged();
+            }
+
+            Task.Delay(100).ContinueWith(_ =>
+            {
+                isMoving = false; 
+            });
+        }
+     
+        
+    }
+
+    private bool CanMoveToTile(int x, int y)
+    {
+        if (Map != null && Map.Grid[x,y].Walkable==true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
+

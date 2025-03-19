@@ -28,13 +28,13 @@ public class MapGeneratorService : IMapGeneratorService
         _logger = logger;
     }
 
-    public async Task<MapData> GetMap(MapParameters mapParameters)
+    public async Task<MapData> GetMap(MapParameters? mapParameters)
     {
         MapData = GenerateMap(mapParameters);
         return await Task.FromResult(MapData);
     }
 
-    private MapData GenerateMap(MapParameters mapParameters)
+    private MapData GenerateMap(MapParameters? mapParameters)
     {
         var noiseParameters = mapParameters.NoiseParameters;
         noiseParameters.Seed = noiseParameters.UseRandomSeed
@@ -168,6 +168,7 @@ public class MapGeneratorService : IMapGeneratorService
                         is TerrainType.DeepOcean
                             or TerrainType.ShallowWater
                     ),
+                TerrainType = biomeCategory!.TerrainType,
             };
         }
         grid = GenerateTowns(grid, height, width);
