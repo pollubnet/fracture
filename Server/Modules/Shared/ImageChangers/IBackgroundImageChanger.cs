@@ -7,5 +7,5 @@ public interface IBackgroundImageChanger
     [Parameter]
     BackgroundImage BackgroundImage { get; set; }
 
-    void change();
+    void Change();
 }

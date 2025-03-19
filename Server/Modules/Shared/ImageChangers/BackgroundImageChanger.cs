@@ -14,7 +14,7 @@ public class BackgroundImageChanger
 
     private ILogger<BackgroundImageChanger> logger;
 
-    public Task ChangeBgImgAsync()
+    public Task ChangeBackgroundImageAsync()
     {
         var biome = Map.Grid[MapView.CharacterXX, MapView.CharacterYY].TerrainType;
 
@@ -28,48 +28,49 @@ public class BackgroundImageChanger
         {
             case TerrainType.Forest:
             {
-                BackgroundImage.bgImg = "../assets/background/river.jpg";
+                BackgroundImage.ImagePath = "../assets/background/river.jpg";
                 break;
             }
             case TerrainType.Grassland:
             {
-                BackgroundImage.bgImg = "../assets/background/river.jpg";
+                BackgroundImage.ImagePath = "../assets/background/river.jpg";
                 break;
             }
             case TerrainType.Mountains:
             {
-                BackgroundImage.bgImg = "../assets/background/mountains.jpg";
+                BackgroundImage.ImagePath = "../assets/background/mountains.jpg";
                 break;
             }
             case TerrainType.Beach:
             {
-                BackgroundImage.bgImg = "../assets/background/lava.jpg";
+                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
                 break;
             }
             case TerrainType.HighMountains:
             {
-                BackgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
+                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
                 break;
             }
             case TerrainType.DeepOcean:
             {
-                BackgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
+                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
                 break;
             }
             case TerrainType.ShallowWater:
             {
-                BackgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
+                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
                 break;
             }
             default:
-                BackgroundImage.bgImg = "../assets/background/mountainsRiver.jpg";
+                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
                 break;
         }
 
         return Task.CompletedTask;
     }
 
-    public event EventHandler<EventArgs>? BgImgChanged;
+    public event EventHandler<EventArgs>? BackgroundImageChanged;
 
-    public void NotifyListChanged(object? sender, EventArgs e) => BgImgChanged?.Invoke(sender, e);
+    public void NotifyListChanged(object? sender, EventArgs e) =>
+        BackgroundImageChanged?.Invoke(sender, e);
 }
