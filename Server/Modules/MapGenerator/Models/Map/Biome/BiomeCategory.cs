@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 
-namespace Fracture.Server.Modules.MapGenerator.Models;
+namespace Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 
 public class BiomeCategory
 {

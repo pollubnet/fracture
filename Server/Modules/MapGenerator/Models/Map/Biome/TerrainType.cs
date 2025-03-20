@@ -1,4 +1,4 @@
-﻿namespace Fracture.Server.Modules.MapGenerator.Models;
+﻿namespace Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 
 public enum TerrainType
 {

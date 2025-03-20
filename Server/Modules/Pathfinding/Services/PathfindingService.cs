@@ -68,12 +68,12 @@ public class PathfindingService : IPathfindingService
 
             if (
                 newX >= 0
-                && newX < _mapGeneratorService.MapData.Grid.GetLength(0)
+                && newX < _mapGeneratorService.Map.Grid.GetLength(0)
                 && newY >= 0
-                && newY < _mapGeneratorService.MapData.Grid.GetLength(1)
+                && newY < _mapGeneratorService.Map.Grid.GetLength(1)
             )
             {
-                IPathfindingNode neighbor = _mapGeneratorService.MapData.Grid[newX, newY];
+                IPathfindingNode neighbor = _mapGeneratorService.Map.Grid[newX, newY];
                 if (neighbor != null)
                     neighbors.Add(neighbor);
             }

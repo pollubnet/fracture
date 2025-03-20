@@ -4,6 +4,7 @@
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
+@inject WorldMapService WorldMapService
 @implements IDisposable
 @page "/game"
 
@@ -15,6 +16,7 @@
 @using Fracture.Server.Modules.Items.Models
 @using System.Collections.ObjectModel
 @using Fracture.Server.Modules.Database
+@using Fracture.Server.Modules.MapGenerator.Models.Map
 @using Fracture.Server.Modules.Users
 @using Fracture.Server.Modules.Shared
 @using Fracture.Server.Modules.MapGenerator.UI
@@ -28,7 +30,7 @@
 @inject IMapGeneratorService MapGeneratorService
 @inject BackgroundImageChanger BackgroundImageChanger
 <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
-@inject MapParametersService MapParametersService
+@inject MapParametersReader MapParametersReader
 
 <link rel="icon" type="image/png" href="assets/favicon.png" />
 
@@ -135,13 +137,14 @@
 </div>
 
 @code {
+    
     private User _user = new();
     private readonly ObservableCollection<Item> _equipment = new();
     private readonly ObservableCollection<Item> _inventory = new();
 
     private Dictionary<string, object> _equipmentPopupParameters = null!;
     private Dictionary<string, object> _mapPopupParameters = null!;
-    public static MapData? Map { get; set; }
+    public static Map? Map = Map;
 
     private PopupContainer _popup = null!;
 
@@ -195,9 +198,15 @@
             { "Equipment", _equipment },
             { "Inventory", _inventory }
         };
-        MapParameters? mapParameters = MapParametersService.ReadMapParametersFromJson(
-            "Config/MapParameters/Normal.json");
-        Map = await MapGeneratorService.GetMap(mapParameters);
+        // var allMapNames = MapRepo.GetAllMapNames();
+        // var random = new Random();
+        // var mapName = allMapNames.ElementAt(random.Next(allMapNames.Count()));
+        // Map = MapRepo.GetMap(mapName);
+        // Console.WriteLine(mapName);
+        var worldMap = await WorldMapService.GetOrGenerateWorldMapAsync();
+        Console.WriteLine(worldMap.MainMap);
+        Map = worldMap.MainMap;
+
         _mapDisplayData.ShowColorMap = true;
         _mapPopupParameters = new()
         {

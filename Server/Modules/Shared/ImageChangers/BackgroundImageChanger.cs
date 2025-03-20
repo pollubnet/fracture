@@ -1,4 +1,6 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models;
+using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 using Fracture.Server.Modules.MapGenerator.UI;
 using Microsoft.AspNetCore.Components;
 
@@ -10,7 +12,7 @@ public class BackgroundImageChanger
     public required BackgroundImage? BackgroundImage { get; set; }
 
     [Parameter]
-    public required MapData Map { get; set; }
+    public required Map Map { get; set; }
 
     private ILogger<BackgroundImageChanger> logger;
 

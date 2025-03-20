@@ -1,4 +1,5 @@
 ﻿@using Fracture.Server.Modules.MapGenerator.Models
+@using Fracture.Server.Modules.MapGenerator.Models.Map
 @using Fracture.Server.Modules.MapGenerator.UI
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 
@@ -11,7 +12,7 @@
 </div>
 
 @code {
-    [Parameter] public required MapData Map { get; set; }
+    [Parameter] public required Map Map { get; set; }
     [Parameter] public required MapDisplayData MapDisplayData { get; set; }
     int x = MapView.CharacterXX;
     int y = MapView.CharacterYY;
