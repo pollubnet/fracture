@@ -1,4 +1,5 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models;
+using Fracture.Server.Modules.MapGenerator.Models.Map;
 
 namespace Fracture.Server.Modules.MapGenerator.Services.TownGen;
 
@@ -11,6 +12,6 @@ public interface ILocationGeneratorService
         int width,
         Random random,
         int locationCount,
-        Location location
+        LocationType locationType
     );
 }

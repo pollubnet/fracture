@@ -1,4 +1,5 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models;
+using Fracture.Server.Modules.MapGenerator.Models.Map;
 
 namespace Fracture.Server.Modules.MapGenerator.Services.TownGen;
 
@@ -11,7 +12,7 @@ public class WeightedLocationGeneratorService : ILocationGeneratorService
         int width,
         Random random,
         int locationCount,
-        Location location
+        LocationType locationType
     )
     {
         var randomWeights = new int[height, width];
@@ -42,9 +43,13 @@ public class WeightedLocationGeneratorService : ILocationGeneratorService
                 break;
             foreach (var node in nodes)
             {
-                if (town.X == node.XId && town.Y == node.YId && node.Location == Location.None)
+                if (
+                    town.X == node.XId
+                    && town.Y == node.YId
+                    && node.LocationType == LocationType.None
+                )
                 {
-                    node.Location = location;
+                    node.LocationType = locationType;
                     locationsCreated++;
                 }
             }

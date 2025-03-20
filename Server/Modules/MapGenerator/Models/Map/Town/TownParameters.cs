@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Fracture.Server.Modules.MapGenerator.Models;
+namespace Fracture.Server.Modules.MapGenerator.Models.Map.Town;
 
 public class TownParameters
 {

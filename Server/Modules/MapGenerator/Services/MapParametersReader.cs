@@ -1,14 +1,14 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Fracture.Server.Modules.MapGenerator.Models;
+using Fracture.Server.Modules.MapGenerator.Models.Map;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 
-public class MapParametersService
+public class MapParametersReader
 {
-    private ILogger<MapParametersService> _logger;
+    private ILogger<MapParametersReader> _logger;
 
-    public MapParametersService(ILogger<MapParametersService> logger)
+    public MapParametersReader(ILogger<MapParametersReader> logger)
     {
         _logger = logger;
     }

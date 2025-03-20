@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
-using System.Text.Json.Serialization;
 
-namespace Fracture.Server.Modules.MapGenerator.Models;
+namespace Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 
 public class Biome
 {

@@ -1,4 +1,6 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models;
+using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.MapGenerator.Models.Map.Town;
 
 namespace Fracture.Server.Modules.MapGenerator.Services.TownGen;
 

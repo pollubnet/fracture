@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using Fracture.Server.Modules.MapGenerator.Models;
+﻿using Fracture.Server.Modules.FloodFill;
+using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 using Fracture.Server.Modules.MapGenerator.Services.TownGen;
-using Fracture.Server.Modules.NoiseGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Services;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
@@ -9,32 +9,36 @@ namespace Fracture.Server.Modules.MapGenerator.Services;
 public class MapGeneratorService : IMapGeneratorService
 {
     private readonly Random _rnd = new();
-    public MapData MapData { get; private set; } = default!;
+    public Map Map { get; private set; } = default!;
 
     private readonly ILocationGeneratorService _locationGenerator;
     private readonly ILocationWeightGeneratorService _locationWeightGenerator;
     private ILogger<MapGeneratorService> _logger;
+    private IMapRepository _mapRepository;
+    private readonly IFloodFillService<Node> _floodFillService;
 
     private int _seed;
 
     public MapGeneratorService(
         ILocationGeneratorService locationGenerator,
         ILocationWeightGeneratorService locationWeightGenerator,
-        ILogger<MapGeneratorService> logger
+        ILogger<MapGeneratorService> logger,
+        IFloodFillService<Node> floodFillService
     )
     {
         _locationWeightGenerator = locationWeightGenerator;
         _locationGenerator = locationGenerator;
         _logger = logger;
+        _floodFillService = floodFillService;
     }
 
-    public async Task<MapData> GetMap(MapParameters? mapParameters)
+    public async Task<Map> GetMap(MapParameters? mapParameters)
     {
-        MapData = GenerateMap(mapParameters);
-        return await Task.FromResult(MapData);
+        Map = GenerateMap(mapParameters);
+        return await Task.FromResult(Map);
     }
 
-    private MapData GenerateMap(MapParameters? mapParameters)
+    private Node[,] GenerateGrid(MapParameters? mapParameters)
     {
         var noiseParameters = mapParameters.NoiseParameters;
         noiseParameters.Seed = noiseParameters.UseRandomSeed
@@ -70,19 +74,12 @@ public class MapGeneratorService : IMapGeneratorService
         for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++)
         {
-            heightMap[x, y] = (float)
-                Math.Clamp(
-                    (1 - Math.Pow(1 - heightMap[x, y], noiseParameters.Sharpness))
-                        + noiseParameters.Boost,
-                    0,
-                    1
-                );
-            Math.Clamp(
-                (1 - Math.Pow(1 - temperatureMap[x, y], noiseParameters.Sharpness))
-                    + noiseParameters.Boost,
-                0,
-                1
-            );
+            var heightValue = 1 - Math.Pow(1 - heightMap[x, y], noiseParameters.Sharpness);
+            heightMap[x, y] = (float)Math.Clamp(heightValue + noiseParameters.Boost, 0, 1);
+
+            var temperatureValue =
+                1 - Math.Pow(1 - temperatureMap[x, y], noiseParameters.Sharpness);
+            Math.Clamp(temperatureValue + noiseParameters.Boost, 0, 1);
 
             if (useFalloff)
             {
@@ -171,13 +168,64 @@ public class MapGeneratorService : IMapGeneratorService
                 TerrainType = biomeCategory!.TerrainType,
             };
         }
-        grid = GenerateTowns(grid, height, width);
-        return new MapData(grid);
+
+        return grid;
+    }
+
+    private Map GenerateMap(MapParameters? mapParameters)
+    {
+        if (mapParameters == null)
+        {
+            _logger.LogError("MapParameters is null.");
+            throw new ArgumentNullException(nameof(mapParameters));
+        }
+
+        var grid = GenerateGrid(mapParameters);
+
+        var gridWithTowns = GenerateTowns(grid, mapParameters.Width, mapParameters.Height);
+        var groups = FindTownGroups(gridWithTowns);
+        groups
+            .Values.ToList()
+            .ForEach(list =>
+                list.ForEach(coord => Console.WriteLine($"({coord.Item1}, {coord.Item2})"))
+            );
+
+        foreach (var (groupName, coords) in groups)
+        {
+            foreach (var (x, y) in coords)
+            {
+                gridWithTowns[x, y].GroupName = groupName;
+            }
+        }
+        Map map = new Map(gridWithTowns)
+        {
+            Grid = gridWithTowns,
+            LocationType = mapParameters.LocationType,
+            Width = mapParameters.Width,
+            Height = mapParameters.Height,
+        };
+
+        foreach (var (key, value) in groups)
+        {
+            Console.WriteLine(key + " " + value.Count);
+        }
+
+        return map;
+    }
+
+    private Dictionary<string, List<(int x, int y)>> FindTownGroups(Node[,] gridWithTowns)
+    {
+        return _floodFillService.FindGroups(
+            gridWithTowns,
+            n => n.LocationType == LocationType.Town,
+            (a, b) => a.LocationType == b.LocationType,
+            (n, id) => $"Town{id}"
+        );
     }
 
     private Node[,] GenerateTowns(Node[,] grid, int height, int width)
     {
-        var townCount = _rnd.Next(5, 15);
+        var townCount = _rnd.Next(5, 30);
         var weights = _locationWeightGenerator.GenerateWeights(grid, height, width);
         return _locationGenerator.Generate(
             grid,
@@ -186,7 +234,7 @@ public class MapGeneratorService : IMapGeneratorService
             width,
             _rnd,
             townCount,
-            Location.Town
+            LocationType.Town
         );
     }
 }
