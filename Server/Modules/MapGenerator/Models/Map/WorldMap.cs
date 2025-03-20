@@ -2,5 +2,6 @@
 
 public class WorldMap
 {
-    public Models.Map.Map MainMap { get; set; }
+    public Map MainMap { get; set; }
+    public List<Map> SubMaps { get; set; } = new();
 }
