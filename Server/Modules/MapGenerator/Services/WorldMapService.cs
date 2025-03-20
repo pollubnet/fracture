@@ -1,25 +1,53 @@
 ﻿using Fracture.Server.Modules.MapGenerator;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 
+namespace Fracture.Server.Modules.MapGenerator.Services;
+
 public class WorldMapService
 {
     private readonly IMapRepository _mapRepository;
-    private WorldMap? _worldMap;
+    private readonly object _lock = new();
+
+    private WorldMap? _currentWorldMap;
 
     public WorldMapService(IMapRepository mapRepository)
     {
         _mapRepository = mapRepository;
     }
 
+    public WorldMap? GetWorldMap()
+    {
+        lock (_lock)
+        {
+            return _currentWorldMap;
+        }
+    }
+
+    public void SetWorldMap(WorldMap map)
+    {
+        lock (_lock)
+        {
+            _currentWorldMap = map;
+        }
+    }
+
+    public bool HasWorldMap()
+    {
+        lock (_lock)
+        {
+            return _currentWorldMap != null;
+        }
+    }
+
     public Task<WorldMap> GetOrGenerateWorldMapAsync()
     {
-        if (_worldMap != null)
-            return Task.FromResult(_worldMap);
-        var mainMap = GetRandomMainMap();
-        var generatedMap = new WorldMap { MainMap = mainMap };
-        _worldMap = generatedMap;
+        if (HasWorldMap())
+            return Task.FromResult(_currentWorldMap!);
+        var worldMap = new WorldMap { MainMap = GetRandomMainMap() };
 
-        return Task.FromResult(_worldMap);
+        SetWorldMap(worldMap);
+
+        return Task.FromResult(worldMap);
     }
 
     private Map GetRandomMainMap()

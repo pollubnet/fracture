@@ -7,13 +7,15 @@ public class MapDataImportService
     private readonly IMapGeneratorService _mapGenerator;
     private readonly IMapRepository _mapRepository;
     private readonly MapParametersReader _mapParametersReader;
+    private readonly WorldMapService _worldMapService; // <-- dodaj
 
     public MapDataImportService(
         ILogger<MapDataImportService> logger,
         IConfiguration configuration,
         IMapGeneratorService mapGenerator,
         IMapRepository mapRepository,
-        MapParametersReader mapParametersReader
+        MapParametersReader mapParametersReader,
+        WorldMapService worldMapService
     )
     {
         _logger = logger;
@@ -21,6 +23,7 @@ public class MapDataImportService
         _mapGenerator = mapGenerator;
         _mapRepository = mapRepository;
         _mapParametersReader = mapParametersReader;
+        _worldMapService = worldMapService;
     }
 
     public async Task ImportMapsAsync()
@@ -47,6 +50,7 @@ public class MapDataImportService
                 var map = await _mapGenerator.GetMap(parameters);
                 var name =
                     $"map_{Path.GetFileNameWithoutExtension(file)}_{DateTime.UtcNow:yyyyMMdd_HHmmss}";
+                _worldMapService.SetWorldMap(null);
                 _mapRepository.SaveMap(name, map);
                 _logger.LogInformation($"Map '{name}' successfully generated.");
             }
