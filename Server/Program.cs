@@ -48,7 +48,7 @@ builder.Services.AddHangfireServer();
 builder.Services.AddFeatureManagement();
 
 builder.Services.AddSingleton<MapDataImportService>();
-builder.Services.AddSingleton<WorldMapService>();
+builder.Services.AddSingleton<MapManagerService>();
 
 builder.Services.AddSingletonIfFeatureEnabled<
     IAIInstructionProvider,
@@ -89,19 +89,6 @@ else
 app.UseHangfireDashboard();
 app.UseHangfireServer();
 
-using (var scope = app.Services.CreateScope())
-{
-    var mapService = scope.ServiceProvider.GetRequiredService<MapDataImportService>();
-    await mapService.EnsureMapExistsAsync();
-
-    var jobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
-    jobManager.AddOrUpdate<MapDataImportService>(
-        "daily-map-import",
-        service => service.ImportMapsAsync(),
-        Cron.Minutely
-    );
-}
-
 app.UseStaticFiles();
 app.UseAuthorization();
 
@@ -115,8 +102,16 @@ app.MapRazorComponents<App>()
 
 using (var scope = app.Services.CreateScope())
 {
+    var mapManagerService = scope.ServiceProvider.GetRequiredService<MapManagerService>();
+    await mapManagerService.InitializeAndScheduleMapsAsync();
     var db = scope.ServiceProvider.GetRequiredService<FractureDbContext>();
     db.Database.Migrate();
 }
+app.Lifetime.ApplicationStarted.Register(async () =>
+{
+    using var scope = app.Services.CreateScope();
+    var mapManager = scope.ServiceProvider.GetRequiredService<MapManagerService>();
+    await mapManager.InitializeAndScheduleMapsAsync();
+});
 
 app.Run();

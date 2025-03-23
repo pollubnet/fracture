@@ -1,6 +1,8 @@
-﻿using Fracture.Server.Modules.FloodFill;
+﻿using System.Runtime.CompilerServices;
+using Fracture.Server.Modules.FloodFill;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
+using Fracture.Server.Modules.MapGenerator.Models.Map.MapObjects;
 using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.NoiseGenerator.Services;
 

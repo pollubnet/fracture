@@ -7,15 +7,13 @@ public class MapDataImportService
     private readonly IMapGeneratorService _mapGenerator;
     private readonly IMapRepository _mapRepository;
     private readonly MapParametersReader _mapParametersReader;
-    private readonly WorldMapService _worldMapService; // <-- dodaj
 
     public MapDataImportService(
         ILogger<MapDataImportService> logger,
         IConfiguration configuration,
         IMapGeneratorService mapGenerator,
         IMapRepository mapRepository,
-        MapParametersReader mapParametersReader,
-        WorldMapService worldMapService
+        MapParametersReader mapParametersReader
     )
     {
         _logger = logger;
@@ -23,11 +21,11 @@ public class MapDataImportService
         _mapGenerator = mapGenerator;
         _mapRepository = mapRepository;
         _mapParametersReader = mapParametersReader;
-        _worldMapService = worldMapService;
     }
 
     public async Task ImportMapsAsync()
     {
+        _mapRepository.ClearMaps();
         var folderPath = _configuration["MapFolderPath"];
         if (!Directory.Exists(folderPath))
         {
@@ -50,7 +48,6 @@ public class MapDataImportService
                 var map = await _mapGenerator.GetMap(parameters);
                 var name =
                     $"map_{Path.GetFileNameWithoutExtension(file)}_{DateTime.UtcNow:yyyyMMdd_HHmmss}";
-                _worldMapService.SetWorldMap(null);
                 _mapRepository.SaveMap(name, map);
                 _logger.LogInformation($"Map '{name}' successfully generated.");
             }
@@ -62,20 +59,4 @@ public class MapDataImportService
 
         _logger.LogInformation("Map import completed.");
     }
-
-    public async Task EnsureMapExistsAsync()
-    {
-        if (_mapRepository.GetAllMapNames().Count > 0)
-        {
-            _logger.LogInformation("Maps already exist. Skipping initial generation.");
-            return;
-        }
-
-        _logger.LogInformation("No maps found. Generating initial map...");
-        await ImportMapsAsync();
-    }
-
-    public Task StartAsync(CancellationToken cancellationToken) => ImportMapsAsync();
-
-    public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 }
