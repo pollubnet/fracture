@@ -1,34 +1,29 @@
-﻿@using Fracture.Server.Components.UI
+﻿@using System.Collections.ObjectModel
 @using Fracture.Server.Modules.Items.Models
-@using Fracture.Server.Modules.Items.Services
-@using System.Collections.ObjectModel
-
 @rendermode InteractiveServer
 
 <table class="equipmentTable">
     <tr>
-        @for (int i = 0; i < 3; i++)
-        {
-            if (i < Equipment.Count)
-            {
-                <td><div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div></td>
+        @for (var i = 0; i < 3; i++) {
+            if (i < Equipment.Count) {
+                <td>
+                    <div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div>
+                </td>
             }
-            else
-            {
+            else {
                 <td></td>
             }
         }
     </tr>
 
     <tr>
-        @for (int i = 3; i < 6; i++)
-        {
-            if (i < Equipment.Count)
-            {
-                <td><div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div></td>
+        @for (var i = 3; i < 6; i++) {
+            if (i < Equipment.Count) {
+                <td>
+                    <div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div>
+                </td>
             }
-            else
-            {
+            else {
                 <td></td>
             }
         }
@@ -40,14 +35,13 @@
 @code {
     [Parameter] public required ObservableCollection<Item> Equipment { get; set; }
 
-    protected override void OnInitialized()
-    {
+    protected override void OnInitialized() {
         Equipment.CollectionChanged += (sender, e) => StateHasChanged();
     }
 
-    private string ToCss(string name)
-    {
+    private string ToCss(string name) {
         var css = name.Split(' ').Select(x => "item-" + x.ToLower());
         return string.Join(" ", css);
     }
+
 }

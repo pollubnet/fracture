@@ -2,6 +2,8 @@
 
 public class LocationMapObject : IMapObject
 {
-    public string Type { get; set; }
-    public Map subMap { get; set; }
+    public Map? SubMap { get; set; }
+    public string Type { get; set; } = "Location";
+
+    public bool IsInteractive { get; set; }
 }

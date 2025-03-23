@@ -1,10 +1,9 @@
-﻿@using Fracture.Server.Components.UI
+﻿@using System.Collections.ObjectModel
+@using Fracture.Server.Components.UI
+@using Fracture.Server.Modules.Database
 @using Fracture.Server.Modules.Items.Models
 @using Fracture.Server.Modules.Items.Services
-@using System.Collections.ObjectModel
-@using Fracture.Server.Modules.Database
 @using Fracture.Server.Modules.Users
-
 @inject IItemGenerator ItemGenerator
 @inject IItemsRepository ItemsRepository
 @inject ILogger<EquipmentPopup> Logger
@@ -13,23 +12,23 @@
 
 <div class="row">
     <div class="buttonEquipBg">
-        <button class="buttonEquip" @onclick="GenerateNewItem">Generate new item </button>
+        <button class="buttonEquip" @onclick="GenerateNewItem">Generate new item</button>
     </div>
-    <div class=equipmentContent>
+    <div class="equipmentContent">
         <div>Inventory</div>
         <div class="eqColumn">
 
-            @foreach (var item in Inventory.Where(x => !IsEquipped(x)))
-            {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
+            @foreach (var item in Inventory.Where(x => !IsEquipped(x))) {
+                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)"
+                          OnUnequipClicked="() => Unequip(item)"></ItemCard>
             }
         </div>
         <div>Equipped</div>
         <div class="eqColumn">
 
-            @foreach (var item in Equipment)
-            {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)" OnUnequipClicked="() => Unequip(item)"></ItemCard>
+            @foreach (var item in Equipment) {
+                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)"
+                          OnUnequipClicked="() => Unequip(item)"></ItemCard>
             }
         </div>
 
@@ -44,46 +43,39 @@
 
     private const int slots = 6;
 
-    protected override async Task OnInitializedAsync()
-    {
+    protected override async Task OnInitializedAsync() {
         Inventory.Clear();
         Equipment.Clear();
-        foreach (var item in await ItemsRepository.GetItemsOfUserAsync(UserData.Id))
-        {
+        foreach (var item in await ItemsRepository.GetItemsOfUserAsync(UserData.Id)) {
             Inventory.Add(item);
         }
 
-        foreach (var item in Inventory.ToList().Where(i => i.IsEquipped))
-        {
+        foreach (var item in Inventory.ToList().Where(i => i.IsEquipped)) {
             Equipment.Add(item);
         }
 
         Logger.LogInformation($"Inventory initialized for user: {UserData.Username}");
     }
 
-    public async void Refresh()
-    {
+    public async void Refresh() {
         Logger.LogInformation($"Refreshing! New username: {UserData.Username}");
         Inventory.Clear();
         Equipment.Clear();
-        foreach (var item in await ItemsRepository.GetItemsOfUserAsync(UserData.Id))
-        {
+        foreach (var item in await ItemsRepository.GetItemsOfUserAsync(UserData.Id)) {
             Inventory.Add(item);
         }
 
-        foreach (var item in Inventory.ToList().Where(i => i.IsEquipped))
-        {
+        foreach (var item in Inventory.ToList().Where(i => i.IsEquipped)) {
             Equipment.Add(item);
         }
+
         await OnInitializedAsync();
     }
 
-    public async Task GenerateNewItem()
-    {
+    public async Task GenerateNewItem() {
         var item = await ItemGenerator.Generate();
 
-        if (item is not null)
-        {
+        if (item is not null) {
             item.CreatedBy = UserData;
             item.CreatedById = UserData.Id;
             await ItemsRepository.AddItemAsync(item);
@@ -91,41 +83,35 @@
         }
     }
 
-    public void Equip(Item item)
-    {
-
-        if (Equipment.Count < slots)
-        {
-            if (item.Type.Equals(ItemType.Ring))
-            {
+    public void Equip(Item item) {
+        if (Equipment.Count < slots) {
+            if (item.Type.Equals(ItemType.Ring)) {
                 item.IsEquipped = true;
                 ItemsRepository.UpdateItemAsync(item);
                 Equipment.Add(item);
                 return;
             }
 
-            foreach (var equipped in Equipment)
-            {
-                if (equipped.Type.Equals(item.Type))
-                {
+            foreach (var equipped in Equipment) {
+                if (equipped.Type.Equals(item.Type)) {
                     return;
                 }
             }
+
             item.IsEquipped = true;
             ItemsRepository.UpdateItemAsync(item);
             Equipment.Add(item);
         }
     }
 
-    public void Unequip(Item item)
-    {
+    public void Unequip(Item item) {
         item.IsEquipped = false;
         ItemsRepository.UpdateItemAsync(item);
         Equipment.Remove(item);
     }
 
-    public bool IsEquipped(Item item)
-    {
+    public bool IsEquipped(Item item) {
         return Equipment.Contains(item);
     }
+
 }

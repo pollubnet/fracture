@@ -1,24 +1,22 @@
 ﻿@page "/"
 @page "/home"
-
-@rendermode InteractiveServer
-
 @using Fracture.Server.Components.Layout
 @using Fracture.Server.Modules.Database
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+
+@rendermode InteractiveServer
 
 @layout HomeLayout
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
-
-@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 
-<link rel="icon" type="image/png" href="assets/icons/favicon.png" />
+<link rel="icon" type="image/png" href="assets/icons/favicon.png"/>
 
 <div id="container">
 
     <div class="title">
-        <img class="titleImg" src="assets/background/title.svg" />
+        <img class="titleImg" src="assets/background/title.svg"/>
     </div>
     <div class="crystalCircle">
         <div class="crystal">
@@ -29,11 +27,11 @@
         <div class="login">
 
             <div class="data-box">
-                <input type="text" @bind="_username" onkeyup="@Enter" required="required" />
+                <input type="text" @bind="_username" onkeyup="@Enter" required="required"/>
                 <label>Login</label>
             </div>
             <div class="data-box">
-                <input type="password" @bind="_username" onkeyup="@Enter" required="required" />
+                <input type="password" @bind="_username" onkeyup="@Enter" required="required"/>
                 <label>password</label>
             </div>
             <div class="data-box">
@@ -56,24 +54,21 @@
 
 
 @code {
-    private async Task Enter(KeyboardEventArgs e)
-    {
-        if (e.Code == "Enter" || e.Code == "NumpadEnter")
-        {
+
+    private async Task Enter(KeyboardEventArgs e) {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter") {
             await HandleUserLogin();
         }
     }
 
-    private string _username = String.Empty;
+    private string _username = string.Empty;
 
-    private async Task HandleUserLogin()
-    {
-        if (_username != String.Empty)
-        {
+    private async Task HandleUserLogin() {
+        if (_username != string.Empty) {
             await ProtectedSessionStore.SetAsync("username", _username);
-            NavigationManager.NavigateTo($"/game");
+            NavigationManager.NavigateTo("/game");
         }
-
     }
+
 }
 

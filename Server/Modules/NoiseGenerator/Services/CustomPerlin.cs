@@ -9,7 +9,8 @@ public static class CustomPerlin
     }
 
     public static float Lerp(float a, float b, float t) // Linear interpolation
-    { // Lerp sounds like a noob minecraft player
+    {
+        // Lerp sounds like a noob minecraft player
         return a + t * (b - a);
     }
 
@@ -18,9 +19,9 @@ public static class CustomPerlin
         // DO NOT TRY TO UNDERSTAND THIS. You will just waste your time.
         // Me trying to read this:
         // https://youtu.be/qx8hrhBZJ98?si=G3bLR81CujWEzlFy&t=35
-        int h = hash & 15;
-        float u = h < 8 ? x : y;
-        float v = h < 4 ? y : x;
+        var h = hash & 15;
+        var u = h < 8 ? x : y;
+        var v = h < 4 ? y : x;
         return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
         // If you really want to understand this, understand that this just a bunch of bitwise operations
         // that are used to determine the gradient of the noise. Yeah, it's "gradient", but nos as
@@ -29,9 +30,10 @@ public static class CustomPerlin
     }
 
     private static int[] GeneratePermutation(int seed) // Generates a permutation of 256 values
-    { // Same seed will always generate the same permutation. This is important.
-        Random random = new Random(seed);
-        int[] permutation = Enumerable.Range(0, 256).ToArray();
+    {
+        // Same seed will always generate the same permutation. This is important.
+        var random = new Random(seed);
+        var permutation = Enumerable.Range(0, 256).ToArray();
         permutation = permutation.OrderBy(_ => random.Next()).ToArray();
         return permutation.Concat(permutation).ToArray();
     }
@@ -39,27 +41,27 @@ public static class CustomPerlin
     // Main functions
     public static float Perlin(float x, float y, int seed) // Seed must be provided
     {
-        int[] permutation = GeneratePermutation(seed);
-        int[] p = new int[permutation.Length * 2];
+        var permutation = GeneratePermutation(seed);
+        var p = new int[permutation.Length * 2];
         permutation.CopyTo(p, 0);
         permutation.CopyTo(p, permutation.Length);
 
-        int xi = (int)x & 255; // & 255 is the same as % 256, but faster
-        int yi = (int)y & 255;
+        var xi = (int)x & 255; // & 255 is the same as % 256, but faster
+        var yi = (int)y & 255;
 
-        float xf = x - (int)x; // Get the decimal part of the number
-        float yf = y - (int)y;
+        var xf = x - (int)x; // Get the decimal part of the number
+        var yf = y - (int)y;
 
-        float u = Fade(xf); // Get the fade of the decimal part
-        float v = Fade(yf);
+        var u = Fade(xf); // Get the fade of the decimal part
+        var v = Fade(yf);
 
-        int aa = p[p[xi] + yi]; // Get the hash values
-        int ab = p[p[xi] + yi + 1]; // The hash values are used to get the gradient
-        int ba = p[p[xi + 1] + yi];
-        int bb = p[p[xi + 1] + yi + 1];
+        var aa = p[p[xi] + yi]; // Get the hash values
+        var ab = p[p[xi] + yi + 1]; // The hash values are used to get the gradient
+        var ba = p[p[xi + 1] + yi];
+        var bb = p[p[xi + 1] + yi + 1];
 
-        float x1 = Lerp(Grad(aa, xf, yf), Grad(ba, xf - 1, yf), u); // Get the gradients
-        float x2 = Lerp(Grad(ab, xf, yf - 1), Grad(bb, xf - 1, yf - 1), u);
+        var x1 = Lerp(Grad(aa, xf, yf), Grad(ba, xf - 1, yf), u); // Get the gradients
+        var x2 = Lerp(Grad(ab, xf, yf - 1), Grad(bb, xf - 1, yf - 1), u);
 
         return Lerp(x1, x2, v);
     }
@@ -78,7 +80,7 @@ public static class CustomPerlin
         float amplitude = 1;
         float maxValue = 0;
 
-        for (int i = 0; i < octaves; i++)
+        for (var i = 0; i < octaves; i++)
         {
             total += Perlin(x * frequency, y * frequency, seed) * amplitude;
             maxValue += amplitude;
@@ -98,28 +100,28 @@ public static class CustomPerlin
         float lacunarity = 2.0f,
         float scale = 1.0f
     )
-    { // Noise map generation
+    {
+        // Noise map generation
         // can be called with a seed or without it
-        int actualSeed = seed ?? new Random().Next();
+        var actualSeed = seed ?? new Random().Next();
 
-        float[,] map = new float[size, size];
+        var map = new float[size, size];
 
-        for (int y = 0; y < size; y++)
+        for (var y = 0; y < size; y++)
+        for (var x = 0; x < size; x++)
         {
-            for (int x = 0; x < size; x++)
-            {
-                float scaledX = x / (float)Math.PI / scale;
-                float scaledY = y / (float)Math.PI / scale;
-                map[x, y] = PerlinOctaves(
-                    scaledX,
-                    scaledY,
-                    actualSeed,
-                    octaves,
-                    persistence,
-                    lacunarity
-                );
-            }
+            var scaledX = x / (float)Math.PI / scale;
+            var scaledY = y / (float)Math.PI / scale;
+            map[x, y] = PerlinOctaves(
+                scaledX,
+                scaledY,
+                actualSeed,
+                octaves,
+                persistence,
+                lacunarity
+            );
         }
+
         return map;
     }
 }

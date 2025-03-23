@@ -1,5 +1,4 @@
-﻿using Fracture.Server.Modules.MapGenerator.Models;
-using Fracture.Server.Modules.MapGenerator.Models.Map;
+﻿using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.Models.Map.Town;
 
 namespace Fracture.Server.Modules.MapGenerator.Services.TownGen;
@@ -17,20 +16,19 @@ public class LocationBiomeWeightGenService : ILocationWeightGeneratorService
     public int[,] GenerateWeights(Node[,] nodes, int height, int width)
     {
         var weights = new int[height, width];
-        for (int i = 0; i < height; i++)
+        for (var i = 0; i < height; i++)
+        for (var j = 0; j < width; j++)
         {
-            for (int j = 0; j < width; j++)
-            {
-                var weight = CalculateWeight(nodes, height, width, i, j);
-                weights[i, j] = weight;
-            }
+            var weight = CalculateWeight(nodes, height, width, i, j);
+            weights[i, j] = weight;
         }
+
         return weights;
     }
 
     private int CalculateWeight(Node[,] nodes, int height, int width, int x, int y)
     {
-        Node currentNode = nodes[x, y];
+        var currentNode = nodes[x, y];
         List<Node> neighbors = [];
         //Defines relative coordinates/convolution mask where to take neighbors from
         //This one is a square without the node we're testing for
@@ -51,15 +49,11 @@ public class LocationBiomeWeightGenService : ILocationWeightGeneratorService
                 .Select(n => nodes[x + n.X, y + n.Y])
         );
         //Check for land - we don't want water cities
-        bool areaHasLand = neighbors.Any(n => n.Walkable) || currentNode.Walkable;
+        var areaHasLand = neighbors.Any(n => n.Walkable) || currentNode.Walkable;
         if (areaHasLand)
-        {
             return (int)(neighbors.Sum(GetWeight) * GetMultiplier(currentNode));
-        }
-        else
-        {
-            return 0;
-        }
+
+        return 0;
     }
 
     private int GetWeight(Node node)

@@ -3,9 +3,11 @@
 html {
     height: 100%;
 }
-*{
+
+* {
     font-family: "Courier", sans-serif;
 }
+
 body {
     width: 100%;
     height: 100%;
@@ -22,7 +24,7 @@ body {
     background-position: bottom;
     background-size: 125%;
     backdrop-filter: blur(3px);
-    
+
     /*-webkit-animation: AnimateBG 10s ease infinite;*/
     /*animation: AnimateBG 10s ease infinite;*/
 }
@@ -100,7 +102,7 @@ body {
 }
 
 .actionButton {
-    background-color: rgba(25, 25, 25,1);
+    background-color: rgba(25, 25, 25, 1);
     border-radius: 0.75em;
     cursor: pointer;
     height: 60%;
@@ -109,7 +111,7 @@ body {
 }
 
 .info {
-    background-color: rgba(25, 25, 25,1);
+    background-color: rgba(25, 25, 25, 1);
     width: 20px;
     height: 20px;
     position: absolute;
@@ -120,8 +122,8 @@ body {
     border-radius: 5px;
 }
 
-.logButton{
-    background-color: rgba(25, 25, 25,1);
+.logButton {
+    background-color: rgba(25, 25, 25, 1);
     width: 12rem;
     height: 2.5rem;
     margin: 5px;
@@ -138,7 +140,7 @@ body {
 }
 
 .settingsBtn {
-    background-color: rgba(25, 25, 25,1);
+    background-color: rgba(25, 25, 25, 1);
     width: 30%;
     height: 70%;
     margin: 5px;
@@ -151,7 +153,6 @@ body {
 }
 
 
-
 .crystalCircle {
     padding: 5px;
     z-index: 1;
@@ -161,7 +162,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc;
+    box-shadow: 0 0 5px #cc7afc, 0 0 25px #b27afc;
 }
 
 
@@ -170,7 +171,7 @@ body {
     width: 40px;
     border-radius: 100%;
     transition: 1s ease-in-out;
-    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc,0 0 50px #b27afc;
+    box-shadow: 0 0 5px #cc7afc, 0 0 25px #b27afc, 0 0 50px #b27afc;
     animation: glow 10s alternate infinite;
     display: flex;
     align-items: center;
@@ -187,20 +188,19 @@ body {
 
 @keyframes glow {
     from {
-        box-shadow: 0 0 5px #cc7afc,0 0 15px #b27afc, 0 0 35px #b27afc;
+        box-shadow: 0 0 5px #cc7afc, 0 0 15px #b27afc, 0 0 35px #b27afc;
     }
 
     to {
-        box-shadow: 0 0 5px #7ab9fc,0 0 25px #7ad1fc, 0 0 35px #7ad1fc, 0 0 50px #7ad1fc;
+        box-shadow: 0 0 5px #7ab9fc, 0 0 25px #7ad1fc, 0 0 35px #7ad1fc, 0 0 50px #7ad1fc;
     }
 }
 
 
-
 .dialogueWindowBg {
     border: 5px solid black;
-    background-size: cover; 
-    height: 90%; 
+    background-size: cover;
+    height: 90%;
     width: 100%;
     background-repeat: no-repeat;
 }
@@ -229,7 +229,7 @@ body {
     top: var(--popup-padding);
     left: var(--popup-padding);
     position: absolute;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     width: calc(100% - (var(--popup-padding) * 2));
     height: calc(100% - (var(--popup-padding) * 2));
     backdrop-filter: blur(1px);
@@ -237,7 +237,7 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    
+
 }
 
 .statManager {
@@ -264,7 +264,7 @@ body {
     border: solid 5px rgb(0, 0, 0);
     overflow: auto;
     text-align: justify;
-    scrollbar-color: rgb(0, 0, 0) rgba(0,0,0,0);
+    scrollbar-color: rgb(0, 0, 0) rgba(0, 0, 0, 0);
     scrollbar-width: auto;
     scrollbar-arrow-color: black;
     scroll-snap-type: y mandatory;
@@ -273,10 +273,10 @@ body {
 }
 
 
-    .journalPage span {
-        font-size: 1.1em;
-        font-weight: bolder;
-    }
+.journalPage span {
+    font-size: 1.1em;
+    font-weight: bolder;
+}
 
 .miniMap {
     height: 45%;
@@ -287,7 +287,7 @@ body {
     justify-content: center;
     border-top: #000 solid 2px;
     /*border-bottom: #000 solid 2px;*/
-    
+
 }
 
 .miniMapTable, .mapTable {
@@ -318,16 +318,18 @@ body {
     flex-direction: row;
     align-items: center;
 }
-.map{
+
+.map {
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    
+
+
 }
-.mapTable{
+
+.mapTable {
     margin-top: 5px
-    
+
 }
 
 
@@ -355,9 +357,9 @@ body {
     align-items: center;
 }
 
-    .statObject span {
-        padding-left: 5px;
-    }
+.statObject span {
+    padding-left: 5px;
+}
 
 .equipment {
     height: 55%;
@@ -370,7 +372,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 .equipmentTable {
@@ -385,41 +387,44 @@ body {
     margin-right: 5px;
     width: 100px;
     height: 100px;
-    background-color: rgba(0,0,25,0.7);
-    
+    background-color: rgba(0, 0, 25, 0.7);
+
 }
 
-    .equipmentTable tr td:hover {
-        background-color: rgba(0,0,25,0.7);
-    }
-.row{
+.equipmentTable tr td:hover {
+    background-color: rgba(0, 0, 25, 0.7);
+}
+
+.row {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 95%;
     height: 98%;
-    
-    
-    
+
+
 }
 
 .row div {
     display: flex;
     justify-content: space-between;
-    
+
 }
-.item-stats{
+
+.item-stats {
     text-align: justify;
 }
-.body-buttons{
+
+.body-buttons {
     display: flex;
     flex-direction: column;
     margin: 5px;
 
-    
+
 }
-.body-buttons button{
+
+.body-buttons button {
     height: 40%;
     margin: 5px;
 }
@@ -431,16 +436,18 @@ body {
     width: 100%;
     height: 100%;
 }
-.itemButton{
+
+.itemButton {
     height: 4rem;
     width: 4.5rem;
     font-size: 0.8rem;
-    
+
 }
+
 .eqColumn {
     overflow-y: hidden;
     text-align: justify;
-    scrollbar-color: rgb(0, 0, 0) rgba(0,0,0,0);
+    scrollbar-color: rgb(0, 0, 0) rgba(0, 0, 0, 0);
     scrollbar-width: auto;
     scrollbar-arrow-color: black;
     /*scroll-snap-type: y mandatory;*/
@@ -450,12 +457,12 @@ body {
     align-items: center;
     justify-content: space-evenly;
     height: 60%;
-    
-   
+
+
 }
 
 
-.card{
+.card {
 
     /*height: 200px;*/
     width: 200px;
@@ -463,22 +470,26 @@ body {
     flex-direction: column;
     text-align: center;
 }
-.card-header,.card-body, .item-card{
+
+.card-header, .card-body, .item-card {
     margin-top: 10px;
     padding: 5px;
     border-radius: 10px;
     height: 150px;
-    width: 150px; 
+    width: 150px;
     text-align: center;
 }
-.card-header{
+
+.card-header {
     display: flex;
     flex-direction: column;
 }
-.card-body{
-    
+
+.card-body {
+
 }
-.item-card{
+
+.item-card {
     height: 100px;
     width: 150px;
     display: flex;
@@ -487,34 +498,39 @@ body {
     text-align: center;
     opacity: 0.6;
     transition: opacity 0.2s ease-in-out;
-    
+
 }
-.stat-value-right-align{
+
+.stat-value-right-align {
     text-align: right;
 }
 
-.item-card:hover{
+.item-card:hover {
     opacity: 1;
 }
-.item-name{
+
+.item-name {
     height: 10%;
-    
+
 }
-.card-body>.item-card{
+
+.card-body > .item-card {
     opacity: 1;
 }
-.stat-table{
+
+.stat-table {
     font-size: 1.5rem;
 }
-.stat-table tr td{
+
+.stat-table tr td {
     filter: drop-shadow(3px 4px 2px black);
 }
 
-.closeBtn{
+.closeBtn {
     border-radius: 100%;
     width: 30px;
     height: 30px;
-    background-color: rgba(0, 0, 0,1);
+    background-color: rgba(0, 0, 0, 1);
     border: none;
     display: flex;
     align-items: center;
@@ -526,18 +542,18 @@ body {
     z-index: auto;
 }
 
-    .closeBtn:hover {
-        background-color: rgb(255,0,0);
-        box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
-    }
+.closeBtn:hover {
+    background-color: rgb(255, 0, 0);
+    box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
+}
 
 
-.actionButton:hover:before, .info:hover:before, .settingsBtn:hover:before{
+.actionButton:hover:before, .info:hover:before, .settingsBtn:hover:before {
     opacity: 1;
 }
 
-.actionButton:before, .info:before, .settingsBtn:before{
-    background: linear-gradient( 45deg, transparent 5%, rgb(255, 215, 137) 50%, transparent 99% );
+.actionButton:before, .info:before, .settingsBtn:before {
+    background: linear-gradient(45deg, transparent 5%, rgb(255, 215, 137) 50%, transparent 99%);
     border-radius: inherit;
     content: "";
     inset: 0px;
@@ -548,7 +564,7 @@ body {
 }
 
 
-.actionButton-content, .info-content, .settingsBtn-content{
+.actionButton-content, .info-content, .settingsBtn-content {
     background-color: #191919;
     border-radius: inherit;
     inset: 1px;
@@ -557,7 +573,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    
+
 }
 
 
@@ -571,6 +587,7 @@ body {
     --popup-padding: 10px;
     --row-padding: 5px;
 }
-h3{
+
+h3 {
     width: 70%;
 }

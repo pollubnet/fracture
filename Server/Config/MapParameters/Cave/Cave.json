@@ -1,5 +1,6 @@
 ﻿{
-  "LocationType" : "MainLocation",
+  "LocationType": "Cave",
+  "SubMapAssignmentLocation": [],
   "NoiseParameters": {
     "Seed": 12345678,
     "Scale": 2.9,

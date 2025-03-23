@@ -1,12 +1,11 @@
-﻿namespace Fracture.Server.Modules.Items.Models
+﻿namespace Fracture.Server.Modules.Items.Models;
+
+public enum ItemType
 {
-    public enum ItemType
-    {
-        Helmet,
-        Chestplate,
-        Gauntlets,
-        Leggings,
-        Boots,
-        Ring,
-    }
+    Helmet,
+    Chestplate,
+    Gauntlets,
+    Leggings,
+    Boots,
+    Ring,
 }

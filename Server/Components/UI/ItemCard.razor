@@ -1,19 +1,18 @@
-@using Fracture.Server.Modules.Items.Models
 @using Fracture.Server.EnumExtensions
-
+@using Fracture.Server.Modules.Items.Models
 <div class="col">
     <div class="card">
         <div class="card-header">
             <div class="item-name">@Item.Type.ToString()</div>
-            @if (IsEquipped)
-            {
-                <div class="item-card" title="@Item.Type.ToString()" style="background-color: var(@Item.Rarity.ToCssClassName()); opacity: 1;">
+            @if (IsEquipped) {
+                <div class="item-card" title="@Item.Type.ToString()"
+                     style="background-color: var(@Item.Rarity.ToCssClassName()); opacity: 1;">
                     @Item.Name
                 </div>
             }
-            else
-            {
-                <div class="item-card" title="@Item.Type.ToString()" style="background-color: var(@Item.Rarity.ToCssClassName())">
+            else {
+                <div class="item-card" title="@Item.Type.ToString()"
+                     style="background-color: var(@Item.Rarity.ToCssClassName())">
                     @Item.Name
                 </div>
             }
@@ -21,14 +20,19 @@
 
         <div class="card-body">
             <div class="body-buttons">
-                <div class="actionButton itemButton" @onmouseover="ShowItemHistoryAsync" @onmouseleave="HideItemHistoryAsync" data-bs-toggle="collapse" data-bs-target="#collapse-@guid"><div class="actionButton-content">Item History </div></div>
-                @if (IsEquipped)
-                {
-                    <div class="actionButton itemButton" @onclick="OnUnequipClicked"><div class="actionButton-content">Unequip this</div></div>
+                <div class="actionButton itemButton" @onmouseover="ShowItemHistoryAsync"
+                     @onmouseleave="HideItemHistoryAsync" data-bs-toggle="collapse" data-bs-target="#collapse-@guid">
+                    <div class="actionButton-content">Item History</div>
+                </div>
+                @if (IsEquipped) {
+                    <div class="actionButton itemButton" @onclick="OnUnequipClicked">
+                        <div class="actionButton-content">Unequip this</div>
+                    </div>
                 }
-                else
-                {
-                    <div class="actionButton itemButton" @onclick="OnEquipClicked"><div class="actionButton-content">Equip this</div></div>
+                else {
+                    <div class="actionButton itemButton" @onclick="OnEquipClicked">
+                        <div class="actionButton-content">Equip this</div>
+                    </div>
                 }
             </div>
             <div class="collapse" id="collapse-@guid">
@@ -41,19 +45,24 @@
     </div>
 </div>
 <div class="collapse">
-    @foreach (var item in messages)
-    {
+    @foreach (var item in messages) {
         <p>
             @item
         </p>
     }
 </div>
+
 @code {
     private readonly Guid guid = Guid.NewGuid();
 
-    List<string> messages = new List<string>();
-    private async Task ShowItemHistoryAsync() { } //await collapse1.ShowAsync();
-    private async Task HideItemHistoryAsync() { } //await collapse1.HideAsync();
+    List<string> messages = new();
+
+    private async Task ShowItemHistoryAsync() {
+    } //await collapse1.ShowAsync();
+
+    private async Task HideItemHistoryAsync() {
+    } //await collapse1.HideAsync();
+
     [Parameter] public Item Item { get; set; } = null!;
     [Parameter] public bool IsEquipped { get; set; }
     [Parameter] public bool ItemHistory { get; set; }

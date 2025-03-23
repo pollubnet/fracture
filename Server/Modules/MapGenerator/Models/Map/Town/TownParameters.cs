@@ -4,8 +4,8 @@ namespace Fracture.Server.Modules.MapGenerator.Models.Map.Town;
 
 public class TownParameters
 {
-    private readonly Dictionary<string, TownBiomeParam> _paramsDict;
     private readonly ILogger<TownParameters> _logger;
+    private readonly Dictionary<string, TownBiomeParam> _paramsDict;
 
     public TownParameters(ILogger<TownParameters> logger)
     {
@@ -16,10 +16,8 @@ public class TownParameters
     public TownBiomeParam Get(string name)
     {
         if (!_paramsDict.ContainsKey(name))
-        {
             //Log
             return new TownBiomeParam("Missing", 0, 0);
-        }
         return _paramsDict[name];
     }
 
@@ -27,7 +25,6 @@ public class TownParameters
     {
         var path = "Config/LocationParameters/Town/" + fileName + ".json";
         if (File.Exists(path))
-        {
             try
             {
                 var json = File.ReadAllText(path);
@@ -38,7 +35,6 @@ public class TownParameters
             {
                 _logger.LogError(e, "Failed to load parameters");
             }
-        }
     }
 }
 
