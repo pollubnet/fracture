@@ -27,14 +27,12 @@ builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
-builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
-builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();
-builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
 builder.Services.AddSingleton<IMapRepository, InMemoryMapRepository>();
 
 builder.Services.AddScoped<BackgroundImageChanger>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
+builder.Services.AddTransient<IWorldGenerationService, WorldGenerationService>();
 
 builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
 builder.Services.AddSingleton<MapParametersReader>();
@@ -84,8 +82,9 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseExceptionHandler("/Error", true);
 }
+
 app.UseHangfireDashboard();
 app.UseHangfireServer();
 
@@ -107,11 +106,5 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<FractureDbContext>();
     db.Database.Migrate();
 }
-app.Lifetime.ApplicationStarted.Register(async () =>
-{
-    using var scope = app.Services.CreateScope();
-    var mapManager = scope.ServiceProvider.GetRequiredService<MapManagerService>();
-    await mapManager.InitializeAndScheduleMapsAsync();
-});
 
 app.Run();

@@ -1,10 +1,8 @@
-﻿using System;
-using Fracture.Server.Modules.Items.Models;
+﻿using Fracture.Server.Modules.Items.Models;
 
-namespace Fracture.Server.Modules.Items.Services
+namespace Fracture.Server.Modules.Items.Services;
+
+public interface IItemGenerator
 {
-    public interface IItemGenerator
-    {
-        Task<Item> Generate();
-    }
+    Task<Item> Generate();
 }

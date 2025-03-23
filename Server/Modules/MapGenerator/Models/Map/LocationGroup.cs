@@ -10,10 +10,10 @@ public class LocationGroup
 
     public (int minX, int minY, int maxX, int maxY) GetBounds()
     {
-        int minX = Nodes.Min(n => n.XId);
-        int minY = Nodes.Min(n => n.YId);
-        int maxX = Nodes.Max(n => n.XId);
-        int maxY = Nodes.Max(n => n.YId);
+        var minX = Nodes.Min(n => n.XId);
+        var minY = Nodes.Min(n => n.YId);
+        var maxX = Nodes.Max(n => n.XId);
+        var maxY = Nodes.Max(n => n.YId);
         return (minX, minY, maxX, maxY);
     }
 }

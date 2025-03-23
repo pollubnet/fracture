@@ -1,5 +1,6 @@
 ﻿{
-  "MapType" : "MainLocation",
+  "LocationType": "Dungeon",
+  "SubMapAssignmentLocation": [],
   "NoiseParameters": {
     "Seed": 12345678,
     "Scale": 2.9,

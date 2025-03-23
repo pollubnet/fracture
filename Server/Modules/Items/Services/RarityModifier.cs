@@ -1,24 +1,22 @@
-﻿using System;
-using Fracture.Server.Modules.Items.Models;
+﻿using Fracture.Server.Modules.Items.Models;
 
-namespace Fracture.Server.Modules.Items.Services
+namespace Fracture.Server.Modules.Items.Services;
+
+public class RarityModifier
 {
-    public class RarityModifier
+    public RarityModifier(float valueBelow, ItemRarity rarity)
     {
-        public float ValueBelow { get; init; } = 0f;
-        public ItemRarity Rarity { get; init; } = ItemRarity.Common;
+        ValueBelow = valueBelow;
+        Rarity = rarity;
+    }
 
-        public Dictionary<ItemStat, StatRange> StatRanges { get; init; } = new();
+    public float ValueBelow { get; init; }
+    public ItemRarity Rarity { get; init; } = ItemRarity.Common;
 
-        public RarityModifier(float valueBelow, ItemRarity rarity)
-        {
-            ValueBelow = valueBelow;
-            Rarity = rarity;
-        }
+    public Dictionary<ItemStat, StatRange> StatRanges { get; init; } = new();
 
-        public void SetStatRange(ItemStat stat, StatRange range)
-        {
-            StatRanges[stat] = range;
-        }
+    public void SetStatRange(ItemStat stat, StatRange range)
+    {
+        StatRanges[stat] = range;
     }
 }

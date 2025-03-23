@@ -5,11 +5,11 @@ namespace Fracture.Server.Modules.Pathfinding.Services;
 
 public class PathfindingService : IPathfindingService
 {
-    private readonly IMapGeneratorService _mapGeneratorService;
+    private readonly MapManagerService _mapManagerService;
 
-    public PathfindingService(IMapGeneratorService mapGeneratorService)
+    public PathfindingService(MapManagerService mapManagerService)
     {
-        _mapGeneratorService = mapGeneratorService;
+        _mapManagerService = mapManagerService;
     }
 
     public List<IPathfindingNode>? FindPath(IPathfindingNode start, IPathfindingNode stop)
@@ -24,19 +24,17 @@ public class PathfindingService : IPathfindingService
             var current = GetLowestFScoreNode(toEvaluateSet);
 
             if (current.XId == stop.XId && current.YId == stop.YId)
-            {
                 return ReconstructPath(current);
-            }
 
             toEvaluateSet.Remove(current);
             evaluatedSet.Add(current);
 
-            foreach (IPathfindingNode neighbor in GetNeighbors(current))
+            foreach (var neighbor in GetNeighbors(current))
             {
                 if (evaluatedSet.Contains(neighbor) || !neighbor.Walkable)
                     continue;
 
-                int tempGCost = current.GCost + 1;
+                var tempGCost = current.GCost + 1;
 
                 if (!toEvaluateSet.Contains(neighbor) || tempGCost < neighbor.GCost)
                 {
@@ -61,19 +59,19 @@ public class PathfindingService : IPathfindingService
         int[] dx = [0, 1, 0, -1, 1, 1, -1, -1];
         int[] dy = [1, 0, -1, 0, 1, -1, 1, -1]; // dx and dy arrays are determining 18 different move sequences, aka dx[i] = -1, dy[i] = 1 means we are moving to a top left tile
 
-        for (int i = 0; i < 8; i++)
+        for (var i = 0; i < 8; i++)
         {
-            int newX = node.XId + dx[i];
-            int newY = node.YId + dy[i];
+            var newX = node.XId + dx[i];
+            var newY = node.YId + dy[i];
 
             if (
                 newX >= 0
-                && newX < _mapGeneratorService.Map.Grid.GetLength(0)
+                && newX < _mapManagerService.CurrentMap.Grid.GetLength(0)
                 && newY >= 0
-                && newY < _mapGeneratorService.Map.Grid.GetLength(1)
+                && newY < _mapManagerService.CurrentMap.Grid.GetLength(1)
             )
             {
-                IPathfindingNode neighbor = _mapGeneratorService.Map.Grid[newX, newY];
+                IPathfindingNode neighbor = _mapManagerService.CurrentMap.Grid[newX, newY];
                 if (neighbor != null)
                     neighbors.Add(neighbor);
             }
@@ -99,10 +97,8 @@ public class PathfindingService : IPathfindingService
     {
         var lowest = nodes[0];
         foreach (var node in nodes)
-        {
             if (node.FCost < lowest.FCost)
                 lowest = node;
-        }
         return lowest;
     }
 }

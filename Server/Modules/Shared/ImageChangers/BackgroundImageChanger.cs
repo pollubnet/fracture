@@ -1,18 +1,12 @@
-﻿using Fracture.Server.Modules.MapGenerator.Models;
-using Fracture.Server.Modules.MapGenerator.Models.Map;
-using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
+﻿using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.MapGenerator.UI;
-using Microsoft.AspNetCore.Components;
 
 namespace Fracture.Server.Modules.Shared.ImageChangers;
 
 public class BackgroundImageChanger
 {
-    public required BackgroundImage? BackgroundImage { get; set; }
-    public required MapManagerService MapManagerService { get; set; }
-
-    private ILogger<BackgroundImageChanger> logger;
+    private readonly ILogger<BackgroundImageChanger> logger;
 
     public BackgroundImageChanger(
         ILogger<BackgroundImageChanger> logger,
@@ -22,6 +16,9 @@ public class BackgroundImageChanger
         this.logger = logger;
         MapManagerService = mapManagerService;
     }
+
+    public required BackgroundImage? BackgroundImage { get; set; }
+    public required MapManagerService MapManagerService { get; set; }
 
     public Task ChangeBackgroundImageAsync()
     {
@@ -83,6 +80,8 @@ public class BackgroundImageChanger
 
     public event EventHandler<EventArgs>? BackgroundImageChanged;
 
-    public void NotifyListChanged(object? sender, EventArgs e) =>
+    public void NotifyListChanged(object? sender, EventArgs e)
+    {
         BackgroundImageChanged?.Invoke(sender, e);
+    }
 }

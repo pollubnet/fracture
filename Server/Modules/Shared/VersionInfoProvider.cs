@@ -1,8 +1,6 @@
-using System.Reflection;
-
 namespace Fracture.Server.Modules.Shared;
 
-class VersionInfoProvider
+internal class VersionInfoProvider
 {
     public VersionInfoProvider()
     {

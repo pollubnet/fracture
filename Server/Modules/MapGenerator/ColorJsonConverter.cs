@@ -20,9 +20,7 @@ public class ColorJsonConverter : JsonConverter<Color>
         var color = Color.FromName(colorName);
 
         if (color.IsKnownColor)
-        {
             return color; // Valid known color name
-        }
         throw new JsonException($"Unknown color name: {colorName}");
     }
 

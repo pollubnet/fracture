@@ -3,4 +3,5 @@
 public interface IMapObject
 {
     string Type { get; set; }
+    bool IsInteractive { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Fracture.Server.Modules.Items.Models;
 
 namespace Fracture.Server.Modules.Items.Models
 {
@@ -15,8 +15,6 @@ namespace Fracture.Server.Modules.Items.Models
 
 namespace Fracture.Server.EnumExtensions
 {
-    using Fracture.Server.Modules.Items.Models;
-
     public static class ItemRarityExtensions
     {
         public static string ToCssClassName(this ItemRarity rarity)

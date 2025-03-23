@@ -1,0 +1,142 @@
+﻿{
+  "LocationType": "MainLocation",
+  "SubMapAssignmentLocation": [],
+  "NoiseParameters": {
+    "Seed": 12345678,
+    "Scale": 3.2,
+    "Octaves": 5,
+    "Persistence": 0.65,
+    "Lacunarity": 1.7,
+    "Sharpness": 1.5,
+    "Boost": 0.35,
+    "Falloff": 0.5,
+    "FalloffType": true,
+    "UseRandomSeed": true
+  },
+  "Width": 64,
+  "Height": 64,
+  "BiomeCategories": [
+    {
+      "BiomeType": "Volcanic",
+      "TerrainType": "LavaLake",
+      "MinHeight": 0.0,
+      "MaxHeight": 0.1,
+      "Biomes": [
+        {
+          "Name": "Molten Core",
+          "Color": "DarkRed",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Volcanic",
+      "TerrainType": "LavaFlow",
+      "MinHeight": 0.1,
+      "MaxHeight": 0.2,
+      "Biomes": [
+        {
+          "Name": "Lava Rivers",
+          "Color": "Red",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Volcanic",
+      "TerrainType": "AshPlains",
+      "MinHeight": 0.2,
+      "MaxHeight": 0.35,
+      "Biomes": [
+        {
+          "Name": "Volcanic Ash",
+          "Color": "Firebrick",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Volcanic",
+      "TerrainType": "ScorchedEarth",
+      "MinHeight": 0.35,
+      "MaxHeight": 0.5,
+      "Biomes": [
+        {
+          "Name": "Obsidian Fields",
+          "Color": "Maroon",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Volcanic",
+      "TerrainType": "BasaltFormations",
+      "MinHeight": 0.5,
+      "MaxHeight": 0.7,
+      "Biomes": [
+        {
+          "Name": "Smoldering Craters",
+          "Color": "OrangeRed",
+          "MinTemperature": 0.7,
+          "MaxTemperature": 1.0
+        },
+        {
+          "Name": "Basalt Columns",
+          "Color": "DarkSlateGray",
+          "MinTemperature": 0.3,
+          "MaxTemperature": 0.7
+        },
+        {
+          "Name": "Charred Wasteland",
+          "Color": "Sienna",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 0.3
+        }
+      ]
+    },
+    {
+      "BiomeType": "Volcanic",
+      "TerrainType": "VolcanicPeaks",
+      "MinHeight": 0.7,
+      "MaxHeight": 0.85,
+      "Biomes": [
+        {
+          "Name": "Fumarole Fields",
+          "Color": "DarkGray",
+          "MinTemperature": 0.6,
+          "MaxTemperature": 1.0
+        },
+        {
+          "Name": "Magma Chambers",
+          "Color": "Crimson",
+          "MinTemperature": 0.3,
+          "MaxTemperature": 0.6
+        },
+        {
+          "Name": "Sulfuric Rocks",
+          "Color": "Goldenrod",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 0.3
+        }
+      ]
+    },
+    {
+      "BiomeType": "Volcanic",
+      "TerrainType": "ObsidianSummit",
+      "MinHeight": 0.85,
+      "MaxHeight": 1.0,
+      "Biomes": [
+        {
+          "Name": "Volcanic Caldera",
+          "Color": "Black",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    }
+  ]
+}

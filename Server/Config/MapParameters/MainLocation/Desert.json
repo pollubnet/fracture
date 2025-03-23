@@ -1,0 +1,115 @@
+﻿
+{
+  "LocationType": "MainLocation",
+  "SubMapAssignmentLocation": [
+    "Town"
+  ],
+  "NoiseParameters": {
+    "Seed": 87654321,
+    "Scale": 4.2,
+    "Octaves": 4,
+    "Persistence": 0.55,
+    "Lacunarity": 1.85,
+    "Sharpness": 1.1,
+    "Boost": 0.25,
+    "Falloff": 0.35,
+    "FalloffType": true,
+    "UseRandomSeed": true
+  },
+  "Width": 64,
+  "Height": 64,
+  "BiomeCategories": [
+    {
+      "BiomeType": "Desert",
+      "TerrainType": "SaltFlats",
+      "MinHeight": 0.0,
+      "MaxHeight": 0.1,
+      "Biomes": [
+        {
+          "Name": "Salt Pan",
+          "Color": "WhiteSmoke",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 1.0
+        }
+      ]
+    },
+    {
+      "BiomeType": "Desert",
+      "TerrainType": "SandDunes",
+      "MinHeight": 0.1,
+      "MaxHeight": 0.3,
+      "Biomes": [
+        {
+          "Name": "Shifting Dunes",
+          "Color": "SandyBrown",
+          "MinTemperature": 0.7,
+          "MaxTemperature": 1.0
+        },
+        {
+          "Name": "Stable Dunes",
+          "Color": "Goldenrod",
+          "MinTemperature": 0.3,
+          "MaxTemperature": 0.7
+        },
+        {
+          "Name": "Gravel Plains",
+          "Color": "DarkGray",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 0.3
+        }
+      ]
+    },
+    {
+      "BiomeType": "Desert",
+      "TerrainType": "RockyDesert",
+      "MinHeight": 0.3,
+      "MaxHeight": 0.6,
+      "Biomes": [
+        {
+          "Name": "Sandstone Outcrops",
+          "Color": "Peru",
+          "MinTemperature": 0.6,
+          "MaxTemperature": 1.0
+        },
+        {
+          "Name": "Desert Pavement",
+          "Color": "Sienna",
+          "MinTemperature": 0.3,
+          "MaxTemperature": 0.6
+        },
+        {
+          "Name": "Fossil Beds",
+          "Color": "BurlyWood",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 0.3
+        }
+      ]
+    },
+    {
+      "BiomeType": "Desert",
+      "TerrainType": "Mesa",
+      "MinHeight": 0.6,
+      "MaxHeight": 1.0,
+      "Biomes": [
+        {
+          "Name": "Sandstone Mesa",
+          "Color": "Chocolate",
+          "MinTemperature": 0.5,
+          "MaxTemperature": 1.0
+        },
+        {
+          "Name": "Petrified Forest",
+          "Color": "SaddleBrown",
+          "MinTemperature": 0.2,
+          "MaxTemperature": 0.5
+        },
+        {
+          "Name": "Canyon Lands",
+          "Color": "Maroon",
+          "MinTemperature": 0.0,
+          "MaxTemperature": 0.2
+        }
+      ]
+    }
+  ]
+}

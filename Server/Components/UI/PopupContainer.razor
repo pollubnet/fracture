@@ -2,13 +2,12 @@
 @rendermode InteractiveServer
 
 
-<div class="popup @(IsVisible? "" : "hidden")">
-    @if (_componentType is not null)
-    {
-        <DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
+<div class="popup @(IsVisible ? "" : "hidden")">
+    @if (_componentType is not null) {
+        <DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component"/>
     }
     <div>
-        <button class="closeBtn" @onclick="() => IsVisible=false"><img src="assets/icons/closebutton.svg" /></button>
+        <button class="closeBtn" @onclick="() => IsVisible=false"><img src="assets/icons/closebutton.svg"/></button>
     </div>
 </div>
 
@@ -16,8 +15,7 @@
     GamePage _gamePage = new();
     public bool IsVisible { get; set; }
 
-    public void ShowComponent<T>(IDictionary<string, object>? parameters = null)
-    {
+    public void ShowComponent<T>(IDictionary<string, object>? parameters = null) {
         _componentType = typeof(T);
         _parameters = parameters;
 

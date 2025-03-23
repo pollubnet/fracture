@@ -1,12 +1,9 @@
-﻿using System;
+﻿namespace Fracture.Server.Modules.Items.Models;
 
-namespace Fracture.Server.Modules.Items.Models
+public record StatRange(int MinValue, int MaxValue)
 {
-    public record StatRange(int MinValue, int MaxValue)
+    public int GenerateStat(Random rnd)
     {
-        public int GenerateStat(Random rnd)
-        {
-            return rnd.Next(MinValue, MaxValue + 1);
-        }
+        return rnd.Next(MinValue, MaxValue + 1);
     }
 }

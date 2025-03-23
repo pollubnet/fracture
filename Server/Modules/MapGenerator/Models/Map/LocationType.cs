@@ -5,4 +5,5 @@ public enum LocationType
     None,
     Town,
     MainLocation,
+    Cave,
 }

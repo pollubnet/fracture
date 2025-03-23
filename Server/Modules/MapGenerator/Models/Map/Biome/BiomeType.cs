@@ -2,7 +2,7 @@
 
 public enum BiomeType
 {
-    Vulcanic,
+    Volcanic,
     Normal,
     Desert,
 }

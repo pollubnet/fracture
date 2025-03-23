@@ -267,10 +267,8 @@ public class Perlin
     static Perlin()
     {
         p = new int[512];
-        for (int x = 0; x < 512; x++)
-        {
+        for (var x = 0; x < 512; x++)
             p[x] = permutation[x % 256];
-        }
     }
 
     public double perlin(double x, double y, double z)
@@ -284,7 +282,7 @@ public class Perlin
 
         if (x < 0f) // Added support for negative values
         {
-            xi = 255 - ((int)(-x) & 255);
+            xi = 255 - ((int)-x & 255);
             xf = 1 + x - (int)x;
         }
         else
@@ -295,7 +293,7 @@ public class Perlin
 
         if (y < 0f)
         {
-            yi = 255 - ((int)(-y) & 255);
+            yi = 255 - ((int)-y & 255);
             yf = 1 + y - (int)y;
         }
         else
@@ -306,7 +304,7 @@ public class Perlin
 
         if (z < 0f)
         {
-            zi = 255 - ((int)(-z) & 255);
+            zi = 255 - ((int)-z & 255);
             zf = 1 + z - (int)z;
         }
         else
@@ -315,16 +313,16 @@ public class Perlin
             zf = z - (int)z;
         }
 
-        double u = fade(xf);
-        double v = fade(yf);
-        double w = fade(zf);
+        var u = fade(xf);
+        var v = fade(yf);
+        var w = fade(zf);
 
-        int a = p[xi] + yi; // This here is Perlin's hash function.  We take our x value (remember,
-        int aa = p[a] + zi; // between 0 and 255) and get a random value (from our p[] array above) between
-        int ab = p[a + 1] + zi; // 0 and 255.  We then add y to it and plug that into p[], and add z to that.
-        int b = p[xi + 1] + yi; // Then, we get another random value by adding 1 to that and putting it into p[]
-        int ba = p[b] + zi; // and add z to it.  We do the whole thing over again starting with x+1.  Later
-        int bb = p[b + 1] + zi; // we plug aa, ab, ba, and bb back into p[] along with their +1's to get another set.
+        var a = p[xi] + yi; // This here is Perlin's hash function.  We take our x value (remember,
+        var aa = p[a] + zi; // between 0 and 255) and get a random value (from our p[] array above) between
+        var ab = p[a + 1] + zi; // 0 and 255.  We then add y to it and plug that into p[], and add z to that.
+        var b = p[xi + 1] + yi; // Then, we get another random value by adding 1 to that and putting it into p[]
+        var ba = p[b] + zi; // and add z to it.  We do the whole thing over again starting with x+1.  Later
+        var bb = p[b + 1] + zi; // we plug aa, ab, ba, and bb back into p[] along with their +1's to get another set.
         // in the end we have 8 values between 0 and 255 - one for each vertex on the unit cube.
         // These are all interpolated together using u, v, and w below.
 
@@ -357,8 +355,8 @@ public class Perlin
 
     public static double grad(int hash, double x, double y, double z)
     {
-        int h = hash & 15; // Take the hashed value and take the first 4 bits of it (15 == 0b1111)
-        double u =
+        var h = hash & 15; // Take the hashed value and take the first 4 bits of it (15 == 0b1111)
+        var u =
             h < 8 /* 0b1000 */
                 ? x
                 : y; // If the most signifigant bit (MSB) of the hash is 0 then set u = x.  Otherwise y.
