@@ -1,6 +1,7 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
+using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.MapGenerator.UI;
 using Microsoft.AspNetCore.Components;
 
@@ -8,17 +9,26 @@ namespace Fracture.Server.Modules.Shared.ImageChangers;
 
 public class BackgroundImageChanger
 {
-    [Parameter]
     public required BackgroundImage? BackgroundImage { get; set; }
-
-    [Parameter]
-    public required Map Map { get; set; }
+    public required MapManagerService MapManagerService { get; set; }
 
     private ILogger<BackgroundImageChanger> logger;
 
+    public BackgroundImageChanger(
+        ILogger<BackgroundImageChanger> logger,
+        MapManagerService mapManagerService
+    )
+    {
+        this.logger = logger;
+        MapManagerService = mapManagerService;
+    }
+
     public Task ChangeBackgroundImageAsync()
     {
-        var biome = Map.Grid[MapView.CharacterXX, MapView.CharacterYY].TerrainType;
+        var biome = MapManagerService
+            .CurrentMap
+            .Grid[MapView.CharacterXX, MapView.CharacterYY]
+            .TerrainType;
 
         if (BackgroundImage is null)
         {

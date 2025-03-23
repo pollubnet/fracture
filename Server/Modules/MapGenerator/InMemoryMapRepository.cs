@@ -11,7 +11,6 @@ public class InMemoryMapRepository : IMapRepository
     {
         if (string.IsNullOrWhiteSpace(mapName))
             throw new ArgumentNullException(nameof(mapName));
-
         _maps[mapName] = map;
     }
 
@@ -31,6 +30,11 @@ public class InMemoryMapRepository : IMapRepository
     public List<string> GetAllMapNames()
     {
         return _maps.Keys.ToList();
+    }
+
+    public void ClearMaps()
+    {
+        _maps.Clear();
     }
 
     public List<Map> GetAllMapsByLocation(LocationType locationType)

@@ -25,4 +25,5 @@ public interface IMapRepository
     /// </summary>
     List<Map> GetAllMapsByLocation(LocationType locationType);
     List<string> GetAllMapNames();
+    void ClearMaps();
 }

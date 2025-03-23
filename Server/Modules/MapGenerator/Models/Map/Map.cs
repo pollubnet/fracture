@@ -3,7 +3,8 @@
 public class Map
 {
     public string? Name { get; set; }
-    public Dictionary<LocationType, int> LocationCounter { get; set; } = new();
+
+    // public Dictionary<LocationType, int> LocationCounter { get; set; } = new();
     public LocationType LocationType { get; set; }
 
     public List<LocationGroup> LocationGroups { get; set; } = new();
@@ -24,10 +25,10 @@ public class Map
 
                 if (node?.LocationType != null)
                 {
-                    if (LocationCounter.TryGetValue(node.LocationType, out int count))
-                        LocationCounter[node.LocationType] = count + 1;
-                    else
-                        LocationCounter[node.LocationType] = 1;
+                    // if (LocationCounter.TryGetValue(node.LocationType, out int count))
+                    //     LocationCounter[node.LocationType] = count + 1;
+                    // else
+                    //     LocationCounter[node.LocationType] = 1;
 
                     if (!string.IsNullOrWhiteSpace(node.GroupName))
                     {

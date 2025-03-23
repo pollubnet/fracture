@@ -4,7 +4,7 @@
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
-@inject WorldMapService WorldMapService
+@inject MapManagerService MapManagerService
 @implements IDisposable
 @page "/game"
 
@@ -27,10 +27,8 @@
 @inject NavigationManager NavigationManager
 @inject IItemsRepository ItemsRepository
 @inject VersionInfoProvider VersionInfoProvider
-@inject IMapGeneratorService MapGeneratorService
 @inject BackgroundImageChanger BackgroundImageChanger
 <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
-@inject MapParametersReader MapParametersReader
 
 <link rel="icon" type="image/png" href="assets/favicon.png" />
 
@@ -144,7 +142,7 @@
 
     private Dictionary<string, object> _equipmentPopupParameters = null!;
     private Dictionary<string, object> _mapPopupParameters = null!;
-    public static Map? Map = Map;
+    public static Map Map { get; set; }
 
     private PopupContainer _popup = null!;
 
@@ -157,8 +155,6 @@
     protected override async Task OnInitializedAsync()
     {
         var username = await ProtectedSessionStore.GetAsync<string>("username");
-
-        // brak sesji
         if (!username.Success)
         {
             NavigationManager.NavigateTo($"/");
@@ -198,15 +194,7 @@
             { "Equipment", _equipment },
             { "Inventory", _inventory }
         };
-        // var allMapNames = MapRepo.GetAllMapNames();
-        // var random = new Random();
-        // var mapName = allMapNames.ElementAt(random.Next(allMapNames.Count()));
-        // Map = MapRepo.GetMap(mapName);
-        // Console.WriteLine(mapName);
-        var worldMap = await WorldMapService.GetOrGenerateWorldMapAsync();
-        Console.WriteLine(worldMap.MainMap);
-        Map = worldMap.MainMap;
-
+        Map = MapManagerService.GetWorldMap();
         _mapDisplayData.ShowColorMap = true;
         _mapPopupParameters = new()
         {
@@ -214,7 +202,6 @@
             { "MapDisplayData", _mapDisplayData }
         };
 
-        BackgroundImageChanger.Map = Map;
         BackgroundImageChanger.BackgroundImage = BackgroundImage;
         await GetBacgroundAsync();
 
