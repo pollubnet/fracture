@@ -100,7 +100,8 @@ namespace Fracture.Server.Modules.Items.Services
             var rndType = _rnd.Next(0, Enum.GetValues<ItemType>().Length);
             item.Type = (ItemType)rndType;
 
-            await _prefixes.AddPrefixes(item);
+            item.Name = await _nameGenerator.GenerateNameAsync();
+            //await _prefixes.AddPrefixes(item);
 
             if (_ai is not null)
             {

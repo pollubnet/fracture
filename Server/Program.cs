@@ -22,7 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<NameGeneratorConfig>(builder.Configuration.GetSection("NameGenerator"));
 builder.Services.Configure<AIBackendConfiguration>(builder.Configuration.GetSection("AiBackend"));
 
-builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
+builder.Services.AddSingleton<INameGenerator, AsdfNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
