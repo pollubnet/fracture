@@ -12,6 +12,7 @@
     <_ContentIncludedByDefault Remove="wwwroot\css\items.css" />
   </ItemGroup>
   <ItemGroup>    
+    <PackageReference Include="Docker.DotNet" Version="3.125.15" />    
     <PackageReference Include="Markov" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
