@@ -29,7 +29,8 @@
           "Name": "Salt Pan",
           "Color": "WhiteSmoke",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         }
       ]
     },
@@ -43,19 +44,22 @@
           "Name": "Shifting Dunes",
           "Color": "SandyBrown",
           "MinTemperature": 0.7,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         },
         {
           "Name": "Stable Dunes",
           "Color": "Goldenrod",
           "MinTemperature": 0.3,
-          "MaxTemperature": 0.7
+          "MaxTemperature": 0.7,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         },
         {
           "Name": "Gravel Plains",
           "Color": "DarkGray",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.3
+          "MaxTemperature": 0.3,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         }
       ]
     },
@@ -69,19 +73,22 @@
           "Name": "Sandstone Outcrops",
           "Color": "Peru",
           "MinTemperature": 0.6,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         },
         {
           "Name": "Desert Pavement",
           "Color": "Sienna",
           "MinTemperature": 0.3,
-          "MaxTemperature": 0.6
+          "MaxTemperature": 0.6,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         },
         {
           "Name": "Fossil Beds",
           "Color": "BurlyWood",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.3
+          "MaxTemperature": 0.3,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         }
       ]
     },
@@ -95,19 +102,22 @@
           "Name": "Sandstone Mesa",
           "Color": "Chocolate",
           "MinTemperature": 0.5,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         },
         {
           "Name": "Petrified Forest",
           "Color": "SaddleBrown",
           "MinTemperature": 0.2,
-          "MaxTemperature": 0.5
+          "MaxTemperature": 0.5,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         },
         {
           "Name": "Canyon Lands",
           "Color": "Maroon",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.2
+          "MaxTemperature": 0.2,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         }
       ]
     }

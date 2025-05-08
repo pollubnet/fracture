@@ -8,4 +8,6 @@ public class Biome
     public Color Color { get; set; }
     public float MinTemperature { get; set; }
     public float MaxTemperature { get; set; }
+
+    public string BackgroundImageUrl { get; set; } = null!;
 }

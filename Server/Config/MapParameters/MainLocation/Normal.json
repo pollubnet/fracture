@@ -56,7 +56,8 @@
           "Name": "Beach",
           "Color": "BurlyWood",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/desert.jpg"
         }
       ]
     },
@@ -70,7 +71,8 @@
           "Name": "Grassland",
           "Color": "ForestGreen",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/river.jpg"
         }
       ]
     },
@@ -84,19 +86,22 @@
           "Name": "Tropical Forest",
           "Color": "DarkGreen",
           "MinTemperature": 0.7,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/jungle.jpg"
         },
         {
-          "Name": "Temperate Forest",
+          "Name": "Boreal Forest",
           "Color": "DarkOliveGreen",
           "MinTemperature": 0.4,
-          "MaxTemperature": 0.7
+          "MaxTemperature": 0.7,
+          "BackgroundImageUrl": "assets/background/mountainsRiver.jpg"
         },
         {
           "Name": "Forest",
           "Color": "Green",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.4
+          "MaxTemperature": 0.4,
+          "BackgroundImageUrl": "assets/background/river.jpg"
         }
       ]
     },
@@ -110,19 +115,22 @@
           "Name": "Rainy Mountains",
           "Color": "SlateGray",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.45
+          "MaxTemperature": 0.45,
+          "BackgroundImageUrl": "assets/background/mountains.jpg"
         },
         {
           "Name": "Snowy Mountains",
           "Color": "Snow",
           "MinTemperature": 0.45,
-          "MaxTemperature": 0.6
+          "MaxTemperature": 0.6,
+          "BackgroundImageUrl": "assets/background/mountains.jpg"
         },
         {
-          "Name": "Default",
+          "Name": "Mountains",
           "Color": "Gray",
           "MinTemperature": 0.6,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/mountains.jpg"
         }
       ]
     },
@@ -136,7 +144,8 @@
           "Name": "High Mountains",
           "Color": "DarkGray",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/mountainsRiver.jpg"
         }
       ]
     }

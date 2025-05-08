@@ -1,19 +1,18 @@
-﻿using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
-using Fracture.Server.Modules.MapGenerator.Services;
+﻿using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.MapGenerator.UI;
 
 namespace Fracture.Server.Modules.Shared.ImageChangers;
 
 public class BackgroundImageChanger
 {
-    private readonly ILogger<BackgroundImageChanger> logger;
+    private readonly ILogger<BackgroundImageChanger> _logger;
 
     public BackgroundImageChanger(
         ILogger<BackgroundImageChanger> logger,
         MapManagerService mapManagerService
     )
     {
-        this.logger = logger;
+        this._logger = logger;
         MapManagerService = mapManagerService;
     }
 
@@ -22,57 +21,17 @@ public class BackgroundImageChanger
 
     public Task ChangeBackgroundImageAsync()
     {
-        var biome = MapManagerService
-            .CurrentMap
-            .Grid[MapView.CharacterXX, MapView.CharacterYY]
-            .TerrainType;
-
-        if (BackgroundImage is null)
+        if (BackgroundImage != null)
         {
-            logger.LogError("BackgroundImage is missing");
-            return Task.CompletedTask;
+            BackgroundImage.ImagePath = MapManagerService
+                .CurrentMap
+                .Grid[MapView.CharacterXX, MapView.CharacterYY]
+                .Biome
+                .BackgroundImageUrl;
         }
-
-        switch (biome)
+        else
         {
-            case TerrainType.Forest:
-            {
-                BackgroundImage.ImagePath = "../assets/background/river.jpg";
-                break;
-            }
-            case TerrainType.Grassland:
-            {
-                BackgroundImage.ImagePath = "../assets/background/river.jpg";
-                break;
-            }
-            case TerrainType.Mountains:
-            {
-                BackgroundImage.ImagePath = "../assets/background/mountains.jpg";
-                break;
-            }
-            case TerrainType.Beach:
-            {
-                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
-                break;
-            }
-            case TerrainType.HighMountains:
-            {
-                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-                break;
-            }
-            case TerrainType.DeepOcean:
-            {
-                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-                break;
-            }
-            case TerrainType.ShallowWater:
-            {
-                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-                break;
-            }
-            default:
-                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-                break;
+            _logger.LogError("BackgroundImage is missing");
         }
 
         return Task.CompletedTask;

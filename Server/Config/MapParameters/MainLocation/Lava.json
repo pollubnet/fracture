@@ -26,7 +26,8 @@
           "Name": "Molten Core",
           "Color": "DarkRed",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         }
       ]
     },
@@ -40,7 +41,8 @@
           "Name": "Lava Rivers",
           "Color": "Red",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         }
       ]
     },
@@ -54,7 +56,8 @@
           "Name": "Volcanic Ash",
           "Color": "Firebrick",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         }
       ]
     },
@@ -68,7 +71,8 @@
           "Name": "Obsidian Fields",
           "Color": "Maroon",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         }
       ]
     },
@@ -82,19 +86,22 @@
           "Name": "Smoldering Craters",
           "Color": "OrangeRed",
           "MinTemperature": 0.7,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         },
         {
           "Name": "Basalt Columns",
           "Color": "DarkSlateGray",
           "MinTemperature": 0.3,
-          "MaxTemperature": 0.7
+          "MaxTemperature": 0.7,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         },
         {
           "Name": "Charred Wasteland",
           "Color": "Sienna",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.3
+          "MaxTemperature": 0.3,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         }
       ]
     },
@@ -108,19 +115,22 @@
           "Name": "Fumarole Fields",
           "Color": "DarkGray",
           "MinTemperature": 0.6,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         },
         {
           "Name": "Magma Chambers",
           "Color": "Crimson",
           "MinTemperature": 0.3,
-          "MaxTemperature": 0.6
+          "MaxTemperature": 0.6,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         },
         {
           "Name": "Sulfuric Rocks",
           "Color": "Goldenrod",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.3
+          "MaxTemperature": 0.3,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         }
       ]
     },
@@ -134,7 +144,8 @@
           "Name": "Volcanic Caldera",
           "Color": "Black",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "BackgroundImageUrl": "assets/background/lava.jpg"
         }
       ]
     }
