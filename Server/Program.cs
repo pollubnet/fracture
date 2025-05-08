@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,11 +64,12 @@ try
 
     var connectionString = builder
         .Configuration.GetConnectionString("DefaultConnection")
-        .Replace("{DYNAMIC_PORT}", dockerService.AssignedHostPort.ToString() ?? "5432");
+        ?.Replace("{DYNAMIC_PORT}", dockerService.AssignedHostPort.ToString() ?? "5432");
 
     builder.Services.AddDbContext<FractureDbContext>(options =>
-        options.UseNpgsql(connectionString)
-    );
+    {
+        options.UseNpgsql(connectionString);
+    });
 }
 catch (Exception e)
 {

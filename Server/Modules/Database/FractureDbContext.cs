@@ -15,13 +15,39 @@ namespace Fracture.Server.Modules.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Item>().HasOne(i => i.Statistics).WithOne(s => s.Item);
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity
+                    .Property(u => u.Id)
+                    .UseIdentityByDefaultColumn()
+                    .HasIdentityOptions(startValue: 1, incrementBy: 1);
+            });
 
-            modelBuilder.Entity<Item>().HasOne(i => i.CreatedBy).WithMany(u => u.Items);
+            modelBuilder.Entity<Item>(entity =>
+            {
+                entity
+                    .Property(i => i.Id)
+                    .UseIdentityByDefaultColumn()
+                    .HasIdentityOptions(startValue: 1, incrementBy: 1);
+            });
 
-            modelBuilder.Entity<User>().HasMany(u => u.Items).WithOne(i => i.CreatedBy);
+            modelBuilder
+                .Entity<Item>()
+                .HasOne(i => i.Statistics)
+                .WithOne(s => s.Item)
+                .HasForeignKey<ItemStatistics>(s => s.ItemId);
 
-            modelBuilder.Entity<ItemStatistics>().HasOne(s => s.Item).WithOne(i => i.Statistics);
+            modelBuilder
+                .Entity<Item>()
+                .HasOne(i => i.CreatedBy)
+                .WithMany(u => u.Items)
+                .HasForeignKey(i => i.CreatedById);
+
+            modelBuilder
+                .Entity<ItemStatistics>()
+                .HasOne(s => s.Item)
+                .WithOne(i => i.Statistics)
+                .HasForeignKey<ItemStatistics>(s => s.ItemId);
 
             base.OnModelCreating(modelBuilder);
         }
