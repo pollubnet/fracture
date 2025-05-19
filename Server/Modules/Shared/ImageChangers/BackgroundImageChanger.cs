@@ -33,47 +33,47 @@ public class BackgroundImageChanger
             return Task.CompletedTask;
         }
 
-        switch (biome)
-        {
-            case TerrainType.Forest:
-            {
-                BackgroundImage.ImagePath = "../assets/background/river.jpg";
-                break;
-            }
-            case TerrainType.Grassland:
-            {
-                BackgroundImage.ImagePath = "../assets/background/river.jpg";
-                break;
-            }
-            case TerrainType.Mountains:
-            {
-                BackgroundImage.ImagePath = "../assets/background/mountains.jpg";
-                break;
-            }
-            case TerrainType.Beach:
-            {
-                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
-                break;
-            }
-            case TerrainType.HighMountains:
-            {
-                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-                break;
-            }
-            case TerrainType.DeepOcean:
-            {
-                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-                break;
-            }
-            case TerrainType.ShallowWater:
-            {
-                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-                break;
-            }
-            default:
-                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-                break;
-        }
+        // switch (biome)
+        // {
+        //     case TerrainType.Forest:
+        //     {
+        //         BackgroundImage.ImagePath = "../assets/background/river.jpg";
+        //         break;
+        //     }
+        //     case TerrainType.Grassland:
+        //     {
+        //         BackgroundImage.ImagePath = "../assets/background/river.jpg";
+        //         break;
+        //     }
+        //     case TerrainType.Mountains:
+        //     {
+        //         BackgroundImage.ImagePath = "../assets/background/mountains.jpg";
+        //         break;
+        //     }
+        //     case TerrainType.Beach:
+        //     {
+        //         BackgroundImage.ImagePath = "../assets/background/lava.jpg";
+        //         break;
+        //     }
+        //     case TerrainType.HighMountains:
+        //     {
+        //         BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
+        //         break;
+        //     }
+        //     case TerrainType.DeepOcean:
+        //     {
+        //         BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
+        //         break;
+        //     }
+        //     case TerrainType.ShallowWater:
+        //     {
+        //         BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
+        //         break;
+        //     }
+        //     default:
+        //         BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
+        //         break;
+        // }
 
         return Task.CompletedTask;
     }

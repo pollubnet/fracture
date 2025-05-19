@@ -134,13 +134,12 @@ public class MapGeneratorService : IMapGeneratorService
             grid[x, y] = new Node(x, y, biome)
             {
                 NoiseValue = heightMap[x, y],
-                Walkable =
-                    biomeCategory != null
-                    && !(
-                        biomeCategory.TerrainType
-                        is TerrainType.DeepOcean
-                            or TerrainType.ShallowWater
-                    ),
+                Walkable = biomeCategory != null,
+                // && !(
+                //     biomeCategory.TerrainType
+                //     is TerrainType.DeepOcean
+                //         or TerrainType.ShallowWater
+                // ),
                 TerrainType = biomeCategory!.TerrainType,
             };
         }
