@@ -78,9 +78,9 @@ public class WorldGenerationService : IWorldGenerationService
       
       
   }*/
-        (_locationWeightGenerator as LocationBiomeWeightGenService)?.SetLocationParameters(
-            mainParameter
-        );
+
+
+
         await AddSubMapsToLocationGroups(map, parametersDictionary);
 
         map.Grid = grid;
@@ -98,45 +98,67 @@ public class WorldGenerationService : IWorldGenerationService
         Dictionary<string, MapParameters> parametersDictionary
     )
     {
-        foreach (var kvp in parametersDictionary)
+        var mainParameters = parametersDictionary
+            .Where(p => p.Value.LocationType == LocationType.MainLocation)
+            .Select(p => p.Value)
+            .ToList();
+
+        foreach (var mainParameter in mainParameters)
         {
-            var parameter = kvp.Value;
+            if (mainParameter.SubMapAssignmentLocations == null)
+                continue;
 
-            if (
-                parameter.SubMapAssignmentLocations != null
-                && parameter.SubMapAssignmentLocations.Length > 0
-            )
-                foreach (var subMapLocation in parameter.SubMapAssignmentLocations)
-                {
-                    var locationType = (LocationType)
-                        Enum.Parse(typeof(LocationType), subMapLocation);
-                    var groups = GenerateLocationGroups(
-                        map.Grid,
-                        map.Width,
-                        map.Height,
-                        locationType
-                    );
+            foreach (var subMapLocation in mainParameter.SubMapAssignmentLocations)
+            {
+                var locationType = (LocationType)Enum.Parse(typeof(LocationType), subMapLocation);
 
-                    foreach (var group in groups)
+                // Tylko submapy o tym typie
+                var subMapCandidates = parametersDictionary
+                    .Where(p => p.Value.LocationType == locationType)
+                    .Select(p => p.Value)
+                    .ToList();
+
+                if (!subMapCandidates.Any())
+                    continue;
+                if (mainParameter.SubMapAssignmentLocations != null)
+                    foreach (var submap in mainParameter.SubMapAssignmentLocations)
                     {
-                        var subMap = await _mapGeneratorService.GetMap(parameter);
-                        _logger.LogInformation(
-                            $"Generated submap for group: {group.GroupName} of type: {locationType} for file {kvp.Key}"
-                        );
+                        (
+                            _locationWeightGenerator as LocationBiomeWeightGenService
+                        )?.SetLocationParameters(mainParameter, locationType.ToString());
+                    }
+                else
+                {
+                    Console.WriteLine("Submap assignment locations are null");
+                }
+                var groups = GenerateLocationGroups(map.Grid, map.Width, map.Height, locationType);
 
-                        foreach (var node in group.Nodes)
-                            node.MapObject = new LocationMapObject
-                            {
-                                IsInteractive = true,
-                                SubMap = subMap,
-                            };
-                        _logger.LogInformation(
-                            $"Assigned submap to {group.Nodes.Count} nodes in group {group.GroupName}"
-                        );
+                // _logger.Logormation($"[{mainParameter ?? "Unnamed"}] Submap of type {locationType} generated for {groups.Count} group(s)");
+
+                foreach (var group in groups)
+                {
+                    var subMapParameter = subMapCandidates[_rnd.Next(subMapCandidates.Count)];
+
+                    var subMap = await _mapGeneratorService.GetMap(subMapParameter);
+
+                    if (subMap == null)
+                    {
+                        _logger.LogError($"Failed to generate submap for group: {group.GroupName}");
+                        continue;
                     }
 
-                    map.LocationGroups.AddRange(groups);
+                    foreach (var node in group.Nodes)
+                    {
+                        node.MapObject = new LocationMapObject
+                        {
+                            IsInteractive = true,
+                            SubMap = subMap,
+                        };
+                    }
+
+                    map.LocationGroups.Add(group);
                 }
+            }
         }
     }
 
@@ -202,9 +224,6 @@ public class WorldGenerationService : IWorldGenerationService
             if (updatedGrid[x, y].LocationType == locationType)
                 countWithLocation++;
 
-        _logger.LogWarning(
-            $"[DEBUG] Nodes with LocationType == {locationType}: {countWithLocation}"
-        );
         return groups
             .Select(g => new LocationGroup
             {
@@ -231,11 +250,11 @@ public class WorldGenerationService : IWorldGenerationService
         {
             var index = _rnd.Next(parameterPairs.Count);
             var parameter = parameterPairs[index].Value;
+            _logger.LogInformation(
+                $"Assigning submap for group {group.GroupName} with type {group.LocationType}"
+            );
 
             var subMap = await _mapGeneratorService.GetMap(parameter);
-            _logger.LogInformation(
-                $"Submap of type {locationType} generated for group: {group.GroupName}"
-            );
 
             foreach (var node in group.Nodes)
                 node.MapObject = new LocationMapObject { IsInteractive = true, SubMap = subMap };

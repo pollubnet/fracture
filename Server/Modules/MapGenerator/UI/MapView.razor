@@ -122,6 +122,7 @@
         return node.LocationType switch {
             LocationType.None => string.Empty,
             LocationType.Town => "T",
+                LocationType.Cave => "C",
             _ => string.Empty
         };
     }
