@@ -1,6 +1,6 @@
 ﻿{
   "LocationType": "MainLocation",
-  "SubMapAssignmentLocation": [
+  "SubMapAssignmentLocations": [
     "Town"
   ],
   "NoiseParameters": {
@@ -35,7 +35,8 @@
               "Weight": 0,
               "Mult": 0.0
             }
-          ]
+          ],
+          "Walkable": false
         }
       ]
     },
@@ -56,7 +57,10 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": false
+
+
         }
       ]
     },
@@ -77,7 +81,9 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": true
+
         }
       ]
     },
@@ -98,7 +104,8 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": true
         }
       ]
     },
@@ -119,7 +126,8 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": true
         },
         {
           "Name": "Temperate Forest",
@@ -132,7 +140,8 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": true
         },
         {
           "Name": "Forest",
@@ -145,7 +154,8 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": true
         }
       ]
     },
@@ -166,7 +176,8 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": true
         },
         {
           "Name": "Snowy Mountains",
@@ -179,7 +190,8 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": true
         },
         {
           "Name": "Default",
@@ -192,7 +204,8 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": true
         }
       ]
     },
@@ -213,7 +226,8 @@
               "Weight": 20,
               "Mult": 1.0
             }
-          ]
+          ],
+          "Walkable": true
         }
       ]
     }

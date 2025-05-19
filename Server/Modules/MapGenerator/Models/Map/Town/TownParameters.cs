@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 
 namespace Fracture.Server.Modules.MapGenerator.Models.Map.Town;
 
@@ -16,25 +17,48 @@ public class TownParameters
     public TownBiomeParam Get(string name)
     {
         if (!_paramsDict.ContainsKey(name))
-            //Log
+        {
+            _logger.LogWarning($"Missing TownBiomeParam for biome: {name}");
             return new TownBiomeParam("Missing", 0, 0);
+        }
+
         return _paramsDict[name];
     }
 
-    public void Initialize(string fileName)
+    public void Initialize(MapParameters mapParameters)
     {
-        var path = "Config/LocationParameters/Town/" + fileName + ".json";
-        if (File.Exists(path))
-            try
+        if (
+            mapParameters.SubMapAssignmentLocations == null
+            || mapParameters.BiomeCategories == null
+        )
+        {
+            _logger.LogError("MapParameters is missing required data.");
+            return;
+        }
+
+        foreach (var biome in mapParameters.BiomeCategories.SelectMany(b => b.Biomes))
+        {
+            if (biome.Locations == null)
             {
-                var json = File.ReadAllText(path);
-                var paramsList = JsonSerializer.Deserialize<List<TownBiomeParam>>(json);
-                paramsList.ForEach(param => _paramsDict.Add(param.Name, param));
+                _logger.LogError($"Biome '{biome.Name}' has no locations defined.");
+                continue;
             }
-            catch (Exception e)
+
+            foreach (var location in biome.Locations)
             {
-                _logger.LogError(e, "Failed to load parameters");
+                if (mapParameters.SubMapAssignmentLocations.Contains(location.Name.ToString()))
+                {
+                    var townBiomeParam = new TownBiomeParam(
+                        biome.Name,
+                        location.Weight,
+                        location.Mult
+                    );
+                    _paramsDict[biome.Name] = townBiomeParam;
+                }
             }
+        }
+
+        _logger.LogInformation("Town parameters initialized successfully.");
     }
 }
 

@@ -6,7 +6,7 @@ namespace Fracture.Server.Modules.MapGenerator.Models.Map;
 public class MapParameters
 {
     public LocationType LocationType { get; set; }
-    public string[]? SubMapAssignmentLocation { get; set; }
+    public string[]? SubMapAssignmentLocations { get; set; }
 
     public NoiseParameters NoiseParameters { get; set; } = new();
     public int Width { get; set; } = 64;

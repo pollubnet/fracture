@@ -1,7 +1,6 @@
-﻿
-{
+﻿{
   "LocationType": "MainLocation",
-  "SubMapAssignmentLocation": [
+  "SubMapAssignmentLocations": [
     "Town"
   ],
   "NoiseParameters": {
@@ -29,7 +28,14 @@
           "Name": "Salt Pan",
           "Color": "WhiteSmoke",
           "MinTemperature": 0.0,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 10,
+              "Mult": 1.0
+            }
+          ]
         }
       ]
     },
@@ -43,19 +49,40 @@
           "Name": "Shifting Dunes",
           "Color": "SandyBrown",
           "MinTemperature": 0.7,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 10,
+              "Mult": 1.0
+            }
+          ]
         },
         {
           "Name": "Stable Dunes",
           "Color": "Goldenrod",
           "MinTemperature": 0.3,
-          "MaxTemperature": 0.7
+          "MaxTemperature": 0.7,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 15,
+              "Mult": 1.0
+            }
+          ]
         },
         {
           "Name": "Gravel Plains",
           "Color": "DarkGray",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.3
+          "MaxTemperature": 0.3,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 20,
+              "Mult": 1.0
+            }
+          ]
         }
       ]
     },
@@ -69,19 +96,40 @@
           "Name": "Sandstone Outcrops",
           "Color": "Peru",
           "MinTemperature": 0.6,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 15,
+              "Mult": 1.0
+            }
+          ]
         },
         {
           "Name": "Desert Pavement",
           "Color": "Sienna",
           "MinTemperature": 0.3,
-          "MaxTemperature": 0.6
+          "MaxTemperature": 0.6,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 20,
+              "Mult": 1.0
+            }
+          ]
         },
         {
           "Name": "Fossil Beds",
           "Color": "BurlyWood",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.3
+          "MaxTemperature": 0.3,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 25,
+              "Mult": 1.0
+            }
+          ]
         }
       ]
     },
@@ -95,19 +143,40 @@
           "Name": "Sandstone Mesa",
           "Color": "Chocolate",
           "MinTemperature": 0.5,
-          "MaxTemperature": 1.0
+          "MaxTemperature": 1.0,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 10,
+              "Mult": 1.0
+            }
+          ]
         },
         {
           "Name": "Petrified Forest",
           "Color": "SaddleBrown",
           "MinTemperature": 0.2,
-          "MaxTemperature": 0.5
+          "MaxTemperature": 0.5,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 15,
+              "Mult": 1.0
+            }
+          ]
         },
         {
           "Name": "Canyon Lands",
           "Color": "Maroon",
           "MinTemperature": 0.0,
-          "MaxTemperature": 0.2
+          "MaxTemperature": 0.2,
+          "Locations": [
+            {
+              "Name": "Town",
+              "Weight": 20,
+              "Mult": 1.0
+            }
+          ]
         }
       ]
     }

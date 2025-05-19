@@ -63,7 +63,6 @@ public class MapManagerService
     {
         _logger.LogInformation("Rozpoczynanie generowania nowej mapy...");
 
-        // Poprawione wywołanie metody GenerateWorldMapAsync()
         var newMap = await _worldGenerationService.GenerateWorldMapAsync();
         _mapRepository.SaveMap(newMap);
         SetWorldMap(newMap);

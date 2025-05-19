@@ -1,6 +1,8 @@
 ﻿using Fracture.Server.Modules.FloodFill;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 using Fracture.Server.Modules.MapGenerator.Models.Map.MapObjects;
+using Fracture.Server.Modules.MapGenerator.Models.Map.Town;
 using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
@@ -56,11 +58,6 @@ public class WorldGenerationService : IWorldGenerationService
         var map = await _mapGeneratorService.GetMap(mainParameter);
         var grid = map.Grid;
 
-        // Use for one location type
-        // await AddLocationTypeToMap(map, parametersDictionary, LocationType.Town);
-        // await AddLocationTypeToMap(map, parametersDictionary, LocationType.Cave);
-        // await AddLocationTypeToMap(map, parametersDictionary, LocationType.Village);
-
         /*Important things:
          appsettings.json must have the following structure:
          1.   "MapSettings": {
@@ -74,13 +71,16 @@ public class WorldGenerationService : IWorldGenerationService
         2. file.json
         {
       "LocationType": "MainLocation",
-      "SubMapAssignmentLocation": [
+      "SubMapAssignmentLocations": [
         "Town" -> needs to be the same as locationType enum it allows us to describe what type of location we want to assign to the MainLocation or other location
         imo it will be usefull later to generate towns or other dungeons
       ],
       
       
   }*/
+        (_locationWeightGenerator as LocationBiomeWeightGenService)?.SetLocationParameters(
+            mainParameter
+        );
         await AddSubMapsToLocationGroups(map, parametersDictionary);
 
         map.Grid = grid;
@@ -103,17 +103,13 @@ public class WorldGenerationService : IWorldGenerationService
             var parameter = kvp.Value;
 
             if (
-                parameter.SubMapAssignmentLocation != null
-                && parameter.SubMapAssignmentLocation.Length > 0
+                parameter.SubMapAssignmentLocations != null
+                && parameter.SubMapAssignmentLocations.Length > 0
             )
-                foreach (var subMapLocation in parameter.SubMapAssignmentLocation)
+                foreach (var subMapLocation in parameter.SubMapAssignmentLocations)
                 {
-                    if (!Enum.TryParse<LocationType>(subMapLocation, out var locationType))
-                    {
-                        _logger.LogWarning($"Invalid location type: {subMapLocation}");
-                        continue;
-                    }
-
+                    var locationType = (LocationType)
+                        Enum.Parse(typeof(LocationType), subMapLocation);
                     var groups = GenerateLocationGroups(
                         map.Grid,
                         map.Width,

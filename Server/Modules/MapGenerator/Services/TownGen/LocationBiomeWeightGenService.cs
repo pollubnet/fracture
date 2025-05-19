@@ -5,12 +5,18 @@ namespace Fracture.Server.Modules.MapGenerator.Services.TownGen;
 
 public class LocationBiomeWeightGenService : ILocationWeightGeneratorService
 {
-    private readonly TownParameters _townParameters;
+    private readonly ILogger<TownParameters> _logger;
+    private TownParameters _townParameters;
 
     public LocationBiomeWeightGenService(ILogger<TownParameters> logger)
     {
-        _townParameters = new TownParameters(logger);
-        _townParameters.Initialize("Normal");
+        _logger = logger;
+    }
+
+    public void SetLocationParameters(MapParameters mapParameters)
+    {
+        _townParameters = new TownParameters(_logger);
+        _townParameters.Initialize(mapParameters);
     }
 
     public int[,] GenerateWeights(Node[,] nodes, int height, int width)
