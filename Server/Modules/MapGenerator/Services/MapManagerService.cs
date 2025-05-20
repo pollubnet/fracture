@@ -6,19 +6,19 @@ namespace Fracture.Server.Modules.MapGenerator.Services;
 public class MapManagerService
 {
     private readonly IRecurringJobManager _jobManager;
+    private readonly IServiceScopeFactory _scopeFactory;
     private readonly object _lock = new();
     private readonly ILogger<MapManagerService> _logger;
     private readonly IMapRepository _mapRepository;
-    private readonly IWorldGenerationService _worldGenerationService;
 
     public MapManagerService(
-        IWorldGenerationService worldGenerationService,
+        IServiceScopeFactory scopeFactory,
         IRecurringJobManager jobManager,
         IMapRepository mapRepository,
         ILogger<MapManagerService> logger
     )
     {
-        _worldGenerationService = worldGenerationService;
+        _scopeFactory = scopeFactory;
         _jobManager = jobManager;
         _mapRepository = mapRepository;
         _logger = logger;
@@ -44,8 +44,12 @@ public class MapManagerService
 
     public async Task InitializeAndScheduleMapsAsync()
     {
+        using var scope = _scopeFactory.CreateScope();
+        var worldGenerationService =
+            scope.ServiceProvider.GetRequiredService<IWorldGenerationService>();
+
         _mapRepository.ClearMaps();
-        var map = await _worldGenerationService.GenerateWorldMapAsync();
+        var map = await worldGenerationService.GenerateWorldMapAsync();
         _mapRepository.SaveMap(map);
         SetWorldMap(map);
 
@@ -54,16 +58,21 @@ public class MapManagerService
             service => service.RefreshMapsAndSetNewAsync(),
             Cron.Minutely
         );
+
         _logger.LogInformation(
-            "Mapy zostały zainicjalizowane, a zadanie cykliczne zostało zarejestrowane."
+            "Mapy zostały zainicjalizowane, a zadanie cykliczne zarejestrowane."
         );
     }
 
     public async Task RefreshMapsAndSetNewAsync()
     {
+        using var scope = _scopeFactory.CreateScope();
+        var worldGenerationService =
+            scope.ServiceProvider.GetRequiredService<IWorldGenerationService>();
+
         _logger.LogInformation("Rozpoczynanie generowania nowej mapy...");
 
-        var newMap = await _worldGenerationService.GenerateWorldMapAsync();
+        var newMap = await worldGenerationService.GenerateWorldMapAsync();
         _mapRepository.SaveMap(newMap);
         SetWorldMap(newMap);
 

@@ -33,7 +33,9 @@ builder.Services.AddScoped<BackgroundImageChanger>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 builder.Services.AddTransient<IWorldGenerationService, WorldGenerationService>();
-
+builder.Services.AddSingleton<IMapParameterSelectorService, MapParameterSelectorService>();
+builder.Services.AddSingleton<ILocationGroupGeneratorService, LocationGroupGeneratorService>();
+builder.Services.AddScoped<ISubMapAssignmentService, SubMapAssignmentService>();
 builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
 builder.Services.AddSingleton<MapParametersReader>();
 builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
