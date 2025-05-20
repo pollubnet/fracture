@@ -50,18 +50,11 @@ public class LocationParameters
             {
                 if (string.Equals(location.Name, subMapName, StringComparison.OrdinalIgnoreCase))
                 {
-                    _logger.LogInformation(
-                        $"[BIOME INIT] Adding {location.Name} to weight map for {subMapName}"
-                    );
-
                     var param = new LocationBiomeParam(biome.Name, location.Weight, location.Mult);
-
                     _paramsDict[biome.Name] = param;
                 }
             }
         }
-
-        _logger.LogInformation($"Submap location parameters initialized for {subMapName}.");
     }
 }
 
