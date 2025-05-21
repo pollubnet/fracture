@@ -3,29 +3,31 @@
 
 
 <div class="popup @(IsVisible ? "" : "hidden")">
-    @if (_componentType is not null) {
-        <DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component"/>
-    }
-    <div>
-        <button class="closeBtn" @onclick="() => IsVisible=false"><img src="assets/icons/closebutton.svg"/></button>
-    </div>
+	@if (_componentType is not null)
+	{
+		<DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
+	}
+	<div>
+		<button class="closeBtn" @onclick="() => IsVisible = false"><img src="assets/icons/closebutton.svg" /></button>
+	</div>
 </div>
 
 @code {
-    GamePage _gamePage = new();
-    public bool IsVisible { get; set; }
+	GamePage _gamePage = new();
+	public bool IsVisible { get; set; }
 
-    public void ShowComponent<T>(IDictionary<string, object>? parameters = null) {
-        _componentType = typeof(T);
-        _parameters = parameters;
+	public void ShowComponent<T>(IDictionary<string, object>? parameters = null)
+	{
+		_componentType = typeof(T);
+		_parameters = parameters;
 
-        IsVisible = true;
-        StateHasChanged();
-    }
+		IsVisible = true;
+		StateHasChanged();
+	}
 
 
-    public DynamicComponent? Component = null;
-    private Type? _componentType = null;
-    private IDictionary<string, object>? _parameters;
+	public DynamicComponent? Component = null;
+	private Type? _componentType = null;
+	private IDictionary<string, object>? _parameters;
 
 }

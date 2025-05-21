@@ -11,176 +11,180 @@
 @inject NavigationManager NavigationManager
 @inject ProtectedSessionStorage ProtectedSessionStore
 
-<link rel="icon" type="image/png" href="assets/icons/favicon.png"/>
+<link rel="icon" type="image/png" href="assets/icons/favicon.png" />
 
 <div id="container">
 
-    <div class="title">
-        <img class="titleImg" src="assets/background/title.svg"/>
-    </div>
-    <div class="crystalCircle">
-        <div class="crystal">
-            <img src="assets/icons/crystal.png" alt="">
-        </div>
-    </div>
-    <div class="login-box">
-        <div class="login">
+	<div class="title">
+		<img class="titleImg" src="assets/background/title.svg" />
+	</div>
+	<div class="crystalCircle">
+		<div class="crystal">
+			<img src="assets/icons/crystal.png" alt="">
+		</div>
+	</div>
+	<div class="login-box">
+		<div class="login">
 
-            <div class="data-box">
-                <input type="text" @bind="_username" onkeyup="@Enter" required="required"/>
-                <label>Login</label>
-            </div>
-            <div class="data-box">
-                <input type="password" @bind="_username" onkeyup="@Enter" required="required"/>
-                <label>password</label>
-            </div>
-            <div class="data-box">
-                <div @onclick="HandleUserLogin" class="logButton">
-                    <div class="logButton-content">Sign in</div>
-                </div>
-            </div>
+			<div class="data-box">
+				<input type="text" @bind="_username" onkeyup="@Enter" required="required" />
+				<label>Login</label>
+			</div>
+			<div class="data-box">
+				<input type="password" @bind="_username" onkeyup="@Enter" required="required" />
+				<label>password</label>
+			</div>
+			<div class="data-box">
+				<div @onclick="HandleUserLogin" class="logButton">
+					<div class="logButton-content">Sign in</div>
+				</div>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 
 
 </div>
-<div id="particles-js" class="particles-js" >
-    <canvas class="particles-js-canvas-el " ></canvas>
+<div id="particles-js" class="particles-js">
+	<canvas class="particles-js-canvas-el "></canvas>
 </div>
 
 <script src="scripts/particles.js-master/particles.js" data-turbolinks-track="reload" asp-append-version="true"></script>
 
 
 <script>
-    particlesJS("particles-js", {
-        particles: {
-            number: {
-                value: 50,
-                density: {
-                    enable: true,
-                    value_area: 800
-                }
-            },
-            color: {
-                value: '#fcff00'
-            },
-            shape: {
-                type: 'circle',
-                stroke: {
-                    width: 0,
-                    color: '#ffde23'
-                },
-                polygon: {
-                    nb_sides: 5
-                },
-                image: {
-                    src: '',
-                    width: 10,
-                    height: 10
-                }
-            },
-            opacity: {
-                value: 1,
-                random: false,
-                anim: {
-                    enable: false,
-                    speed: 100,
-                    opacity_min: 0,
-                    sync: false
-                }
-            },
-            size: {
-                value: 4,
-                random: false,
-                anim: {
-                    enable: true,
-                    speed: 5,
-                    size_min: 0,
-                    sync: false
-                }
-            },
-            line_linked: {
-                enable: false,
-                distance: 100,
-                color: '#fff',
-                opacity: 1,
-                width: 1
-            },
-            move: {
-                enable: true,
-                speed: 2,
-                direction: 'none',
-                random: false,
-                straight: false,
-                out_mode: 'out',
-                bounce: false,
-                attract: {
-                    enable: false,
-                    rotateX: 3000,
-                    rotateY: 3000
-                }
-            },
-            array: []
-        },
-        interactivity: {
-            detect_on: 'canvas',
-            events: {
-                onhover: {
-                    enable: true,
-                    mode: 'push'
-                },
-                onclick: {
-                    enable: false,
-                    mode: 'push'
-                },
-                resize: true
-            },
-            modes: {
-                grab: {
-                    distance: 100,
-                    line_linked: {
-                        opacity: 1
-                    }
-                },
-                bubble: {
-                    distance: 500,
-                    size: 80,
-                    duration: 0.4
-                },
-                repulse: {
-                    distance: 200,
-                    duration: 0.4
-                },
-                push: {
-                    particles_nb: 4
-                },
-                remove: {
-                    particles_nb: 2
-                }
-            },
-            mouse: {}
-        },
-        retina_detect: false,
-    });
+	particlesJS("particles-js", {
+		particles: {
+			number: {
+				value: 50,
+				density: {
+					enable: true,
+					value_area: 800
+				}
+			},
+			color: {
+				value: '#fcff00'
+			},
+			shape: {
+				type: 'circle',
+				stroke: {
+					width: 0,
+					color: '#ffde23'
+				},
+				polygon: {
+					nb_sides: 5
+				},
+				image: {
+					src: '',
+					width: 10,
+					height: 10
+				}
+			},
+			opacity: {
+				value: 1,
+				random: false,
+				anim: {
+					enable: false,
+					speed: 100,
+					opacity_min: 0,
+					sync: false
+				}
+			},
+			size: {
+				value: 4,
+				random: false,
+				anim: {
+					enable: true,
+					speed: 5,
+					size_min: 0,
+					sync: false
+				}
+			},
+			line_linked: {
+				enable: false,
+				distance: 100,
+				color: '#fff',
+				opacity: 1,
+				width: 1
+			},
+			move: {
+				enable: true,
+				speed: 2,
+				direction: 'none',
+				random: false,
+				straight: false,
+				out_mode: 'out',
+				bounce: false,
+				attract: {
+					enable: false,
+					rotateX: 3000,
+					rotateY: 3000
+				}
+			},
+			array: []
+		},
+		interactivity: {
+			detect_on: 'canvas',
+			events: {
+				onhover: {
+					enable: true,
+					mode: 'push'
+				},
+				onclick: {
+					enable: false,
+					mode: 'push'
+				},
+				resize: true
+			},
+			modes: {
+				grab: {
+					distance: 100,
+					line_linked: {
+						opacity: 1
+					}
+				},
+				bubble: {
+					distance: 500,
+					size: 80,
+					duration: 0.4
+				},
+				repulse: {
+					distance: 200,
+					duration: 0.4
+				},
+				push: {
+					particles_nb: 4
+				},
+				remove: {
+					particles_nb: 2
+				}
+			},
+			mouse: {}
+		},
+		retina_detect: false,
+	});
 </script>
 
 @code {
 
-    private async Task Enter(KeyboardEventArgs e) {
-        if (e.Code == "Enter" || e.Code == "NumpadEnter") {
-            await HandleUserLogin();
-        }
-    }
+	private async Task Enter(KeyboardEventArgs e)
+	{
+		if (e.Code == "Enter" || e.Code == "NumpadEnter")
+		{
+			await HandleUserLogin();
+		}
+	}
 
-    private string _username = string.Empty;
+	private string _username = string.Empty;
 
-    private async Task HandleUserLogin() {
-        if (_username != string.Empty) {
-            await ProtectedSessionStore.SetAsync("username", _username);
-            NavigationManager.NavigateTo("/game");
-        }
-    }
+	private async Task HandleUserLogin()
+	{
+		if (_username != string.Empty)
+		{
+			await ProtectedSessionStore.SetAsync("username", _username);
+			NavigationManager.NavigateTo("/game");
+		}
+	}
 
 }
 
