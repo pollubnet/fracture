@@ -9,7 +9,15 @@
 
 /*Perfection*/
 
-.item-eldritch, .item-efficient, .item-versatile, .item-balanced, .item-unsteady, .item-poisoned, .item-toxic, .item-cursed, .item-demonic {
+.item-eldritch,
+.item-efficient,
+.item-versatile,
+.item-balanced,
+.item-unsteady,
+.item-poisoned,
+.item-toxic,
+.item-cursed,
+.item-demonic {
     margin-left: auto;
     text-align: center;
     display: flex;
@@ -21,7 +29,6 @@
 
 .item-eldritch {
     box-shadow: 0 0 5px #8d38ff, 0 0 25px #8d38ff;
-
 }
 
 .item-efficient {
@@ -33,7 +40,6 @@
 }
 
 .item-balanced {
-
 }
 
 .item-unsteady {
@@ -89,7 +95,6 @@
 }
 
 .item-lucky {
-
 }
 
 .item-unlucky {
@@ -129,9 +134,11 @@
 /*Health*/
 
 @keyframes unbreakable {
+
     0%, 100% {
         background-color: rgba(220, 20, 60, 1);
     }
+
     50% {
         background-color: rgba(220, 20, 60, 0.5);
     }
@@ -145,9 +152,11 @@
 }
 
 @keyframes vital {
+
     0%, 100% {
         background-color: rgba(254, 95, 85, 1);
     }
+
     50% {
         background-color: rgba(254, 95, 85, 0.5);
     }
@@ -162,9 +171,11 @@
 }
 
 @keyframes sturdy {
+
     0%, 100% {
         background-color: rgba(0, 178, 149, 1);
     }
+
     50% {
         background-color: rgba(0, 178, 149, 0.5);
     }
@@ -179,9 +190,11 @@
 }
 
 @keyframes durable {
+
     0%, 100% {
         background-color: rgba(14, 112, 132, 1);
     }
+
     50% {
         background-color: rgba(14, 112, 132, 0.5);
     }
@@ -196,9 +209,11 @@
 }
 
 @keyframes delicate {
+
     0%, 100% {
         background-color: rgba(227, 11, 93, 1);
     }
+
     50% {
         background-color: rgba(227, 11, 93, 0.5);
     }
@@ -212,9 +227,11 @@
 }
 
 @keyframes feeble {
+
     0%, 100% {
         background-color: rgba(158, 193, 163, 1);
     }
+
     50% {
         background-color: rgba(158, 193, 163, 0.5);
     }
@@ -227,9 +244,11 @@
 }
 
 @keyframes fragile {
+
     0%, 100% {
         background-color: rgba(212, 78, 174, 1);
     }
+
     50% {
         background-color: rgba(212, 78, 174, 0.5);
     }
@@ -243,9 +262,11 @@
 }
 
 @keyframes flimsy {
+
     0%, 100% {
         background-color: rgba(242, 184, 163, 1);
     }
+
     50% {
         background-color: rgba(242, 184, 163, 0.5);
     }
@@ -259,9 +280,11 @@
 }
 
 @keyframes ethereal {
+
     0%, 100% {
         background-color: rgba(135, 191, 255, 1);
     }
+
     50% {
         background-color: rgba(135, 191, 255, 0.5);
     }
