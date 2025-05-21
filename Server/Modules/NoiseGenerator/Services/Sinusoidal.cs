@@ -11,21 +11,23 @@ public class Sinusoidal
     // So if you find more elegant way to write this, please do so.
 
     private static (float, float) RotateCoordinates(float x, float y, float angle)
-    { // Rotate the coordinates.
+    {
+        // Rotate the coordinates.
         // This one is usefull as sometimes noise can produce artifacts like diagonal lines.
         // By rotating the coordinates, you can remove those artifacts.
-        float cosAngle = (float)Math.Cos(angle);
-        float sinAngle = (float)Math.Sin(angle);
-        float rotatedX = x * cosAngle - y * sinAngle;
-        float rotatedY = x * sinAngle + y * cosAngle;
+        var cosAngle = (float)Math.Cos(angle);
+        var sinAngle = (float)Math.Sin(angle);
+        var rotatedX = x * cosAngle - y * sinAngle;
+        var rotatedY = x * sinAngle + y * cosAngle;
         return (rotatedX, rotatedY);
     }
 
     private static float Fade(float t, float x, float y, float n)
-    { // Fade function for smoother borders. It can and will be changed.
-        double distance = Math.Abs(Math.Sqrt(Math.Sqrt(Math.Pow(x, 4) + Math.Pow(y, 4))));
-        double maxDistance = Math.Sqrt(Math.Pow(n, 4));
-        double fadeFactor = 1 - (distance / maxDistance);
+    {
+        // Fade function for smoother borders. It can and will be changed.
+        var distance = Math.Abs(Math.Sqrt(Math.Sqrt(Math.Pow(x, 4) + Math.Pow(y, 4))));
+        var maxDistance = Math.Sqrt(Math.Pow(n, 4));
+        var fadeFactor = 1 - distance / maxDistance;
         return t * (float)fadeFactor;
     }
 
@@ -37,7 +39,8 @@ public class Sinusoidal
         float offset,
         Func<float, float, float, float, float> customFunction
     )
-    { // This is the main function that generates the noise.
+    {
+        // This is the main function that generates the noise.
         // Proceed with caution, this is a bit complex.
         // x, y - coordinates
         // frequency - frequency of the wave
@@ -62,9 +65,9 @@ public class Sinusoidal
     )
     {
         float total = 0;
-        foreach ((float frequency, float amplitude, float offset, float angle) in layers)
+        foreach (var (frequency, amplitude, offset, angle) in layers)
         {
-            (float rotatedX, float rotatedY) = RotateCoordinates(x, y, angle);
+            var (rotatedX, rotatedY) = RotateCoordinates(x, y, angle);
             total +=
                 Layer(
                     rotatedX + offset,
@@ -75,6 +78,7 @@ public class Sinusoidal
                     customFunction
                 ) / lacunarity;
         }
+
         return total;
     }
 
@@ -87,30 +91,26 @@ public class Sinusoidal
         Func<float, float, float, float, float> customFunction
     )
     {
-        float[,] map = new float[size, size];
-        float minValue = float.MaxValue;
-        float maxValue = float.MinValue;
+        var map = new float[size, size];
+        var minValue = float.MaxValue;
+        var maxValue = float.MinValue;
 
-        for (int i = 0; i < size; i++)
-        { // Generate the noise map and find the min and max values
-            for (int j = 0; j < size; j++)
-            {
-                float noiseValue = CustomNoise(i, j, layers, lacunarity, customFunction);
-                map[i, j] = noiseValue;
-                if (noiseValue < minValue)
-                    minValue = noiseValue;
-                if (noiseValue > maxValue)
-                    maxValue = noiseValue;
-            }
+        for (var i = 0; i < size; i++)
+        // Generate the noise map and find the min and max values
+        for (var j = 0; j < size; j++)
+        {
+            var noiseValue = CustomNoise(i, j, layers, lacunarity, customFunction);
+            map[i, j] = noiseValue;
+            if (noiseValue < minValue)
+                minValue = noiseValue;
+            if (noiseValue > maxValue)
+                maxValue = noiseValue;
         }
 
-        for (int i = 0; i < size; i++)
-        { // Normalize the noise map to the range [min, max]
-            for (int j = 0; j < size; j++)
-            {
-                map[i, j] = min + (map[i, j] - minValue) / (maxValue - minValue) * (max - min);
-            }
-        }
+        for (var i = 0; i < size; i++)
+        // Normalize the noise map to the range [min, max]
+        for (var j = 0; j < size; j++)
+            map[i, j] = min + (map[i, j] - minValue) / (maxValue - minValue) * (max - min);
 
         return map;
     }
@@ -144,7 +144,7 @@ public class Sinusoidal
             float offset = (float)(random.NextDouble() * 2);
             float angle = (float)(random.NextDouble() * 2 * Math.PI);
             var customFunction = customFunctions[random.Next(customFunctions.Length)];
-            
+
             layers.Add((frequency, amplitude, offset, angle, customFunction));
         }
      */

@@ -1,14 +1,14 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Fracture.Server.Modules.MapGenerator.Models;
+using Fracture.Server.Modules.MapGenerator.Models.Map;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 
-public class MapParametersService
+public class MapParametersReader
 {
-    private ILogger<MapParametersService> _logger;
+    private readonly ILogger<MapParametersReader> _logger;
 
-    public MapParametersService(ILogger<MapParametersService> logger)
+    public MapParametersReader(ILogger<MapParametersReader> logger)
     {
         _logger = logger;
     }
@@ -26,6 +26,7 @@ public class MapParametersService
                 _logger.LogCritical("File with map parameters does not exist");
                 return null;
             }
+
             _logger.LogInformation("File with map was readed succesfully");
             var jsonContent = File.ReadAllText(filePath);
             return JsonSerializer.Deserialize<MapParameters>(jsonContent, options);

@@ -2,18 +2,19 @@ using Fracture.Server.Components;
 using Fracture.Server.Modules.AI.Models;
 using Fracture.Server.Modules.AI.Services;
 using Fracture.Server.Modules.Database;
+using Fracture.Server.Modules.FloodFill;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Items.Services;
+using Fracture.Server.Modules.MapGenerator;
 using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.ImageChangers;
 using Fracture.Server.Modules.Shared.NameGenerators;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,18 +27,28 @@ builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
-builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
-builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();
-builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
-builder.Services.AddSingleton<MapParametersService>();
+builder.Services.AddSingleton<IMapRepository, InMemoryMapRepository>();
 
 builder.Services.AddScoped<BackgroundImageChanger>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
+builder.Services.AddTransient<IWorldGenerationService, WorldGenerationService>();
+builder.Services.AddSingleton<IMapParameterSelectorService, MapParameterSelectorService>();
+builder.Services.AddSingleton<ILocationGroupGeneratorService, LocationGroupGeneratorService>();
+builder.Services.AddScoped<ISubMapAssignmentService, SubMapAssignmentService>();
+builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
+builder.Services.AddSingleton<MapParametersReader>();
+builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
+builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();
 
-builder.Services.AddFeatureManagement(
-    builder.Configuration.GetSection(FeatureFlags.CONFIG_SECTION)
-);
+builder.Services.AddHangfire(config => config.UseInMemoryStorage()); // lub .UseSqlServerStorage(connectionString)
+builder.Services.AddSingleton(typeof(IFloodFillService<>), typeof(FloodFillService<>));
+
+builder.Services.AddHangfireServer();
+builder.Services.AddFeatureManagement();
+
+builder.Services.AddSingleton<MapDataImportService>();
+builder.Services.AddSingleton<MapManagerService>();
 
 builder.Services.AddSingletonIfFeatureEnabled<
     IAIInstructionProvider,
@@ -73,8 +84,11 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseExceptionHandler("/Error", true);
 }
+
+app.UseHangfireDashboard();
+app.UseHangfireServer();
 
 app.UseStaticFiles();
 app.UseAuthorization();
@@ -89,6 +103,8 @@ app.MapRazorComponents<App>()
 
 using (var scope = app.Services.CreateScope())
 {
+    var mapManagerService = scope.ServiceProvider.GetRequiredService<MapManagerService>();
+    await mapManagerService.InitializeAndScheduleMapsAsync();
     var db = scope.ServiceProvider.GetRequiredService<FractureDbContext>();
     db.Database.Migrate();
 }

@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 
-namespace Fracture.Server.Modules.MapGenerator.Models;
+namespace Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 
 public class BiomeCategory
 {
-    public BiomeType BiomeType { get; set; }
-    public TerrainType TerrainType { get; set; }
+    public string BiomeType { get; set; }
+    public string TerrainType { get; set; }
 
     public float MaxHeight { get; set; }
     public float MinHeight { get; set; }

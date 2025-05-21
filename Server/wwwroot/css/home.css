@@ -3,10 +3,12 @@
 html {
     height: 100%;
 }
-*{
-    
+
+* {
+
     font-family: "Courier", sans-serif;
 }
+
 body {
     width: 100%;
     height: 100%;
@@ -23,10 +25,12 @@ body {
     background-size: cover;
     background-size: 150% 150%;
     backdrop-filter: blur(2.5px);
-    
+
 
 }
-html, body{
+
+html,
+body {
     position: fixed;
 }
 
@@ -39,8 +43,8 @@ html, body{
     z-index: 1005;
 }
 
-.logButton{
-    background-color: rgba(25, 25, 25,1);
+.logButton {
+    background-color: rgba(25, 25, 25, 1);
     width: 13vw;
     height: 6vh;
     margin: 5px;
@@ -54,7 +58,6 @@ html, body{
 }
 
 
-
 .crystalCircle {
     padding: 5px;
     z-index: 1;
@@ -63,7 +66,7 @@ html, body{
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 
@@ -72,34 +75,34 @@ html, body{
     width: 40px;
     border-radius: 100%;
     transition: 1s ease-in-out;
-    box-shadow: 0 0 5px #cc7afc,0 0 25px #b27afc,0 0 50px #b27afc;
+    box-shadow: 0 0 5px #cc7afc, 0 0 25px #b27afc, 0 0 50px #b27afc;
     animation: glow 10s alternate infinite;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 .crystal img {
     height: 100px;
     transition: 1s ease-in-out;
     user-select: none;
-    
+
 }
 
 
 @keyframes glow {
     from {
-        box-shadow: 0 0 5px #cc7afc,0 0 15px #b27afc, 0 0 35px #b27afc;
+        box-shadow: 0 0 5px #cc7afc, 0 0 15px #b27afc, 0 0 35px #b27afc;
     }
 
     to {
-        box-shadow: 0 0 5px #7ab9fc,0 0 25px #7ad1fc, 0 0 35px #7ad1fc, 0 0 50px #7ad1fc;
+        box-shadow: 0 0 5px #7ab9fc, 0 0 25px #7ad1fc, 0 0 35px #7ad1fc, 0 0 50px #7ad1fc;
     }
 }
 
-.login{
-    
+.login {
+
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -108,7 +111,8 @@ html, body{
     text-align: center;
     /*line-height: 40px;*/
 }
-.login-box{
+
+.login-box {
     height: 40vh;
     width: 25vw;
     background-color: rgba(76, 76, 76, 0.27);
@@ -120,10 +124,11 @@ html, body{
     place-items: center;
     border-radius: 50px;
     filter: dropShadow(10px);
-    
+
 }
-.data-box{
-   
+
+.data-box {
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -134,9 +139,9 @@ html, body{
 
 }
 
-.data-box input{
+.data-box input {
     width: 15vw;
-    padding: 5px ;
+    padding: 5px;
     font-size: 16px;
     color: #fff;
     margin-top: 30px;
@@ -147,9 +152,10 @@ html, body{
     background: transparent;
 
 }
-.data-box label{
+
+.data-box label {
     position: absolute;
-    top:30px;
+    top: 30px;
     left: 0;
     padding: 10px 0;
     font-size: 16px;
@@ -160,22 +166,28 @@ html, body{
     text-transform: uppercase;
 }
 
-.data-box input:focus ~ label,
-.data-box input:valid ~ label,
-.data-box input:focus ~ label,
-.data-box input:valid ~ label{
+.data-box input:focus~label,
+.data-box input:valid~label,
+.data-box input:focus~label,
+.data-box input:valid~label {
     top: 0px;
     left: 0;
     color: rgb(255, 215, 137);
     font-size: 0.65rem;
 }
 
-.actionButton:hover:before, .info:hover:before, .settingsBtn:hover:before, .logButton:hover:before{
+.actionButton:hover:before,
+.info:hover:before,
+.settingsBtn:hover:before,
+.logButton:hover:before {
     opacity: 1;
 }
 
-.actionButton:before, .info:before, .settingsBtn:before, .logButton:before{
-    background: linear-gradient( 45deg, transparent 5%, rgb(255, 215, 137) 50%, transparent 99% );
+.actionButton:before,
+.info:before,
+.settingsBtn:before,
+.logButton:before {
+    background: linear-gradient(45deg, transparent 5%, rgb(255, 215, 137) 50%, transparent 99%);
     border-radius: inherit;
     content: "";
     inset: 0px;
@@ -186,7 +198,10 @@ html, body{
 }
 
 
-.actionButton-content, .info-content, .settingsBtn-content, .logButton-content{
+.actionButton-content,
+.info-content,
+.settingsBtn-content,
+.logButton-content {
     background-color: #191919;
     border-radius: inherit;
     inset: 1px;
@@ -197,12 +212,13 @@ html, body{
 
 
 }
-.logButton-content{
+
+.logButton-content {
     letter-spacing: 5px;
-    font-size:1.2rem ;
+    font-size: 1.2rem;
 }
 
-.title{
+.title {
     width: 100vw;
     height: 50vh;
     display: flex;
@@ -211,13 +227,15 @@ html, body{
     justify-content: center;
 
 }
-.titleImg{
+
+.titleImg {
     width: 100vw;
     height: 50vh;
     filter: drop-shadow(5px 8px 3px rgb(0 0 0 / 0.4));
     user-select: none;
 }
-canvas{
+
+canvas {
     filter: blur(1px);
     z-index: 10;
 }
@@ -231,23 +249,26 @@ canvas{
     --rarity-legendary: gold;
     --popup-padding: 10px;
 }
-h3{
+
+h3 {
     width: 70%;
 }
-.particles-js-canvas-el{
-    width: 100%; 
-    height: 100%; 
-    z-index: 1000; 
-    left: 0; 
-    top: 0; 
+
+.particles-js-canvas-el {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    left: 0;
+    top: 0;
     position: fixed;
 }
-.particles-js{
-    width: 100%; 
-    height: 100%; 
-    z-index: 1000; 
-    left: 0; 
-    top: 0; 
-    position: fixed; 
-   
+
+.particles-js {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    position: fixed;
+
 }

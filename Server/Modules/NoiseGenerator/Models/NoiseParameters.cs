@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace Fracture.Server.Modules.NoiseGenerator.Models;
+﻿namespace Fracture.Server.Modules.NoiseGenerator.Models;
 
 public class NoiseParameters
 {

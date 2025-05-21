@@ -1,48 +1,34 @@
-﻿using System.Diagnostics;
-using Fracture.Server.Modules.MapGenerator.Models;
-using Fracture.Server.Modules.MapGenerator.Services.TownGen;
-using Fracture.Server.Modules.NoiseGenerator.Models;
+﻿using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 using Fracture.Server.Modules.NoiseGenerator.Services;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 
 public class MapGeneratorService : IMapGeneratorService
 {
+    private readonly ILogger<MapGeneratorService> _logger;
     private readonly Random _rnd = new();
-    public MapData MapData { get; private set; } = default!;
-
-    private readonly ILocationGeneratorService _locationGenerator;
-    private readonly ILocationWeightGeneratorService _locationWeightGenerator;
-    private ILogger<MapGeneratorService> _logger;
-
     private int _seed;
 
-    public MapGeneratorService(
-        ILocationGeneratorService locationGenerator,
-        ILocationWeightGeneratorService locationWeightGenerator,
-        ILogger<MapGeneratorService> logger
-    )
+    public MapGeneratorService(ILogger<MapGeneratorService> logger)
     {
-        _locationWeightGenerator = locationWeightGenerator;
-        _locationGenerator = locationGenerator;
         _logger = logger;
     }
 
-    public async Task<MapData> GetMap(MapParameters? mapParameters)
+    public async Task<Map> GetMap(MapParameters? mapParameters)
     {
-        MapData = GenerateMap(mapParameters);
-        return await Task.FromResult(MapData);
+        return await Task.FromResult(GenerateMap(mapParameters));
     }
 
-    private MapData GenerateMap(MapParameters? mapParameters)
+    private Node[,] GenerateGrid(MapParameters? mapParameters)
     {
-        var noiseParameters = mapParameters.NoiseParameters;
+        var noiseParameters = mapParameters?.NoiseParameters;
         noiseParameters.Seed = noiseParameters.UseRandomSeed
             ? _rnd.Next(-100000, 100000)
             : noiseParameters.Seed;
-        int width = 64;
-        int height = 64;
-        bool useFalloff = true;
+        var width = mapParameters.Width;
+        var height = mapParameters.Height;
+        var useFalloff = true;
 
         var grid = new Node[width, height];
 
@@ -67,22 +53,15 @@ public class MapGeneratorService : IMapGeneratorService
         );
 
         var biomeCategories = mapParameters.BiomeCategories;
-        for (int y = 0; y < height; y++)
-        for (int x = 0; x < width; x++)
+        for (var y = 0; y < height; y++)
+        for (var x = 0; x < width; x++)
         {
-            heightMap[x, y] = (float)
-                Math.Clamp(
-                    (1 - Math.Pow(1 - heightMap[x, y], noiseParameters.Sharpness))
-                        + noiseParameters.Boost,
-                    0,
-                    1
-                );
-            Math.Clamp(
-                (1 - Math.Pow(1 - temperatureMap[x, y], noiseParameters.Sharpness))
-                    + noiseParameters.Boost,
-                0,
-                1
-            );
+            var heightValue = 1 - Math.Pow(1 - heightMap[x, y], noiseParameters.Sharpness);
+            heightMap[x, y] = (float)Math.Clamp(heightValue + noiseParameters.Boost, 0, 1);
+
+            var temperatureValue =
+                1 - Math.Pow(1 - temperatureMap[x, y], noiseParameters.Sharpness);
+            Math.Clamp(temperatureValue + noiseParameters.Boost, 0, 1);
 
             if (useFalloff)
             {
@@ -124,7 +103,6 @@ public class MapGeneratorService : IMapGeneratorService
 
             // If no biome category is found, log it
             if (biomeCategory == null)
-            {
                 _logger.LogError(
                     string.Format(
                         "No biome category found for height {0} at ({1}, {2}).",
@@ -133,7 +111,6 @@ public class MapGeneratorService : IMapGeneratorService
                         y
                     )
                 );
-            }
 
             Biome biome = null;
             if (biomeCategory != null)
@@ -142,10 +119,7 @@ public class MapGeneratorService : IMapGeneratorService
                     temperatureMap[x, y] >= sb.MinTemperature
                     && temperatureMap[x, y] < sb.MaxTemperature
                 )!;
-
-                // If no biome is found, log it it's really good if biome data are invalid its easy to find where
                 if (biome == null)
-                {
                     _logger.LogError(
                         string.Format(
                             "No biome found for temperature {0} at ({1}, {2}) within category {3}",
@@ -155,38 +129,33 @@ public class MapGeneratorService : IMapGeneratorService
                             biomeCategory.TerrainType
                         )
                     );
-                }
             }
 
             grid[x, y] = new Node(x, y, biome)
             {
                 NoiseValue = heightMap[x, y],
-                Walkable =
-                    biomeCategory != null
-                    && !(
-                        biomeCategory.TerrainType
-                        is TerrainType.DeepOcean
-                            or TerrainType.ShallowWater
-                    ),
+                Walkable = biome?.Walkable == true,
                 TerrainType = biomeCategory!.TerrainType,
             };
         }
-        grid = GenerateTowns(grid, height, width);
-        return new MapData(grid);
+
+        return grid;
     }
 
-    private Node[,] GenerateTowns(Node[,] grid, int height, int width)
+    private Map GenerateMap(MapParameters? mapParameters)
     {
-        var townCount = _rnd.Next(5, 15);
-        var weights = _locationWeightGenerator.GenerateWeights(grid, height, width);
-        return _locationGenerator.Generate(
-            grid,
-            weights,
-            height,
-            width,
-            _rnd,
-            townCount,
-            Location.Town
-        );
+        if (mapParameters == null)
+        {
+            _logger.LogError("MapParameters is null.");
+            throw new ArgumentNullException(nameof(mapParameters));
+        }
+        var grid = GenerateGrid(mapParameters);
+        return new Map()
+        {
+            Grid = grid,
+            LocationType = mapParameters.LocationType,
+            Width = mapParameters.Width,
+            Height = mapParameters.Height,
+        };
     }
 }

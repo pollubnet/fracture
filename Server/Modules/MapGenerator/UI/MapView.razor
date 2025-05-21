@@ -1,54 +1,44 @@
-﻿@using System.Drawing
-@using Fracture.Server.Components.Pages
-@using Fracture.Server.Modules.MapGenerator.Models
+﻿@using Fracture.Server.Components.Pages
+@using Fracture.Server.Modules.MapGenerator.Models.Map
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Fracture.Server.Modules.Shared.ImageChangers
 @using Microsoft.AspNetCore.Components.Web
-
+@inject BackgroundImageChanger BackgroundImageChanger
 <div id="map" tabindex="0" @onkeydown="HandleKeyDown">
-    @if (Map != null && MapDisplayData != null)
-    {
+    @if (Map != null && MapDisplayData != null) {
         <table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
-            @for (int y = 0; y < Map.Grid.GetLength(1); y++)
-            {
+            @for (var y = 0; y < Map.Grid.GetLength(1); y++) {
                 <tr>
-                    @for (int x = 0; x < Map.Grid.GetLength(0); x++)
-                    {
-                        Node node = Map.Grid[x, y];
+                    @for (var x = 0; x < Map.Grid.GetLength(0); x++) {
+                        var node = Map.Grid[x, y];
 
-                        @if (x == CharacterXX && y == CharacterYY)
-                        {
-                            <td style='background: @GetTileColor(@Map.Grid[x, y]); font-size:6px;'>
+                        @if (x == CharacterXX && y == CharacterYY) {
+                            <td style='background: @GetTileColor(Map.Grid[x, y]); font-size:6px;'>
                                 &#128528
                             </td>
                         }
-                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position)
-                        {
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Position) {
                             <MapSquare Node="node">
-                                x:@x<br />y:@y
+                                x:@x<br/>y:@y
                             </MapSquare>
                         }
-                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise)
-                        {
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Noise) {
                             <MapSquare Node="node">
                                 @Math.Round(node.NoiseValue, 2)
                             </MapSquare>
                         }
-                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None)
-                        {
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.None) {
                             <MapSquare Node="node" IsMiniMap="IsMiniMap">
                                 @RenderLocation(node)
                             </MapSquare>
                         }
-                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path)
-                        {
+                        else if (MapDisplayData.TileInformationDisplay == TileInformationDisplay.Path) {
                             <MapSquare Node="node">
                                 @GetPathForTile(node)
                             </MapSquare>
                         }
-                        else
-                        {
+                        else {
                             <MapSquare Node="node">
                                 @RenderLocation(node)
                             </MapSquare>
@@ -61,17 +51,13 @@
 </div>
 
 @code {
-    [Parameter]
-    public MapData? Map { get; set; }
+    [Parameter] public Map? Map { get; set; }
 
-    [Parameter]
-    public MapDisplayData? MapDisplayData { get; set; }
+    [Parameter] public MapDisplayData? MapDisplayData { get; set; }
 
-    [Parameter]
-    public List<IPathfindingNode>? Path { get; set; }
+    [Parameter] public List<IPathfindingNode>? Path { get; set; }
 
-    [Parameter]
-    public bool IsMiniMap { get; set; } = true;
+    [Parameter] public bool IsMiniMap { get; set; } = true;
 
 
     private bool isMoving = false;
@@ -80,49 +66,46 @@
     [Parameter] public int CharacterX { get; set; } = CharacterXX;
     [Parameter] public int CharacterY { get; set; } = CharacterXX;
 
-    private readonly HashSet<string> _blockingColors = new HashSet<string>
-    {
-        "#21618C","#2E86C1"
+    private readonly HashSet<string> _blockingColors = new() {
+        "#21618C", "#2E86C1"
     };
 
-    private string GetTileColor(Node node)
-    {
-        if (MapDisplayData!.ShowColorMap)
-        {
-            Color color = node.Biome.Color;
-            string hex = $"#{color.R:X2}{color.G:X2}{color.B:X2}"; // rgb -> hex
+    private string GetTileColor(Node node) {
+        if (MapDisplayData!.ShowColorMap) {
+            var color = node.Biome.Color;
+            var hex = $"#{color.R:X2}{color.G:X2}{color.B:X2}"; // rgb -> hex
             return hex ?? string.Empty;
         }
 
-        string hexValue = string.Format("{0:x}", (int)(node.NoiseValue * 255));
-        if (hexValue.Length == 1)
-        {
+        var hexValue = string.Format("{0:x}", (int)(node.NoiseValue * 255));
+        if (hexValue.Length == 1) {
             hexValue = "0" + hexValue;
         }
+
         return $"#{hexValue}{hexValue}{hexValue}";
     }
 
-    private string GetPathForTile(Node node)
-    {
-        if (Path == null)
-        {
+    private string GetPathForTile(Node node) {
+        if (Path == null) {
             return "";
         }
 
-        int pathNodeIndex = Path.FindIndex(n => n.XId == node.XId && n.YId == node.YId);
-        if (pathNodeIndex != -1 && pathNodeIndex + 1 < Path.Count)
-        {
-            int xDirection = Path[pathNodeIndex + 1].XId - Path[pathNodeIndex].XId;
-            int yDirection = Path[pathNodeIndex].YId - Path[pathNodeIndex + 1].YId;
+        var pathNodeIndex = Path.FindIndex(n => n.XId == node.XId && n.YId == node.YId);
+        if (pathNodeIndex != -1 && pathNodeIndex + 1 < Path.Count) {
+            var xDirection = Path[pathNodeIndex + 1].XId - Path[pathNodeIndex].XId;
+            var yDirection = Path[pathNodeIndex].YId - Path[pathNodeIndex + 1].YId;
             return GetArrowForDirection(xDirection, yDirection);
         }
+
         return "";
     }
 
-    private string GetArrowForDirection(int xDirection, int yDirection)
-    {
-        return yDirection switch
-        {
+    protected override void OnInitialized() {
+        BackgroundImageChanger.BackgroundImage = GamePage.BackgroundImage;
+    }
+
+    private string GetArrowForDirection(int xDirection, int yDirection) {
+        return yDirection switch {
             1 when xDirection == 0 => SpecialChars.Arrows.Up,
             1 when xDirection == 1 => SpecialChars.Arrows.UpRight,
             0 when xDirection == 1 => SpecialChars.Arrows.Right,
@@ -135,84 +118,67 @@
         };
     }
 
-    private string RenderLocation(Node node)
-    {
-        return node.Location switch
-        {
-            Location.None => string.Empty,
-            Location.Town => "T",
+    private string RenderLocation(Node node) {
+        return node.LocationType switch {
+            LocationType.None => string.Empty,
+            LocationType.Town => "T",
+                LocationType.Cave => "C",
             _ => string.Empty
         };
     }
 
-    private async void HandleKeyDown(KeyboardEventArgs e)
-    {
-        BackgroundImageChanger backgroundImage = new()
-            {
-                BackgroundImage = GamePage.BackgroundImage,
-                Map = Map
-            };
-        if (IsMiniMap == false)
-        {
+    private async void HandleKeyDown(KeyboardEventArgs e) {
+        await BackgroundImageChanger.ChangeBackgroundImageAsync();
+
+        if (IsMiniMap == false) {
             if (isMoving) return;
             isMoving = true;
-            int newX = CharacterXX;
-            int newY = CharacterYY;
-            switch (e.Key)
-            {
+            var newX = CharacterXX;
+            var newY = CharacterYY;
+            switch (e.Key) {
                 case "ArrowUp":
-                    if (CharacterYY > 0)
-                    {
+                    if (CharacterYY > 0) {
                         newY--;
                     }
 
                     break;
                 case "ArrowDown":
-                    if (CharacterYY < Map.Grid.GetLength(1) - 1)
-                    {
+                    if (CharacterYY < Map.Grid.GetLength(1) - 1) {
                         newY++;
                     }
+
                     break;
                 case "ArrowLeft":
-                    if (CharacterXX > 0)
-                    {
+                    if (CharacterXX > 0) {
                         newX--;
                     }
+
                     break;
                 case "ArrowRight":
-                    if (CharacterXX < Map.Grid.GetLength(0) - 1)
-                    {
+                    if (CharacterXX < Map.Grid.GetLength(0) - 1) {
                         newX++;
                     }
+
                     break;
             }
 
-            if (CanMoveToTile(newX, newY))
-            {
+            if (CanMoveToTile(newX, newY)) {
                 CharacterXX = newX;
                 CharacterYY = newY;
                 StateHasChanged();
             }
 
-            Task.Delay(100).ContinueWith(_ =>
-            {
-                isMoving = false;
-            });
+            Task.Delay(100).ContinueWith(_ => { isMoving = false; });
         }
-
-
     }
 
-    private bool CanMoveToTile(int x, int y)
-    {
-        if (Map != null && Map.Grid[x, y].Walkable == true)
-        {
+    private bool CanMoveToTile(int x, int y) {
+        if (Map != null && Map.Grid[x, y].Walkable) {
             return true;
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
+
 }
 
