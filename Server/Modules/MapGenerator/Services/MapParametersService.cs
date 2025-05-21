@@ -10,7 +10,7 @@ public class MapParametersService
 
     public MapParametersService(ILogger<MapParametersService> logger)
     {
-        this._logger = logger;
+        _logger = logger;
     }
 
     public MapParameters? ReadMapParametersFromJson(string filePath)

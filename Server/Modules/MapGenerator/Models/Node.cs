@@ -16,7 +16,13 @@ public class Node : IPathfindingNode
     public Biome Biome { get; set; }
 
     [Required]
+    public TerrainType TerrainType { get; set; }
+
+    [Required]
     public float NoiseValue { get; set; }
+
+    public Location Location { get; set; } = Location.None;
+
     public int GCost { get; set; }
     public int HCost { get; set; }
     public int FCost => GCost + HCost;

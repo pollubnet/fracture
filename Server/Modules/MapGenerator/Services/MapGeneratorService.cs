@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Fracture.Server.Modules.MapGenerator.Models;
+using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.NoiseGenerator.Models;
 using Fracture.Server.Modules.NoiseGenerator.Services;
 
@@ -10,20 +11,30 @@ public class MapGeneratorService : IMapGeneratorService
     private readonly Random _rnd = new();
     public MapData MapData { get; private set; } = default!;
 
-    private ILogger<MapGeneratorService> logger;
+    private readonly ILocationGeneratorService _locationGenerator;
+    private readonly ILocationWeightGeneratorService _locationWeightGenerator;
+    private ILogger<MapGeneratorService> _logger;
 
-    public MapGeneratorService(ILogger<MapGeneratorService> logger)
+    private int _seed;
+
+    public MapGeneratorService(
+        ILocationGeneratorService locationGenerator,
+        ILocationWeightGeneratorService locationWeightGenerator,
+        ILogger<MapGeneratorService> logger
+    )
     {
-        this.logger = logger;
+        _locationWeightGenerator = locationWeightGenerator;
+        _locationGenerator = locationGenerator;
+        _logger = logger;
     }
 
-    public async Task<MapData> GetMap(MapParameters mapParameters)
+    public async Task<MapData> GetMap(MapParameters? mapParameters)
     {
         MapData = GenerateMap(mapParameters);
         return await Task.FromResult(MapData);
     }
 
-    private MapData GenerateMap(MapParameters mapParameters)
+    private MapData GenerateMap(MapParameters? mapParameters)
     {
         var noiseParameters = mapParameters.NoiseParameters;
         noiseParameters.Seed = noiseParameters.UseRandomSeed
@@ -114,7 +125,7 @@ public class MapGeneratorService : IMapGeneratorService
             // If no biome category is found, log it
             if (biomeCategory == null)
             {
-                logger.LogError(
+                _logger.LogError(
                     string.Format(
                         "No biome category found for height {0} at ({1}, {2}).",
                         heightMap[x, y],
@@ -135,7 +146,7 @@ public class MapGeneratorService : IMapGeneratorService
                 // If no biome is found, log it it's really good if biome data are invalid its easy to find where
                 if (biome == null)
                 {
-                    logger.LogError(
+                    _logger.LogError(
                         string.Format(
                             "No biome found for temperature {0} at ({1}, {2}) within category {3}",
                             temperatureMap[x, y],
@@ -157,9 +168,25 @@ public class MapGeneratorService : IMapGeneratorService
                         is TerrainType.DeepOcean
                             or TerrainType.ShallowWater
                     ),
+                TerrainType = biomeCategory!.TerrainType,
             };
         }
-
+        grid = GenerateTowns(grid, height, width);
         return new MapData(grid);
+    }
+
+    private Node[,] GenerateTowns(Node[,] grid, int height, int width)
+    {
+        var townCount = _rnd.Next(5, 15);
+        var weights = _locationWeightGenerator.GenerateWeights(grid, height, width);
+        return _locationGenerator.Generate(
+            grid,
+            weights,
+            height,
+            width,
+            _rnd,
+            townCount,
+            Location.Town
+        );
     }
 }
