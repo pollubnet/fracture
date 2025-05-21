@@ -66,4 +66,21 @@ public static class FeatureFlags
 
         return services;
     }
+
+    public static IServiceCollection AddSingletonIfFeatureEnabled<TInterface>(
+        this IServiceCollection services,
+        string featureName,
+        Func<IServiceProvider, TInterface> implementationFactory
+    )
+        where TInterface : class
+    {
+        var featureManager = services
+            .BuildServiceProvider()
+            .GetRequiredService<IFeatureManagerSnapshot>();
+
+        if (featureManager.IsEnabledAsync(featureName).Result)
+            return services.AddSingleton(typeof(TInterface), implementationFactory);
+
+        return services;
+    }
 }
