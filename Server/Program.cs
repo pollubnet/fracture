@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,7 @@ builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
 builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();
 builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
 builder.Services.AddSingleton<MapParametersService>();
+builder.Services.AddSingleton<DockerService>();
 
 builder.Services.AddScoped<BackgroundImageChanger>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
@@ -50,12 +52,30 @@ builder
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddControllers();
+builder.Services.AddHealthChecks();
 
-builder.Services.AddDbContext<FractureDbContext>(options =>
+var dockerService = new DockerService(
+    LoggerFactory.Create(b => b.AddConsole()).CreateLogger<DockerService>()
+);
+
+try
 {
-    options.UseSqlite("Data Source=fracture.db");
-    options.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
-});
+    await dockerService.EnsurePostgresRunningAsync();
+
+    var connectionString = builder
+        .Configuration.GetConnectionString("DefaultConnection")
+        ?.Replace("{DYNAMIC_PORT}", dockerService.AssignedHostPort.ToString() ?? "5432");
+
+    builder.Services.AddDbContext<FractureDbContext>(options =>
+    {
+        options.UseNpgsql(connectionString);
+    });
+}
+catch (Exception e)
+{
+    Console.WriteLine($"Failed to initialize database: {e.Message}");
+    throw;
+}
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -76,6 +96,19 @@ else
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
 }
 
+try
+{
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<FractureDbContext>();
+    await dbContext.Database.MigrateAsync();
+}
+catch (Exception ex)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred while migrating or seeding the database.");
+    throw;
+}
+
 app.UseStaticFiles();
 app.UseAuthorization();
 
@@ -86,11 +119,5 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode();
-
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<FractureDbContext>();
-    db.Database.Migrate();
-}
 
 app.Run();

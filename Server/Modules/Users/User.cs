@@ -17,6 +17,6 @@ namespace Fracture.Server.Modules.Users
 
         [InverseProperty(nameof(Item.CreatedBy))]
         [JsonIgnore]
-        public virtual ICollection<Item> Items { get; set; } = null!;
+        public virtual ICollection<Item> Items { get; set; }
     }
 }

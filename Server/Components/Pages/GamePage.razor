@@ -170,11 +170,11 @@
             return;
         }
 
-        var user = await UsersRepository.GetUserAsync(username.Value!);
+        var user = await UsersRepository.GetUserAsync(username.Value);
         if (user is null)
         {
-            user = new User { Username = username.Value! };
-            await UsersRepository.AddUserAsync(user);
+            user = new User { Username = username.Value, CreatedAt =DateTime.UtcNow};
+            user = await UsersRepository.AddUserAsync(user);
         }
 
         _user = user;

@@ -28,10 +28,10 @@ namespace Fracture.Server.Modules.Items.Models
         public int CreatedById { get; set; }
 
         [InverseProperty(nameof(ItemStatistics.Item))]
-        public virtual ItemStatistics Statistics { get; set; } = null!;
+        public virtual ItemStatistics Statistics { get; set; }
 
         [InverseProperty(nameof(User.Items))]
         [JsonIgnore]
-        public virtual User CreatedBy { get; set; } = null!;
+        public virtual User CreatedBy { get; set; }
     }
 }
