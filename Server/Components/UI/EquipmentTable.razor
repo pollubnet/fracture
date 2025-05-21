@@ -3,45 +3,53 @@
 @rendermode InteractiveServer
 
 <table class="equipmentTable">
-    <tr>
-        @for (var i = 0; i < 3; i++) {
-            if (i < Equipment.Count) {
-                <td>
-                    <div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div>
-                </td>
-            }
-            else {
-                <td></td>
-            }
-        }
-    </tr>
+	<tr>
+		@for (var i = 0; i < 3; i++)
+		{
+			if (i < Equipment.Count)
+			{
+				<td>
+					<div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div>
+				</td>
+			}
+			else
+			{
+				<td></td>
+			}
+		}
+	</tr>
 
-    <tr>
-        @for (var i = 3; i < 6; i++) {
-            if (i < Equipment.Count) {
-                <td>
-                    <div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div>
-                </td>
-            }
-            else {
-                <td></td>
-            }
-        }
-    </tr>
+	<tr>
+		@for (var i = 3; i < 6; i++)
+		{
+			if (i < Equipment.Count)
+			{
+				<td>
+					<div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div>
+				</td>
+			}
+			else
+			{
+				<td></td>
+			}
+		}
+	</tr>
 
 
 </table>
 
 @code {
-    [Parameter] public required ObservableCollection<Item> Equipment { get; set; }
+	[Parameter] public required ObservableCollection<Item> Equipment { get; set; }
 
-    protected override void OnInitialized() {
-        Equipment.CollectionChanged += (sender, e) => StateHasChanged();
-    }
+	protected override void OnInitialized()
+	{
+		Equipment.CollectionChanged += (sender, e) => StateHasChanged();
+	}
 
-    private string ToCss(string name) {
-        var css = name.Split(' ').Select(x => "item-" + x.ToLower());
-        return string.Join(" ", css);
-    }
+	private string ToCss(string name)
+	{
+		var css = name.Split(' ').Select(x => "item-" + x.ToLower());
+		return string.Join(" ", css);
+	}
 
 }

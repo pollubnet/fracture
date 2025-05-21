@@ -26,219 +26,128 @@
 @inject IItemsRepository ItemsRepository
 @inject VersionInfoProvider VersionInfoProvider
 @inject BackgroundImageChanger BackgroundImageChanger
-<link rel="icon" type="image/png" href="assets/icons/favicon.png"/>
+<link rel="icon" type="image/png" href="assets/icons/favicon.png" />
 
-<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
 
-<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
 
 <div id="container">
-    <div class="leftPanel borderPanel">
-        <div class="stats">
-            <div class="info">
-                <div class="info-content">
-                    <div @onclick="() => _popup.ShowComponent<StatsPopup>()">
-                        <img src="assets/icons/infobutton.svg"/>
-                    </div>
-                </div>
-            </div>
-            <UserStats Equipment="_equipment"></UserStats>
-        </div>
-        <div class="equipment">
-            <div class="info">
-                <div class="info-content">
-                    <div @onclick="() => _popup.ShowComponent<EquipmentPopup>(_equipmentPopupParameters)">
-                        <img src="assets/icons/infobutton.svg"/>
+	<div class="leftPanel borderPanel">
+		<div class="stats">
+			<div class="info">
+				<div class="info-content">
+					<div @onclick="() => _popup.ShowComponent<StatsPopup>()">
+						<img src="assets/icons/infobutton.svg" />
+					</div>
+				</div>
+			</div>
+			<UserStats Equipment="_equipment"></UserStats>
+		</div>
+		<div class="equipment">
+			<div class="info">
+				<div class="info-content">
+					<div @onclick="() => _popup.ShowComponent<EquipmentPopup>(_equipmentPopupParameters)">
+						<img src="assets/icons/infobutton.svg" />
 
-                    </div>
-                </div>
-            </div>
-            <EquipmentTable Equipment="@_equipment"/>
-        </div>
+					</div>
+				</div>
+			</div>
+			<EquipmentTable Equipment="@_equipment" />
+		</div>
 
-    </div>
-    <div class="midPanel borderPanel">
-        <div class="map">
-        </div>
-        <div class="eqManager">
-        </div>
-        <div class="statManager ">
-        </div>
-        <div class="dialogueWindowBg"
-             style="background: url(@BackgroundImage.ImagePath);background-repeat: no-repeat;  background-size: cover; ">
-            <div class="dialogueWindow" @onkeydown="GetBacgroundAsync">
-                Fracture @VersionInfoProvider.InformationalVersion<br/>
-                tutaj log mojej gry<br/>
-                <PopupContainer @ref="_popup"></PopupContainer>
-            </div>
-        </div>
-        <div class="crystalBox">
-            <div class="actionButton">
-                <div class="actionButton-content"><img src="assets/icons/swordbutton.svg"/></div>
-            </div>
-            <div class="actionButton">
-                <div class="actionButton-content"><img src="assets/icons/shieldbutton.svg"/></div>
-            </div>
-            <div class="crystalCircle">
-                <div class="crystal">
-                    <img src="assets/icons/crystal.png" alt="">
-                </div>
-            </div>
-            <div class="actionButton">
-                <div class="actionButton-content"><img src="assets/icons/skipbutton.svg"/></div>
-            </div>
-            <div class="actionButton">
-                <div class="actionButton-content"><img src="assets/icons/chatbutton.svg"/></div>
-            </div>
-        </div>
+	</div>
+	<div class="midPanel borderPanel">
+		<div class="map">
+		</div>
+		<div class="eqManager">
+		</div>
+		<div class="statManager ">
+		</div>
+		<div class="dialogueWindowBg"
+			 style="background: url(@BackgroundImage.ImagePath);background-repeat: no-repeat;  background-size: cover; ">
+			<div class="dialogueWindow" @onkeydown="GetBacgroundAsync">
+				Fracture @VersionInfoProvider.InformationalVersion<br />
+				tutaj log mojej gry<br />
+				<PopupContainer @ref="_popup"></PopupContainer>
+			</div>
+		</div>
+		<div class="crystalBox">
+			<div class="actionButton">
+				<div class="actionButton-content"><img src="assets/icons/swordbutton.svg" /></div>
+			</div>
+			<div class="actionButton">
+				<div class="actionButton-content"><img src="assets/icons/shieldbutton.svg" /></div>
+			</div>
+			<div class="crystalCircle">
+				<div class="crystal">
+					<img src="assets/icons/crystal.png" alt="">
+				</div>
+			</div>
+			<div class="actionButton">
+				<div class="actionButton-content"><img src="assets/icons/skipbutton.svg" /></div>
+			</div>
+			<div class="actionButton">
+				<div class="actionButton-content"><img src="assets/icons/chatbutton.svg" /></div>
+			</div>
+		</div>
 
 
-    </div>
-    <div class="rightPanel borderPanel">
-        <div class="journal">
-            <div class="info">
-                <div class="info-content">
-                    <div @onclick="() => _popup.ShowComponent<JournalPopup>()"></div>
-                    <img src="assets/icons/infobutton.svg"/>
-                </div>
-            </div>
+	</div>
+	<div class="rightPanel borderPanel">
+		<div class="journal">
+			<div class="info">
+				<div class="info-content">
+					<div @onclick="() => _popup.ShowComponent<JournalPopup>()"></div>
+					<img src="assets/icons/infobutton.svg" />
+				</div>
+			</div>
 
-            <div class="journalPage">
-                <p>
-                    <span>Log1:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam
-                    quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero
-                    delectus ex omnis ad magni, deserunt quae? Ex.
-                </p>
-                <p>
-                    <span>Log2:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam
-                    quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero
-                    delectus ex omnis ad magni, deserunt quae? Ex.
-                </p>
-                <p>
-                    <span>Log3:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam
-                    quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero
-                    delectus ex omnis ad magni, deserunt quae? Ex.
-                </p>
-            </div>
-        </div>
-        <div class="miniMap">
-            <div class="info">
-                <div class="info-content">
-                    <div @onclick="() => _popup.ShowComponent<MapPopup>(_mapPopupParameters)"><img
-                            src="assets/icons/infobutton.svg"/></div>
-                </div>
-            </div>
-            <MapView Map="Map" MapDisplayData="_mapDisplayData" Path="Path"></MapView>
-        </div>
-        <div class="settings">
-            <div class="settingsBtn">
-                <div class="settingsBtn-content">
-                    <img src="assets/icons/settingsbutton.svg"/>
-                </div>
-            </div>
-            <div class="settingsBtn">
-                <div class="settingsBtn-content">
-                    <img src="assets/icons/hourglassbutton.svg"/>
-                </div>
-            </div>
-            <div class="settingsBtn">
-                <div class="settingsBtn-content">
-                    <div @onclick="@Logout"><img src="assets/icons/exitbutton.svg"/></div>
-                </div>
-            </div>
+			<div class="journalPage">
+				<p>
+					<span>Log1:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam
+					quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero
+					delectus ex omnis ad magni, deserunt quae? Ex.
+				</p>
+				<p>
+					<span>Log2:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam
+					quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero
+					delectus ex omnis ad magni, deserunt quae? Ex.
+				</p>
+				<p>
+					<span>Log3:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam
+					quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero
+					delectus ex omnis ad magni, deserunt quae? Ex.
+				</p>
+			</div>
+		</div>
+		<div class="miniMap">
+			<div class="info">
+				<div class="info-content">
+					<div @onclick="() => _popup.ShowComponent<MapPopup>(_mapPopupParameters)">
+						<img src="assets/icons/infobutton.svg" />
+					</div>
+				</div>
+			</div>
+			<MapView Map="Map" MapDisplayData="_mapDisplayData" Path="Path"></MapView>
+		</div>
+		<div class="settings">
+			<div class="settingsBtn">
+				<div class="settingsBtn-content">
+					<img src="assets/icons/settingsbutton.svg" />
+				</div>
+			</div>
+			<div class="settingsBtn">
+				<div class="settingsBtn-content">
+					<img src="assets/icons/hourglassbutton.svg" />
+				</div>
+			</div>
+			<div class="settingsBtn">
+				<div class="settingsBtn-content">
+					<div @onclick="@Logout"><img src="assets/icons/exitbutton.svg" /></div>
+				</div>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
-
-@code {
-
-    private User _user = new();
-    private readonly ObservableCollection<Item> _equipment = new();
-    private readonly ObservableCollection<Item> _inventory = new();
-
-    private Dictionary<string, object> _equipmentPopupParameters = null!;
-    private Dictionary<string, object> _mapPopupParameters = null!;
-    public static Map Map { get; set; }
-
-    private PopupContainer _popup = null!;
-
-    public static BackgroundImage BackgroundImage { get; set; } = new(string.Empty);
-
-    private readonly MapDisplayData _mapDisplayData = new();
-
-    private List<IPathfindingNode>? Path { get; set; }
-
-    protected override async Task OnInitializedAsync() {
-        var username = await ProtectedSessionStore.GetAsync<string>("username");
-        if (!username.Success) {
-            NavigationManager.NavigateTo("/");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(username.Value)) {
-            NavigationManager.NavigateTo("/");
-            return;
-        }
-
-        var user = await UsersRepository.GetUserAsync(username.Value!);
-        if (user is null) {
-            user = new User { Username = username.Value! };
-            await UsersRepository.AddUserAsync(user);
-        }
-
-        _user = user;
-
-        _inventory.Clear();
-        _equipment.Clear();
-        foreach (var item in await ItemsRepository.GetItemsOfUserAsync(_user.Id)) {
-            _inventory.Add(item);
-        }
-
-        foreach (var item in _inventory.ToList().Where(i => i.IsEquipped)) {
-            _equipment.Add(item);
-        }
-
-        _equipmentPopupParameters = new Dictionary<string, object> {
-            { "UserData", _user },
-            { "Equipment", _equipment },
-            { "Inventory", _inventory }
-        };
-        Map = MapManagerService.GetWorldMap() ?? throw new InvalidOperationException();
-        _mapDisplayData.ShowColorMap = true;
-        _mapPopupParameters = new Dictionary<string, object> {
-            { "Map", Map },
-            { "MapDisplayData", _mapDisplayData }
-        };
-
-        BackgroundImageChanger.BackgroundImage = BackgroundImage;
-        await GetBacgroundAsync();
-
-        BackgroundImageChanger.BackgroundImageChanged += OnBgChanged!;
-
-        await base.OnInitializedAsync();
-    }
-
-    private void Logout() {
-        NavigationManager.NavigateTo("/home");
-        ProtectedSessionStore.DeleteAsync("username");
-    }
-
-
-    //this piece of codes refreshes GamePage after changing background image. It is necessary to show new background.
-    private async Task GetBacgroundAsync() {
-        await BackgroundImageChanger.ChangeBackgroundImageAsync();
-    }
-
-    private void OnBgChanged(object sender, EventArgs e) {
-        this.InvokeAsync(this.StateHasChanged);
-    }
-
-    public void Dispose() {
-        BackgroundImageChanger.BackgroundImageChanged -= OnBgChanged!;
-    }
-
-
-}
-
-

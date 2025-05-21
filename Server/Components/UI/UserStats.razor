@@ -1,29 +1,31 @@
 ﻿@using System.Collections.ObjectModel
 @using Fracture.Server.Modules.Items.Models
 <table class="stat-table">
-    @foreach (var itemStat in Enum.GetValues<ItemStat>()) {
-        var stat = Equipment.Sum(x => x.Statistics.GetStatFromItemStat(itemStat));
-        <tr>
-            <td><img src=@("assets/" + images[itemStat])></td>
-            <td>@itemStat</td>
-            <td class="stat-value-right-align">@stat</td>
-        </tr>
-    }
+	@foreach (var itemStat in Enum.GetValues<ItemStat>())
+	{
+		var stat = Equipment.Sum(x => x.Statistics.GetStatFromItemStat(itemStat));
+		<tr>
+			<td><img src=@("assets/" + images[itemStat])></td>
+			<td>@itemStat</td>
+			<td class="stat-value-right-align">@stat</td>
+		</tr>
+	}
 </table>
 
 @code {
 
-    [Parameter] public required ObservableCollection<Item> Equipment { get; set; }
+	[Parameter] public required ObservableCollection<Item> Equipment { get; set; }
 
-    protected override void OnInitialized() {
-        Equipment.CollectionChanged += (sender, e) => StateHasChanged();
-    }
+	protected override void OnInitialized()
+	{
+		Equipment.CollectionChanged += (sender, e) => StateHasChanged();
+	}
 
-    Dictionary<ItemStat, string> images = new() {
-        { ItemStat.Power, "icons/sword.svg" },
-        { ItemStat.Armor, "icons/shield.svg" },
-        { ItemStat.Luck, "icons/clover.svg" },
-        { ItemStat.Health, "icons/heart.svg" }
-    };
+	Dictionary<ItemStat, string> images = new() {
+		{ ItemStat.Power, "icons/sword.svg" },
+		{ ItemStat.Armor, "icons/shield.svg" },
+		{ ItemStat.Luck, "icons/clover.svg" },
+		{ ItemStat.Health, "icons/heart.svg" }
+	};
 
 }
