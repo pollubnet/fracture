@@ -24,7 +24,6 @@ body {
     background-position: bottom;
     background-size: 125%;
     backdrop-filter: blur(3px);
-
     /*-webkit-animation: AnimateBG 10s ease infinite;*/
     /*animation: AnimateBG 10s ease infinite;*/
 }
@@ -162,12 +161,11 @@ body {
     justify-content: center;
 }
 
-.crystal img {
-    height: 100px;
-    transition: 1s ease-in-out;
-    user-select: none;
-
-}
+    .crystal img {
+        height: 100px;
+        transition: 1s ease-in-out;
+        user-select: none;
+    }
 
 
 @keyframes glow {
@@ -221,7 +219,6 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-
 }
 
 .statManager {
@@ -257,10 +254,10 @@ body {
 }
 
 
-.journalPage span {
-    font-size: 1.1em;
-    font-weight: bolder;
-}
+    .journalPage span {
+        font-size: 1.1em;
+        font-weight: bolder;
+    }
 
 .miniMap {
     height: 45%;
@@ -271,7 +268,6 @@ body {
     justify-content: center;
     border-top: #000 solid 2px;
     /*border-bottom: #000 solid 2px;*/
-
 }
 
 .miniMapTable,
@@ -281,21 +277,21 @@ body {
     box-shadow: 0px 0px 10px #000;
 }
 
-.miniMapTable tr td,
-.mapTable tr td {
-    /*border: #000 1px solid;*/
-    background-color: blue;
-}
+    .miniMapTable tr td,
+    .mapTable tr td {
+        /*border: #000 1px solid;*/
+        background-color: blue;
+    }
 
-.miniMapTable tr td {
-    width: 2px;
-    height: 2px;
-}
+    .miniMapTable tr td {
+        width: 2px;
+        height: 2px;
+    }
 
-.mapTable tr td {
-    width: 5px;
-    height: 5px;
-}
+    .mapTable tr td {
+        width: 5px;
+        height: 5px;
+    }
 
 .settings {
     height: 10%;
@@ -309,8 +305,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
-
 }
 
 .mapTable {
@@ -342,9 +336,9 @@ body {
     align-items: center;
 }
 
-.statObject span {
-    padding-left: 5px;
-}
+    .statObject span {
+        padding-left: 5px;
+    }
 
 .equipment {
     height: 55%;
@@ -357,7 +351,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .equipmentTable {
@@ -366,20 +359,20 @@ body {
     box-shadow: 0px 0px 10px #000;
 }
 
-.equipmentTable tr td {
-    border: #000 3px solid;
-    margin-left: 5px;
-    margin-right: 5px;
-    width: 100px;
-    height: 100px;
-    background-color: rgba(0, 0, 25, 0.6);
-    transition: ease-in-out 0.15s;
-}
+    .equipmentTable tr td {
+        border: #000 3px solid;
+        margin-left: 5px;
+        margin-right: 5px;
+        width: 100px;
+        height: 100px;
+        background-color: rgba(0, 0, 25, 0.6);
+        transition: ease-in-out 0.15s;
+    }
 
-.equipmentTable tr td:hover {
-    background-color: rgba(0, 0, 25, 0.7);
-    border: #404040 3px solid;
-}
+        .equipmentTable tr td:hover {
+            background-color: rgba(0, 0, 25, 0.7);
+            border: #404040 3px solid;
+        }
 
 .eqContainer {
     display: flex;
@@ -390,11 +383,10 @@ body {
     height: 98%;
 }
 
-.eqContainer div {
-    display: flex;
-    justify-content: space-between;
-
-}
+    .eqContainer div {
+        display: flex;
+        justify-content: space-between;
+    }
 
 .item-stats {
     text-align: justify;
@@ -404,14 +396,12 @@ body {
     display: flex;
     flex-direction: column;
     margin: 5px;
-
-
 }
 
-.body-buttons button {
-    height: 40%;
-    margin: 5px;
-}
+    .body-buttons button {
+        height: 40%;
+        margin: 5px;
+    }
 
 .equipmentContent {
     display: flex;
@@ -425,7 +415,6 @@ body {
     height: 6vh;
     width: 5vw;
     font-size: 0.8rem;
-
 }
 
 .eqColumn {
@@ -440,8 +429,6 @@ body {
     flex-direction: row;
     justify-content: space-evenly;
     height: 60%;
-
-
 }
 
 
@@ -476,7 +463,8 @@ body {
     /*margin-top: 5px;*/
 }
 
-.card-body {}
+.card-body {
+}
 
 .item-card {
     height: 10vh;
@@ -487,7 +475,6 @@ body {
     text-align: center;
     opacity: 0.6;
     transition: opacity 0.2s ease-in-out;
-
 }
 
 .stat-value-right-align {
@@ -500,10 +487,9 @@ body {
 
 .item-name {
     height: 10%;
-
 }
 
-.card-body>.item-card {
+.card-body > .item-card {
     opacity: 1;
 }
 
@@ -511,9 +497,9 @@ body {
     font-size: 1.5rem;
 }
 
-.stat-table tr td {
-    filter: drop-shadow(3px 4px 2px black);
-}
+    .stat-table tr td {
+        filter: drop-shadow(3px 4px 2px black);
+    }
 
 .closeBtn {
     border-radius: 100%;
@@ -531,10 +517,10 @@ body {
     z-index: auto;
 }
 
-.closeBtn:hover {
-    background-color: rgb(255, 0, 0);
-    box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
-}
+    .closeBtn:hover {
+        background-color: rgb(255, 0, 0);
+        box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
+    }
 
 
 .actionButton:hover:before,
@@ -567,8 +553,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
-
 }
 
 

@@ -5,7 +5,6 @@ html {
 }
 
 * {
-
     font-family: "Courier", sans-serif;
 }
 
@@ -25,8 +24,6 @@ body {
     background-size: cover;
     background-size: 150% 150%;
     backdrop-filter: blur(2.5px);
-
-
 }
 
 html,
@@ -66,7 +63,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 
@@ -80,15 +76,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
-.crystal img {
-    height: 100px;
-    transition: 1s ease-in-out;
-    user-select: none;
-
-}
+    .crystal img {
+        height: 100px;
+        transition: 1s ease-in-out;
+        user-select: none;
+    }
 
 
 @keyframes glow {
@@ -102,7 +96,6 @@ body {
 }
 
 .login {
-
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -124,11 +117,9 @@ body {
     place-items: center;
     border-radius: 50px;
     filter: dropShadow(10px);
-
 }
 
 .data-box {
-
     position: relative;
     display: flex;
     flex-direction: column;
@@ -136,45 +127,43 @@ body {
     align-items: center;
     text-align: center;
     height: 25%;
-
 }
 
-.data-box input {
-    width: 15vw;
-    padding: 5px;
-    font-size: 16px;
-    color: #fff;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
+    .data-box input {
+        width: 15vw;
+        padding: 5px;
+        font-size: 16px;
+        color: #fff;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;
+    }
 
-}
+    .data-box label {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #fff;
+        pointer-events: none;
+        transition: .5s;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
 
-.data-box label {
-    position: absolute;
-    top: 30px;
-    left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    pointer-events: none;
-    transition: .5s;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-}
-
-.data-box input:focus~label,
-.data-box input:valid~label,
-.data-box input:focus~label,
-.data-box input:valid~label {
-    top: 0px;
-    left: 0;
-    color: rgb(255, 215, 137);
-    font-size: 0.65rem;
-}
+    .data-box input:focus ~ label,
+    .data-box input:valid ~ label,
+    .data-box input:focus ~ label,
+    .data-box input:valid ~ label {
+        top: 0px;
+        left: 0;
+        color: rgb(255, 215, 137);
+        font-size: 0.65rem;
+    }
 
 .actionButton:hover:before,
 .info:hover:before,
@@ -209,8 +198,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
-
 }
 
 .logButton-content {
@@ -225,7 +212,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
 
 .titleImg {
@@ -270,5 +256,4 @@ h3 {
     left: 0;
     top: 0;
     position: fixed;
-
 }
