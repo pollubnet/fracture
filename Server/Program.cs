@@ -23,6 +23,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<NameGeneratorConfig>(builder.Configuration.GetSection("NameGenerator"));
 builder.Services.Configure<AIBackendConfiguration>(builder.Configuration.GetSection("AiBackend"));
 
+builder.Configuration.AddJsonFile(
+    "Config/NameGenerator.json",
+    optional: false,
+    reloadOnChange: true
+); // Przeniesienie NameGenerator a appsettings do folderu Config
+
 builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
