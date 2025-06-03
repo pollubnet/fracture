@@ -27,7 +27,7 @@ public class ItemGenerator : IItemGenerator
 
         _rnd = new Random();
 
-        var configData = File.ReadAllText("itemgeneratorconfig.json");
+        var configData = File.ReadAllText("Config/ItemParameters/itemgeneratorconfig.json");
         _modifiers = JsonSerializer.Deserialize<List<RarityModifier>>(configData)!;
     }
 
