@@ -3,16 +3,16 @@
   "isRoot": true,
   "tools": {
     "husky": {
-      "version": "0.7.1",
+      "version": "0.7.2",
       "commands": [
         "husky"
       ],
       "rollForward": false
     },
     "csharpier": {
-      "version": "0.30.5",
+      "version": "1.0.2",
       "commands": [
-        "dotnet-csharpier"
+        "csharpier"
       ],
       "rollForward": false
     }
