@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fracture.Server", "Server\Fracture.Server.csproj", "{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{B13A4053-DA97-410C-B86F-2335A2A15C24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B13A4053-DA97-410C-B86F-2335A2A15C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B13A4053-DA97-410C-B86F-2335A2A15C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B13A4053-DA97-410C-B86F-2335A2A15C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B13A4053-DA97-410C-B86F-2335A2A15C24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
