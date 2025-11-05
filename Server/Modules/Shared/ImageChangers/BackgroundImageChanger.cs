@@ -1,4 +1,5 @@
-﻿using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
+﻿using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.MapGenerator.UI;
 
@@ -33,47 +34,83 @@ public class BackgroundImageChanger
             return Task.CompletedTask;
         }
 
-        // switch (biome)
-        // {
-        //     case TerrainType.Forest:
-        //     {
-        //         BackgroundImage.ImagePath = "../assets/background/river.jpg";
-        //         break;
-        //     }
-        //     case TerrainType.Grassland:
-        //     {
-        //         BackgroundImage.ImagePath = "../assets/background/river.jpg";
-        //         break;
-        //     }
-        //     case TerrainType.Mountains:
-        //     {
-        //         BackgroundImage.ImagePath = "../assets/background/mountains.jpg";
-        //         break;
-        //     }
-        //     case TerrainType.Beach:
-        //     {
-        //         BackgroundImage.ImagePath = "../assets/background/lava.jpg";
-        //         break;
-        //     }
-        //     case TerrainType.HighMountains:
-        //     {
-        //         BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-        //         break;
-        //     }
-        //     case TerrainType.DeepOcean:
-        //     {
-        //         BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-        //         break;
-        //     }
-        //     case TerrainType.ShallowWater:
-        //     {
-        //         BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-        //         break;
-        //     }
-        //     default:
-        //         BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
-        //         break;
-        // }
+        switch (biome)
+        {
+            case "Grassland":
+            {
+                BackgroundImage.ImagePath = "../assets/background/river.jpg";
+                break;
+            }
+            case "Forest":
+            {
+                BackgroundImage.ImagePath = "../assets/background/river.jpg";
+                break;
+            }
+            case "Mountains":
+            {
+                BackgroundImage.ImagePath = "../assets/background/mountains.jpg";
+                break;
+            }
+            case "SandDunes":
+            {
+                BackgroundImage.ImagePath = "../assets/background/desert.jpg";
+                break;
+            }
+            case "RockyDesert":
+            {
+                BackgroundImage.ImagePath = "../assets/background/desert.jpg";
+                break;
+            }
+            case "Mesa":
+            {
+                BackgroundImage.ImagePath = "../assets/background/desert.jpg";
+                break;
+            }
+            case "LavaLake":
+            {
+                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
+                break;
+            }
+            case "LavaFlow":
+            {
+                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
+                break;
+            }
+            case "AshPlains":
+            {
+                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
+                break;
+            }
+            case "ScorchedEarth":
+            {
+                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
+                break;
+            }
+            case "BasaltFormations":
+            {
+                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
+                break;
+            }
+            case "VolcanicPeaks":
+            {
+                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
+                break;
+            }
+            case "ObsidianSummit":
+            {
+                BackgroundImage.ImagePath = "../assets/background/lava.jpg";
+                break;
+            }
+            case "HighMountains":
+            {
+                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
+                break;
+            }
+
+            default:
+                BackgroundImage.ImagePath = "../assets/background/mountainsRiver.jpg";
+                break;
+        }
 
         return Task.CompletedTask;
     }
