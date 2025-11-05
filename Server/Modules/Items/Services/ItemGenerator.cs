@@ -8,7 +8,7 @@ namespace Fracture.Server.Modules.Items.Services;
 
 public class ItemGenerator : IItemGenerator
 {
-    private readonly IAIInstructionProvider? _ai;
+    private readonly SingleResponseProvider? _ai;
     private readonly IFeatureManager _featureManager;
     private readonly List<RarityModifier> _modifiers;
     private readonly INameGenerator _nameGenerator;
@@ -18,7 +18,7 @@ public class ItemGenerator : IItemGenerator
     public ItemGenerator(
         INameGenerator nameGenerator,
         PrefixesGenerator prefixes,
-        IAIInstructionProvider? ai = null
+        SingleResponseProvider? ai = null
     )
     {
         _nameGenerator = nameGenerator;
@@ -100,6 +100,6 @@ public class ItemGenerator : IItemGenerator
 
         prompt += $"Item is a reward for defeating {enemy}.";
 
-        return await _ai.GenerateInstructionResponse(prompt);
+        return await _ai.GenerateResponse(prompt);
     }
 }
