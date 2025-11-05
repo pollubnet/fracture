@@ -78,9 +78,7 @@ builder.Services.AddSingletonIfFeatureEnabled<IChatClient>(
         return new OpenAIClient(credential, options).AsChatClient(ai.Model);
     }
 );
-builder.Services.AddSingletonIfFeatureEnabled<IAIInstructionProvider, SimpleInstructionProvider>(
-    FeatureFlags.USE_AI
-);
+builder.Services.AddSingletonIfFeatureEnabled<SingleResponseProvider>(FeatureFlags.USE_AI);
 
 builder
     .Services.AddRazorComponents()
