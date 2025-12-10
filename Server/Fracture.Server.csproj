@@ -30,7 +30,11 @@
       Version="9.0.10"
     />
   </ItemGroup>
-  <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
+  <Target
+    Name="Husky"
+    BeforeTargets="Restore;CollectPackageReferences"
+    Condition="Exists('../.git') And '$(HUSKY)' != '0'"
+  >
     <Exec
       Command="dotnet tool restore"
       StandardOutputImportance="Low"
@@ -43,7 +47,7 @@
       WorkingDirectory=".."
     />
   </Target>
-  <Target Name="GitVersion" BeforeTargets="Build">
+  <Target Name="GitVersion" BeforeTargets="Build" Condition="Exists('../.git')">
     <Exec
       Command="git rev-list --count HEAD &gt; version.txt &amp;&amp; git rev-parse --abbrev-ref HEAD &gt;&gt; version.txt"
       StandardOutputImportance="High"
