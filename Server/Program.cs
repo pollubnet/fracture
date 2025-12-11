@@ -1,3 +1,5 @@
+using System.ClientModel;
+using System.Reflection.Metadata.Ecma335;
 using Fracture.Server.Components;
 using Fracture.Server.Modules.AI.Models;
 using Fracture.Server.Modules.AI.Services;
@@ -15,7 +17,10 @@ using Fracture.Server.Modules.Shared.NameGenerators;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
+using OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,10 +61,24 @@ builder.Services.AddFeatureManagement();
 builder.Services.AddSingleton<MapDataImportService>();
 builder.Services.AddSingleton<MapManagerService>();
 
-builder.Services.AddSingletonIfFeatureEnabled<
-    IAIInstructionProvider,
-    OpenAICompatibleInstructionProvider
->(FeatureFlags.USE_AI);
+builder.Services.AddSingletonIfFeatureEnabled<IChatClient>(
+    FeatureFlags.USE_AI,
+    sp =>
+    {
+        var ai = sp.GetRequiredService<IOptions<AIBackendConfiguration>>().Value;
+        var credential = new ApiKeyCredential(
+            ai.ApiKey ?? Environment.GetEnvironmentVariable("OPENAI_API_KEY") ?? string.Empty
+        );
+
+        var options = new OpenAIClientOptions
+        {
+            Endpoint = new Uri(ai.EndpointUrl ?? string.Empty),
+        };
+
+        return new OpenAIClient(credential, options).AsChatClient(ai.Model);
+    }
+);
+builder.Services.AddSingletonIfFeatureEnabled<SingleResponseProvider>(FeatureFlags.USE_AI);
 
 builder
     .Services.AddRazorComponents()

@@ -18,6 +18,7 @@ public class AIBackendConfiguration
 
     /// <summary>
     ///     Name of the model to be used (e.g. "chatgpt-3.5-turbo" or "mistral")
+    ///     Some servers (e.g. llama.cpp) may ignore that.
     /// </summary>
     public required string Model { get; set; }
 }

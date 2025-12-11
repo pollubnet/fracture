@@ -42,7 +42,7 @@ public class AIGenerationContext
     ///         make it more deterministic.
     ///     </para>
     /// </summary>
-    public double Temperature { get; set; } = 0.7;
+    public float Temperature { get; set; } = 0.7f;
 
     /// <summary>
     ///     Nucleus sampling, controls probability of the tokens
@@ -52,5 +52,5 @@ public class AIGenerationContext
     ///         this or temperature, but not both.
     ///     </para>
     /// </summary>
-    public double? TopP { get; set; }
+    public float? TopP { get; set; }
 }
