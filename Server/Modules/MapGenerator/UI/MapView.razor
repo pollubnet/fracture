@@ -128,8 +128,6 @@
     }
 
     private async void HandleKeyDown(KeyboardEventArgs e) {
-        await BackgroundImageChanger.ChangeBackgroundImageAsync();
-
         if (IsMiniMap == false) {
             if (isMoving) return;
             isMoving = true;
@@ -165,6 +163,7 @@
             if (CanMoveToTile(newX, newY)) {
                 CharacterXX = newX;
                 CharacterYY = newY;
+                await BackgroundImageChanger.ChangeBackgroundImageAsync();
                 StateHasChanged();
             }
 
@@ -181,4 +180,3 @@
     }
 
 }
-

@@ -27,16 +27,19 @@
         {
           "Name": "Molten Core",
           "Color": "DarkRed",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 0,
               "Mult": 0.0
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 0,
               "Mult": 0.0
             }
@@ -53,16 +56,19 @@
         {
           "Name": "Lava Rivers",
           "Color": "Red",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 20,
               "Mult": 0.6
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 20,
               "Mult": 0.6
             }
@@ -79,16 +85,19 @@
         {
           "Name": "Volcanic Ash",
           "Color": "Firebrick",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 4,
               "Mult": 1.0
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 13,
               "Mult": 1.0
             }
@@ -105,16 +114,19 @@
         {
           "Name": "Obsidian Fields",
           "Color": "Maroon",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 11,
               "Mult": 1.0
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 11,
               "Mult": 1.0
             }
@@ -131,16 +143,19 @@
         {
           "Name": "Smoldering Craters",
           "Color": "OrangeRed",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.7,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 9,
               "Mult": 0.7
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 9,
               "Mult": 0.7
             }
@@ -149,17 +164,20 @@
         {
           "Name": "Basalt Columns",
           "Color": "DarkSlateGray",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.3,
           "MaxTemperature": 0.7,
           "Walkable": false,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 9,
               "Mult": 1.0
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 9,
               "Mult": 1.0
             }
@@ -168,16 +186,19 @@
         {
           "Name": "Charred Wasteland",
           "Color": "Sienna",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 0.3,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 7,
               "Mult": 1.0
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 5,
               "Mult": 1.0
             }
@@ -194,16 +215,19 @@
         {
           "Name": "Fumarole Fields",
           "Color": "DarkGray",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.6,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 5,
               "Mult": 1.0
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 5,
               "Mult": 1.0
             }
@@ -212,16 +236,19 @@
         {
           "Name": "Magma Chambers",
           "Color": "Crimson",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.3,
           "MaxTemperature": 0.6,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 4,
               "Mult": 1.0
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 4,
               "Mult": 1.0
             }
@@ -230,16 +257,19 @@
         {
           "Name": "Sulfuric Rocks",
           "Color": "Goldenrod",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 0.3,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 6,
               "Mult": 1.0
             },
             {
               "Name": "Cave",
+              "BackgroundImage": "../assets/background/swamp.jpg",
               "Weight": 6,
               "Mult": 1.0
             }
@@ -256,11 +286,13 @@
         {
           "Name": "Volcanic Caldera",
           "Color": "Black",
+          "BackgroundImage": "../assets/background/lava.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/church.jpg",
               "Weight": 5,
               "Mult": 1.0
             }
