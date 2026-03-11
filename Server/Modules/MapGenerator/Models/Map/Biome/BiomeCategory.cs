@@ -7,6 +7,8 @@ public class BiomeCategory
     public string BiomeType { get; set; }
     public string TerrainType { get; set; }
 
+    public string BackgroundImage { get; set; }
+
     public float MaxHeight { get; set; }
     public float MinHeight { get; set; }
 

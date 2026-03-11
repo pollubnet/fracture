@@ -27,11 +27,13 @@
         {
           "Name": "Deep Ocean",
           "Color": "DarkBlue",
+          "BackgroundImage": "../assets/background/ocean.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 0,
               "Mult": 0.0
             }
@@ -49,11 +51,13 @@
         {
           "Name": "Shallow Water",
           "Color": "Blue",
+          "BackgroundImage": "../assets/background/ocean.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -73,11 +77,13 @@
         {
           "Name": "Beach",
           "Color": "BurlyWood",
+          "BackgroundImage": "../assets/background/river.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -96,11 +102,13 @@
         {
           "Name": "Grassland",
           "Color": "ForestGreen",
+          "BackgroundImage": "../assets/background/river.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -118,11 +126,13 @@
         {
           "Name": "Tropical Forest",
           "Color": "DarkGreen",
+          "BackgroundImage": "../assets/background/river.jpg",
           "MinTemperature": 0.7,
           "MaxTemperature": 1.0,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -132,11 +142,13 @@
         {
           "Name": "Temperate Forest",
           "Color": "DarkOliveGreen",
+          "BackgroundImage": "../assets/background/river.jpg",
           "MinTemperature": 0.4,
           "MaxTemperature": 0.7,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -146,11 +158,13 @@
         {
           "Name": "Forest",
           "Color": "Green",
+          "BackgroundImage": "../assets/background/river.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 0.4,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -168,11 +182,13 @@
         {
           "Name": "Rainy Mountains",
           "Color": "SlateGray",
+          "BackgroundImage": "../assets/background/mountains.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 0.45,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -182,11 +198,13 @@
         {
           "Name": "Snowy Mountains",
           "Color": "Snow",
+          "BackgroundImage": "../assets/background/mountains.jpg",
           "MinTemperature": 0.45,
           "MaxTemperature": 0.6,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -196,11 +214,13 @@
         {
           "Name": "Default",
           "Color": "Gray",
+          "BackgroundImage": "../assets/background/mountains.jpg",
           "MinTemperature": 0.6,
           "MaxTemperature": 1.0,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -218,11 +238,13 @@
         {
           "Name": "High Mountains",
           "Color": "DarkGray",
+          "BackgroundImage": "../assets/background/mountainsRiver.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations":[
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/market.jpg",
               "Weight": 20,
               "Mult": 1.0
             }

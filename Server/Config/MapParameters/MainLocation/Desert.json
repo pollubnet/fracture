@@ -27,11 +27,13 @@
         {
           "Name": "Salt Pan",
           "Color": "WhiteSmoke",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 10,
               "Mult": 1.0
             }
@@ -48,11 +50,13 @@
         {
           "Name": "Shifting Dunes",
           "Color": "SandyBrown",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.7,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 10,
               "Mult": 1.0
             }
@@ -61,11 +65,13 @@
         {
           "Name": "Stable Dunes",
           "Color": "Goldenrod",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.3,
           "MaxTemperature": 0.7,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 15,
               "Mult": 1.0
             }
@@ -74,11 +80,13 @@
         {
           "Name": "Gravel Plains",
           "Color": "DarkGray",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 0.3,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -95,11 +103,13 @@
         {
           "Name": "Sandstone Outcrops",
           "Color": "Peru",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.6,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 15,
               "Mult": 1.0
             }
@@ -108,11 +118,13 @@
         {
           "Name": "Desert Pavement",
           "Color": "Sienna",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.3,
           "MaxTemperature": 0.6,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 20,
               "Mult": 1.0
             }
@@ -121,11 +133,13 @@
         {
           "Name": "Fossil Beds",
           "Color": "BurlyWood",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 0.3,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 25,
               "Mult": 1.0
             }
@@ -142,11 +156,13 @@
         {
           "Name": "Sandstone Mesa",
           "Color": "Chocolate",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.5,
           "MaxTemperature": 1.0,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 10,
               "Mult": 1.0
             }
@@ -155,11 +171,13 @@
         {
           "Name": "Petrified Forest",
           "Color": "SaddleBrown",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.2,
           "MaxTemperature": 0.5,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 15,
               "Mult": 1.0
             }
@@ -168,11 +186,13 @@
         {
           "Name": "Canyon Lands",
           "Color": "Maroon",
+          "BackgroundImage": "../assets/background/desert.jpg",
           "MinTemperature": 0.0,
           "MaxTemperature": 0.2,
           "Locations": [
             {
               "Name": "Town",
+              "BackgroundImage": "../assets/background/cementary.jpg",
               "Weight": 20,
               "Mult": 1.0
             }

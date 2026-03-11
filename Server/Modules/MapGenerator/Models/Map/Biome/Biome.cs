@@ -9,6 +9,6 @@ public class Biome
     public float MinTemperature { get; set; }
     public float MaxTemperature { get; set; }
     public bool Walkable { get; set; } = true;
-
+    public string BackgroundImage { get; set; }
     public List<Location> Locations { get; set; } = new();
 }
