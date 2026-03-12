@@ -14,7 +14,7 @@ serwer na własnym komputerze, który będzie mogł uruchamiać popularny i mał
 wymagający model, np. Mistral-7B. Ollama dostępna jest zarówno dla Windows,
 Linuksa, jak i macOS i dostosowana jest zarówno do wykorzystania CUDA na kartach
 NVIDII, jak i ROCm na kartach graficznych AMD (lub pozwala również skorzystać
-tylko z procesora).
+tylko z procesora) czy też MLX na nowszych Makach.
 
 ## Konfiguracja backendu AI w aplikacji
 
@@ -22,10 +22,32 @@ Konfiguracja backendu AI jest oparta o plik sekretów (`secrets.json`), aby kluc
 API (potencjalnie bardzo wrażliwa informacja) nie "wyciekł", a także, aby każdy
 programista mógł korzystać z własnej konfiguracji AI.
 
+### Włączenie funkcji AI
+
+Z uwagi na to, że nie każdy chce (i może) korzystać z własnego systemu typu LLM,
+wszystkie funkcje oparte o AI można obecnie wyłączyć i są domyślnie wyłączone.
+Aby je włączyć, musisz aktywować tzw. flagę funkcji. W pliku sekretów trzeba
+dodać sekcję, która aktywuje funkcje AI.
+
 [Przeczytaj
 dokumentację.](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-8.0&tabs=linux).
 
-Sekrety aplikacji definiują URL serwera i domyślny model, na przykład:
+```json
+"feature_management": {
+  "feature_flags": [
+    {
+      "id": "UseAI",
+      "enabled": true
+    }
+  ]
+}
+```
+
+### Konfiguracja backendu
+
+Następnie można dodać sekcję `AiBackend`, która wybierze z jakiego serwera i
+jakiego modelu będzie korzystał system. Przykładowo, dla lokalnej Ollamy można
+wybrać coś takiego:
 
 ```json
 "AiBackend": {
@@ -34,7 +56,8 @@ Sekrety aplikacji definiują URL serwera i domyślny model, na przykład:
 }
 ```
 
-Opcjonalnie można również dostarczyć klucz API wykorzystywany do komunikacji:
+Opcjonalnie można również dostarczyć klucz API wykorzystywany do komunikacji, co
+jest niezbędne dla m.in. oficjalnego API od OpenAI.
 
 ```json
 "AiBackend": {
@@ -44,18 +67,25 @@ Opcjonalnie można również dostarczyć klucz API wykorzystywany do komunikacji
 }
 ```
 
-URL i klucz API serwera uczelnianego są na Discordzie. Obecnie testowo używamy
-modelu Llama 3 8B.
+URL i klucz API serwera uczelnianego są udostępnione na Discordzie. Obecnie
+testowo używamy jednej z odmian modelu Llama-3.1 8B.
 
-## Włączenie funkcji AI
-
-Z uwagi na to, że nie każdy chce (i może) korzystać z własnego systemu typu LLM,
-wszystkie funkcje oparte o AI można obecnie wyłączyć i są domyślnie wyłączone.
-Aby je włączyć, musisz aktywować tzw. flagę funkcji. W pliku sekretów dodaj
-sekcję, które nadpisze domyślne wartości:
+Przykładowo, pełny plik sekretów może wyglądać następująco:
 
 ```json
-"FeatureFlags": {
-  "UseAI": true
+{
+  "feature_management": {
+    "feature_flags": [
+      {
+        "id": "UseAI",
+        "enabled": true
+      }
+    ]
+  },
+  "AiBackend": {
+    "EndpointUrl": "http://localhost:1234",
+    "ApiKey": "Yq7CMVg0bkUVAVhQyXge",
+    "Model": "mistral"
+  }
 }
 ```
