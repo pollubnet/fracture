@@ -16,8 +16,8 @@ public class MovementService(UserService _userService, MapManagerService _mapMan
     public int CurrentX { get; private set; }
     public int CurrentY { get; private set; }
 
-    public EventHandler<Location>? OnMoved;
-    public EventHandler<(Map, Location)>? OnMapEntered;
+    public event EventHandler<Location>? OnMoved;
+    public event EventHandler<(Map, Location)>? OnMapEntered;
 
     public void Initialize()
     {
