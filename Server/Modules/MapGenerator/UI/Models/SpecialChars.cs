@@ -13,4 +13,9 @@ public static class SpecialChars
         public const string Left = "\U00002190";
         public const string UpLeft = "\U00002196";
     }
+
+    public static class Icons
+    {
+        public const string Player = "&#128528";
+    }
 }

@@ -3,5 +3,6 @@
 public class MapDisplayOptions
 {
     public bool ShowColorMap { get; set; } = true;
+    public bool ShowPlayer { get; set; } = true;
     public TileInformationDisplay TileInformationDisplay { get; set; }
 }

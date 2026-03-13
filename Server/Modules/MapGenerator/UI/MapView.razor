@@ -19,10 +19,10 @@
 					{
 						var node = Map.Grid[x, y];
 
-						@if (x == CharacterX && y == CharacterY)
+						@if (MapDisplayOptions.ShowPlayer && x == CharacterX && y == CharacterY)
 						{
 							<td style='background: @GetTileColor(Map.Grid[x, y]); font-size:6px;'>
-								&#128528
+								@SpecialChars.Icons.Player
 							</td>
 						}
 						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Position)
