@@ -21,7 +21,7 @@
 					{
 						var node = Map.Grid[x, y];
 
-						@if (x == MovementService.CurrentX && y == MovementService.CurrentY)
+						@if (x == CharacterX && y == CharacterY)
 						{
 							<td style='background: @GetTileColor(Map.Grid[x, y]); font-size:6px;'>
 								&#128528
@@ -73,6 +73,9 @@
 
 	[Parameter] public bool IsMiniMap { get; set; } = true;
 
+	[Parameter] public int CharacterX { get; set; }
+	[Parameter] public int CharacterY { get; set; }
+
 
 	private bool isMoving = false;
 
@@ -118,6 +121,9 @@
 
 	protected override void OnInitialized()
 	{
+		CharacterX = MovementService.CurrentX;
+		CharacterY = MovementService.CurrentY;
+
 		BackgroundImageChanger.BackgroundImage = GamePage.BackgroundImage;
 	}
 
@@ -176,12 +182,14 @@
 			if (MovementService.CanMove(newX, newY))
 			{
 				await MovementService.MoveAsync(newX, newY);
+				CharacterX = newX;
+				CharacterY = newY;
 
 				await BackgroundImageChanger.ChangeBackgroundImageAsync();
 				StateHasChanged();
 			}
 
-			//Task.Delay(100).ContinueWith(_ => { isMoving = false; });
+			await Task.Delay(100).ContinueWith(_ => { isMoving = false; });
 		}
 	}
 

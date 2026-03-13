@@ -10,11 +10,21 @@ public class MovementService(UserService _userService, MapManagerService _mapMan
     public int CurrentX { get; private set; }
     public int CurrentY { get; private set; }
 
+    public Action? OnMoved;
+    public Action? OnMapEntered;
+
     public void Initialize()
     {
         CurrentMap =
             _mapManagerService.GetWorldMap()
             ?? throw new InvalidOperationException("Map cannot be loaded, critical error");
+
+        OnMapEntered?.Invoke();
+
+        CurrentX = 16;
+        CurrentY = 16;
+
+        OnMoved?.Invoke();
     }
 
     public bool CanMove(int x, int y)
@@ -29,8 +39,9 @@ public class MovementService(UserService _userService, MapManagerService _mapMan
 
     public async Task MoveAsync(int x, int y)
     {
-        await Task.Delay(100);
         CurrentX = x;
         CurrentY = y;
+
+        OnMoved?.Invoke();
     }
 }

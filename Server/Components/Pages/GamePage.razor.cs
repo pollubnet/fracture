@@ -27,7 +27,10 @@ public partial class GamePage
             NavigationManager.NavigateTo("/");
         }
 
-        MovementService.Initialize();
+        if (MovementService.CurrentMap is null)
+        {
+            MovementService.Initialize();
+        }
 
         _mapDisplayOptions.ShowColorMap = true;
         _mapPopupParameters = new Dictionary<string, object>
