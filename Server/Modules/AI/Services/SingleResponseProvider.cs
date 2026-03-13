@@ -12,7 +12,7 @@ public class SingleResponseProvider(IChatClient client)
     /// </summary>
     /// <param name="prompt">A simple prompt</param>
     /// <returns>A LLM response as a string</returns>
-    public async Task<string?> GenerateResponse(string prompt)
+    public async Task<string?> GenerateResponseAsync(string prompt)
     {
         return await GenerateResponse(new AIGenerationContext { Prompt = prompt });
     }

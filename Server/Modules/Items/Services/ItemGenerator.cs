@@ -9,7 +9,6 @@ namespace Fracture.Server.Modules.Items.Services;
 public class ItemGenerator : IItemGenerator
 {
     private readonly SingleResponseProvider? _ai;
-    private readonly IFeatureManager _featureManager;
     private readonly List<RarityModifier> _modifiers;
     private readonly INameGenerator _nameGenerator;
     private readonly PrefixesGenerator _prefixes;
@@ -100,6 +99,7 @@ public class ItemGenerator : IItemGenerator
 
         prompt += $"Item is a reward for defeating {enemy}.";
 
-        return await _ai.GenerateResponse(prompt);
+        // this function will not run at all if AI is disabled, so we can be sure that _ai is not null here
+        return await _ai!.GenerateResponseAsync(prompt)! ?? string.Empty;
     }
 }
