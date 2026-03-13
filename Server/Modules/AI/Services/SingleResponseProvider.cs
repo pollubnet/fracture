@@ -3,16 +3,14 @@ using Microsoft.Extensions.AI;
 
 namespace Fracture.Server.Modules.AI.Services;
 
-public class SingleResponseProvider(IChatClient client)
+public class SingleResponseProvider(IChatClient _client)
 {
-    private readonly IChatClient _client = client;
-
     /// <summary>
     /// Returns a response generated for a given prompt.
     /// </summary>
     /// <param name="prompt">A simple prompt</param>
     /// <returns>A LLM response as a string</returns>
-    public async Task<string?> GenerateResponse(string prompt)
+    public async Task<string?> GenerateResponseAsync(string prompt)
     {
         return await GenerateResponse(new AIGenerationContext { Prompt = prompt });
     }

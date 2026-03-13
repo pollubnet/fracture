@@ -33,6 +33,7 @@ public class MapParametersReader
         }
         catch (Exception ex)
         {
+            _logger.LogCritical(ex, "Error while reading map parameters from json file");
             return null;
         }
     }

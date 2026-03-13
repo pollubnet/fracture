@@ -13,7 +13,7 @@ public class Item
 
     public string Name { get; set; } = null!;
 
-    public string? History { get; set; } = null!;
+    public string? History { get; set; }
 
     public ItemRarity Rarity { get; set; } = ItemRarity.Common;
 

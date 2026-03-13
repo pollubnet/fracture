@@ -2,11 +2,11 @@
 
 public class FloodFillService<T> : IFloodFillService<T>
 {
-    private readonly int[,] directions;
+    private readonly int[,] _directions;
 
     public FloodFillService(bool useDiagonals = false)
     {
-        directions = useDiagonals
+        _directions = useDiagonals
             ? new[,]
             {
                 { 0, 1 },
@@ -86,10 +86,10 @@ public class FloodFillService<T> : IFloodFillService<T>
             visited[x, y] = true;
             result.Add((x, y));
 
-            for (var i = 0; i < directions.GetLength(0); i++)
+            for (var i = 0; i < _directions.GetLength(0); i++)
             {
-                var nx = x + directions[i, 0];
-                var ny = y + directions[i, 1];
+                var nx = x + _directions[i, 0];
+                var ny = y + _directions[i, 1];
                 queue.Enqueue((nx, ny));
             }
         }

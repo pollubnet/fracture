@@ -10,7 +10,7 @@ namespace Fracture.Server.Modules.Shared.NameGenerators;
 /// </summary>
 public class MarkovNameGenerator : INameGenerator
 {
-    private readonly MarkovChain<char> chain;
+    private readonly MarkovChain<char> _chain;
 
     /// <summary>
     ///     Initializes a new instance of a generator
@@ -24,15 +24,15 @@ public class MarkovNameGenerator : INameGenerator
                 "A base set of names is required"
             );
 
-        chain = new MarkovChain<char>(2);
+        _chain = new MarkovChain<char>(2);
 
         foreach (var name in options.Value.DefaultNameBase)
-            chain.Add(name);
+            _chain.Add(name);
     }
 
     /// <inheritdoc />
     public Task<string> GenerateNameAsync()
     {
-        return Task.FromResult(new string(chain.Chain(Random.Shared).ToArray()));
+        return Task.FromResult(new string([.. _chain.Chain(Random.Shared)]));
     }
 }
