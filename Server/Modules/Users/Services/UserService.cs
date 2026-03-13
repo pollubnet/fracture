@@ -8,7 +8,16 @@ namespace Fracture.Server.Modules.Users.Services;
 public class UserService(IItemsRepository _itemsRepository)
 {
     public User? User { get; private set; }
+
+    /// <summary>
+    /// Inventory is a list of all items user has, while Equipment is a list of currently equipped items.
+    /// An item will be in both lists if it's equipped, but if it's not equipped, it will only be in Inventory.
+    /// </summary>
     public ObservableCollection<Item> Inventory { get; } = new();
+
+    /// <summary>
+    /// Equipment is a list of currently equipped items.
+    /// </summary>
     public ObservableCollection<Item> Equipment { get; } = new();
 
     public async Task LoadUserAsync(User user)
