@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Fracture.Server.Modules.Items.Models;
 
-namespace Fracture.Server.Modules.Users;
+namespace Fracture.Server.Modules.Users.Models;
 
 public class User
 {

@@ -5,17 +5,12 @@ using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.UI.Models;
 using Fracture.Server.Modules.Pathfinding.Models;
 using Fracture.Server.Modules.Shared.ImageChangers;
-using Fracture.Server.Modules.Users;
+using Fracture.Server.Modules.Users.Models;
 
 namespace Fracture.Server.Components.Pages;
 
 public partial class GamePage
 {
-    private User _user = new();
-    private readonly ObservableCollection<Item> _equipment = new();
-    private readonly ObservableCollection<Item> _inventory = new();
-
-    private Dictionary<string, object> _equipmentPopupParameters = null!;
     private Dictionary<string, object> _mapPopupParameters = null!;
     public static Map Map { get; set; }
 
@@ -29,46 +24,12 @@ public partial class GamePage
 
     protected override async Task OnInitializedAsync()
     {
-        var username = await ProtectedSessionStore.GetAsync<string>("username");
-        if (!username.Success)
+        bool userLoaded = await LoadUser();
+        if (!userLoaded)
         {
             NavigationManager.NavigateTo("/");
-            return;
         }
 
-        if (string.IsNullOrEmpty(username.Value))
-        {
-            NavigationManager.NavigateTo("/");
-            return;
-        }
-
-        var user = await UsersRepository.GetUserAsync(username.Value!);
-        if (user is null)
-        {
-            user = new User { Username = username.Value! };
-            await UsersRepository.AddUserAsync(user);
-        }
-
-        _user = user;
-
-        _inventory.Clear();
-        _equipment.Clear();
-        foreach (var item in await ItemsRepository.GetItemsOfUserAsync(_user.Id))
-        {
-            _inventory.Add(item);
-        }
-
-        foreach (var item in _inventory.ToList().Where(i => i.IsEquipped))
-        {
-            _equipment.Add(item);
-        }
-
-        _equipmentPopupParameters = new Dictionary<string, object>
-        {
-            { "UserData", _user },
-            { "Equipment", _equipment },
-            { "Inventory", _inventory },
-        };
         Map = MapManagerService.GetWorldMap() ?? throw new InvalidOperationException();
         _mapDisplayData.ShowColorMap = true;
         _mapPopupParameters = new Dictionary<string, object>
@@ -83,6 +44,30 @@ public partial class GamePage
         BackgroundImageChanger.BackgroundImageChanged += OnBgChanged!;
 
         await base.OnInitializedAsync();
+    }
+
+    private async Task<bool> LoadUser()
+    {
+        var username = await ProtectedSessionStore.GetAsync<string>("username");
+        if (!username.Success)
+        {
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(username.Value))
+        {
+            return false;
+        }
+
+        var user = await UsersRepository.GetUserAsync(username.Value!);
+        if (user is null)
+        {
+            user = new User { Username = username.Value! };
+            await UsersRepository.AddUserAsync(user);
+        }
+
+        await UserService.LoadUserAsync(user);
+        return true;
     }
 
     private void Logout()

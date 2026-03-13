@@ -4,10 +4,11 @@
 @using Fracture.Server.Modules.Items.Models
 @using Fracture.Server.Modules.Items.Services
 @using Fracture.Server.Modules.Users
+@using Fracture.Server.Modules.Users.Services
 @inject IItemGenerator ItemGenerator
 @inject IItemsRepository ItemsRepository
 @inject ILogger<EquipmentPopup> Logger
-
+@inject UserService UserService
 
 
 <div class="eqContainer">
@@ -18,16 +19,18 @@
         <div>Inventory</div>
         <div class="eqColumn">
 
-            @foreach (var item in Inventory.Where(x => !IsEquipped(x))) {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)"
+            @foreach (var item in UserService.Inventory.Where(x => !UserService.IsEquipped(x)))
+            {
+                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
                           OnUnequipClicked="() => Unequip(item)"></ItemCard>
             }
         </div>
         <div>Equipped</div>
         <div class="eqColumn">
 
-            @foreach (var item in Equipment) {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)"
+            @foreach (var item in UserService.Equipment)
+            {
+                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
                           OnUnequipClicked="() => Unequip(item)"></ItemCard>
             }
         </div>

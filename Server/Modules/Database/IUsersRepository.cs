@@ -1,4 +1,4 @@
-﻿using Fracture.Server.Modules.Users;
+﻿using Fracture.Server.Modules.Users.Models;
 
 namespace Fracture.Server.Modules.Database;
 
