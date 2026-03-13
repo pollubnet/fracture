@@ -11,11 +11,6 @@ namespace Fracture.Server.Components.Pages;
 
 public partial class GamePage
 {
-    private User _user = new();
-    private readonly ObservableCollection<Item> _equipment = new();
-    private readonly ObservableCollection<Item> _inventory = new();
-
-    private Dictionary<string, object> _equipmentPopupParameters = null!;
     private Dictionary<string, object> _mapPopupParameters = null!;
     public static Map Map { get; set; }
 
@@ -35,12 +30,6 @@ public partial class GamePage
             NavigationManager.NavigateTo("/");
         }
 
-        _equipmentPopupParameters = new Dictionary<string, object>
-        {
-            { "UserData", _user },
-            { "Equipment", _equipment },
-            { "Inventory", _inventory },
-        };
         Map = MapManagerService.GetWorldMap() ?? throw new InvalidOperationException();
         _mapDisplayData.ShowColorMap = true;
         _mapPopupParameters = new Dictionary<string, object>
