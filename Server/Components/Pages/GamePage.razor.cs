@@ -66,7 +66,7 @@ public partial class GamePage
             await UsersRepository.AddUserAsync(user);
         }
 
-        await _userInventoryService.LoadAsync(user);
+        await UserService.LoadUserAsync(user);
         return true;
     }
 

@@ -1,12 +1,12 @@
 ﻿@using System.Collections.ObjectModel
 @using Fracture.Server.Modules.Items.Models
 @using Fracture.Server.Modules.Users.Services
-@inject UserInventoryService _userInventoryService
+@inject UserService UserService
 
 <table class="stat-table">
 	@foreach (var itemStat in Enum.GetValues<ItemStat>())
 	{
-		var stat = _userInventoryService.Equipment?.Sum(x => x.Statistics.GetStatFromItemStat(itemStat));
+		var stat = UserService.Equipment?.Sum(x => x.Statistics.GetStatFromItemStat(itemStat));
 		<tr>
 			<td><img src=@("assets/" + images[itemStat])></td>
 			<td>@itemStat</td>
@@ -19,7 +19,7 @@
 
 	protected override void OnInitialized()
 	{		
-		_userInventoryService.Equipment.CollectionChanged += (sender, e) => StateHasChanged();
+		UserService.Equipment.CollectionChanged += (sender, e) => StateHasChanged();
 	}
 
 	Dictionary<ItemStat, string> images = new() {

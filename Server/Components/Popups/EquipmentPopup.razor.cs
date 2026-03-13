@@ -17,27 +17,27 @@ public partial class EquipmentPopup
 
         if (item is not null)
         {
-            item.CreatedBy = _userInventoryService.User!;
-            item.CreatedById = _userInventoryService.User!.Id;
+            item.CreatedBy = UserService.User!;
+            item.CreatedById = UserService.User!.Id;
 
             await ItemsRepository.AddItemAsync(item);
-            _userInventoryService.Inventory.Add(item);
+            UserService.Inventory.Add(item);
         }
     }
 
     public void Equip(Item item)
     {
-        if (_userInventoryService.Equipment.Count < slots)
+        if (UserService.Equipment.Count < slots)
         {
             if (item.Type.Equals(ItemType.Ring))
             {
                 item.IsEquipped = true;
                 ItemsRepository.UpdateItemAsync(item);
-                _userInventoryService.Equipment.Add(item);
+                UserService.Equipment.Add(item);
                 return;
             }
 
-            foreach (var equipped in _userInventoryService.Equipment)
+            foreach (var equipped in UserService.Equipment)
             {
                 if (equipped.Type.Equals(item.Type))
                 {
@@ -47,7 +47,7 @@ public partial class EquipmentPopup
 
             item.IsEquipped = true;
             ItemsRepository.UpdateItemAsync(item);
-            _userInventoryService.Equipment.Add(item);
+            UserService.Equipment.Add(item);
         }
     }
 
@@ -55,11 +55,11 @@ public partial class EquipmentPopup
     {
         item.IsEquipped = false;
         ItemsRepository.UpdateItemAsync(item);
-        _userInventoryService.Equipment.Remove(item);
+        UserService.Equipment.Remove(item);
     }
 
     public bool IsEquipped(Item item)
     {
-        return _userInventoryService.Equipment.Contains(item);
+        return UserService.Equipment.Contains(item);
     }
 }

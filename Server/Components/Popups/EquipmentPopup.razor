@@ -8,7 +8,7 @@
 @inject IItemGenerator ItemGenerator
 @inject IItemsRepository ItemsRepository
 @inject ILogger<EquipmentPopup> Logger
-@inject UserInventoryService _userInventoryService
+@inject UserService UserService
 
 
 <div class="eqContainer">
@@ -19,7 +19,7 @@
         <div>Inventory</div>
         <div class="eqColumn">
 
-            @foreach (var item in _userInventoryService.Inventory.Where(x => !IsEquipped(x)))
+            @foreach (var item in UserService.Inventory.Where(x => !IsEquipped(x)))
             {
                 <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)"
                           OnUnequipClicked="() => Unequip(item)"></ItemCard>
@@ -28,7 +28,7 @@
         <div>Equipped</div>
         <div class="eqColumn">
 
-            @foreach (var item in _userInventoryService.Equipment)
+            @foreach (var item in UserService.Equipment)
             {
                 <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)"
                           OnUnequipClicked="() => Unequip(item)"></ItemCard>
