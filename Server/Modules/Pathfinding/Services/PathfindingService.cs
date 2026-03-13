@@ -80,7 +80,7 @@ public class PathfindingService : IPathfindingService
         return neighbors;
     }
 
-    private List<IPathfindingNode> ReconstructPath(IPathfindingNode node)
+    private List<IPathfindingNode> ReconstructPath(IPathfindingNode? node)
     {
         List<IPathfindingNode> path = new List<IPathfindingNode>();
 

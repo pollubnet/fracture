@@ -6,7 +6,7 @@ namespace Fracture.Server.Modules.MapGenerator.Services.TownGen;
 public class LocationBiomeWeightGenService : ILocationWeightGeneratorService
 {
     private readonly ILogger<LocationParameters> _logger;
-    private LocationParameters _locationParameters;
+    private LocationParameters? _locationParameters;
 
     public LocationBiomeWeightGenService(ILogger<LocationParameters> logger)
     {
@@ -64,14 +64,14 @@ public class LocationBiomeWeightGenService : ILocationWeightGeneratorService
 
     private int GetWeight(Node node)
     {
-        var biomeParams = _locationParameters.Get(node.Biome.Name);
+        var biomeParams = _locationParameters!.Get(node.Biome.Name);
         return biomeParams.Weight;
     }
 
     // Self multipliers to make a mountain city surrounded mountains or hills less likely
     private float GetMultiplier(Node node)
     {
-        var biomeParams = _locationParameters.Get(node.Biome.Name);
+        var biomeParams = _locationParameters!.Get(node.Biome.Name);
         return biomeParams.Mult;
     }
 }

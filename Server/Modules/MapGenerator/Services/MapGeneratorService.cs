@@ -19,9 +19,9 @@ public class MapGeneratorService : IMapGeneratorService
         return await Task.FromResult(GenerateMap(mapParameters));
     }
 
-    private Node[,] GenerateGrid(MapParameters? mapParameters)
+    private Node[,] GenerateGrid(MapParameters mapParameters)
     {
-        var noiseParameters = mapParameters?.NoiseParameters;
+        var noiseParameters = mapParameters.NoiseParameters;
         noiseParameters.Seed = noiseParameters.UseRandomSeed
             ? _rnd.Next(-100000, 100000)
             : noiseParameters.Seed;
