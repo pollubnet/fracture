@@ -19,8 +19,9 @@ public class MovementService(MapManagerService _mapManagerService)
             _mapManagerService.GetWorldMap()
             ?? throw new InvalidOperationException("Map cannot be loaded, critical error");
 
-        CurrentX = 16;
-        CurrentY = 16;
+        var start = CurrentMap.GetRandomWalkableNode();
+        CurrentX = start.X;
+        CurrentY = start.Y;
 
         OnMapEntered?.Invoke(this, new(CurrentMap, new Position(CurrentX, CurrentY)));
     }
