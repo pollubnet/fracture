@@ -29,27 +29,11 @@ public partial class GamePage
 
     protected override async Task OnInitializedAsync()
     {
-        var username = await ProtectedSessionStore.GetAsync<string>("username");
-        if (!username.Success)
+        bool userLoaded = await LoadUser();
+        if (!userLoaded)
         {
             NavigationManager.NavigateTo("/");
-            return;
         }
-
-        if (string.IsNullOrEmpty(username.Value))
-        {
-            NavigationManager.NavigateTo("/");
-            return;
-        }
-
-        var user = await UsersRepository.GetUserAsync(username.Value!);
-        if (user is null)
-        {
-            user = new User { Username = username.Value! };
-            await UsersRepository.AddUserAsync(user);
-        }
-
-        await _userInventoryService.LoadAsync(user);
 
         _equipmentPopupParameters = new Dictionary<string, object>
         {
@@ -71,6 +55,30 @@ public partial class GamePage
         BackgroundImageChanger.BackgroundImageChanged += OnBgChanged!;
 
         await base.OnInitializedAsync();
+    }
+
+    private async Task<bool> LoadUser()
+    {
+        var username = await ProtectedSessionStore.GetAsync<string>("username");
+        if (!username.Success)
+        {
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(username.Value))
+        {
+            return false;
+        }
+
+        var user = await UsersRepository.GetUserAsync(username.Value!);
+        if (user is null)
+        {
+            user = new User { Username = username.Value! };
+            await UsersRepository.AddUserAsync(user);
+        }
+
+        await _userInventoryService.LoadAsync(user);
+        return true;
     }
 
     private void Logout()

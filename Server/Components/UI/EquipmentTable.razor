@@ -1,15 +1,17 @@
 ﻿@using System.Collections.ObjectModel
 @using Fracture.Server.Modules.Items.Models
+@using Fracture.Server.Modules.Users.Services
 @rendermode InteractiveServer
+@inject UserInventoryService _userInventoryService
 
 <table class="equipmentTable">
 	<tr>
 		@for (var i = 0; i < 3; i++)
 		{
-			if (i < Equipment.Count)
+			if (i < _userInventoryService.Equipment.Count)
 			{
 				<td>
-					<div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div>
+					<div class="@ToCss(_userInventoryService.Equipment[i].Name)">@_userInventoryService.Equipment[i].Name</div>
 				</td>
 			}
 			else
@@ -22,10 +24,10 @@
 	<tr>
 		@for (var i = 3; i < 6; i++)
 		{
-			if (i < Equipment.Count)
+			if (i < _userInventoryService.Equipment.Count)
 			{
 				<td>
-					<div class="@ToCss(Equipment[i].Name)">@Equipment[i].Name</div>
+					<div class="@ToCss(_userInventoryService.Equipment[i].Name)">@_userInventoryService.Equipment[i].Name</div>
 				</td>
 			}
 			else
@@ -38,12 +40,11 @@
 
 </table>
 
-@code {
-	[Parameter] public required ObservableCollection<Item> Equipment { get; set; }
+@code {	
 
 	protected override void OnInitialized()
 	{
-		Equipment.CollectionChanged += (sender, e) => StateHasChanged();
+		_userInventoryService.Equipment.CollectionChanged += (sender, e) => StateHasChanged();
 	}
 
 	private string ToCss(string name)
