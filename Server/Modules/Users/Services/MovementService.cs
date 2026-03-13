@@ -3,6 +3,12 @@ using Fracture.Server.Modules.MapGenerator.Services;
 
 namespace Fracture.Server.Modules.Users.Services;
 
+public record struct Location(int X, int Y)
+{
+    public int X { get; init; } = X;
+    public int Y { get; init; } = Y;
+}
+
 public class MovementService(UserService _userService, MapManagerService _mapManagerService)
 {
     public Map? CurrentMap { get; private set; }
@@ -10,8 +16,8 @@ public class MovementService(UserService _userService, MapManagerService _mapMan
     public int CurrentX { get; private set; }
     public int CurrentY { get; private set; }
 
-    public Action? OnMoved;
-    public Action? OnMapEntered;
+    public EventHandler<Location>? OnMoved;
+    public EventHandler<(Map, Location)>? OnMapEntered;
 
     public void Initialize()
     {
@@ -19,12 +25,10 @@ public class MovementService(UserService _userService, MapManagerService _mapMan
             _mapManagerService.GetWorldMap()
             ?? throw new InvalidOperationException("Map cannot be loaded, critical error");
 
-        OnMapEntered?.Invoke();
-
         CurrentX = 16;
         CurrentY = 16;
 
-        OnMoved?.Invoke();
+        OnMapEntered?.Invoke(this, new(CurrentMap, new Location(CurrentX, CurrentY)));
     }
 
     public bool CanMove(int x, int y)
@@ -42,6 +46,6 @@ public class MovementService(UserService _userService, MapManagerService _mapMan
         CurrentX = x;
         CurrentY = y;
 
-        OnMoved?.Invoke();
+        OnMoved?.Invoke(this, new Location(CurrentX, CurrentY));
     }
 }

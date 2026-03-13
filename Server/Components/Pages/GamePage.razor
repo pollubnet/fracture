@@ -16,7 +16,7 @@
 @using Fracture.Server.Modules.Users
 @using Fracture.Server.Modules.Users.Services
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
-@implements IDisposable
+@* @implements IDisposable *@
 @page "/game"
 
 @rendermode @(new InteractiveServerRenderMode(false))
@@ -29,6 +29,7 @@
 @inject BackgroundImageChanger BackgroundImageChanger
 @inject UserService UserService
 @inject MovementService MovementService
+@inject ILogger<GamePage> Logger
 
 <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
 
@@ -69,8 +70,8 @@
 		<div class="statManager ">
 		</div>
 		<div class="dialogueWindowBg"
-			 style="background: url(@BackgroundImage.ImagePath);background-repeat: no-repeat;  background-size: cover; ">
-			<div class="dialogueWindow" @onkeydown="GetBacgroundAsync">
+			 style="background: url(@BackgroundImage);background-repeat: no-repeat;  background-size: cover; ">
+			<div class="dialogueWindow">
 				Fracture @VersionInfoProvider.InformationalVersion<br />
 				tutaj log mojej gry<br />
 				<PopupContainer @ref="_popup"></PopupContainer>

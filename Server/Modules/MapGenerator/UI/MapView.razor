@@ -122,9 +122,7 @@
 	protected override void OnInitialized()
 	{
 		CharacterX = MovementService.CurrentX;
-		CharacterY = MovementService.CurrentY;
-
-		BackgroundImageChanger.BackgroundImage = GamePage.BackgroundImage;
+		CharacterY = MovementService.CurrentY;		
 	}
 
 	private string GetArrowForDirection(int xDirection, int yDirection)
@@ -184,8 +182,7 @@
 				await MovementService.MoveAsync(newX, newY);
 				CharacterX = newX;
 				CharacterY = newY;
-
-				await BackgroundImageChanger.ChangeBackgroundImageAsync();
+				
 				StateHasChanged();
 			}
 
