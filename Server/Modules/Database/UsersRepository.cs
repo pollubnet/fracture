@@ -1,4 +1,4 @@
-﻿using Fracture.Server.Modules.Users;
+﻿using Fracture.Server.Modules.Users.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fracture.Server.Modules.Database;

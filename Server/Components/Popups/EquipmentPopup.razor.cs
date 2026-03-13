@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using Fracture.Server.Modules.Items.Models;
-using Fracture.Server.Modules.Users;
+using Fracture.Server.Modules.Users.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace Fracture.Server.Components.Popups;

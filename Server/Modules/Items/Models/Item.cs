@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using Fracture.Server.Modules.Users;
+using Fracture.Server.Modules.Users.Models;
 
 namespace Fracture.Server.Modules.Items.Models;
 
