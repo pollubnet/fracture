@@ -3,7 +3,7 @@ using Fracture.Server.Modules.MapGenerator.Services;
 
 namespace Fracture.Server.Modules.Users.Services;
 
-public class MovementService(UserService _userService, MapManagerService _mapManagerService)
+public class MovementService(MapManagerService _mapManagerService)
 {
     public Map? CurrentMap { get; private set; }
 
