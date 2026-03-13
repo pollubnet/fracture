@@ -1,5 +1,4 @@
 using System.ClientModel;
-using System.Reflection.Metadata.Ecma335;
 using Fracture.Server.Components;
 using Fracture.Server.Modules.AI.Models;
 using Fracture.Server.Modules.AI.Services;
@@ -75,7 +74,7 @@ builder.Services.AddSingletonIfFeatureEnabled<IChatClient>(
             Endpoint = new Uri(ai.EndpointUrl ?? string.Empty),
         };
 
-        return new OpenAIClient(credential, options).AsChatClient(ai.Model);
+        return new OpenAIClient(credential, options).GetChatClient(ai.Model).AsIChatClient();
     }
 );
 builder.Services.AddSingletonIfFeatureEnabled<SingleResponseProvider>(FeatureFlags.USE_AI);
