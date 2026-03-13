@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using Fracture.Server.Modules.MapGenerator;
 
 namespace Fracture.Server.Modules.NoiseGenerator.Services;
 

@@ -8,7 +8,6 @@ public class MapGeneratorService : IMapGeneratorService
 {
     private readonly ILogger<MapGeneratorService> _logger;
     private readonly Random _rnd = new();
-    private int _seed;
 
     public MapGeneratorService(ILogger<MapGeneratorService> logger)
     {

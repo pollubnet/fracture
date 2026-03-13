@@ -3,10 +3,8 @@ using Microsoft.Extensions.AI;
 
 namespace Fracture.Server.Modules.AI.Services;
 
-public class SingleResponseProvider(IChatClient client)
+public class SingleResponseProvider(IChatClient _client)
 {
-    private readonly IChatClient _client = client;
-
     /// <summary>
     /// Returns a response generated for a given prompt.
     /// </summary>
