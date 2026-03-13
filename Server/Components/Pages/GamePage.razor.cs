@@ -5,7 +5,7 @@ using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.UI.Models;
 using Fracture.Server.Modules.Pathfinding.Models;
 using Fracture.Server.Modules.Shared.ImageChangers;
-using Fracture.Server.Modules.Users;
+using Fracture.Server.Modules.Users.Models;
 
 namespace Fracture.Server.Components.Pages;
 
@@ -49,19 +49,7 @@ public partial class GamePage
             await UsersRepository.AddUserAsync(user);
         }
 
-        _user = user;
-
-        _inventory.Clear();
-        _equipment.Clear();
-        foreach (var item in await ItemsRepository.GetItemsOfUserAsync(_user.Id))
-        {
-            _inventory.Add(item);
-        }
-
-        foreach (var item in _inventory.ToList().Where(i => i.IsEquipped))
-        {
-            _equipment.Add(item);
-        }
+        await _userInventoryService.LoadAsync(user);
 
         _equipmentPopupParameters = new Dictionary<string, object>
         {
