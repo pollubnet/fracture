@@ -30,6 +30,7 @@ public partial class GamePage
         if (MovementService.CurrentMap is null)
         {
             MovementService.Initialize();
+            BackgroundImage = GetBackgroundImagePath();
         }
 
         MovementService.OnMapEntered += async (sender, args) =>
