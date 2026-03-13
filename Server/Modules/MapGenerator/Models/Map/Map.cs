@@ -4,13 +4,13 @@ public class Map
 {
     public string? Name { get; set; }
 
-    public LocationType LocationType { get; set; }
+    public LocationType LocationType { get; init; }
 
-    public List<LocationGroup> LocationGroups { get; set; } = new();
+    public List<LocationGroup> LocationGroups { get; init; } = [];
 
-    public int Width { get; set; }
-    public int Height { get; set; }
-    public required Node[,] Grid { get; set; }
+    public int Width { get; init; }
+    public int Height { get; init; }
+    public required Node[,] Grid { get; init; }
 
     public Position GetRandomWalkableNode()
     {

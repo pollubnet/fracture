@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
-using Fracture.Server.Modules.MapGenerator.Models.Map.MapObjects;
+﻿using Fracture.Server.Modules.MapGenerator.Models.Map.MapObjects;
 using Fracture.Server.Modules.Pathfinding.Models;
 
 namespace Fracture.Server.Modules.MapGenerator.Models.Map;
@@ -11,7 +9,7 @@ public class Node : IPathfindingNode
 
     public required string TerrainType { get; set; }
 
-    public required float NoiseValue { get; set; }
+    public float NoiseValue { get; set; }
 
     public string? GroupName { get; set; }
 
