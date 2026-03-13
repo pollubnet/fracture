@@ -28,6 +28,7 @@
 @inject VersionInfoProvider VersionInfoProvider
 @inject BackgroundImageChanger BackgroundImageChanger
 @inject UserService UserService
+@inject MovementService MovementService
 
 <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
 
@@ -132,7 +133,7 @@
 					</div>
 				</div>
 			</div>
-			<MapView Map="Map" MapDisplayData="_mapDisplayData" Path="Path"></MapView>
+			<MapView Map="MovementService.CurrentMap" MapDisplayOptions="_mapDisplayOptions" Path="Path"></MapView>
 		</div>
 		<div class="settings">
 			<div class="settingsBtn">

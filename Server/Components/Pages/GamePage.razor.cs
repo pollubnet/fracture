@@ -10,13 +10,12 @@ namespace Fracture.Server.Components.Pages;
 public partial class GamePage
 {
     private Dictionary<string, object> _mapPopupParameters = null!;
-    public static Map Map { get; set; }
 
     private PopupContainer _popup = null!;
 
     public static BackgroundImage BackgroundImage { get; set; } = new(string.Empty);
 
-    private readonly MapDisplayData _mapDisplayData = new();
+    private readonly MapDisplayOptions _mapDisplayOptions = new();
 
     private List<IPathfindingNode>? Path { get; set; }
 
@@ -28,12 +27,12 @@ public partial class GamePage
             NavigationManager.NavigateTo("/");
         }
 
-        Map = MapManagerService.GetWorldMap() ?? throw new InvalidOperationException();
-        _mapDisplayData.ShowColorMap = true;
+        MovementService.Initialize();
+
+        _mapDisplayOptions.ShowColorMap = true;
         _mapPopupParameters = new Dictionary<string, object>
         {
-            { "Map", Map },
-            { "MapDisplayData", _mapDisplayData },
+            { "MapDisplayData", _mapDisplayOptions },
         };
 
         BackgroundImageChanger.BackgroundImage = BackgroundImage;
