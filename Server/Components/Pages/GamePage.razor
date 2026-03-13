@@ -12,11 +12,9 @@
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Fracture.Server.Modules.Shared
-@using Fracture.Server.Modules.Shared.ImageChangers
 @using Fracture.Server.Modules.Users
 @using Fracture.Server.Modules.Users.Services
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
-@* @implements IDisposable *@
 @page "/game"
 
 @rendermode @(new InteractiveServerRenderMode(false))
@@ -26,7 +24,6 @@
 @inject NavigationManager NavigationManager
 @inject IItemsRepository ItemsRepository
 @inject VersionInfoProvider VersionInfoProvider
-@inject BackgroundImageChanger BackgroundImageChanger
 @inject UserService UserService
 @inject MovementService MovementService
 @inject ILogger<GamePage> Logger

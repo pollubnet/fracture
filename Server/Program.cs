@@ -11,7 +11,6 @@ using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
-using Fracture.Server.Modules.Shared.ImageChangers;
 using Fracture.Server.Modules.Shared.NameGenerators;
 using Fracture.Server.Modules.Users.Services;
 using Hangfire;
@@ -40,7 +39,6 @@ builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
 builder.Services.AddSingleton<IMapRepository, InMemoryMapRepository>();
 
-builder.Services.AddScoped<BackgroundImageChanger>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 builder.Services.AddScoped<UserService>();

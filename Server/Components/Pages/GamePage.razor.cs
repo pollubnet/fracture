@@ -2,13 +2,12 @@ using Fracture.Server.Components.UI;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.UI.Models;
 using Fracture.Server.Modules.Pathfinding.Models;
-using Fracture.Server.Modules.Shared.ImageChangers;
 using Fracture.Server.Modules.Users.Models;
 using Fracture.Server.Modules.Users.Services;
 
 namespace Fracture.Server.Components.Pages;
 
-public partial class GamePage // : IDisposable
+public partial class GamePage
 {
     private Dictionary<string, object> _mapPopupParameters = null!;
 
@@ -84,9 +83,6 @@ public partial class GamePage // : IDisposable
         ProtectedSessionStore.DeleteAsync("username");
     }
 
-    //BackgroundImage = MapBackgroundImageChanger.GetBackgroundImageForTile(
-    //MovementService.CurrentMap!.GetTile(args.NewPosition)
-
     private string GetBackgroundImagePath()
     {
         if (MovementService.CurrentMap is null)
@@ -144,7 +140,7 @@ public partial class GamePage // : IDisposable
             else
             {
                 imagePath = location.BackgroundImage;
-                Logger.LogInformation(
+                Logger.LogDebug(
                     "Using location background image '{ImagePath}' for LocationType {LocationType} at ({X},{Y})",
                     imagePath,
                     cell.LocationType,
@@ -156,7 +152,7 @@ public partial class GamePage // : IDisposable
         if (string.IsNullOrWhiteSpace(imagePath))
         {
             imagePath = biome.BackgroundImage;
-            Logger.LogInformation(
+            Logger.LogDebug(
                 "Using biome background image '{ImagePath}' for biome {BiomeName} at ({X},{Y})",
                 imagePath,
                 biome.Name,
@@ -173,10 +169,4 @@ public partial class GamePage // : IDisposable
 
         return imagePath;
     }
-
-    //public override void Dispose()
-    //{
-    //    //MovementService.OnMoved -=
-    //    return base.Dispose();
-    //}
 }
