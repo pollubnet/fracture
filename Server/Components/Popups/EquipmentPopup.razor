@@ -19,9 +19,9 @@
         <div>Inventory</div>
         <div class="eqColumn">
 
-            @foreach (var item in UserService.Inventory.Where(x => !IsEquipped(x)))
+            @foreach (var item in UserService.Inventory.Where(x => !UserService.IsEquipped(x)))
             {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)"
+                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
                           OnUnequipClicked="() => Unequip(item)"></ItemCard>
             }
         </div>
@@ -30,7 +30,7 @@
 
             @foreach (var item in UserService.Equipment)
             {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="IsEquipped(item)"
+                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
                           OnUnequipClicked="() => Unequip(item)"></ItemCard>
             }
         </div>

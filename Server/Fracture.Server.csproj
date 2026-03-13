@@ -27,33 +27,13 @@
     <PackageReference Include="Microsoft.Extensions.AI" Version="10.4.0" />
     <PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="10.4.0" />
     <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.4.0" />
-    <PackageReference
-      Include="Microsoft.AspNetCore.Components.WebAssembly.Server"
-      Version="10.0.5"
-    />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.5" />
   </ItemGroup>
-  <Target
-    Name="Husky"
-    BeforeTargets="Restore;CollectPackageReferences"
-    Condition="Exists('../.git') And '$(HUSKY)' != '0'"
-  >
-    <Exec
-      Command="dotnet tool restore"
-      StandardOutputImportance="Low"
-      StandardErrorImportance="High"
-    />
-    <Exec
-      Command="dotnet husky install"
-      StandardOutputImportance="Low"
-      StandardErrorImportance="High"
-      WorkingDirectory=".."
-    />
+  <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="Exists('../.git') And '$(HUSKY)' != '0'">
+    <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />
+    <Exec Command="dotnet husky install" StandardOutputImportance="Low" StandardErrorImportance="High" WorkingDirectory=".." />
   </Target>
   <Target Name="GitVersion" BeforeTargets="Build" Condition="Exists('../.git')">
-    <Exec
-      Command="git rev-list --count HEAD &gt; version.txt &amp;&amp; git rev-parse --abbrev-ref HEAD &gt;&gt; version.txt"
-      StandardOutputImportance="High"
-      StandardErrorImportance="High"
-    />
+    <Exec Command="git rev-list --count HEAD &gt; version.txt &amp;&amp; git rev-parse --abbrev-ref HEAD &gt;&gt; version.txt" StandardOutputImportance="High" StandardErrorImportance="High" />
   </Target>
 </Project>

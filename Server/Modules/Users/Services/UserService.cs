@@ -2,6 +2,7 @@
 using Fracture.Server.Modules.Database;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Users.Models;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Fracture.Server.Modules.Users.Services;
 
@@ -20,6 +21,11 @@ public class UserService(IItemsRepository _itemsRepository)
     /// </summary>
     public ObservableCollection<Item> Equipment { get; } = new();
 
+    /// <summary>
+    /// How many items can be equipped at the same time. Rings don't count towards this limit, as you can equip multiple rings.
+    /// </summary>
+    public int EquipmentSlots { get; } = 6;
+
     public async Task LoadUserAsync(User user)
     {
         User = user;
@@ -32,5 +38,43 @@ public class UserService(IItemsRepository _itemsRepository)
             if (item.IsEquipped)
                 Equipment.Add(item);
         }
+    }
+
+    public void Equip(Item item)
+    {
+        if (Equipment.Count < EquipmentSlots)
+        {
+            if (item.Type.Equals(ItemType.Ring))
+            {
+                item.IsEquipped = true;
+                _itemsRepository.UpdateItemAsync(item);
+                Equipment.Add(item);
+                return;
+            }
+
+            foreach (var equipped in Equipment)
+            {
+                if (equipped.Type.Equals(item.Type))
+                {
+                    return;
+                }
+            }
+
+            item.IsEquipped = true;
+            _itemsRepository.UpdateItemAsync(item);
+            Equipment.Add(item);
+        }
+    }
+
+    public void Unequip(Item item)
+    {
+        item.IsEquipped = false;
+        _itemsRepository.UpdateItemAsync(item);
+        Equipment.Remove(item);
+    }
+
+    public bool IsEquipped(Item item)
+    {
+        return Equipment.Contains(item);
     }
 }
