@@ -2,6 +2,6 @@
 
 public interface IMapObject
 {
-    string Type { get; set; }
+    string Id { get; set; }
     bool IsInteractive { get; set; }
 }

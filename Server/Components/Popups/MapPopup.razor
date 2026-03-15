@@ -1,18 +1,17 @@
 ﻿@inject NavigationManager NavigationManager
+@inject MovementService MovementService
 
 @page "/map"
 @using Fracture.Server.Modules.MapGenerator.Models.Map
 @using Fracture.Server.Modules.MapGenerator.UI
 @using Fracture.Server.Modules.MapGenerator.UI.Models
+@using Fracture.Server.Modules.Users.Services
+
 
 <div class="row">
-    <MapView Map="Map" MapDisplayData="MapDisplayData" Path="null" IsMiniMap="false" CharacterX="x"
-             CharacterY="y"></MapView>
+    <MapView Map="MovementService.CurrentMap" MapDisplayOptions="MapDisplayData" Path="null" IsMiniMap="false"></MapView>
 </div>
 
-@code {
-    [Parameter] public required Map Map { get; set; }
-    [Parameter] public required MapDisplayData MapDisplayData { get; set; }
-    readonly int x = MapView.CharacterXX;
-    readonly int y = MapView.CharacterYY;
+@code {    
+    [Parameter] public required MapDisplayOptions MapDisplayData { get; set; }    
 }

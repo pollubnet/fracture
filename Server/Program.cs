@@ -11,7 +11,6 @@ using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
-using Fracture.Server.Modules.Shared.ImageChangers;
 using Fracture.Server.Modules.Shared.NameGenerators;
 using Fracture.Server.Modules.Users.Services;
 using Hangfire;
@@ -40,23 +39,22 @@ builder.Services.AddSingleton<PrefixesGenerator>();
 builder.Services.AddSingleton<VersionInfoProvider>();
 builder.Services.AddSingleton<IMapRepository, InMemoryMapRepository>();
 
-builder.Services.AddScoped<BackgroundImageChanger>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<MovementService>();
+
 builder.Services.AddTransient<IWorldGenerationService, WorldGenerationService>();
 builder.Services.AddSingleton<IMapParameterSelectorService, MapParameterSelectorService>();
 builder.Services.AddSingleton<ILocationGroupGeneratorService, LocationGroupGeneratorService>();
-builder.Services.AddScoped<ISubMapAssignmentService, SubMapAssignmentService>();
+builder.Services.AddSingleton<ISubMapAssignmentService, SubMapAssignmentService>();
 builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
 builder.Services.AddSingleton<MapParametersReader>();
 builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
 builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();
 
-builder.Services.AddHangfire(config => config.UseInMemoryStorage()); // lub .UseSqlServerStorage(connectionString)
 builder.Services.AddSingleton(typeof(IFloodFillService<>), typeof(FloodFillService<>));
 
-builder.Services.AddHangfireServer();
 builder.Services.AddFeatureManagement();
 
 builder.Services.AddSingleton<MapDataImportService>();
@@ -108,9 +106,6 @@ else
     app.UseExceptionHandler("/Error", true);
 }
 
-app.UseHangfireDashboard();
-app.UseHangfireServer();
-
 app.UseStaticFiles();
 app.UseAuthorization();
 
@@ -125,7 +120,8 @@ app.MapRazorComponents<App>()
 using (var scope = app.Services.CreateScope())
 {
     var mapManagerService = scope.ServiceProvider.GetRequiredService<MapManagerService>();
-    await mapManagerService.InitializeAndScheduleMapsAsync();
+    await mapManagerService.GenerateWorldAsync();
+
     var db = scope.ServiceProvider.GetRequiredService<FractureDbContext>();
     db.Database.Migrate();
 }
