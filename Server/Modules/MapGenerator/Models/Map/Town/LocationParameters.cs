@@ -1,7 +1,4 @@
-﻿using System.Text.Json;
-using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
-
-namespace Fracture.Server.Modules.MapGenerator.Models.Map.Town;
+﻿namespace Fracture.Server.Modules.MapGenerator.Models.Map.Town;
 
 public class LocationParameters
 {

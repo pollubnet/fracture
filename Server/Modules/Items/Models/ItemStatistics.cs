@@ -20,7 +20,7 @@ public class ItemStatistics
 
     [InverseProperty(nameof(Item.Statistics))]
     [JsonIgnore]
-    public virtual Item Item { get; set; }
+    public virtual required Item Item { get; set; }
 
     public int GetStatFromItemStat(ItemStat stat)
     {

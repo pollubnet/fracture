@@ -13,7 +13,7 @@
 </div>
 
 @code {
-    [Parameter] public NoiseParameters NoiseParameters { get; set; }
+    [Parameter] public required NoiseParameters NoiseParameters { get; set; }
     [Parameter] public EventCallback<NoiseParameters> NoiseParametersChanged { get; set; }
 
     private Task OnNoiseParametersChanged(ChangeEventArgs e) {

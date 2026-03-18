@@ -2,6 +2,6 @@
 
 public class NpcMapObject : IMapObject
 {
-    public string Type { get; set; }
+    public required string Id { get; set; }
     public bool IsInteractive { get; set; }
 }

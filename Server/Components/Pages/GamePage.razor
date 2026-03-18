@@ -12,11 +12,9 @@
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Fracture.Server.Modules.Shared
-@using Fracture.Server.Modules.Shared.ImageChangers
 @using Fracture.Server.Modules.Users
 @using Fracture.Server.Modules.Users.Services
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
-@implements IDisposable
 @page "/game"
 
 @rendermode @(new InteractiveServerRenderMode(false))
@@ -26,8 +24,9 @@
 @inject NavigationManager NavigationManager
 @inject IItemsRepository ItemsRepository
 @inject VersionInfoProvider VersionInfoProvider
-@inject BackgroundImageChanger BackgroundImageChanger
 @inject UserService UserService
+@inject MovementService MovementService
+@inject ILogger<GamePage> Logger
 
 <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
 
@@ -68,8 +67,8 @@
 		<div class="statManager ">
 		</div>
 		<div class="dialogueWindowBg"
-			 style="background: url(@BackgroundImage.ImagePath);background-repeat: no-repeat;  background-size: cover; ">
-			<div class="dialogueWindow" @onkeydown="GetBacgroundAsync">
+			 style="background: url(@BackgroundImage);background-repeat: no-repeat;  background-size: cover; ">
+			<div class="dialogueWindow">
 				Fracture @VersionInfoProvider.InformationalVersion<br />
 				tutaj log mojej gry<br />
 				<PopupContainer @ref="_popup"></PopupContainer>
@@ -132,7 +131,7 @@
 					</div>
 				</div>
 			</div>
-			<MapView Map="Map" MapDisplayData="_mapDisplayData" Path="Path"></MapView>
+			<MapView Map="MovementService.CurrentMap" MapDisplayOptions="_mapDisplayOptions" Path="Path" CharacterX="MovementService.CurrentX" CharacterY="MovementService.CurrentY"></MapView>
 		</div>
 		<div class="settings">
 			<div class="settingsBtn">

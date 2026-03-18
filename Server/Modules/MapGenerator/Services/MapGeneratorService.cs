@@ -19,9 +19,9 @@ public class MapGeneratorService : IMapGeneratorService
         return await Task.FromResult(GenerateMap(mapParameters));
     }
 
-    private Node[,] GenerateGrid(MapParameters? mapParameters)
+    private Node[,] GenerateGrid(MapParameters mapParameters)
     {
-        var noiseParameters = mapParameters?.NoiseParameters;
+        var noiseParameters = mapParameters.NoiseParameters;
         noiseParameters.Seed = noiseParameters.UseRandomSeed
             ? _rnd.Next(-100000, 100000)
             : noiseParameters.Seed;
@@ -111,27 +111,42 @@ public class MapGeneratorService : IMapGeneratorService
                     )
                 );
 
-            Biome biome = null;
+            Biome? biome = null;
             if (biomeCategory != null)
             {
                 biome = biomeCategory.Biomes.FirstOrDefault(sb =>
                     temperatureMap[x, y] >= sb.MinTemperature
                     && temperatureMap[x, y] < sb.MaxTemperature
                 )!;
+
                 if (biome == null)
+                {
                     _logger.LogError(
                         string.Format(
-                            "No biome found for temperature {0} at ({1}, {2}) within category {3}",
+                            "No biome found for temperature {0} at ({1}, {2}) within category {3}: using default",
                             temperatureMap[x, y],
                             x,
                             y,
                             biomeCategory.TerrainType
                         )
                     );
+
+                    biome = biomeCategory.Biomes.FirstOrDefault()!;
+                    ArgumentNullException.ThrowIfNull(
+                        biome,
+                        string.Format(
+                            "Biome category {0} has no biomes defined.",
+                            biomeCategory.TerrainType
+                        )
+                    );
+                }
             }
 
-            grid[x, y] = new Node(x, y, biome)
+            grid[x, y] = new Node()
             {
+                XId = x,
+                YId = y,
+                Biome = biome!,
                 NoiseValue = heightMap[x, y],
                 Walkable = biome?.Walkable == true,
                 TerrainType = biomeCategory!.TerrainType,

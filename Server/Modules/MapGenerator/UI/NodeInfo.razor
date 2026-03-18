@@ -1,12 +1,17 @@
 ﻿@using Fracture.Server.Modules.MapGenerator.Models.Map
+
 <div class="node-info">
-    <span>Biome: @Node?.Biome.Name</span>
-    <span>Location: @(string.IsNullOrWhiteSpace(Node?.GroupName)
-                            ? Node.LocationType
-                            : Node.GroupName)</span>
+    <span>Biome: @Node.Biome.Name</span>
+    @if (!string.IsNullOrWhiteSpace(Node.GroupName)) 
+    {
+        <span>Location: @Node.GroupName</span>
+    }
+    @if (!Node.Walkable)
+    {
+        <span>Not walkable!</span>
+    }
 </div>
 
 @code {
-    [Parameter] public Node? Node { get; set; }
-
+    [Parameter] public required Node Node { get; set; }
 }
