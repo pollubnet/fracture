@@ -27,6 +27,14 @@ public class MarkovNameGenerator : INameGenerator
 
         _chain = new MarkovChain<char>(2);
 
+        // We need at least 10 names to generate good results
+        // otherwise the generation will hang
+        if (options.Value.DefaultNameBase.Count() < 10)
+            throw new ArgumentException(
+                "More names are needed!",
+                nameof(options.Value.DefaultNameBase)
+            );
+
         foreach (var name in options.Value.DefaultNameBase)
             _chain.Add(name);
     }

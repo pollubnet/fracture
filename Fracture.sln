@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33829.357
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fracture.Server", "Server\Fracture.Server.csproj", "{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{1A6377C4-4C62-4360-B547-EED1C1C6F949}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D06D3FCB-F773-4E5E-A6D3-6C6D052F7996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A6377C4-4C62-4360-B547-EED1C1C6F949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A6377C4-4C62-4360-B547-EED1C1C6F949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A6377C4-4C62-4360-B547-EED1C1C6F949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A6377C4-4C62-4360-B547-EED1C1C6F949}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
