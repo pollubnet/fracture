@@ -21,7 +21,7 @@ public partial class GamePage
 
     protected override async Task OnInitializedAsync()
     {
-        bool userLoaded = await LoadUser();
+        bool userLoaded = await LoadUserAsync();
         if (!userLoaded)
         {
             NavigationManager.NavigateTo("/");
@@ -54,7 +54,7 @@ public partial class GamePage
         await base.OnInitializedAsync();
     }
 
-    private async Task<bool> LoadUser()
+    private async Task<bool> LoadUserAsync()
     {
         var username = await ProtectedSessionStore.GetAsync<string>("username");
         if (!username.Success)
