@@ -16,6 +16,6 @@ public static class SpecialChars
 
     public static class Icons
     {
-        public const string Player = "&#128528";
+        public const string Player = "&#128528;";
     }
 }
