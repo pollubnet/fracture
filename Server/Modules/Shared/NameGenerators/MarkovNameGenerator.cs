@@ -11,6 +11,7 @@ namespace Fracture.Server.Modules.Shared.NameGenerators;
 public class MarkovNameGenerator : INameGenerator
 {
     private readonly MarkovChain<char> _chain;
+    private HashSet<string> _names = new();
 
     /// <summary>
     ///     Initializes a new instance of a generator
@@ -26,6 +27,14 @@ public class MarkovNameGenerator : INameGenerator
 
         _chain = new MarkovChain<char>(2);
 
+        // We need at least 10 names to generate good results
+        // otherwise the generation will hang
+        if (options.Value.DefaultNameBase.Count() < 10)
+            throw new ArgumentException(
+                "More names are needed!",
+                nameof(options.Value.DefaultNameBase)
+            );
+
         foreach (var name in options.Value.DefaultNameBase)
             _chain.Add(name);
     }
@@ -33,6 +42,14 @@ public class MarkovNameGenerator : INameGenerator
     /// <inheritdoc />
     public Task<string> GenerateNameAsync()
     {
-        return Task.FromResult(new string([.. _chain.Chain(Random.Shared)]));
+        string s;
+        do
+        {
+            var chains = _chain.Chain(Random.Shared).ToArray();
+            s = new string(chains);
+        } while (_names.Contains(s));
+        _names.Add(s);
+
+        return Task.FromResult(s);
     }
 }
