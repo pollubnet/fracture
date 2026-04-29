@@ -26,9 +26,6 @@ public class MapGeneratorService : IMapGeneratorService
     private Node[,] GenerateGrid(MapParameters mapParameters)
     {
         var noiseParameters = mapParameters.NoiseParameters;
-        noiseParameters.Seed = noiseParameters.UseRandomSeed
-            ? _rnd.Next(-100000, 100000)
-            : noiseParameters.Seed;
         var width = mapParameters.Width;
         var height = mapParameters.Height;
         var useFalloff = true;
