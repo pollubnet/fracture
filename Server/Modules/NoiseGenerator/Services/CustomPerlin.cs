@@ -1,4 +1,6 @@
-﻿namespace Fracture.Server.Modules.NoiseGenerator.Services;
+﻿using Fracture.Server.Modules.Shared;
+
+namespace Fracture.Server.Modules.NoiseGenerator.Services;
 
 public static class CustomPerlin
 {
@@ -41,7 +43,7 @@ public static class CustomPerlin
     // Main functions
     public static float Perlin(float x, float y, int seed) // Seed must be provided
     {
-        var permutation = GeneratePermutation(seed);
+        var permutation = GeneratePermutation(RandomProvider.Seed);
         var p = new int[permutation.Length * 2];
         permutation.CopyTo(p, 0);
         permutation.CopyTo(p, permutation.Length);
@@ -94,7 +96,6 @@ public static class CustomPerlin
 
     public static float[,] GenerateNoiseMap(
         int size,
-        int? seed = null,
         int octaves = 1,
         float persistence = 0.5f,
         float lacunarity = 2.0f,
@@ -103,7 +104,7 @@ public static class CustomPerlin
     {
         // Noise map generation
         // can be called with a seed or without it
-        var actualSeed = seed ?? new Random().Next();
+        var actualSeed = RandomProvider.Seed;
 
         var map = new float[size, size];
 

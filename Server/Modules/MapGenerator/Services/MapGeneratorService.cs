@@ -1,17 +1,21 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 using Fracture.Server.Modules.NoiseGenerator.Services;
+using Fracture.Server.Modules.Shared;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 
 public class MapGeneratorService : IMapGeneratorService
 {
     private readonly ILogger<MapGeneratorService> _logger;
-    private readonly Random _rnd = new();
+    private readonly Random _rnd;
+    private readonly RandomProvider _randomProvider;
 
-    public MapGeneratorService(ILogger<MapGeneratorService> logger)
+    public MapGeneratorService(ILogger<MapGeneratorService> logger, RandomProvider rndProvider)
     {
         _logger = logger;
+        _rnd = rndProvider.Random;
+        _randomProvider = rndProvider;
     }
 
     public async Task<Map> GetMap(MapParameters? mapParameters)
@@ -22,9 +26,6 @@ public class MapGeneratorService : IMapGeneratorService
     private Node[,] GenerateGrid(MapParameters mapParameters)
     {
         var noiseParameters = mapParameters.NoiseParameters;
-        noiseParameters.Seed = noiseParameters.UseRandomSeed
-            ? _rnd.Next(-100000, 100000)
-            : noiseParameters.Seed;
         var width = mapParameters.Width;
         var height = mapParameters.Height;
         var useFalloff = true;
@@ -35,7 +36,6 @@ public class MapGeneratorService : IMapGeneratorService
 
         var heightMap = CustomPerlin.GenerateNoiseMap(
             width,
-            noiseParameters.Seed,
             noiseParameters.Octaves,
             noiseParameters.Persistence,
             noiseParameters.Lacunarity,
@@ -44,7 +44,6 @@ public class MapGeneratorService : IMapGeneratorService
 
         var temperatureMap = CustomPerlin.GenerateNoiseMap(
             width,
-            noiseParameters.Seed + 1,
             noiseParameters.Octaves,
             noiseParameters.Persistence,
             noiseParameters.Lacunarity,
@@ -164,7 +163,7 @@ public class MapGeneratorService : IMapGeneratorService
             throw new ArgumentNullException(nameof(mapParameters));
         }
         var grid = GenerateGrid(mapParameters);
-        return new Map()
+        return new Map(_randomProvider)
         {
             Grid = grid,
             LocationType = mapParameters.LocationType,
