@@ -1,17 +1,21 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.Models.Map.Biome;
 using Fracture.Server.Modules.NoiseGenerator.Services;
+using Fracture.Server.Modules.Shared;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 
 public class MapGeneratorService : IMapGeneratorService
 {
     private readonly ILogger<MapGeneratorService> _logger;
-    private readonly Random _rnd = new();
+    private readonly Random _rnd;
+    private readonly RandomProvider _randomProvider;
 
-    public MapGeneratorService(ILogger<MapGeneratorService> logger)
+    public MapGeneratorService(ILogger<MapGeneratorService> logger, RandomProvider rndProvider)
     {
         _logger = logger;
+        _rnd = rndProvider.Random;
+        _randomProvider = rndProvider;
     }
 
     public async Task<Map> GetMap(MapParameters? mapParameters)
@@ -164,7 +168,7 @@ public class MapGeneratorService : IMapGeneratorService
             throw new ArgumentNullException(nameof(mapParameters));
         }
         var grid = GenerateGrid(mapParameters);
-        return new Map()
+        return new Map(_randomProvider)
         {
             Grid = grid,
             LocationType = mapParameters.LocationType,
