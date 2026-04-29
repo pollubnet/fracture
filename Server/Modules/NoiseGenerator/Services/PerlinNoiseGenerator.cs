@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using Fracture.Server.Modules.MapGenerator;
+using Fracture.Server.Modules.Shared;
 
 namespace Fracture.Server.Modules.NoiseGenerator.Services;
 
@@ -8,7 +9,6 @@ public static class PerlinNoiseGenerator
     public static float[,] Generate(
         int mapWidth,
         int mapHeight,
-        int seed,
         float scale,
         int octaves,
         float persistence,
@@ -18,7 +18,7 @@ public static class PerlinNoiseGenerator
     {
         var noiseMap = new float[mapWidth, mapHeight];
 
-        var prng = new Random(seed);
+        var prng = new Random(RandomProvider.Seed);
         var octaveOffsets = new Vector2[octaves];
         for (var i = 0; i < octaves; i++)
         {

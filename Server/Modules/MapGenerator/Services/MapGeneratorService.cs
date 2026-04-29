@@ -39,7 +39,6 @@ public class MapGeneratorService : IMapGeneratorService
 
         var heightMap = CustomPerlin.GenerateNoiseMap(
             width,
-            noiseParameters.Seed,
             noiseParameters.Octaves,
             noiseParameters.Persistence,
             noiseParameters.Lacunarity,
@@ -48,7 +47,6 @@ public class MapGeneratorService : IMapGeneratorService
 
         var temperatureMap = CustomPerlin.GenerateNoiseMap(
             width,
-            noiseParameters.Seed + 1,
             noiseParameters.Octaves,
             noiseParameters.Persistence,
             noiseParameters.Lacunarity,
