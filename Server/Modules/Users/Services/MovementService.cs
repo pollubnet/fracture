@@ -11,18 +11,21 @@ public class MovementService
     private readonly IItemGenerator _itemGenerator;
     private readonly IItemsRepository _itemsRepository;
     private readonly UserService _userService;
+    private readonly ItemDropStateService _itemDropState;
 
     public MovementService(
         MapManagerService mapManagerService,
         IItemGenerator itemGenerator,
         IItemsRepository itemsRepository,
-        UserService userService
+        UserService userService,
+        ItemDropStateService itemDropState
     )
     {
         _mapManagerService = mapManagerService;
         _itemGenerator = itemGenerator;
         _itemsRepository = itemsRepository;
         _userService = userService;
+        _itemDropState = itemDropState;
     }
 
     public Map? CurrentMap { get; private set; }
@@ -56,22 +59,30 @@ public class MovementService
             && CurrentMap.Grid[x, y].Walkable;
     }
 
+    public bool HasItemDrop(Map map, int x, int y)
+    {
+        if (_userService.User == null)
+            return false;
+
+        return _itemDropState.HasItemDrop(_userService.User.Id, map, x, y);
+    }
+
     public async Task MoveAsync(int x, int y)
     {
         CurrentX = x;
         CurrentY = y;
 
-        var node = CurrentMap?.Grid[x, y];
-        if (node?.ItemDrop != null && _userService.User != null)
+        if (CurrentMap != null && _userService.User != null)
         {
-            var item = await _itemGenerator.Generate();
-            item.CreatedById = _userService.User.Id;
-            item.CreatedBy = _userService.User;
+            if (_itemDropState.TryCollect(_userService.User.Id, CurrentMap, x, y))
+            {
+                var item = await _itemGenerator.Generate();
+                item.CreatedById = _userService.User.Id;
+                item.CreatedBy = _userService.User;
 
-            await _itemsRepository.AddItemAsync(item);
-            _userService.Inventory.Add(item);
-
-            node.ItemDrop = null;
+                await _itemsRepository.AddItemAsync(item);
+                _userService.Inventory.Add(item);
+            }
         }
 
         OnMoved?.Invoke(this, new Position(CurrentX, CurrentY));

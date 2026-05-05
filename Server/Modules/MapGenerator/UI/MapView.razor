@@ -40,9 +40,9 @@
 						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.None)
 						{
 							<MapSquare Node="node" IsMiniMap="IsMiniMap">
-								@if (node.ItemDrop != null)
+								@if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
 								{
-									<span class="map-marker map-marker--item">@RenderLocation(node)</span>
+									<span class="map-marker map-marker-item">@RenderLocation(node)</span>
 								}
 								else
 								{
@@ -59,9 +59,9 @@
 						else
 						{
 							<MapSquare Node="node">
-								@if (node.ItemDrop != null)
+								@if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
 								{
-									<span class="map-marker map-marker--item">@RenderLocation(node)</span>
+									<span class="map-marker map-marker-item">@RenderLocation(node)</span>
 								}
 								else
 								{
@@ -155,7 +155,7 @@
 
 	private string RenderLocation(Node node)
 	{
-		if (node.ItemDrop != null)
+		if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
 		{
 			return "x";
 		}

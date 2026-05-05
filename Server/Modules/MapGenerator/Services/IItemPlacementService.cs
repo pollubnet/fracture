@@ -4,5 +4,5 @@ namespace Fracture.Server.Modules.MapGenerator.Services;
 
 public interface IItemPlacementService
 {
-    void PlaceItems(Map map);
+    IReadOnlySet<Position> GenerateDropPositions(Map map);
 }
