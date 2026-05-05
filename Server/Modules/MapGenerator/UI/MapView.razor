@@ -141,6 +141,11 @@
 
 	private string RenderLocation(Node node)
 	{
+		if (node.ItemDrop != null)
+		{
+			return "x";
+		}
+
 		return node.LocationType switch
 		{
 			LocationType.None => string.Empty,

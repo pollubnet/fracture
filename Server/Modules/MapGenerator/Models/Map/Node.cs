@@ -16,6 +16,8 @@ public class Node : IPathfindingNode
     public LocationType LocationType { get; set; } = LocationType.None;
     public IMapObject? MapObject { get; set; }
 
+    public ItemDrop? ItemDrop { get; set; }
+
     public required int XId { get; set; }
 
     public required int YId { get; set; }

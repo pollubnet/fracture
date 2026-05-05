@@ -6,7 +6,8 @@ namespace Fracture.Server.Modules.MapGenerator.Services;
 public class MapManagerService(
     IMapRepository mapRepository,
     ILogger<MapManagerService> logger,
-    IWorldGenerationService worldGenerationService
+    IWorldGenerationService worldGenerationService,
+    IItemPlacementService itemPlacementService
 )
 {
     private readonly Lock _lock = new();
@@ -33,6 +34,7 @@ public class MapManagerService(
     {
         mapRepository.ClearMaps();
         var map = await worldGenerationService.GenerateWorldMapAsync();
+        itemPlacementService.PlaceItems(map);
         mapRepository.SaveMap(map);
         SetWorldMap(map);
 
@@ -44,6 +46,7 @@ public class MapManagerService(
         logger.LogInformation("Generating new world...");
 
         var newMap = await worldGenerationService.GenerateWorldMapAsync();
+        itemPlacementService.PlaceItems(newMap);
         mapRepository.SaveMap(newMap);
         SetWorldMap(newMap);
 
