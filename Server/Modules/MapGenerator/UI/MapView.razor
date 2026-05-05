@@ -40,7 +40,14 @@
 						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.None)
 						{
 							<MapSquare Node="node" IsMiniMap="IsMiniMap">
-								@RenderLocation(node)
+								@if (node.ItemDrop != null)
+								{
+									<span class="map-marker map-marker--item">@RenderLocation(node)</span>
+								}
+								else
+								{
+									<span class="map-marker map-marker--location">@RenderLocation(node)</span>
+								}
 							</MapSquare>
 						}
 						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Path)
@@ -52,7 +59,14 @@
 						else
 						{
 							<MapSquare Node="node">
-								@RenderLocation(node)
+								@if (node.ItemDrop != null)
+								{
+									<span class="map-marker map-marker--item">@RenderLocation(node)</span>
+								}
+								else
+								{
+									<span class="map-marker map-marker--location">@RenderLocation(node)</span>
+								}
 							</MapSquare>
 						}
 					}
