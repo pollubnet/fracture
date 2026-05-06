@@ -1,3 +1,4 @@
+using Fracture.Server.Components.Popups;
 using Fracture.Server.Components.UI;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.UI.Models;
@@ -42,6 +43,12 @@ public partial class GamePage
         MovementService.OnMoved += async (sender, args) =>
         {
             BackgroundImage = GetBackgroundImagePath();
+            StateHasChanged();
+        };
+
+        MovementService.OnItemEncountered += async (sender, args) =>
+        {
+            _popup.ShowComponent<TestPopup>();
             StateHasChanged();
         };
 

@@ -2,6 +2,7 @@
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.Models.Map.MapObjects;
 using Fracture.Server.Modules.MapGenerator.Services.TownGen;
+using Fracture.Server.Modules.Shared;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 
@@ -13,7 +14,7 @@ public class SubMapAssignmentService : ISubMapAssignmentService
     private readonly IMapGeneratorService _mapGenerator;
     private readonly ILocationGroupGeneratorService _groupGenerator;
     private readonly ILogger<SubMapAssignmentService> _logger;
-    private readonly Random _rnd = new();
+    private readonly Random _rnd;
 
     public SubMapAssignmentService(
         ILocationWeightGeneratorService weightGenerator,
@@ -21,7 +22,8 @@ public class SubMapAssignmentService : ISubMapAssignmentService
         IFloodFillService<Node> floodFillService,
         IMapGeneratorService mapGenerator,
         ILocationGroupGeneratorService groupGenerator,
-        ILogger<SubMapAssignmentService> logger
+        ILogger<SubMapAssignmentService> logger,
+        RandomProvider rndProvider
     )
     {
         _weightGenerator = weightGenerator;
@@ -30,6 +32,7 @@ public class SubMapAssignmentService : ISubMapAssignmentService
         _mapGenerator = mapGenerator;
         _groupGenerator = groupGenerator;
         _logger = logger;
+        _rnd = rndProvider.Random;
     }
 
     public async Task AssignSubMapsAsync(Map map, Dictionary<string, MapParameters> parameters)

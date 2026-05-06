@@ -281,6 +281,9 @@ body {
     .mapTable tr td {
         /*border: #000 1px solid;*/
         background-color: blue;
+        font-size: 4px;
+        line-height: 1;
+        text-align: center;
     }
 
     .miniMapTable tr td {
@@ -569,4 +572,26 @@ body {
 
 h3 {
     width: 70%;
+}
+.node-info {
+    font-size: 12px;
+    line-height: 1.2;
+    padding: 4px 6px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    color: #fff;
+}
+
+.map-marker {
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+}
+
+.map-marker--location {
+    font-size: 12px;
+}
+
+.map-marker--item {
+    font-size: 4px;
 }

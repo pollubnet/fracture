@@ -33,6 +33,9 @@ builder.Configuration.AddJsonFile(
     reloadOnChange: true
 ); // Przeniesienie NameGenerator a appsettings do folderu Config
 
+var r = new RandomProvider(42);
+builder.Services.AddSingleton<RandomProvider>(r);
+
 builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
@@ -49,6 +52,7 @@ builder.Services.AddSingleton<IMapParameterSelectorService, MapParameterSelector
 builder.Services.AddSingleton<ILocationGroupGeneratorService, LocationGroupGeneratorService>();
 builder.Services.AddSingleton<ISubMapAssignmentService, SubMapAssignmentService>();
 builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
+builder.Services.AddSingleton<IItemPlacementService, ItemPlacementService>();
 builder.Services.AddSingleton<MapParametersReader>();
 builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
 builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();
@@ -93,6 +97,7 @@ builder.Services.AddDbContext<FractureDbContext>(options =>
 });
 
 builder.Services.AddLogging();
+builder.Services.AddSingleton<ItemDropStateService>();
 
 var app = builder.Build();
 

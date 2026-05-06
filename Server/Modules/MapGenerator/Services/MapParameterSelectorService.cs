@@ -1,4 +1,5 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.Shared;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 
@@ -6,15 +7,17 @@ public class MapParameterSelectorService : IMapParameterSelectorService
 {
     private readonly MapDataImportService _dataImportService;
     private readonly ILogger<MapParameterSelectorService> _logger;
-    private readonly Random _rnd = new();
+    private readonly Random _rnd;
 
     public MapParameterSelectorService(
         MapDataImportService dataImportService,
-        ILogger<MapParameterSelectorService> logger
+        ILogger<MapParameterSelectorService> logger,
+        RandomProvider rndProvider
     )
     {
         _dataImportService = dataImportService;
         _logger = logger;
+        _rnd = rndProvider.Random;
     }
 
     public async Task<Dictionary<string, MapParameters>> GetParametersAsync() =>
