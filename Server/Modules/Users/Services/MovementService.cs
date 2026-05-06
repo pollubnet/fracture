@@ -1,4 +1,5 @@
-﻿using Fracture.Server.Modules.Database;
+﻿using Fracture.Server.Components.Popups;
+using Fracture.Server.Modules.Database;
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.Services;
@@ -35,6 +36,7 @@ public class MovementService
 
     public event EventHandler<Position>? OnMoved;
     public event EventHandler<(Map, Position)>? OnMapEntered;
+    public event EventHandler<Position>? OnItemEncountered;
 
     public void Initialize()
     {
@@ -82,6 +84,8 @@ public class MovementService
 
                 await _itemsRepository.AddItemAsync(item);
                 _userService.Inventory.Add(item);
+
+                OnItemEncountered?.Invoke(this, new Position(x, y));
             }
         }
 
