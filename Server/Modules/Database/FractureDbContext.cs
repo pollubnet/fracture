@@ -17,7 +17,12 @@ public class FractureDbContext : DbContext
     {
         modelBuilder.Entity<Item>().HasOne(i => i.Statistics).WithOne(s => s.Item);
 
-        modelBuilder.Entity<Item>().HasOne(i => i.CreatedBy).WithMany(u => u.Items);
+        modelBuilder
+            .Entity<Item>()
+            .HasOne(i => i.CreatedBy)
+            .WithMany(u => u.Items)
+            .HasForeignKey(i => i.CreatedById)
+            .IsRequired(false);
 
         modelBuilder.Entity<User>().HasMany(u => u.Items).WithOne(i => i.CreatedBy);
 
