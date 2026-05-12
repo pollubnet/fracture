@@ -38,7 +38,7 @@ public class MovementService
     public event EventHandler<(Map, Position)>? OnMapEntered;
     public event EventHandler<Position>? OnItemEncountered;
 
-    public void Initialize()
+    public async Task InitializeAsync()
     {
         CurrentMap =
             _mapManagerService.GetWorldMap()
@@ -47,6 +47,11 @@ public class MovementService
         var start = CurrentMap.GetRandomWalkableNode();
         CurrentX = start.X;
         CurrentY = start.Y;
+
+        if (_userService.User != null)
+        {
+            await _itemDropState.EnsureLoadedAsync(_userService.User.Id);
+        }
 
         OnMapEntered?.Invoke(this, new(CurrentMap, new Position(CurrentX, CurrentY)));
     }
@@ -76,11 +81,11 @@ public class MovementService
 
         if (CurrentMap != null && _userService.User != null)
         {
-            if (_itemDropState.TryCollect(_userService.User.Id, CurrentMap, x, y))
+            if (await _itemDropState.TryCollectAsync(_userService.User.Id, CurrentMap, x, y))
             {
                 var item = await _itemGenerator.Generate();
-                item.CreatedById = _userService.User.Id;
-                item.CreatedBy = _userService.User;
+                item.CreatedById = null;
+                item.CreatedBy = null;
 
                 await _itemsRepository.AddItemAsync(item);
                 _userService.Inventory.Add(item);

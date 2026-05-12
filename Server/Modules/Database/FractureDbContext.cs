@@ -11,6 +11,7 @@ public class FractureDbContext : DbContext
 
     public virtual DbSet<Item> Items { get; set; }
     public virtual DbSet<ItemStatistics> ItemStatistics { get; set; }
+    public virtual DbSet<ItemDropped> ItemsDropped { get; set; }
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,6 +28,25 @@ public class FractureDbContext : DbContext
         modelBuilder.Entity<User>().HasMany(u => u.Items).WithOne(i => i.CreatedBy);
 
         modelBuilder.Entity<ItemStatistics>().HasOne(s => s.Item).WithOne(i => i.Statistics);
+
+        modelBuilder.Entity<ItemDropped>().ToTable("ItemsDropped");
+        modelBuilder
+            .Entity<ItemDropped>()
+            .HasIndex(d => new
+            {
+                d.UserId,
+                d.MapSeed,
+                d.X,
+                d.Y,
+            })
+            .IsUnique();
+
+        modelBuilder
+            .Entity<ItemDropped>()
+            .HasOne<User>()
+            .WithMany()
+            .HasForeignKey(d => d.UserId)
+            .IsRequired();
 
         base.OnModelCreating(modelBuilder);
     }

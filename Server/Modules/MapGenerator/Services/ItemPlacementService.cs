@@ -9,7 +9,7 @@ public class ItemPlacementService(RandomProvider rndProvider) : IItemPlacementSe
 
     public IReadOnlySet<Position> GenerateDropPositions(Map map)
     {
-        var rnd = new Random(RandomProvider.Seed);
+        var _rnd = rndProvider.Random;
         var targetCount = Math.Max(1, (int)Math.Round(map.Width * map.Height * ItemDensity));
         var attempts = 0;
         var maxAttempts = targetCount * 10;
@@ -19,8 +19,8 @@ public class ItemPlacementService(RandomProvider rndProvider) : IItemPlacementSe
         {
             attempts++;
 
-            var x = rnd.Next(0, map.Width);
-            var y = rnd.Next(0, map.Height);
+            var x = _rnd.Next(0, map.Width);
+            var y = _rnd.Next(0, map.Height);
             var node = map.Grid[x, y];
 
             if (!node.Walkable || node.LocationType != LocationType.None)

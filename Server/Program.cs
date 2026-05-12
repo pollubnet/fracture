@@ -97,7 +97,7 @@ builder.Services.AddDbContext<FractureDbContext>(options =>
 });
 
 builder.Services.AddLogging();
-builder.Services.AddSingleton<ItemDropStateService>();
+builder.Services.AddScoped<ItemDropStateService>();
 
 var app = builder.Build();
 
