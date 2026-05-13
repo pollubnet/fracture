@@ -43,10 +43,17 @@ public class FractureDbContext : DbContext
 
         modelBuilder
             .Entity<ItemDropped>()
-            .HasOne<User>()
-            .WithMany()
+            .HasOne(d => d.User)
+            .WithMany(u => u.ItemDrops)
             .HasForeignKey(d => d.UserId)
             .IsRequired();
+
+        modelBuilder
+            .Entity<ItemDropped>()
+            .HasOne(d => d.Item)
+            .WithMany(i => i.DroppedItems)
+            .HasForeignKey(d => d.ItemId)
+            .IsRequired(false);
 
         base.OnModelCreating(modelBuilder);
     }

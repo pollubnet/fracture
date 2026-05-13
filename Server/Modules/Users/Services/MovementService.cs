@@ -1,5 +1,6 @@
 ﻿using Fracture.Server.Components.Popups;
 using Fracture.Server.Modules.Database;
+using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.Services;
@@ -13,6 +14,9 @@ public class MovementService
     private readonly IItemsRepository _itemsRepository;
     private readonly UserService _userService;
     private readonly ItemDropStateService _itemDropState;
+
+    private Position? _pendingPickupPosition;
+    private Item? _pendingPickupItem;
 
     public MovementService(
         MapManagerService mapManagerService,
@@ -37,6 +41,7 @@ public class MovementService
     public event EventHandler<Position>? OnMoved;
     public event EventHandler<(Map, Position)>? OnMapEntered;
     public event EventHandler<Position>? OnItemEncountered;
+    public event EventHandler<Item>? OnItemPickupRequested;
 
     public async Task InitializeAsync()
     {
@@ -81,19 +86,67 @@ public class MovementService
 
         if (CurrentMap != null && _userService.User != null)
         {
-            if (await _itemDropState.TryCollectAsync(_userService.User.Id, CurrentMap, x, y))
+            var position = new Position(x, y);
+            if (HasItemDrop(CurrentMap, x, y) && _pendingPickupPosition != position)
             {
-                var item = await _itemGenerator.Generate();
-                item.CreatedById = null;
-                item.CreatedBy = null;
-
-                await _itemsRepository.AddItemAsync(item);
-                _userService.Inventory.Add(item);
-
-                OnItemEncountered?.Invoke(this, new Position(x, y));
+                _pendingPickupPosition = position;
+                _pendingPickupItem = await _itemGenerator.Generate();
+                OnItemPickupRequested?.Invoke(this, _pendingPickupItem);
             }
         }
 
         OnMoved?.Invoke(this, new Position(CurrentX, CurrentY));
+    }
+
+    public async Task<bool> ConfirmPickupAsync()
+    {
+        if (CurrentMap == null || _userService.User == null || _pendingPickupPosition is null)
+            return false;
+
+        var position = _pendingPickupPosition.Value;
+        var item = _pendingPickupItem;
+
+        _pendingPickupPosition = null;
+        _pendingPickupItem = null;
+
+        if (item == null)
+            return false;
+
+        if (
+            !await _itemDropState.TryCollectAsync(
+                _userService.User.Id,
+                CurrentMap,
+                position.X,
+                position.Y
+            )
+        )
+            return false;
+
+        item.CreatedById = _userService.User.Id;
+        item.CreatedBy = _userService.User;
+
+        await _itemsRepository.AddItemAsync(item);
+        _userService.Inventory.Add(item);
+
+        OnItemEncountered?.Invoke(this, position);
+        return true;
+    }
+
+    public async Task CancelPickupAsync()
+    {
+        if (CurrentMap == null || _userService.User == null || _pendingPickupPosition is null)
+            return;
+
+        var position = _pendingPickupPosition.Value;
+
+        _pendingPickupPosition = null;
+        _pendingPickupItem = null;
+
+        await _itemDropState.TryCollectAsync(
+            _userService.User.Id,
+            CurrentMap,
+            position.X,
+            position.Y
+        );
     }
 }

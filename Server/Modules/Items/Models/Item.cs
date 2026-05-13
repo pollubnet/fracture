@@ -32,4 +32,8 @@ public class Item
     [InverseProperty(nameof(User.Items))]
     [JsonIgnore]
     public virtual User? CreatedBy { get; set; }
+
+    [InverseProperty(nameof(ItemDropped.Item))]
+    [JsonIgnore]
+    public virtual ICollection<ItemDropped> DroppedItems { get; set; } = null!;
 }

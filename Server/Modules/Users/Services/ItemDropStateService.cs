@@ -73,6 +73,20 @@ public class ItemDropStateService
         return true;
     }
 
+    public async Task AttachItemAsync(int userId, Map map, int x, int y, int itemId)
+    {
+        var mapSeed = RandomProvider.Seed;
+        var entry = await _dbContext.ItemsDropped.FirstOrDefaultAsync(d =>
+            d.UserId == userId && d.MapSeed == mapSeed && d.X == x && d.Y == y
+        );
+
+        if (entry == null)
+            return;
+
+        entry.ItemId = itemId;
+        await _dbContext.SaveChangesAsync();
+    }
+
     private HashSet<Position> GetBaseDrops(Map map)
     {
         var mapKey = GetMapKey(map);
