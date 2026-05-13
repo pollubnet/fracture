@@ -18,13 +18,6 @@ public class FractureDbContext : DbContext
     {
         modelBuilder.Entity<Item>().HasOne(i => i.Statistics).WithOne(s => s.Item);
 
-        modelBuilder
-            .Entity<Item>()
-            .HasOne(i => i.CreatedBy)
-            .WithMany(u => u.Items)
-            .HasForeignKey(i => i.CreatedById)
-            .IsRequired(false);
-
         modelBuilder.Entity<User>().HasMany(u => u.Items).WithOne(i => i.CreatedBy);
 
         modelBuilder.Entity<ItemStatistics>().HasOne(s => s.Item).WithOne(i => i.Statistics);
@@ -40,20 +33,6 @@ public class FractureDbContext : DbContext
                 d.Y,
             })
             .IsUnique();
-
-        modelBuilder
-            .Entity<ItemDropped>()
-            .HasOne(d => d.User)
-            .WithMany(u => u.ItemDrops)
-            .HasForeignKey(d => d.UserId)
-            .IsRequired();
-
-        modelBuilder
-            .Entity<ItemDropped>()
-            .HasOne(d => d.Item)
-            .WithMany(i => i.DroppedItems)
-            .HasForeignKey(d => d.ItemId)
-            .IsRequired(false);
 
         base.OnModelCreating(modelBuilder);
     }
