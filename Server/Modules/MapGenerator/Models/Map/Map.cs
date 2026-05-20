@@ -1,7 +1,11 @@
-﻿namespace Fracture.Server.Modules.MapGenerator.Models.Map;
+﻿using Fracture.Server.Modules.Shared;
+
+namespace Fracture.Server.Modules.MapGenerator.Models.Map;
 
 public class Map
 {
+    private readonly Random _rnd;
+
     public string? Name { get; set; }
 
     public LocationType LocationType { get; init; }
@@ -12,14 +16,17 @@ public class Map
     public int Height { get; init; }
     public required Node[,] Grid { get; init; }
 
+    public Map(RandomProvider rndProvider)
+    {
+        _rnd = rndProvider.Random;
+    }
+
     public Position GetRandomWalkableNode()
     {
-        var rnd = new Random();
-
         Position node;
         do
         {
-            node = new Position() { X = rnd.Next(0, Width), Y = rnd.Next(0, Height) };
+            node = new Position() { X = _rnd.Next(0, Width), Y = _rnd.Next(0, Height) };
         } while (!Grid[node.X, node.Y].Walkable);
 
         return node;

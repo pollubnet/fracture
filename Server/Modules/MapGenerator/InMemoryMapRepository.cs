@@ -1,10 +1,17 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.Shared;
 
 namespace Fracture.Server.Modules.MapGenerator;
 
 public class InMemoryMapRepository : IMapRepository
 {
     private readonly Dictionary<string, Map> _maps = new();
+    private readonly Random _rnd;
+
+    public InMemoryMapRepository(RandomProvider rndProvider)
+    {
+        _rnd = rndProvider.Random;
+    }
 
     public void SaveMap(Map map)
     {
@@ -27,8 +34,7 @@ public class InMemoryMapRepository : IMapRepository
         if (!maps.Any())
             throw new InvalidOperationException($"No maps found for location type {locationType}!");
 
-        var random = new Random();
-        return maps[random.Next(maps.Count)];
+        return maps[_rnd.Next(maps.Count)];
     }
 
     public bool RemoveMap(string mapName)

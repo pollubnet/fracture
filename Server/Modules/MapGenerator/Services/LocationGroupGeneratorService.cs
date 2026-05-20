@@ -8,10 +8,11 @@ namespace Fracture.Server.Modules.MapGenerator.Services;
 public class LocationGroupGeneratorService(
     ILocationWeightGeneratorService weightGen,
     ILocationGeneratorService locationGen,
-    IFloodFillService<Node> floodFill
+    IFloodFillService<Node> floodFill,
+    RandomProvider rndProvider
 ) : ILocationGroupGeneratorService
 {
-    private readonly Random _rnd = new();
+    private readonly Random _rnd = rndProvider.Random;
 
     public List<LocationGroup> GenerateGroups(
         Node[,] grid,

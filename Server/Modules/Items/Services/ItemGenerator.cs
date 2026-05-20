@@ -17,6 +17,7 @@ public class ItemGenerator : IItemGenerator
     public ItemGenerator(
         INameGenerator nameGenerator,
         PrefixesGenerator prefixes,
+        RandomProvider rndProvider,
         SingleResponseProvider? ai = null
     )
     {
@@ -24,7 +25,7 @@ public class ItemGenerator : IItemGenerator
         _prefixes = prefixes;
         _ai = ai;
 
-        _rnd = new Random();
+        _rnd = rndProvider.Random;
 
         var configData = File.ReadAllText("Config/ItemParameters/itemgeneratorconfig.json");
         _modifiers = JsonSerializer.Deserialize<List<RarityModifier>>(configData)!;

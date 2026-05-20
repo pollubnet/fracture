@@ -33,6 +33,9 @@ builder.Configuration.AddJsonFile(
     reloadOnChange: true
 ); // Przeniesienie NameGenerator a appsettings do folderu Config
 
+var r = new RandomProvider(42);
+builder.Services.AddSingleton<RandomProvider>(r);
+
 builder.Services.AddSingleton<INameGenerator, MarkovNameGenerator>();
 builder.Services.AddSingleton<IItemGenerator, ItemGenerator>();
 builder.Services.AddSingleton<PrefixesGenerator>();
