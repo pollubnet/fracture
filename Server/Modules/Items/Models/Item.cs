@@ -24,12 +24,16 @@ public class Item
     public bool IsEquipped { get; set; }
 
     [ForeignKey(nameof(User.Id))]
-    public int CreatedById { get; set; }
+    public int? CreatedById { get; set; }
 
     [InverseProperty(nameof(ItemStatistics.Item))]
     public virtual ItemStatistics Statistics { get; set; } = null!;
 
     [InverseProperty(nameof(User.Items))]
     [JsonIgnore]
-    public virtual User CreatedBy { get; set; } = null!;
+    public virtual User? CreatedBy { get; set; }
+
+    [InverseProperty(nameof(ItemDropped.Item))]
+    [JsonIgnore]
+    public virtual ICollection<ItemDropped> DroppedItems { get; set; } = null!;
 }

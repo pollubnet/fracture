@@ -1,0 +1,36 @@
+﻿@using Fracture.Server.Modules.Items.Models
+@using Fracture.Server.Components.UI
+
+<div class="item-popup">
+    <h3>You found a new item, Do you want to pick it up?</h3>
+    <div class="item-title">
+        <strong>@Item.Name</strong> (@Item.Type) - @Item.Rarity
+    </div>
+
+    <div class="item-stats">
+        <ItemStats Item="@Item"></ItemStats>
+    </div>
+
+    <div class="popup-actions">
+        <button @onclick="ConfirmAsync">Yes</button>
+        <button @onclick="CancelAsync">No</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Item Item { get; set; } = null!;
+    [Parameter] public Func<Task>? OnConfirm { get; set; }
+    [Parameter] public Func<Task>? OnCancel { get; set; }
+
+    private async Task ConfirmAsync()
+    {
+        if (OnConfirm is not null)
+            await OnConfirm();
+    }
+
+    private async Task CancelAsync()
+    {
+        if (OnCancel is not null)
+            await OnCancel();
+    }
+}

@@ -1,4 +1,6 @@
+using Fracture.Server.Components.Popups;
 using Fracture.Server.Components.UI;
+using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.UI.Models;
 using Fracture.Server.Modules.Pathfinding.Models;
@@ -29,7 +31,7 @@ public partial class GamePage
 
         if (MovementService.CurrentMap is null)
         {
-            MovementService.Initialize();
+            await MovementService.InitializeAsync();
             BackgroundImage = GetBackgroundImagePath();
         }
 
@@ -43,6 +45,36 @@ public partial class GamePage
         {
             BackgroundImage = GetBackgroundImagePath();
             StateHasChanged();
+        };
+
+        MovementService.OnItemPickupRequested += async (sender, item) =>
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "Item", item },
+                {
+                    "OnConfirm",
+                    (Func<Task>)(
+                        async () =>
+                        {
+                            await MovementService.ConfirmPickupAsync();
+                            _popup.Hide();
+                        }
+                    )
+                },
+                {
+                    "OnCancel",
+                    (Func<Task>)(
+                        async () =>
+                        {
+                            await MovementService.CancelPickupAsync();
+                            _popup.Hide();
+                        }
+                    )
+                },
+            };
+
+            _popup.ShowComponent<ItemPickupRequest>(parameters);
         };
 
         _mapDisplayOptions.ShowColorMap = true;

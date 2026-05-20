@@ -11,17 +11,28 @@ public class FractureDbContext : DbContext
 
     public virtual DbSet<Item> Items { get; set; }
     public virtual DbSet<ItemStatistics> ItemStatistics { get; set; }
+    public virtual DbSet<ItemDropped> ItemsDropped { get; set; }
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Item>().HasOne(i => i.Statistics).WithOne(s => s.Item);
 
-        modelBuilder.Entity<Item>().HasOne(i => i.CreatedBy).WithMany(u => u.Items);
-
         modelBuilder.Entity<User>().HasMany(u => u.Items).WithOne(i => i.CreatedBy);
 
         modelBuilder.Entity<ItemStatistics>().HasOne(s => s.Item).WithOne(i => i.Statistics);
+
+        modelBuilder.Entity<ItemDropped>().ToTable("ItemsDropped");
+        modelBuilder
+            .Entity<ItemDropped>()
+            .HasIndex(d => new
+            {
+                d.UserId,
+                d.MapSeed,
+                d.X,
+                d.Y,
+            })
+            .IsUnique();
 
         base.OnModelCreating(modelBuilder);
     }
