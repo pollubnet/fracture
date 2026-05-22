@@ -1,5 +1,21 @@
-﻿<h3>SettingsPopup</h3>
+﻿@using Fracture.Server.Modules.Shared
+@using Fracture.Server.Modules.Items.Services
+@using Fracture.Server.Modules.Database
+@using Fracture.Server.Modules.Users.Services
 
-@code {
+@inject VersionInfoProvider VersionInfoProvider
+@inject IItemGenerator ItemGenerator
+@inject IItemsRepository ItemsRepository
+@inject UserService UserService
 
-}
+<div class="settings-popup">
+    <h3>Settings</h3>
+    
+    <p>Version: Fracture @VersionInfoProvider.InformationalVersion</p>
+    
+    <h4>Options:</h4>
+    
+    <div class="actionButton settingsPopupButton" @onclick="GenerateNewItem">
+        <div class="actionButton-content">Generate new random item</div>
+    </div>
+</div>
