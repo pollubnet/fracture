@@ -17,14 +17,16 @@
     </div>
     <div class="equipmentContent">
         <div>Inventory</div>
-        <div style="margin: 10px 0; display: flex; gap: 10px;">
-            <button @onclick='() => ChangeType("All")'>All</button>
-            <button @onclick='() => ChangeType("Helmet")'>Helmet</button>
-            <button @onclick='() => ChangeType("Chestplate")'>Chestplate</button>
-            <button @onclick='() => ChangeType("Gauntlets")'>Gauntlets</button>
-            <button @onclick='() => ChangeType("Leggings")'>Leggings</button>
-            <button @onclick='() => ChangeType("Boots")'>Boots</button>
-            <button @onclick='() => ChangeType("Ring")'>Ring</button>
+        <div>
+            <select @bind="SelectedType">
+                <option value="All">All</option>
+                <option value="Helmet">Helmet</option>
+                <option value="Chestplate">Chestplate</option>
+                <option value="Gauntlets">Gauntlets</option>
+                <option value="Leggings">Leggings</option>
+                <option value="Boots">Boots</option>
+                <option value="Ring">Ring</option>
+            </select>
         </div>
         <div class="eqColumn">
             @foreach (var item in UserService.Inventory.Where(x => !UserService.IsEquipped(x)))
