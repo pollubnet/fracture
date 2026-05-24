@@ -9,7 +9,7 @@ using Fracture.Server.Modules.Users.Services;
 
 namespace Fracture.Server.Components.Pages;
 
-public partial class GamePage
+public partial class GamePage : IAsyncDisposable
 {
     private Dictionary<string, object> _mapPopupParameters = null!;
 
@@ -33,6 +33,12 @@ public partial class GamePage
         {
             await MovementService.InitializeAsync();
             BackgroundImage = GetBackgroundImagePath();
+
+            // Załaduj zapisaną pozycję gracza (jeśli istnieje)
+            if (UserService.User != null)
+            {
+                await LoadPlayerPositionAsync();
+            }
         }
 
         MovementService.OnMapEntered += async (sender, args) =>
@@ -110,10 +116,56 @@ public partial class GamePage
         return true;
     }
 
-    private void Logout()
+    private async Task LoadPlayerPositionAsync()
     {
+        if (UserService.User == null)
+            return;
+
+        var positionString = await UserService.GetPlayerPositionAsync(UserService.User.Id);
+
+        if (string.IsNullOrEmpty(positionString))
+            return;
+
+        var parts = positionString.Split(',');
+        if (
+            parts.Length == 2
+            && int.TryParse(parts[0], out int x)
+            && int.TryParse(parts[1], out int y)
+        )
+        {
+            if (MovementService.CanMove(x, y))
+            {
+                MovementService.CurrentX = x;
+                MovementService.CurrentY = y;
+                Logger.LogInformation($"Loaded player position: ({x}, {y})");
+            }
+        }
+    }
+
+    private async Task SavePlayerPositionAsync()
+    {
+        if (UserService.User != null && MovementService.CurrentMap != null)
+        {
+            var position = $"{MovementService.CurrentX},{MovementService.CurrentY}";
+            await UserService.UpdatePlayerPositionAsync(UserService.User.Id, position);
+            Logger.LogInformation($"Saved player position: {position}");
+        }
+    }
+
+    private async Task LogoutAsync()
+    {
+        // Zapisz pozycję przed wylogowaniem
+        await SavePlayerPositionAsync();
+
+        await ProtectedSessionStore.DeleteAsync("username");
         NavigationManager.NavigateTo("/home");
-        ProtectedSessionStore.DeleteAsync("username");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        // Zapisz pozycję gdy gracz zamknie przeglądarkę
+        await SavePlayerPositionAsync();
+        GC.SuppressFinalize(this);
     }
 
     private string GetBackgroundImagePath()

@@ -114,6 +114,9 @@ namespace Fracture.Server.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PlayerPosition")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("TEXT");

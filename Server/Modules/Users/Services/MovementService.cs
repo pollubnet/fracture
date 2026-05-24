@@ -35,8 +35,8 @@ public class MovementService
 
     public Map? CurrentMap { get; private set; }
 
-    public int CurrentX { get; private set; }
-    public int CurrentY { get; private set; }
+    public int CurrentX { get; set; }
+    public int CurrentY { get; set; }
 
     public event EventHandler<Position>? OnMoved;
     public event EventHandler<(Map, Position)>? OnMapEntered;
@@ -148,5 +148,11 @@ public class MovementService
             position.X,
             position.Y
         );
+    }
+
+    public async Task SavePlayerPositionAsync(int userId)
+    {
+        var position = $"{CurrentX},{CurrentY}";
+        await _userService.UpdatePlayerPositionAsync(userId, position);
     }
 }

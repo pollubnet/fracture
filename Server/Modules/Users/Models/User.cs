@@ -13,6 +13,11 @@ public class User
 
     public required string Username { get; set; }
 
+    /// <summary>
+    /// Pozycja gracza w formacie "X,Y"
+    /// </summary>
+    public string? PlayerPosition { get; set; }
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     [InverseProperty(nameof(Item.CreatedBy))]

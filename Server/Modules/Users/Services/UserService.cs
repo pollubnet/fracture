@@ -6,7 +6,7 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Fracture.Server.Modules.Users.Services;
 
-public class UserService(IItemsRepository _itemsRepository)
+public class UserService(IItemsRepository _itemsRepository, IUsersRepository _usersRepository)
 {
     public User? User { get; private set; }
 
@@ -76,5 +76,21 @@ public class UserService(IItemsRepository _itemsRepository)
     public bool IsEquipped(Item item)
     {
         return Equipment.Contains(item);
+    }
+
+    public async Task UpdatePlayerPositionAsync(int userId, string position)
+    {
+        var user = await _usersRepository.GetUserAsync(userId); // ← zmienić z GetUserByIdAsync
+        if (user != null)
+        {
+            user.PlayerPosition = position;
+            await _usersRepository.SaveAsync();
+        }
+    }
+
+    public async Task<string?> GetPlayerPositionAsync(int userId)
+    {
+        var user = await _usersRepository.GetUserAsync(userId); // ← zmienić z GetUserByIdAsync
+        return user?.PlayerPosition;
     }
 }
