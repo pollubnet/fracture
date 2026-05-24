@@ -32,4 +32,11 @@ public partial class EquipmentPopup
     {
         UserService.Unequip(item);
     }
+
+    public string SelectedType { get; set; } = "All";
+
+    public void ChangeType(string type)
+    {
+        SelectedType = type;
+    }
 }

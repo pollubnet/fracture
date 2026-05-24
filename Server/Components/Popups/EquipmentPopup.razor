@@ -17,12 +17,23 @@
     </div>
     <div class="equipmentContent">
         <div>Inventory</div>
+        <div style="margin: 10px 0; display: flex; gap: 10px;">
+            <button @onclick='() => ChangeType("All")'>All</button>
+            <button @onclick='() => ChangeType("Helmet")'>Helmet</button>
+            <button @onclick='() => ChangeType("Chestplate")'>Chestplate</button>
+            <button @onclick='() => ChangeType("Gauntlets")'>Gauntlets</button>
+            <button @onclick='() => ChangeType("Leggings")'>Leggings</button>
+            <button @onclick='() => ChangeType("Boots")'>Boots</button>
+            <button @onclick='() => ChangeType("Ring")'>Ring</button>
+        </div>
         <div class="eqColumn">
-
             @foreach (var item in UserService.Inventory.Where(x => !UserService.IsEquipped(x)))
             {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
-                          OnUnequipClicked="() => Unequip(item)"></ItemCard>
+                @if (SelectedType == "All" || item.Type.ToString() == SelectedType)
+                {
+                    <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
+                              OnUnequipClicked="() => Unequip(item)"></ItemCard>
+                }
             }
         </div>
         <div>Equipped</div>
