@@ -118,7 +118,7 @@ public partial class GamePage : IAsyncDisposable
 
     private async Task LoadPlayerPositionAsync()
     {
-        if (UserService.User == null)
+        if (UserService.User == null || MovementService.CurrentMap == null)
             return;
 
         var positionString = await UserService.GetPlayerPositionAsync(UserService.User.Id);
@@ -133,11 +133,23 @@ public partial class GamePage : IAsyncDisposable
             && int.TryParse(parts[1], out int y)
         )
         {
+            // Sprawdzenie czy pozycja jest walkable na aktualnej mapie
             if (MovementService.CanMove(x, y))
             {
                 MovementService.CurrentX = x;
                 MovementService.CurrentY = y;
                 Logger.LogInformation($"Loaded player position: ({x}, {y})");
+            }
+            else
+            {
+                // Pozycja nie jest walkable, losujemy nową
+                var randomPos = MovementService.CurrentMap.GetRandomWalkableNode();
+                MovementService.CurrentX = randomPos.X;
+                MovementService.CurrentY = randomPos.Y;
+                await SavePlayerPositionAsync();
+                Logger.LogWarning(
+                    $"Saved position ({x}, {y}) is not walkable on current map. Spawned at random position: ({randomPos.X}, {randomPos.Y})"
+                );
             }
         }
     }
