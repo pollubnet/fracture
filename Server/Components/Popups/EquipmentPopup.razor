@@ -20,12 +20,10 @@
         <div>
             <select @bind="SelectedType">
                 <option value="All">All</option>
-                <option value="Helmet">Helmet</option>
-                <option value="Chestplate">Chestplate</option>
-                <option value="Gauntlets">Gauntlets</option>
-                <option value="Leggings">Leggings</option>
-                <option value="Boots">Boots</option>
-                <option value="Ring">Ring</option>
+                @foreach (var type in Enum.GetValues<ItemType>())
+                {
+                    <option value="@type.ToString()">@type.ToString()</option>
+                }
             </select>
         </div>
         <div class="eqColumn">
