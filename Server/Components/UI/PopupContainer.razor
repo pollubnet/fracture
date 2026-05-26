@@ -19,7 +19,7 @@
 
 	public PopupState? CurrentPopup => _popupStack.Count > 0 ? _popupStack.Peek() : null;
 
-	public void ShowComponent<T>(IDictionary<string, object>? parameters = null)
+	public async Task ShowComponent<T>(IDictionary<string, object>? parameters = null, Func<Task>? onClose = null)
 	{
 		var newComponentType = typeof(T);
 		
@@ -34,7 +34,8 @@
 		var newPopup = new PopupState 
 		{ 
 			ComponentType = newComponentType, 
-			Parameters = parameters 
+			Parameters = parameters,
+			OnClose = onClose
 		};
 		
 		_popupStack.Push(newPopup);
@@ -42,8 +43,14 @@
 		StateHasChanged();
 	}
 
-	public void Hide()
+	public async Task Hide()
 	{
+		// Wywołaj callback zamknięcia
+		if (CurrentPopup?.OnClose is not null)
+		{
+			await CurrentPopup.OnClose();
+		}
+
 		// Usuń bieżący popup ze stosu
 		if (_popupStack.Count > 0)
 		{
@@ -60,5 +67,6 @@
 	{
 		public required Type ComponentType { get; set; }
 		public IDictionary<string, object>? Parameters { get; set; }
+		public Func<Task>? OnClose { get; set; }
 	}
 }

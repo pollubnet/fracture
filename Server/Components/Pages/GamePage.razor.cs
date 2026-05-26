@@ -58,7 +58,7 @@ public partial class GamePage
                         async () =>
                         {
                             await MovementService.ConfirmPickupAsync();
-                            _popup.Hide();
+                            await _popup.Hide();
                         }
                     )
                 },
@@ -68,13 +68,20 @@ public partial class GamePage
                         async () =>
                         {
                             await MovementService.CancelPickupAsync();
-                            _popup.Hide();
+                            await _popup.Hide();
                         }
                     )
                 },
             };
 
-            _popup.ShowComponent<ItemPickupRequest>(parameters);
+            await _popup.ShowComponent<ItemPickupRequest>(
+                parameters,
+                onClose: async () =>
+                {
+                    // Traktuj zamkni�cie X jako odrzucenie
+                    await MovementService.CancelPickupAsync();
+                }
+            );
         };
 
         _mapDisplayOptions.ShowColorMap = true;

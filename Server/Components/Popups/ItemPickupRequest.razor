@@ -21,6 +21,7 @@
     [Parameter] public Item Item { get; set; } = null!;
     [Parameter] public Func<Task>? OnConfirm { get; set; }
     [Parameter] public Func<Task>? OnCancel { get; set; }
+    [Parameter] public Func<Task>? OnClose { get; set; }
 
     private async Task ConfirmAsync()
     {
