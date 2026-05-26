@@ -18,9 +18,9 @@ public partial class GamePage : IAsyncDisposable
     private List<IPathfindingNode>? Path { get; set; }
     private CancellationTokenSource _autosaveCts = null!;
 
-    // Zmienne do debounce'a i auto-save'a
-    private int _lastSavedX = -1;
-    private int _lastSavedY = -1; // 3 sekundy
+    // Zmienne do auto-save'a
+    private int _lastSavedX;
+    private int _lastSavedY;
     private const int AUTOSAVE_INTERVAL_MS = 120000; // 2 minuty
 
     protected override async Task OnInitializedAsync()
