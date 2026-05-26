@@ -2,9 +2,9 @@
 @rendermode InteractiveServer
 
 <div class="popup @(IsVisible ? "" : "hidden")">
-	@if (_componentType is not null)
+	@if (CurrentPopup is not null)
 	{
-		<DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
+		<DynamicComponent Type="@CurrentPopup.ComponentType" Parameters="@CurrentPopup.Parameters" @ref="Component" />
 	}
 	<div>
 		<button class="closeBtn" @onclick="Hide"><img src="assets/icons/closebutton.svg" /></button>
@@ -12,27 +12,53 @@
 </div>
 
 @code {
-	GamePage _gamePage = new();
 	public bool IsVisible { get; set; }
+	private Stack<PopupState> _popupStack = new();
+
+	public DynamicComponent? Component = null;
+
+	public PopupState? CurrentPopup => _popupStack.Count > 0 ? _popupStack.Peek() : null;
 
 	public void ShowComponent<T>(IDictionary<string, object>? parameters = null)
 	{
-		_componentType = typeof(T);
-		_parameters = parameters;
-
+		var newComponentType = typeof(T);
+		
+		// Sprawdź czy ten typ już istnieje na stosie
+		if (_popupStack.Any(p => p.ComponentType == newComponentType))
+		{
+			// Jeśli już istnieje, nie dodawaj nowego
+			return;
+		}
+		
+		// Pokaż nowy popup
+		var newPopup = new PopupState 
+		{ 
+			ComponentType = newComponentType, 
+			Parameters = parameters 
+		};
+		
+		_popupStack.Push(newPopup);
 		IsVisible = true;
 		StateHasChanged();
 	}
 
 	public void Hide()
 	{
-		IsVisible = false;
-		_componentType = null;
-		_parameters = null;
+		// Usuń bieżący popup ze stosu
+		if (_popupStack.Count > 0)
+		{
+			_popupStack.Pop();
+		}
+
+		// Pokaż poprzedni popup lub ukryj
+		IsVisible = _popupStack.Count > 0;
 		StateHasChanged();
 	}
 
-	public DynamicComponent? Component = null;
-	private Type? _componentType = null;
-	private IDictionary<string, object>? _parameters;
+	// Klasa pomocnicza do przechowywania stanu popupu
+	public class PopupState
+	{
+		public required Type ComponentType { get; set; }
+		public IDictionary<string, object>? Parameters { get; set; }
+	}
 }
