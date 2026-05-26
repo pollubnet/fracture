@@ -12,14 +12,16 @@ namespace Fracture.Server.Components.Pages;
 public partial class GamePage : IAsyncDisposable
 {
     private Dictionary<string, object> _mapPopupParameters = null!;
-
     private PopupContainer _popup = null!;
-
     public string BackgroundImage { get; set; } = string.Empty;
-
     private readonly MapDisplayOptions _mapDisplayOptions = new();
-
     private List<IPathfindingNode>? Path { get; set; }
+    private CancellationTokenSource _autosaveCts = null!;
+
+    // Zmienne do debounce'a i auto-save'a
+    private int _lastSavedX = -1;
+    private int _lastSavedY = -1; // 3 sekundy
+    private const int AUTOSAVE_INTERVAL_MS = 120000; // 2 minuty
 
     protected override async Task OnInitializedAsync()
     {
@@ -89,6 +91,9 @@ public partial class GamePage : IAsyncDisposable
             { "MapDisplayData", _mapDisplayOptions },
         };
 
+        _autosaveCts = new CancellationTokenSource();
+        _ = AutosavePositionAsync(_autosaveCts.Token);
+
         await base.OnInitializedAsync();
     }
 
@@ -133,22 +138,29 @@ public partial class GamePage : IAsyncDisposable
             && int.TryParse(parts[1], out int y)
         )
         {
-            // Sprawdzenie czy pozycja jest walkable na aktualnej mapie
             if (MovementService.CanMove(x, y))
             {
+                // Pozycja jest walkable - załaduj bez problemu
                 MovementService.CurrentX = x;
                 MovementService.CurrentY = y;
+                _lastSavedX = x;
+                _lastSavedY = y;
                 Logger.LogInformation($"Loaded player position: ({x}, {y})");
             }
             else
             {
-                // Pozycja nie jest walkable, losujemy nową
+                // Pozycja nie jest walkable - losuj nową i od razu zapisz do bazy
                 var randomPos = MovementService.CurrentMap.GetRandomWalkableNode();
                 MovementService.CurrentX = randomPos.X;
                 MovementService.CurrentY = randomPos.Y;
+                _lastSavedX = randomPos.X;
+                _lastSavedY = randomPos.Y;
+
+                // Natychmiast zapisz nową pozycję do bazy
                 await SavePlayerPositionAsync();
+
                 Logger.LogWarning(
-                    $"Saved position ({x}, {y}) is not walkable on current map. Spawned at random position: ({randomPos.X}, {randomPos.Y})"
+                    $"Saved position ({x}, {y}) is not walkable on current map. Spawned at random position: ({randomPos.X}, {randomPos.Y}) - position saved immediately"
                 );
             }
         }
@@ -164,9 +176,45 @@ public partial class GamePage : IAsyncDisposable
         }
     }
 
+    private async Task AutosavePositionAsync(CancellationToken cancellationToken)
+    {
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            try
+            {
+                await Task.Delay(AUTOSAVE_INTERVAL_MS, cancellationToken); // Co 2 minuty
+
+                // Zapisz tylko jeśli pozycja się zmieniła
+                if (
+                    MovementService.CurrentX != _lastSavedX
+                    || MovementService.CurrentY != _lastSavedY
+                )
+                {
+                    await SavePlayerPositionAsync();
+                    _lastSavedX = MovementService.CurrentX;
+                    _lastSavedY = MovementService.CurrentY;
+                    Logger.LogInformation(
+                        $"Autosave triggered - position changed: ({_lastSavedX}, {_lastSavedY})"
+                    );
+                }
+                else
+                {
+                    Logger.LogInformation("Autosave skipped - position unchanged");
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                break;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "Error during autosave");
+            }
+        }
+    }
+
     private async Task LogoutAsync()
     {
-        // Zapisz pozycję przed wylogowaniem
         await SavePlayerPositionAsync();
 
         await ProtectedSessionStore.DeleteAsync("username");
@@ -175,8 +223,11 @@ public partial class GamePage : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        // Zapisz pozycję gdy gracz zamknie przeglądarkę
+        _autosaveCts?.Cancel();
+        _autosaveCts?.Dispose();
+
         await SavePlayerPositionAsync();
+
         GC.SuppressFinalize(this);
     }
 
