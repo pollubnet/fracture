@@ -23,7 +23,6 @@
 @inject IUsersRepository UsersRepository
 @inject NavigationManager NavigationManager
 @inject IItemsRepository ItemsRepository
-@inject VersionInfoProvider VersionInfoProvider
 @inject UserService UserService
 @inject MovementService MovementService
 @inject ILogger<GamePage> Logger
@@ -69,7 +68,6 @@
 		<div class="dialogueWindowBg"
 			 style="background: url(@BackgroundImage);background-repeat: no-repeat;  background-size: cover; ">
 			<div class="dialogueWindow">
-				Fracture @VersionInfoProvider.InformationalVersion<br />
 				tutaj log mojej gry<br />
 				<PopupContainer @ref="_popup"></PopupContainer>
 			</div>
@@ -136,7 +134,7 @@
 		<div class="settings">
 			<div class="settingsBtn">
 				<div class="settingsBtn-content">
-					<img src="assets/icons/settingsbutton.svg" />
+					<img @onclick="() => _popup.ShowComponent<SettingsPopup>()" src="assets/icons/settingsbutton.svg" />
 				</div>
 			</div>
 			<div class="settingsBtn">

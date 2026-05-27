@@ -504,6 +504,12 @@ body {
         filter: drop-shadow(3px 4px 2px black);
     }
 
+.settingsPopupButton {
+    height: 6vh;
+    width: auto;
+    font-size: 1rem;
+}
+    
 .closeBtn {
     border-radius: 100%;
     width: 30px;
