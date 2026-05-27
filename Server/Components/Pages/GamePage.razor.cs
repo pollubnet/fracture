@@ -1,6 +1,5 @@
 using Fracture.Server.Components.Popups;
 using Fracture.Server.Components.UI;
-using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.UI.Models;
 using Fracture.Server.Modules.Pathfinding.Models;
@@ -16,12 +15,6 @@ public partial class GamePage : IAsyncDisposable
     public string BackgroundImage { get; set; } = string.Empty;
     private readonly MapDisplayOptions _mapDisplayOptions = new();
     private List<IPathfindingNode>? Path { get; set; }
-    private CancellationTokenSource _autosaveCts = null!;
-
-    // Zmienne do auto-save'a
-    private int _lastSavedX;
-    private int _lastSavedY;
-    private const int AUTOSAVE_INTERVAL_MS = 120000; // 2 minuty
 
     protected override async Task OnInitializedAsync()
     {
@@ -35,12 +28,12 @@ public partial class GamePage : IAsyncDisposable
         {
             await MovementService.InitializeAsync();
             BackgroundImage = GetBackgroundImagePath();
-
-            // Załaduj zapisaną pozycję gracza (jeśli istnieje)
-            if (UserService.User != null)
-            {
-                await LoadPlayerPositionAsync();
-            }
+        }
+        else
+        {
+            //Reset dla nowego gracza
+            await MovementService.ReloadPlayerPositionAsync();
+            BackgroundImage = GetBackgroundImagePath();
         }
 
         MovementService.OnMapEntered += async (sender, args) =>
@@ -90,9 +83,8 @@ public partial class GamePage : IAsyncDisposable
         {
             { "MapDisplayData", _mapDisplayOptions },
         };
-
-        _autosaveCts = new CancellationTokenSource();
-        _ = AutosavePositionAsync(_autosaveCts.Token);
+        //Autosave Pozycji Gracza
+        MovementService.StartAutosave();
 
         await base.OnInitializedAsync();
     }
@@ -121,113 +113,17 @@ public partial class GamePage : IAsyncDisposable
         return true;
     }
 
-    private async Task LoadPlayerPositionAsync()
-    {
-        if (UserService.User == null || MovementService.CurrentMap == null)
-            return;
-
-        var positionString = await UserService.GetPlayerPositionAsync(UserService.User.Id);
-
-        if (string.IsNullOrEmpty(positionString))
-            return;
-
-        var parts = positionString.Split(',');
-        if (
-            parts.Length == 2
-            && int.TryParse(parts[0], out int x)
-            && int.TryParse(parts[1], out int y)
-        )
-        {
-            if (MovementService.CanMove(x, y))
-            {
-                // Pozycja jest walkable - załaduj bez problemu
-                MovementService.CurrentX = x;
-                MovementService.CurrentY = y;
-                _lastSavedX = x;
-                _lastSavedY = y;
-                Logger.LogInformation($"Loaded player position: ({x}, {y})");
-            }
-            else
-            {
-                // Pozycja nie jest walkable - losuj nową i od razu zapisz do bazy
-                var randomPos = MovementService.CurrentMap.GetRandomWalkableNode();
-                MovementService.CurrentX = randomPos.X;
-                MovementService.CurrentY = randomPos.Y;
-                _lastSavedX = randomPos.X;
-                _lastSavedY = randomPos.Y;
-
-                // Natychmiast zapisz nową pozycję do bazy
-                await SavePlayerPositionAsync();
-
-                Logger.LogWarning(
-                    $"Saved position ({x}, {y}) is not walkable on current map. Spawned at random position: ({randomPos.X}, {randomPos.Y}) - position saved immediately"
-                );
-            }
-        }
-    }
-
-    private async Task SavePlayerPositionAsync()
-    {
-        if (UserService.User != null && MovementService.CurrentMap != null)
-        {
-            var position = $"{MovementService.CurrentX},{MovementService.CurrentY}";
-            await UserService.UpdatePlayerPositionAsync(UserService.User.Id, position);
-            Logger.LogInformation($"Saved player position: {position}");
-        }
-    }
-
-    private async Task AutosavePositionAsync(CancellationToken cancellationToken)
-    {
-        while (!cancellationToken.IsCancellationRequested)
-        {
-            try
-            {
-                await Task.Delay(AUTOSAVE_INTERVAL_MS, cancellationToken); // Co 2 minuty
-
-                // Zapisz tylko jeśli pozycja się zmieniła
-                if (
-                    MovementService.CurrentX != _lastSavedX
-                    || MovementService.CurrentY != _lastSavedY
-                )
-                {
-                    await SavePlayerPositionAsync();
-                    _lastSavedX = MovementService.CurrentX;
-                    _lastSavedY = MovementService.CurrentY;
-                    Logger.LogInformation(
-                        $"Autosave triggered - position changed: ({_lastSavedX}, {_lastSavedY})"
-                    );
-                }
-                else
-                {
-                    Logger.LogInformation("Autosave skipped - position unchanged");
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                break;
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError(ex, "Error during autosave");
-            }
-        }
-    }
-
     private async Task LogoutAsync()
     {
-        await SavePlayerPositionAsync();
-
+        await MovementService.SavePlayerPositionAsync();
         await ProtectedSessionStore.DeleteAsync("username");
         NavigationManager.NavigateTo("/home");
     }
 
     public async ValueTask DisposeAsync()
     {
-        _autosaveCts?.Cancel();
-        _autosaveCts?.Dispose();
-
-        await SavePlayerPositionAsync();
-
+        MovementService.StopAutosave();
+        await MovementService.SavePlayerPositionAsync();
         GC.SuppressFinalize(this);
     }
 

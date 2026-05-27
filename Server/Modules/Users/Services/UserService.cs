@@ -80,7 +80,7 @@ public class UserService(IItemsRepository _itemsRepository, IUsersRepository _us
 
     public async Task UpdatePlayerPositionAsync(int userId, string position)
     {
-        var user = await _usersRepository.GetUserAsync(userId); // ← zmienić z GetUserByIdAsync
+        var user = await _usersRepository.GetUserAsync(userId);
         if (user != null)
         {
             user.PlayerPosition = position;
@@ -90,7 +90,7 @@ public class UserService(IItemsRepository _itemsRepository, IUsersRepository _us
 
     public async Task<string?> GetPlayerPositionAsync(int userId)
     {
-        var user = await _usersRepository.GetUserAsync(userId); // ← zmienić z GetUserByIdAsync
+        var user = await _usersRepository.GetUserAsync(userId);
         return user?.PlayerPosition;
     }
 }
