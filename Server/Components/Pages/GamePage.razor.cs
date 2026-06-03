@@ -11,7 +11,9 @@ namespace Fracture.Server.Components.Pages;
 public partial class GamePage : IAsyncDisposable
 {
     private Dictionary<string, object> _mapPopupParameters = null!;
-    private PopupContainer _popup = null!;
+    private PopupContainer? _popup = null!;
+    private RequestPopupContainer? _requestPopup;
+
     public string BackgroundImage { get; set; } = string.Empty;
     private readonly MapDisplayOptions _mapDisplayOptions = new();
     private List<IPathfindingNode>? Path { get; set; }
@@ -59,7 +61,7 @@ public partial class GamePage : IAsyncDisposable
                         async () =>
                         {
                             await MovementService.ConfirmPickupAsync();
-                            _popup.Hide();
+                            _requestPopup?.Hide();
                         }
                     )
                 },
@@ -69,13 +71,13 @@ public partial class GamePage : IAsyncDisposable
                         async () =>
                         {
                             await MovementService.CancelPickupAsync();
-                            _popup.Hide();
+                            _requestPopup?.Hide();
                         }
                     )
                 },
             };
 
-            _popup.ShowComponent<ItemPickupRequest>(parameters);
+            _requestPopup?.ShowComponent<ItemPickupRequest>(parameters);
         };
 
         _mapDisplayOptions.ShowColorMap = true;

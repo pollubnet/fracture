@@ -1,0 +1,37 @@
+@using Fracture.Server.Components.Pages
+@rendermode InteractiveServer
+
+<div class=" @(IsVisible ? "" : "hidden")">
+    @if (_componentType is not null)
+    {
+        <DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
+    }
+    <div>
+    </div>
+</div>
+
+@code {
+    GamePage _gamePage = new();
+    public bool IsVisible { get; set; }
+
+    public void ShowComponent<T>(IDictionary<string, object>? parameters = null)
+    {
+        _componentType = typeof(T);
+        _parameters = parameters;
+
+        IsVisible = true;
+        StateHasChanged();
+    }
+
+    public void Hide()
+    {
+        IsVisible = false;
+        _componentType = null;
+        _parameters = null;
+        StateHasChanged();
+    }
+
+    public DynamicComponent? Component = null;
+    private Type? _componentType = null;
+    private IDictionary<string, object>? _parameters;
+}
