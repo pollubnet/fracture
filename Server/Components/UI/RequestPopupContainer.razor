@@ -1,37 +1,30 @@
-@using Fracture.Server.Components.Pages
+@using Fracture.Server.Modules.UI
 @rendermode InteractiveServer
 
-<div class=" @(IsVisible ? "" : "hidden")">
-    @if (_componentType is not null)
+@inject IsVisibleService IsVisibleService
+
+@implements IDisposable
+
+<div class="@(IsVisibleService.IsVisible ? "" : "hidden")">
+    @if (IsVisibleService.ComponentType is not null)
     {
-        <DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
+        <DynamicComponent Type="@IsVisibleService.ComponentType" Parameters="@IsVisibleService.Parameters" />
     }
     <div>
     </div>
 </div>
 
 @code {
-    GamePage _gamePage = new();
-    public bool IsVisible { get; set; }
 
-    public void ShowComponent<T>(IDictionary<string, object>? parameters = null)
+
+    protected override void OnInitialized()
     {
-        _componentType = typeof(T);
-        _parameters = parameters;
-
-        IsVisible = true;
-        StateHasChanged();
+        IsVisibleService.OnChange += StateHasChanged;
     }
 
-    public void Hide()
+    public void Dispose()
     {
-        IsVisible = false;
-        _componentType = null;
-        _parameters = null;
-        StateHasChanged();
+        IsVisibleService.OnChange -= StateHasChanged;
     }
 
-    public DynamicComponent? Component = null;
-    private Type? _componentType = null;
-    private IDictionary<string, object>? _parameters;
 }

@@ -12,6 +12,7 @@
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Fracture.Server.Modules.Shared
+@using Fracture.Server.Modules.UI
 @using Fracture.Server.Modules.Users
 @using Fracture.Server.Modules.Users.Services
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
@@ -26,6 +27,7 @@
 @inject UserService UserService
 @inject MovementService MovementService
 @inject ILogger<GamePage> Logger
+@inject IsVisibleService IsVisibleService
 
 <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
 
@@ -125,7 +127,7 @@
 			</div>
 			<div class="settingsBtn">
 				<div class="settingsBtn-content">
-					<img @onclick="() => _popup.ShowComponent<TestPopup>()" src="assets/icons/hourglassbutton.svg" />					
+					<img @onclick="() => { if (IsVisibleService?.IsVisible == false) { IsVisibleService.Show<GameLogsPopup>(); } else { IsVisibleService?.Hide();  StateHasChanged();} }" src="assets/icons/hourglassbutton.svg" />					
 				</div>
 			</div>
 			<div class="settingsBtn">
