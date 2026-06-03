@@ -29,6 +29,7 @@
 @inject ILogger<GamePage> Logger
 @inject IsVisibleService IsVisibleService
 
+
 <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
 
 <link rel="icon" type="image/png" href="assets/favicon.png" />
@@ -127,7 +128,7 @@
 			</div>
 			<div class="settingsBtn">
 				<div class="settingsBtn-content">
-					<img @onclick="() => { if (IsVisibleService?.IsVisible == false) { IsVisibleService.Show<GameLogsPopup>(); } else { IsVisibleService?.Hide();  StateHasChanged();} }" src="assets/icons/hourglassbutton.svg" />					
+					<img @onclick="() => { if (MovementService.IsMovementLocked) { return; } if (IsVisibleService.IsVisible == false) { IsVisibleService.Show<GameLogsPopup>();} else{ IsVisibleService?.Hide();  StateHasChanged();} }" src="assets/icons/hourglassbutton.svg" />					
 				</div>
 			</div>
 			<div class="settingsBtn">

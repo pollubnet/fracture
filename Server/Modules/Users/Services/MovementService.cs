@@ -179,6 +179,11 @@ public class MovementService
 
     public bool CanMove(int x, int y)
     {
+        if (IsMovementLocked)
+        {
+            return false;
+        }
+
         return CurrentMap != null
             && x >= 0
             && y >= 0
@@ -197,10 +202,6 @@ public class MovementService
 
     public async Task MoveAsync(int x, int y)
     {
-        if (IsMovementLocked)
-        {
-            return;
-        }
         CurrentX = x;
         CurrentY = y;
 
