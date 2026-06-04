@@ -1,6 +1,5 @@
 using Fracture.Server.Components.Popups;
 using Fracture.Server.Components.UI;
-using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.UI.Models;
 using Fracture.Server.Modules.Pathfinding.Models;
@@ -9,16 +8,12 @@ using Fracture.Server.Modules.Users.Services;
 
 namespace Fracture.Server.Components.Pages;
 
-public partial class GamePage
+public partial class GamePage : IAsyncDisposable
 {
     private Dictionary<string, object> _mapPopupParameters = null!;
-
     private PopupContainer _popup = null!;
-
     public string BackgroundImage { get; set; } = string.Empty;
-
     private readonly MapDisplayOptions _mapDisplayOptions = new();
-
     private List<IPathfindingNode>? Path { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -32,6 +27,12 @@ public partial class GamePage
         if (MovementService.CurrentMap is null)
         {
             await MovementService.InitializeAsync();
+            BackgroundImage = GetBackgroundImagePath();
+        }
+        else
+        {
+            //Reset dla nowego gracza
+            await MovementService.ReloadPlayerPositionAsync();
             BackgroundImage = GetBackgroundImagePath();
         }
 
@@ -82,6 +83,8 @@ public partial class GamePage
         {
             { "MapDisplayData", _mapDisplayOptions },
         };
+        //Autosave Pozycji Gracza
+        MovementService.StartAutosave();
 
         await base.OnInitializedAsync();
     }
@@ -110,10 +113,18 @@ public partial class GamePage
         return true;
     }
 
-    private void Logout()
+    private async Task LogoutAsync()
     {
+        await MovementService.SavePlayerPositionAsync();
+        await ProtectedSessionStore.DeleteAsync("username");
         NavigationManager.NavigateTo("/home");
-        ProtectedSessionStore.DeleteAsync("username");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        MovementService.StopAutosave();
+        await MovementService.SavePlayerPositionAsync();
+        GC.SuppressFinalize(this);
     }
 
     private string GetBackgroundImagePath()

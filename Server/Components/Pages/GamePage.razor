@@ -151,3 +151,10 @@
 		</div>
 	</div>
 </div>
+
+@code {
+	private async Task Logout()
+	{
+		await LogoutAsync();
+	}
+}

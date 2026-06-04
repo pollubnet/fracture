@@ -38,4 +38,9 @@ public class UsersRepository : IUsersRepository
             .FirstOrDefaultAsync();
         return user;
     }
+
+    public async Task SaveAsync()
+    {
+        await _dbContext.SaveChangesAsync();
+    }
 }
