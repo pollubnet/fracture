@@ -10,6 +10,12 @@ namespace Fracture.Server.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "PlayerPosition",
+                table: "Users",
+                type: "TEXT",
+                nullable: true);
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Items_Users_CreatedById",
                 table: "Items");
