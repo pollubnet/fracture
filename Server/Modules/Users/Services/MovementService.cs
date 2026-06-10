@@ -50,6 +50,7 @@ public class MovementService
 
     public int CurrentX { get; private set; }
     public int CurrentY { get; private set; }
+    public bool IsMovementLocked { get; private set; }
 
     public event EventHandler<Position>? OnMoved;
     public event EventHandler<(Map, Position)>? OnMapEntered;
@@ -178,6 +179,11 @@ public class MovementService
 
     public bool CanMove(int x, int y)
     {
+        if (IsMovementLocked)
+        {
+            return false;
+        }
+
         return CurrentMap != null
             && x >= 0
             && y >= 0
@@ -244,6 +250,7 @@ public class MovementService
         _userService.Inventory.Add(item);
 
         OnItemEncountered?.Invoke(this, position);
+        IsMovementLocked = false;
         return true;
     }
 
@@ -263,5 +270,11 @@ public class MovementService
             position.X,
             position.Y
         );
+        IsMovementLocked = false;
+    }
+
+    public async Task RequestItemPickup()
+    {
+        IsMovementLocked = true;
     }
 }

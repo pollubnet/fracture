@@ -1,0 +1,30 @@
+@using Fracture.Server.Modules.UI
+@rendermode InteractiveServer
+
+@inject IsVisibleService IsVisibleService
+
+@implements IDisposable
+
+<div class="@(IsVisibleService.IsVisible ? "" : "hidden")">
+    @if (IsVisibleService.ComponentType is not null)
+    {
+        <DynamicComponent Type="@IsVisibleService.ComponentType" Parameters="@IsVisibleService.Parameters" />
+    }
+    <div>
+    </div>
+</div>
+
+@code {
+
+
+    protected override void OnInitialized()
+    {
+        IsVisibleService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        IsVisibleService.OnChange -= StateHasChanged;
+    }
+
+}

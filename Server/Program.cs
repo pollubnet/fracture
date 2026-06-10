@@ -12,6 +12,7 @@ using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.NameGenerators;
+using Fracture.Server.Modules.UI;
 using Fracture.Server.Modules.Users.Services;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +64,8 @@ builder.Services.AddFeatureManagement();
 
 builder.Services.AddSingleton<MapDataImportService>();
 builder.Services.AddSingleton<MapManagerService>();
+
+builder.Services.AddScoped<IsVisibleService>();
 
 builder.Services.AddSingletonIfFeatureEnabled<IChatClient>(
     FeatureFlags.USE_AI,

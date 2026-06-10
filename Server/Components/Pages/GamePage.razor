@@ -12,6 +12,7 @@
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
 @using Fracture.Server.Modules.Shared
+@using Fracture.Server.Modules.UI
 @using Fracture.Server.Modules.Users
 @using Fracture.Server.Modules.Users.Services
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
@@ -26,6 +27,8 @@
 @inject UserService UserService
 @inject MovementService MovementService
 @inject ILogger<GamePage> Logger
+@inject IsVisibleService IsVisibleService
+
 
 <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
 
@@ -104,21 +107,7 @@
 			</div>
 
 			<div class="journalPage">
-				<p>
-					<span>Log1:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam
-					quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero
-					delectus ex omnis ad magni, deserunt quae? Ex.
-				</p>
-				<p>
-					<span>Log2:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam
-					quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero
-					delectus ex omnis ad magni, deserunt quae? Ex.
-				</p>
-				<p>
-					<span>Log3:<br></span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum numquam
-					quaerat officiis placeat ipsa cupiditate nobis dolore perferendis, odit culpa perspiciatis, vero
-					delectus ex omnis ad magni, deserunt quae? Ex.
-				</p>
+				<RequestPopupContainer @ref="_requestPopup"></RequestPopupContainer>
 			</div>
 		</div>
 		<div class="miniMap">
@@ -139,7 +128,7 @@
 			</div>
 			<div class="settingsBtn">
 				<div class="settingsBtn-content">
-					<img @onclick="() => _popup.ShowComponent<TestPopup>()" src="assets/icons/hourglassbutton.svg" />					
+					<img @onclick="() => { if (MovementService.IsMovementLocked) { return; } if (IsVisibleService.IsVisible == false) { IsVisibleService.Show<GameLogsPopup>();} else{ IsVisibleService?.Hide();  StateHasChanged();} }" src="assets/icons/hourglassbutton.svg" />					
 				</div>
 			</div>
 			<div class="settingsBtn">

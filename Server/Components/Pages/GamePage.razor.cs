@@ -3,15 +3,22 @@ using Fracture.Server.Components.UI;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.UI.Models;
 using Fracture.Server.Modules.Pathfinding.Models;
+using Fracture.Server.Modules.UI;
 using Fracture.Server.Modules.Users.Models;
 using Fracture.Server.Modules.Users.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace Fracture.Server.Components.Pages;
 
 public partial class GamePage : IAsyncDisposable
 {
     private Dictionary<string, object> _mapPopupParameters = null!;
-    private PopupContainer _popup = null!;
+    private PopupContainer? _popup = null!;
+    private RequestPopupContainer? _requestPopup;
+
+    [Inject]
+    public IsVisibleService _isVisibleService { get; set; } = default!;
+
     public string BackgroundImage { get; set; } = string.Empty;
     private readonly MapDisplayOptions _mapDisplayOptions = new();
     private List<IPathfindingNode>? Path { get; set; }
@@ -50,6 +57,7 @@ public partial class GamePage : IAsyncDisposable
 
         MovementService.OnItemPickupRequested += async (sender, item) =>
         {
+            await MovementService.RequestItemPickup();
             var parameters = new Dictionary<string, object>
             {
                 { "Item", item },
@@ -59,7 +67,7 @@ public partial class GamePage : IAsyncDisposable
                         async () =>
                         {
                             await MovementService.ConfirmPickupAsync();
-                            _popup.Hide();
+                            _isVisibleService?.Hide();
                         }
                     )
                 },
@@ -69,13 +77,13 @@ public partial class GamePage : IAsyncDisposable
                         async () =>
                         {
                             await MovementService.CancelPickupAsync();
-                            _popup.Hide();
+                            _isVisibleService?.Hide();
                         }
                     )
                 },
             };
 
-            _popup.ShowComponent<ItemPickupRequest>(parameters);
+            _isVisibleService?.Show<ItemPickupRequest>(parameters);
         };
 
         _mapDisplayOptions.ShowColorMap = true;
