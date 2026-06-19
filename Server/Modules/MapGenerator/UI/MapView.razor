@@ -7,74 +7,74 @@
 
 @inject MovementService MovementService
 
-
 <div id="map" tabindex="0" @onkeydown="HandleKeyDown">
-	@if (Map != null && MapDisplayOptions != null)
-	{
-		<table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
-			@for (var y = 0; y < Map.Grid.GetLength(1); y++)
-			{
-				<tr>
-					@for (var x = 0; x < Map.Grid.GetLength(0); x++)
-					{
-						var node = Map.Grid[x, y];
+    @if (Map != null && MapDisplayOptions != null)
+    {
+       <table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
+          @for (var y = 0; y < Map.Grid.GetLength(1); y++)
+          {
+             <tr>
+                @for (var x = 0; x < Map.Grid.GetLength(0); x++)
+                {
+                   var node = Map.Grid[x, y];
 
-						@if (MapDisplayOptions.ShowPlayer && x == CharacterX && y == CharacterY)
-						{
-							<td style='background: @GetTileColor(Map.Grid[x, y]); font-size:6px;'>
-								&#128528;
-							</td>
-						}
-						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Position)
-						{
-							<MapSquare Node="node">
-								x:@x<br />y:@y
-							</MapSquare>
-						}
-						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Noise)
-						{
-							<MapSquare Node="node">
-								@Math.Round(node.NoiseValue, 2)
-							</MapSquare>
-						}
-						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.None)
-						{
-							<MapSquare Node="node" IsMiniMap="IsMiniMap">
-								@if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
-								{
-									<span class="map-marker map-marker-item">@RenderLocation(node)</span>
-								}
-								else
-								{
-									<span class="map-marker map-marker--location">@RenderLocation(node)</span>
-								}
-							</MapSquare>
-						}
-						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Path)
-						{
-							<MapSquare Node="node">
-								@GetPathForTile(node)
-							</MapSquare>
-						}
-						else
-						{
-							<MapSquare Node="node">
-								@if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
-								{
-									<span class="map-marker map-marker-item">@RenderLocation(node)</span>
-								}
-								else
-								{
-									<span class="map-marker map-marker--location">@RenderLocation(node)</span>
-								}
-							</MapSquare>
-						}
-					}
-				</tr>
-			}
-		</table>
-	}
+                   @if (MapDisplayOptions.ShowPlayer && x == CharacterX && y == CharacterY)
+                   {
+                      <td style='background: @GetTileColor(Map.Grid[x, y]);' class="playerPosition">
+	                      <img src='assets/icons/player.svg' class='playerIcon @(!isActive ? "playerIconAnimate" : "")' />
+                      </td>
+                   }
+                   else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Position)
+                   {
+                      <MapSquare Node="node">
+                         x:@x<br />y:@y
+                      </MapSquare>
+                   }
+                   else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Noise)
+                   {
+                      <MapSquare Node="node">
+                         @Math.Round(node.NoiseValue, 2)
+                      </MapSquare>
+                   }
+                   else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.None)
+                   {
+                      <MapSquare Node="node" IsMiniMap="IsMiniMap">
+                         @if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
+                         {
+                            <span class="map-marker map-marker-item">@((MarkupString)RenderLocation(node))</span>
+                         }
+                         else
+                         {
+                            <span class="map-marker map-marker--location">@((MarkupString)RenderLocation(node))</span>
+                         }
+                      </MapSquare>
+                   }
+                   else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Path)
+                   {
+                      <MapSquare Node="node">
+                         @GetPathForTile(node)
+                      </MapSquare>
+                   }
+                   else
+                   {
+                      <MapSquare Node="node">
+                         @if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
+                         {
+                            <span class="map-marker map-marker-item">@((MarkupString)RenderLocation(node))</span>
+                         }
+                         else
+                         {
+                            <span class="map-marker map-marker--location">@((MarkupString)RenderLocation(node))</span>
+                         }
+                      </MapSquare>
+                   }
+                }
+             </tr>
+          }
+       </table>
+    }
 </div>
+
 
 @code {
 	[Parameter] public Map? Map { get; set; }
@@ -88,9 +88,13 @@
 	[Parameter] public int CharacterX { get; set; }
 	[Parameter] public int CharacterY { get; set; }
 
-
+	
+	
 	private bool isMoving = false;
-
+	private bool isActive = true;
+	
+	private CancellationTokenSource? idleCts;
+	
 	private readonly HashSet<string> _blockingColors = new() {
 		"#21618C", "#2E86C1"
 	};
@@ -163,8 +167,8 @@
 		return node.LocationType switch
 		{
 			LocationType.None => string.Empty,
-			LocationType.Town => "T",
-			LocationType.Cave => "C",
+			LocationType.Town => "<img src='assets/icons/town.svg' class='townIcon' />",
+			LocationType.Cave => "<img src='assets/icons/cave.svg' class='townIcon' />",
 			_ => string.Empty
 		};
 	}
@@ -175,7 +179,8 @@
 		{
 			if (isMoving) return;
 			isMoving = true;
-
+			isActive = true;
+			
 			var newX = MovementService.CurrentX;
 			var newY = MovementService.CurrentY;
 			switch (e.Key)
@@ -204,7 +209,35 @@
 			}
 
 			await Task.Delay(100).ContinueWith(_ => { isMoving = false; });
+			
+			idleCts?.Cancel();
+			idleCts?.Dispose();
+			idleCts = new CancellationTokenSource();
+
+			_ = StartIdleTimer(idleCts.Token);
+			
+		}
+	}
+	private async Task StartIdleTimer(CancellationToken token)
+	{
+		try
+		{
+			await Task.Delay(5000, token);
+			isActive = false;
+			await InvokeAsync(StateHasChanged);
+		}
+		catch (TaskCanceledException)
+		{
+			
 		}
 	}
 
+	public void Dispose()
+	{
+		idleCts?.Cancel();
+		idleCts?.Dispose();
+	}
+
 }
+
+

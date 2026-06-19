@@ -247,7 +247,7 @@ body {
     text-align: justify;
     scrollbar-color: rgb(0, 0, 0) rgba(0, 0, 0, 0);
     scrollbar-width: auto;
-    scrollbar-areqContainer-color: black;
+    /*scrollbar-areaContainer-color: black;*/
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     box-shadow: 0px 0px 10px #000;
@@ -277,24 +277,28 @@ body {
     box-shadow: 0px 0px 10px #000;
 }
 
-    .miniMapTable tr td,
-    .mapTable tr td {
-        /*border: #000 1px solid;*/
-        background-color: blue;
-        font-size: 4px;
-        line-height: 1;
-        text-align: center;
-    }
+.miniMapTable tr td,
+.mapTable tr td {
+    /*border: #000 1px solid;*/
+    background-color: blue;
+    font-size: 4px;
+    line-height: 1;
+    text-align: center;
+}
 
-    .miniMapTable tr td {
-        width: 2px;
-        height: 2px;
-    }
+.miniMapTable tr td {
+    width: 2px;
+    height: 2px;
+    max-width: 2px;
+    max-height: 2px;
+}
 
-    .mapTable tr td {
-        width: 5px;
-        height: 5px;
-    }
+.mapTable tr td {
+    width: 7px;
+    height: 7px;
+    max-width: 7px;
+    max-height: 7px;
+}
 
 .settings {
     height: 10%;
@@ -500,9 +504,9 @@ body {
     font-size: 1.5rem;
 }
 
-    .stat-table tr td {
-        filter: drop-shadow(3px 4px 2px black);
-    }
+.stat-table tr td {
+    filter: drop-shadow(0 3px 2px rgb(63 63 63 / 0.9));
+}
 
 .settingsPopupButton {
     height: 6vh;
@@ -511,7 +515,7 @@ body {
 }
     
 .closeBtn {
-    border-radius: 100%;
+    border-radius: 8px;
     width: 30px;
     height: 30px;
     background-color: rgba(0, 0, 0, 1);
@@ -524,23 +528,26 @@ body {
     right: 10px;
     cursor: pointer;
     z-index: auto;
+    transition: background-color 0.15s linear, box-shadow 0.15s linear;
 }
 
-    .closeBtn:hover {
-        background-color: rgb(255, 0, 0);
-        box-shadow: 0 0 5px red, 0 0 15px red, 0 0 25px red;
-    }
+.closeBtn:hover {
+    background-color: rgb(255, 0, 0);
+    box-shadow: 0 0 5px red, 0 0 15px red;
+}
 
 
 .actionButton:hover:before,
 .info:hover:before,
-.settingsBtn:hover:before {
+.settingsBtn:hover:before,
+.btn:hover:before{
     opacity: 1;
 }
 
 .actionButton:before,
 .info:before,
-.settingsBtn:before {
+.settingsBtn:before,
+.btn:before {
     background: linear-gradient(45deg, transparent 5%, rgb(255, 215, 137) 50%, transparent 99%);
     border-radius: inherit;
     content: "";
@@ -554,7 +561,8 @@ body {
 
 .actionButton-content,
 .info-content,
-.settingsBtn-content {
+.settingsBtn-content,
+.btn-content {
     background-color: #191919;
     border-radius: inherit;
     inset: 1px;
@@ -600,4 +608,88 @@ h3 {
 
 .map-marker--item {
     font-size: 4px;
+}
+.btn{
+      
+    background-color: rgba(25, 25, 25, 1);
+    width: 80px;
+    height: 25px;
+    margin: 2px;
+    padding: 5px;
+    border-radius: 5px;
+    position: relative;
+    color: white;
+    
+}
+.btn, .actionButton, .info, .settingsBtn {
+    transition: ease-in-out 0.25s;
+}
+
+.btn:hover, .actionButton:hover, .info:hover, .settingsBtn:hover {
+    filter: drop-shadow(0 5px 3px rgb(63 63 63 / 0.9));
+    transform: translateY(-2px);
+}
+
+
+.popup-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10%;
+}
+
+.item-popup{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    gap: 5%;
+    height: 100%;
+}
+.reqPopupContainer{
+    height: 100%;
+    
+}
+.item-popup-h3{
+    width: 90%;
+}
+.item-title{
+    width: 90%;
+}
+.townIcon, .playerIcon{
+    width: 1.5vh;
+    max-width: 20px;
+    max-height: 20px;
+}
+@keyframes pulsePlayer {
+    /*from {*/
+    /*    opacity: 1;*/
+    /*}*/
+    /*to {*/
+    /*    opacity: 0.1;*/
+    /*}*/
+    0% {
+        opacity: 1;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.1;
+    }
+}
+
+.playerIconAnimate{
+    animation-name: pulsePlayer;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.map-marker--location, .playerPosition{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

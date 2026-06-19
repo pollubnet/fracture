@@ -2,7 +2,7 @@
 @using Fracture.Server.Components.UI
 
 <div class="item-popup">
-    <h3>You found a new item, Do you want to pick it up?</h3>
+    <h3 class="item-popup-h3">You found a new item! <br/> Do you want to pick it up?</h3>
     <div class="item-title">
         <strong>@Item.Name</strong> (@Item.Type) - @Item.Rarity
     </div>
@@ -12,8 +12,17 @@
     </div>
 
     <div class="popup-actions">
-        <button @onclick="ConfirmAsync">Yes</button>
-        <button @onclick="CancelAsync">No</button>
+        <div @onclick="ConfirmAsync" class="btn">
+            <div class="btn-content">
+                Yes
+            </div>
+            
+        </div>
+        <div @onclick="CancelAsync" class="btn">
+            <div class="btn-content">
+                No
+            </div>
+        </div>
     </div>
 </div>
 
