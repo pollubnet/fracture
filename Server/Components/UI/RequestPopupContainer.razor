@@ -5,7 +5,7 @@
 
 @implements IDisposable
 
-<div class="@(IsVisibleService.IsVisible ? "" : "hidden")">
+<div class="@(IsVisibleService.IsVisible ? "" : "hidden") reqPopupContainer">
     @if (IsVisibleService.ComponentType is not null)
     {
         <DynamicComponent Type="@IsVisibleService.ComponentType" Parameters="@IsVisibleService.Parameters" />
