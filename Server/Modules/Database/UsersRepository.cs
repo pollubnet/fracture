@@ -24,7 +24,7 @@ public class UsersRepository : IUsersRepository
         var user = await _dbContext
             .Users.Where(u => u.Id == id)
             .Include(u => u.Items)
-            .ThenInclude(i => i.Statistics)
+                .ThenInclude(i => i.Statistics)
             .FirstOrDefaultAsync();
         return user;
     }
@@ -34,7 +34,7 @@ public class UsersRepository : IUsersRepository
         var user = await _dbContext
             .Users.Where(u => u.Username == username)
             .Include(u => u.Items)
-            .ThenInclude(i => i.Statistics)
+                .ThenInclude(i => i.Statistics)
             .FirstOrDefaultAsync();
         return user;
     }
