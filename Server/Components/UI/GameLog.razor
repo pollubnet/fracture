@@ -1,0 +1,17 @@
+@using Fracture.Server.Modules.Shared
+@inject GameLogProvider GameLogProvider
+
+<div class="gameLog">
+	<div class="gameLogHeader">
+		<h3>Our history so far...</h3>
+	</div>
+	<div class="gameLogContent">
+		@foreach (var log in GameLogProvider.Logs)
+		{
+			<div class="logEntry">
+				<span>@log.Timestamp.ToString("HH:mm:ss")</span>				
+				<span>@log.Message</span>
+			</div>
+		}
+	</div>
+</div>

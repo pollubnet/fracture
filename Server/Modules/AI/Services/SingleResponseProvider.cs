@@ -12,7 +12,7 @@ public class SingleResponseProvider(IChatClient _client)
     /// <returns>A LLM response as a string</returns>
     public async Task<string?> GenerateResponseAsync(string prompt)
     {
-        return await GenerateResponse(new AIGenerationContext { Prompt = prompt });
+        return await GenerateResponseAsync(new AIGenerationContext { Prompt = prompt });
     }
 
     /// <summary>
@@ -20,7 +20,7 @@ public class SingleResponseProvider(IChatClient _client)
     /// </summary>
     /// <param name="context">A full generation context</param>
     /// <returns>A LLM response as a string</returns>
-    public async Task<string?> GenerateResponse(AIGenerationContext context)
+    public async Task<string?> GenerateResponseAsync(AIGenerationContext context)
     {
         var messages = new List<ChatMessage> { new(ChatRole.User, context.Prompt) };
 

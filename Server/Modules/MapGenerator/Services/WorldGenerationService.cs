@@ -8,7 +8,8 @@ public class WorldGenerationService(
     IMapGeneratorService mapGenerator,
     ISubMapAssignmentService subMapAssigner,
     INameGenerator nameGenerator,
-    ILogger<WorldGenerationService> logger
+    ILogger<WorldGenerationService> logger,
+    GameLogProvider gameLogProvider
 ) : IWorldGenerationService
 {
     public async Task<Map> GenerateWorldMapAsync()
@@ -19,6 +20,7 @@ public class WorldGenerationService(
         // generate main map
         var mainParameter = parameterSelector.SelectRandom(parameters, LocationType.MainLocation);
         var map = await mapGenerator.GetMap(mainParameter);
+        map.Name = await nameGenerator.GenerateNameAsync();
 
         // generate submaps
         await subMapAssigner.AssignSubMapsAsync(map, parameters);
@@ -39,6 +41,11 @@ public class WorldGenerationService(
                 node.GroupName = item.GroupName;
             }
         }
+
+        await gameLogProvider.LogAsync(
+            $"World name: {map.Name}, world type: {mainParameter.BiomeCategories.Select(x => x.BiomeType).First()}",
+            GameLogType.Born
+        );
 
         return map;
     }

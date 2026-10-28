@@ -1,19 +1,12 @@
 ﻿@inject ProtectedSessionStorage ProtectedSessionStore
 @inject MapManagerService MapManagerService
-@using System.Collections.ObjectModel
 @using Fracture.Server.Components.Layout
 @using Fracture.Server.Components.Popups
 @using Fracture.Server.Components.UI
 @using Fracture.Server.Modules.Database
-@using Fracture.Server.Modules.Items.Models
-@using Fracture.Server.Modules.MapGenerator.Models.Map
 @using Fracture.Server.Modules.MapGenerator.Services
 @using Fracture.Server.Modules.MapGenerator.UI
-@using Fracture.Server.Modules.MapGenerator.UI.Models
-@using Fracture.Server.Modules.Pathfinding.Models
-@using Fracture.Server.Modules.Shared
 @using Fracture.Server.Modules.UI
-@using Fracture.Server.Modules.Users
 @using Fracture.Server.Modules.Users.Services
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @page "/game"
@@ -41,7 +34,7 @@
 		<div class="stats">
 			<div class="info">
 				<div class="info-content">
-					<div @onclick="() => _popup.ShowComponent<StatsPopup>()">
+					<div @onclick="() => _popup?.ShowComponent<StatsPopup>()" title="Expand Stats">
 						<img src="assets/icons/infobutton.svg" />
 					</div>
 				</div>
@@ -51,9 +44,8 @@
 		<div class="equipment">
 			<div class="info">
 				<div class="info-content">
-					<div @onclick="() => _popup.ShowComponent<EquipmentPopup>()">
+					<div @onclick="() => _popup?.ShowComponent<EquipmentPopup>()" title="Expand Equipment">
 						<img src="assets/icons/infobutton.svg" />
-
 					</div>
 				</div>
 			</div>
@@ -71,7 +63,7 @@
 		<div class="dialogueWindowBg"
 			 style="background: url(@BackgroundImage);background-repeat: no-repeat;  background-size: cover; ">
 			<div class="dialogueWindow">
-				tutaj log mojej gry<br />
+				<GameLog></GameLog><br />
 				<PopupContainer @ref="_popup"></PopupContainer>
 			</div>
 		</div>
@@ -99,12 +91,12 @@
 	</div>
 	<div class="rightPanel borderPanel">
 		<div class="journal">
-			<div class="info">
-				<div class="info-content">
-					<div @onclick="() => _popup.ShowComponent<JournalPopup>()"></div>
+			@* <div class="info">
+				<div class="info-content" title="Expand Journal">
+					<div @onclick="() => _popup?.ShowComponent<JournalPopup>()"></div>
 					<img src="assets/icons/infobutton.svg" />
 				</div>
-			</div>
+			</div> *@
 
 			<div class="journalPage">
 				<RequestPopupContainer @ref="_requestPopup"></RequestPopupContainer>
@@ -113,7 +105,7 @@
 		<div class="miniMap">
 			<div class="info">
 				<div class="info-content">
-					<div @onclick="() => _popup.ShowComponent<MapPopup>(_mapPopupParameters)">
+					<div @onclick="() => _popup?.ShowComponent<MapPopup>(_mapPopupParameters)" title="Expand Map">
 						<img src="assets/icons/infobutton.svg" />
 					</div>
 				</div>
@@ -122,16 +114,16 @@
 		</div>
 		<div class="settings">
 			<div class="settingsBtn">
-				<div class="settingsBtn-content">
-					<img @onclick="() => _popup.ShowComponent<SettingsPopup>()" src="assets/icons/settingsbutton.svg" />
+				<div class="settingsBtn-content" title="Settings">
+					<img @onclick="() => _popup?.ShowComponent<SettingsPopup>()" src="assets/icons/settingsbutton.svg" />
 				</div>
 			</div>
 			<div class="settingsBtn">
-				<div class="settingsBtn-content">
-					<img @onclick="() => { if (MovementService.IsMovementLocked) { return; } if (IsVisibleService.IsVisible == false) { IsVisibleService.Show<GameLogsPopup>();} else{ IsVisibleService?.Hide();  StateHasChanged();} }" src="assets/icons/hourglassbutton.svg" />					
+				<div class="settingsBtn-content" title="Journal">
+					<img @onclick="() => OnJournalButtonClick()" src="assets/icons/hourglassbutton.svg" />
 				</div>
 			</div>
-			<div class="settingsBtn">
+			<div class="settingsBtn" title="Logout">
 				<div class="settingsBtn-content">
 					<div @onclick="@Logout"><img src="assets/icons/exitbutton.svg" /></div>
 				</div>
@@ -145,5 +137,11 @@
 	private async Task Logout()
 	{
 		await LogoutAsync();
+	}
+
+	private void OnJournalButtonClick()
+	{
+		if (MovementService.IsMovementLocked) { return; }
+		if (IsVisibleService.IsVisible == false) { IsVisibleService.Show<JournalPopup>(); } else { IsVisibleService?.Hide(); StateHasChanged(); }
 	}
 }
