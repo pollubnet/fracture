@@ -10,7 +10,8 @@ public class WorldGenerationService(
     INameGenerator nameGenerator,
     ILogger<WorldGenerationService> logger,
     GameLogProvider gameLogProvider,
-    NpcService npcService
+    NpcGeneratorService npcService,
+    RandomProvider _randomProvider
 ) : IWorldGenerationService
 {
     public async Task<Map> GenerateWorldMapAsync()
@@ -43,7 +44,11 @@ public class WorldGenerationService(
             }
         }
 
-        npcService.PlaceNpc(map);
+        // place a few NPCs
+        for (int i = 0; i < _randomProvider.Random.Next(5) + 1; i++)
+        {
+            npcService.PlaceNpc(map);
+        }
 
         await gameLogProvider.LogAsync(
             $"World name: {map.Name}, world type: {mainParameter.BiomeCategories.Select(x => x.BiomeType).First()}",

@@ -4,8 +4,12 @@ using Fracture.Server.Modules.Shared;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
 
-public class NpcService(RandomProvider randomProvider)
+public class NpcGeneratorService(RandomProvider randomProvider)
 {
+    /// <summary>
+    /// Generates, and places a single NPC on a map, on a random walkable node
+    /// </summary>
+    /// <param name="map"></param>
     public void PlaceNpc(Map map)
     {
         var candidates = map
@@ -21,6 +25,10 @@ public class NpcService(RandomProvider randomProvider)
         }
 
         var node = candidates[randomProvider.Random.Next(candidates.Count)];
-        node.MapObject = new NpcMapObject { Id = "npc", IsInteractive = true };
+        node.MapObject = new NpcMapObject
+        {
+            Id = "npc-" + randomProvider.Random.Next(1000),
+            IsInteractive = true,
+        };
     }
 }
