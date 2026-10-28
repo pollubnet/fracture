@@ -17,7 +17,7 @@
 	}
 	@if (Node.MapObject is NpcMapObject npc)
 	{
-		<span>NPC: @npc.Id</span>
+		<span>NPC: @(npc.IsVisited ? npc.Entity.Name : "Somebody!")</span>
 	}
 	@if (!Node.Walkable)
 	{

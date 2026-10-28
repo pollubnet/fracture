@@ -1,4 +1,5 @@
 ﻿using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.Npc.Services;
 using Fracture.Server.Modules.Shared;
 
 namespace Fracture.Server.Modules.MapGenerator.Services;
@@ -10,7 +11,8 @@ public class WorldGenerationService(
     INameGenerator nameGenerator,
     ILogger<WorldGenerationService> logger,
     GameLogService gameLogProvider,
-    NpcGeneratorService npcService,
+    NpcPlacementService npcPlacementService,
+    NpcProviderService npcProviderService,
     RandomProvider _randomProvider
 ) : IWorldGenerationService
 {
@@ -44,10 +46,11 @@ public class WorldGenerationService(
             }
         }
 
-        // place a few NPCs
-        for (int i = 0; i < _randomProvider.Random.Next(5) + 1; i++)
+        // initialize and place a few NPCs
+        npcProviderService.InitializeNpcs(map);
+        foreach (var npc in npcProviderService.Npcs)
         {
-            npcService.PlaceNpc(map);
+            npcPlacementService.PlaceNpc(map, npc);
         }
 
         await gameLogProvider.LogAsync(

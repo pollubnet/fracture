@@ -9,6 +9,7 @@ using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator;
 using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.MapGenerator.Services.TownGen;
+using Fracture.Server.Modules.Npc.Services;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.NameGenerators;
@@ -54,7 +55,8 @@ builder.Services.AddSingleton<ILocationGroupGeneratorService, LocationGroupGener
 builder.Services.AddSingleton<ISubMapAssignmentService, SubMapAssignmentService>();
 builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
 builder.Services.AddSingleton<IItemPlacementService, ItemPlacementService>();
-builder.Services.AddSingleton<NpcGeneratorService>();
+builder.Services.AddSingleton<NpcPlacementService>();
+builder.Services.AddSingleton<NpcProviderService>();
 builder.Services.AddSingleton<MapParametersReader>();
 builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
 builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();

@@ -3,7 +3,9 @@ using Fracture.Server.Modules.Database;
 using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
+using Fracture.Server.Modules.MapGenerator.Models.Map.MapObjects;
 using Fracture.Server.Modules.MapGenerator.Services;
+using Fracture.Server.Modules.Npc.Models;
 using Fracture.Server.Modules.Shared;
 using Microsoft.Extensions.Logging;
 
@@ -88,6 +90,11 @@ public class MovementService
     /// Event fired when item pickup has been requested
     /// </summary>
     public event EventHandler<Item>? OnItemPickupRequested;
+
+    /// <summary>
+    /// Event fired when an NPC is encountered
+    /// </summary>
+    public event EventHandler<NpcEncounter>? OnNpcEncountered;
 
     public async Task InitializeAsync()
     {
@@ -268,6 +275,12 @@ public class MovementService
 
                 OnItemPickupRequested?.Invoke(this, _pendingPickupItem);
             }
+
+            // NPC encounter
+            if (CurrentMap.Grid[x, y].MapObject is NpcMapObject npc)
+            {
+                OnNpcEncountered?.Invoke(this, new NpcEncounter(npc, npc.Entity, position));
+            }
         }
 
         OnMoved?.Invoke(this, new Position(CurrentX, CurrentY));
@@ -343,5 +356,32 @@ public class MovementService
     public async Task RequestItemPickup()
     {
         IsMovementLocked = true;
+    }
+
+    /// <summary>
+    /// Requests the npc encounter popup
+    /// </summary>
+    /// <returns></returns>
+    public async Task RequestNpcEncounter()
+    {
+        IsMovementLocked = true;
+    }
+
+    /// <summary>
+    /// Starts the NPC encounter
+    /// </summary>
+    /// <returns></returns>
+    public async Task ConfirmNpcEncounterAsync()
+    {
+        IsMovementLocked = true;
+    }
+
+    /// <summary>
+    /// Cancels the NPC encounter
+    /// </summary>
+    /// <returns></returns>
+    public async Task CancelNpcEncounterAsync()
+    {
+        IsMovementLocked = false;
     }
 }

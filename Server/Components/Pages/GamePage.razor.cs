@@ -2,6 +2,7 @@ using Fracture.Server.Components.Popups;
 using Fracture.Server.Components.UI;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.UI.Models;
+using Fracture.Server.Modules.Npc.Models;
 using Fracture.Server.Modules.Pathfinding.Models;
 using Fracture.Server.Modules.UI;
 using Fracture.Server.Modules.Users.Models;
@@ -86,6 +87,8 @@ public partial class GamePage : IAsyncDisposable
             _isVisibleService?.Show<ItemPickupRequest>(parameters);
         };
 
+        MovementService.OnNpcEncountered += OnNpcEncountered;
+
         _mapDisplayOptions.ShowColorMap = true;
         _mapPopupParameters = new Dictionary<string, object>
         {
@@ -95,6 +98,39 @@ public partial class GamePage : IAsyncDisposable
         MovementService.StartAutosave();
 
         await base.OnInitializedAsync();
+    }
+
+    private async void OnNpcEncountered(object? sender, NpcEncounter encounter)
+    {
+        await MovementService.RequestNpcEncounter();
+        var parameters = new Dictionary<string, object>
+        {
+            { "Npc", encounter.Entity },
+            {
+                "OnConfirm",
+                (Func<Task>)(
+                    async () =>
+                    {
+                        await MovementService.ConfirmNpcEncounterAsync();
+                        _popup?.ShowComponent<NpcDialoguePopup>();
+
+                        _isVisibleService?.Hide();
+                    }
+                )
+            },
+            {
+                "OnCancel",
+                (Func<Task>)(
+                    async () =>
+                    {
+                        await MovementService.CancelNpcEncounterAsync();
+                        _isVisibleService?.Hide();
+                    }
+                )
+            },
+        };
+
+        _isVisibleService?.Show<NpcEncounterRequest>(parameters);
     }
 
     private async Task<bool> LoadUserAsync()
