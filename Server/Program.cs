@@ -87,7 +87,7 @@ builder.Services.AddSingletonIfFeatureEnabled<IChatClient>(
 );
 builder.Services.AddSingletonIfFeatureEnabled<SingleResponseProvider>(FeatureFlags.USE_AI);
 
-builder.Services.AddSingleton<GameLogProvider>();
+builder.Services.AddSingleton<GameLogService>();
 
 builder
     .Services.AddRazorComponents()

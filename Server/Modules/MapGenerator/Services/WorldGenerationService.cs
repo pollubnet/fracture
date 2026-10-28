@@ -9,7 +9,7 @@ public class WorldGenerationService(
     ISubMapAssignmentService subMapAssigner,
     INameGenerator nameGenerator,
     ILogger<WorldGenerationService> logger,
-    GameLogProvider gameLogProvider,
+    GameLogService gameLogProvider,
     NpcGeneratorService npcService,
     RandomProvider _randomProvider
 ) : IWorldGenerationService

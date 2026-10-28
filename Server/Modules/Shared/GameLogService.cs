@@ -3,9 +3,9 @@ using Fracture.Server.Modules.AI.Services;
 
 namespace Fracture.Server.Modules.Shared
 {
-    public class GameLogProvider(
+    public class GameLogService(
         SingleResponseProvider? singleResponseProvider,
-        ILogger<GameLogProvider> logger
+        ILogger<GameLogService> logger
     )
     {
         /// <summary>
@@ -31,6 +31,7 @@ namespace Fracture.Server.Modules.Shared
                 prompt = logType switch
                 {
                     GameLogType.Born => "Teleported into a new world",
+                    GameLogType.NewItem => "Got a new item",
                     _ => null,
                 };
             }
@@ -87,5 +88,10 @@ namespace Fracture.Server.Modules.Shared
         /// When the user is born in a new world (a new world is generated)
         /// </summary>
         Born,
+
+        /// <summary>
+        /// When the user received a new item
+        /// </summary>
+        NewItem,
     }
 }

@@ -4,6 +4,7 @@ using Fracture.Server.Modules.Items.Models;
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator.Models.Map;
 using Fracture.Server.Modules.MapGenerator.Services;
+using Fracture.Server.Modules.Shared;
 using Microsoft.Extensions.Logging;
 
 namespace Fracture.Server.Modules.Users.Services;
@@ -17,7 +18,7 @@ public class MovementService
     private readonly ItemDropStateService _itemDropState;
     private readonly IUsersRepository _usersRepository;
     private readonly ILogger<MovementService> _logger;
-
+    private readonly GameLogService _gameLogService;
     private Position? _pendingPickupPosition;
     private Item? _pendingPickupItem;
 
@@ -34,7 +35,8 @@ public class MovementService
         UserService userService,
         ItemDropStateService itemDropState,
         IUsersRepository usersRepository,
-        ILogger<MovementService> logger
+        ILogger<MovementService> logger,
+        GameLogService gameLogService
     )
     {
         _mapManagerService = mapManagerService;
@@ -44,17 +46,47 @@ public class MovementService
         _itemDropState = itemDropState;
         _usersRepository = usersRepository;
         _logger = logger;
+        _gameLogService = gameLogService;
     }
 
+    /// <summary>
+    /// Reference to a current Map (array of Nodes)
+    /// </summary>
     public Map? CurrentMap { get; private set; }
 
+    /// <summary>
+    /// Current player position
+    /// </summary>
     public int CurrentX { get; private set; }
+
+    /// <summary>
+    /// Current player position
+    /// </summary>
     public int CurrentY { get; private set; }
+
+    /// <summary>
+    /// Sets if the user can move
+    /// </summary>
     public bool IsMovementLocked { get; private set; }
 
+    /// <summary>
+    /// Event fired when the user moved
+    /// </summary>
     public event EventHandler<Position>? OnMoved;
+
+    /// <summary>
+    /// Event fired when the user entered a new map
+    /// </summary>
     public event EventHandler<(Map, Position)>? OnMapEntered;
+
+    /// <summary>
+    /// Event fired when new item has been encountered
+    /// </summary>
     public event EventHandler<Position>? OnItemEncountered;
+
+    /// <summary>
+    /// Event fired when item pickup has been requested
+    /// </summary>
     public event EventHandler<Item>? OnItemPickupRequested;
 
     public async Task InitializeAsync()
@@ -63,23 +95,23 @@ public class MovementService
             _mapManagerService.GetWorldMap()
             ?? throw new InvalidOperationException("Map cannot be loaded, critical error");
 
-        // Wczytaj zapisaną pozycję gracza
+        // load player position from database or set to random walkable node if not available
         await LoadPlayerPositionAsync();
 
         OnMapEntered?.Invoke(this, (CurrentMap, new Position(CurrentX, CurrentY)));
 
-        // Uruchom autosave automatycznie
+        // start autosave loop
         StartAutosave();
     }
 
     /// <summary>
-    /// Wczytuje pozycję gracza z bazy danych
+    /// Loads the player's position from the database. If no position is saved, it sets a random walkable position on the current map.
     /// </summary>
     public async Task LoadPlayerPositionAsync()
     {
         if (_userService.User?.PlayerPosition is null)
         {
-            // Jeśli nie ma zapisanej pozycji, ustaw pozycję startową
+            // if no position is saved, set a random walkable position on the current map
             CurrentX = CurrentMap!.GetRandomWalkableNode().X;
             CurrentY = CurrentMap!.GetRandomWalkableNode().Y;
             return;
@@ -102,7 +134,7 @@ public class MovementService
             }
             else
             {
-                // Pozycja nie jest walkable - losuj nową
+                // position is invalid, set to a random walkable position on the current map
                 var randomPos = CurrentMap!.GetRandomWalkableNode();
                 CurrentX = randomPos.X;
                 CurrentY = randomPos.Y;
@@ -113,7 +145,7 @@ public class MovementService
     }
 
     /// <summary>
-    /// Zapisuje aktualną pozycję gracza do bazy danych
+    /// Saves the player's current position to the database
     /// </summary>
     public async Task SavePlayerPositionAsync()
     {
@@ -125,7 +157,7 @@ public class MovementService
     }
 
     /// <summary>
-    /// Uruchamia autosave pozycji gracza co 2 minuty
+    /// Starts the autosave loop for the player's position
     /// </summary>
     public void StartAutosave()
     {
@@ -134,7 +166,7 @@ public class MovementService
     }
 
     /// <summary>
-    /// Zatrzymuje autosave
+    /// Stops the autosave loop
     /// </summary>
     public void StopAutosave()
     {
@@ -144,7 +176,7 @@ public class MovementService
     }
 
     /// <summary>
-    /// Pętla autosave'a
+    /// The autosave loop
     /// </summary>
     private async Task AutosavePositionAsync(CancellationToken cancellationToken)
     {
@@ -168,7 +200,7 @@ public class MovementService
     }
 
     /// <summary>
-    /// Przeładowuje pozycję gracza (dla nowego użytkownika)
+    /// Reloads the player's position (for new users)
     /// </summary>
     public async Task ReloadPlayerPositionAsync()
     {
@@ -177,6 +209,12 @@ public class MovementService
         await LoadPlayerPositionAsync();
     }
 
+    /// <summary>
+    /// Checks if the user can move to that new position
+    /// </summary>
+    /// <param name="x">New X on a current map</param>
+    /// <param name="y">New Y on a current map</param>
+    /// <returns>Returns false if the user cannot move or they are trying to move out of the map or to an unwalkable node</returns>
     public bool CanMove(int x, int y)
     {
         if (IsMovementLocked)
@@ -192,6 +230,13 @@ public class MovementService
             && CurrentMap.Grid[x, y].Walkable;
     }
 
+    /// <summary>
+    /// Checks if there is an Item Drop on this position
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
     public bool HasItemDrop(Map map, int x, int y)
     {
         if (_userService.User == null)
@@ -200,6 +245,12 @@ public class MovementService
         return _itemDropState.HasItemDrop(_userService.User.Id, map, x, y);
     }
 
+    /// <summary>
+    /// Moves the player into a new position
+    /// </summary>
+    /// <param name="x">New X</param>
+    /// <param name="y">New Y</param>
+    /// <returns></returns>
     public async Task MoveAsync(int x, int y)
     {
         CurrentX = x;
@@ -208,10 +259,13 @@ public class MovementService
         if (CurrentMap != null && _userService.User != null)
         {
             var position = new Position(x, y);
+
+            // if there is an item drop at the new position and it's not the same as the pending pickup position, generate a new item and request pickup
             if (HasItemDrop(CurrentMap, x, y) && _pendingPickupPosition != position)
             {
                 _pendingPickupPosition = position;
                 _pendingPickupItem = await _itemGenerator.Generate();
+
                 OnItemPickupRequested?.Invoke(this, _pendingPickupItem);
             }
         }
@@ -219,6 +273,10 @@ public class MovementService
         OnMoved?.Invoke(this, new Position(CurrentX, CurrentY));
     }
 
+    /// <summary>
+    /// Handles item pickup request
+    /// </summary>
+    /// <returns></returns>
     public async Task<bool> ConfirmPickupAsync()
     {
         if (CurrentMap == null || _userService.User == null || _pendingPickupPosition is null)
@@ -249,11 +307,16 @@ public class MovementService
         await _itemsRepository.AddItemAsync(item);
         _userService.Inventory.Add(item);
 
+        await _gameLogService.LogAsync($"Item Name: {item.Name}", GameLogType.NewItem);
         OnItemEncountered?.Invoke(this, position);
         IsMovementLocked = false;
         return true;
     }
 
+    /// <summary>
+    /// Cancels the item pickup
+    /// </summary>
+    /// <returns></returns>
     public async Task CancelPickupAsync()
     {
         if (CurrentMap == null || _userService.User == null || _pendingPickupPosition is null)
@@ -273,6 +336,10 @@ public class MovementService
         IsMovementLocked = false;
     }
 
+    /// <summary>
+    /// Requests the item pickup popup
+    /// </summary>
+    /// <returns></returns>
     public async Task RequestItemPickup()
     {
         IsMovementLocked = true;
