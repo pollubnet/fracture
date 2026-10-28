@@ -2,44 +2,44 @@
 @using Fracture.Server.Components.UI
 
 <div class="item-popup">
-    <h3 class="item-popup-h3">You found a new item! <br/> Do you want to pick it up?</h3>
-    <div class="item-title">
-        <strong>@Item.Name</strong> (@Item.Type) - @Item.Rarity
-    </div>
+	<h3 class="item-popup-h3">You found a new item! <br /> Do you want to pick it up?</h3>
+	<div class="item-title">
+		<strong>@Item.Name</strong> (@Item.Type) - @Item.Rarity
+	</div>
 
-    <div class="item-stats">
-        <ItemStats Item="@Item"></ItemStats>
-    </div>
+	<div class="item-stats">
+		<ItemStats Item="@Item"></ItemStats>
+	</div>
 
-    <div class="popup-actions">
-        <div @onclick="ConfirmAsync" class="btn">
-            <div class="btn-content">
-                Yes
-            </div>
-            
-        </div>
-        <div @onclick="CancelAsync" class="btn">
-            <div class="btn-content">
-                No
-            </div>
-        </div>
-    </div>
+	<div class="popup-actions">
+		<div @onclick="ConfirmAsync" class="btn">
+			<div class="btn-content">
+				Yes
+			</div>
+
+		</div>
+		<div @onclick="CancelAsync" class="btn">
+			<div class="btn-content">
+				No
+			</div>
+		</div>
+	</div>
 </div>
 
 @code {
-    [Parameter] public required Item Item { get; set; }
-    [Parameter] public Func<Task>? OnConfirm { get; set; }
-    [Parameter] public Func<Task>? OnCancel { get; set; }
+	[Parameter] public required Item Item { get; set; }
+	[Parameter] public Func<Task>? OnConfirm { get; set; }
+	[Parameter] public Func<Task>? OnCancel { get; set; }
 
-    private async Task ConfirmAsync()
-    {
-        if (OnConfirm is not null)
-            await OnConfirm();
-    }
+	private async Task ConfirmAsync()
+	{
+		if (OnConfirm is not null)
+			await OnConfirm();
+	}
 
-    private async Task CancelAsync()
-    {
-        if (OnCancel is not null)
-            await OnCancel();
-    }
+	private async Task CancelAsync()
+	{
+		if (OnCancel is not null)
+			await OnCancel();
+	}
 }

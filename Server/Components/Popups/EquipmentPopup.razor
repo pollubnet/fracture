@@ -1,45 +1,41 @@
-﻿@using System.Collections.ObjectModel
-@using Fracture.Server.Components.UI
-@using Fracture.Server.Modules.Database
+﻿@using Fracture.Server.Components.UI
 @using Fracture.Server.Modules.Items.Models
-@using Fracture.Server.Modules.Items.Services
-@using Fracture.Server.Modules.Users
 @using Fracture.Server.Modules.Users.Services
 @inject ILogger<EquipmentPopup> Logger
 @inject UserService UserService
 
 
 <div class="eqContainer">
-    <div class="equipmentContent">
-        <div>Inventory</div>
-        <div>
-            <select @bind="SelectedType">
-                <option value="All">All</option>
-                @foreach (var type in Enum.GetValues<ItemType>())
-                {
-                    <option value="@type.ToString()">@type.ToString()</option>
-                }
-            </select>
-        </div>
-        <div class="eqColumn">
-            @foreach (var item in UserService.Inventory.Where(x => !UserService.IsEquipped(x)))
-            {
-                @if (SelectedType == "All" || item.Type.ToString() == SelectedType)
-                {
-                    <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
-                              OnUnequipClicked="() => Unequip(item)"></ItemCard>
-                }
-            }
-        </div>
-        <div>Equipped</div>
-        <div class="eqColumn">
+	<div class="equipmentContent">
+		<div>Inventory</div>
+		<div>
+			<select @bind="SelectedType">
+				<option value="All">All</option>
+				@foreach (var type in Enum.GetValues<ItemType>())
+				{
+					<option value="@type.ToString()">@type.ToString()</option>
+				}
+			</select>
+		</div>
+		<div class="eqColumn">
+			@foreach (var item in UserService.Inventory.Where(x => !UserService.IsEquipped(x)))
+			{
+				@if (SelectedType == "All" || item.Type.ToString() == SelectedType)
+				{
+					<ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
+							  OnUnequipClicked="() => Unequip(item)"></ItemCard>
+				}
+			}
+		</div>
+		<div>Equipped</div>
+		<div class="eqColumn">
 
-            @foreach (var item in UserService.Equipment)
-            {
-                <ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
-                          OnUnequipClicked="() => Unequip(item)"></ItemCard>
-            }
-        </div>
+			@foreach (var item in UserService.Equipment)
+			{
+				<ItemCard Item="@item" OnEquipClicked="() => Equip(item)" IsEquipped="UserService.IsEquipped(item)"
+						  OnUnequipClicked="() => Unequip(item)"></ItemCard>
+			}
+		</div>
 
-    </div>
+	</div>
 </div>
