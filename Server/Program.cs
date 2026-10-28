@@ -57,6 +57,7 @@ builder.Services.AddSingleton<IMapGeneratorService, MapGeneratorService>();
 builder.Services.AddSingleton<IItemPlacementService, ItemPlacementService>();
 builder.Services.AddSingleton<NpcPlacementService>();
 builder.Services.AddSingleton<NpcProviderService>();
+builder.Services.AddScoped<NpcDialogueHistoryService>();
 builder.Services.AddSingleton<MapParametersReader>();
 builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
 builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();

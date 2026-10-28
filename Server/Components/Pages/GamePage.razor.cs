@@ -112,7 +112,10 @@ public partial class GamePage : IAsyncDisposable
                     async () =>
                     {
                         await MovementService.ConfirmNpcEncounterAsync();
-                        _popup?.ShowComponent<NpcDialoguePopup>();
+                        _popup?.ShowComponent<NpcDialoguePopup>(
+                            new Dictionary<string, object> { { "Npc", encounter.Entity } },
+                            onClose: MovementService.FinishNpcEncounterAsync
+                        );
 
                         _isVisibleService?.Hide();
                     }

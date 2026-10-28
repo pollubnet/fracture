@@ -384,4 +384,13 @@ public class MovementService
     {
         IsMovementLocked = false;
     }
+
+    /// <summary>
+    /// Finishes the NPC encounter
+    /// </summary>
+    /// <returns></returns>
+    public async Task FinishNpcEncounterAsync()
+    {
+        IsMovementLocked = false;
+    }
 }

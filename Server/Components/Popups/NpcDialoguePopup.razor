@@ -1,8 +1,161 @@
-﻿@using Fracture.Server.Modules.Users.Services
-<h3>NpcDialoguePopup</h3>
+@using Fracture.Server.Modules.Npc.Models
+@using Fracture.Server.Modules.Npc.Services
+@inject NpcDialogueHistoryService DialogueHistoryService
 
-@inject MovementService MovementService
+<section class="dialogue">
+	<h3 class="dialogue-title">NPC Dialogue</h3>
+	<div class="dialogue-messages" role="log" aria-live="polite">
+		@for (var index = 0; index < _messages.Count; index++)
+		{
+			@if (_isReturningEncounter && index == _messagesAtEncounterStart)
+			{
+				<div class="dialogue-encounter-divider"><span>New encounter</span></div>
+			}
+			var message = _messages[index];
+			var isUserMessage = message.StartsWith("You: ");
+			<div class="dialogue-message @(isUserMessage ? "dialogue-message-user" : "dialogue-message-npc")">
+				<span class="dialogue-sender">@(isUserMessage ? "You" : "NPC")</span>
+				<span>@message[5..]</span>
+			</div>
+		}
+		@if (_isReturningEncounter && _messagesAtEncounterStart == _messages.Count)
+		{
+			<div class="dialogue-encounter-divider"><span>New encounter</span></div>
+		}
+	</div>
+	<div class="dialogue-compose">
+		<input aria-label="Message" placeholder="Type a message..." @bind="_draftMessage" @bind:event="oninput" @onkeydown="HandleKeyDown" />
+		<button type="button" @onclick="SendMessage" disabled="@string.IsNullOrWhiteSpace(_draftMessage)">Send</button>
+	</div>
+</section>
+
+<style>
+	.dialogue {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		padding: 20px;
+		gap: 14px;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 12px;
+		background: rgba(25, 25, 30, 0.95);
+		color: white;
+		box-sizing: border-box;
+	}
+
+	.dialogue-title {
+		margin: 0;
+		text-align: center;
+	}
+
+	.dialogue-messages {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		gap: 10px;
+		overflow-y: auto;
+		padding: 8px;
+	}
+
+	.dialogue-encounter-divider {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 0.8rem;
+	}
+
+	.dialogue-encounter-divider::before,
+	.dialogue-encounter-divider::after {
+		flex: 1;
+		border-top: 1px solid rgba(255, 255, 255, 0.35);
+		content: "";
+	}
+
+	.dialogue-message {
+		display: flex;
+		flex-direction: column;
+		max-width: 80%;
+		gap: 4px;
+		padding: 10px 14px;
+		border-radius: 14px;
+		overflow-wrap: anywhere;
+	}
+
+	.dialogue-message-user {
+		align-self: flex-end;
+		background: #4d6688;
+	}
+
+	.dialogue-message-npc {
+		align-self: flex-start;
+		background: #45454d;
+	}
+
+	.dialogue-sender {
+		font-size: 0.75rem;
+		font-weight: bold;
+		opacity: 0.8;
+	}
+
+	.dialogue-compose {
+		display: flex;
+		gap: 8px;
+	}
+
+	.dialogue-compose input {
+		flex: 1;
+		min-width: 0;
+		padding: 10px;
+		border: 1px solid #777;
+		border-radius: 6px;
+		background: #fff;
+		color: #222;
+	}
+
+	.dialogue-compose button {
+		padding: 10px 16px;
+		border: 0;
+		border-radius: 6px;
+		background: #7189a8;
+		color: white;
+		cursor: pointer;
+	}
+
+	.dialogue-compose button:disabled {
+		cursor: default;
+		opacity: 0.5;
+	}
+</style>
 
 @code {
+	[Parameter] public required NpcEntity Npc { get; set; }
 
+	private List<string> _messages = [];
+	private int _messagesAtEncounterStart;
+	private bool _isReturningEncounter;
+	private string _draftMessage = string.Empty;
+
+	protected override void OnInitialized()
+	{
+		_messages = DialogueHistoryService.GetDialogue(Npc.Id, out _isReturningEncounter);
+		_messagesAtEncounterStart = _messages.Count;
+	}
+
+	private void SendMessage()
+	{
+		var message = _draftMessage.Trim();
+		if (message.Length == 0)
+			return;
+
+		_messages.Add($"You: {message}");
+		_draftMessage = string.Empty;
+	}
+
+	private void HandleKeyDown(KeyboardEventArgs args)
+	{
+		if (args.Key == "Enter")
+			SendMessage();
+	}
 }

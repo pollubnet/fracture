@@ -13,24 +13,31 @@
 @code {
 	public bool IsVisible { get; set; }
 
-	public void ShowComponent<T>(IDictionary<string, object>? parameters = null)
+	public void ShowComponent<T>(IDictionary<string, object>? parameters = null, Func<Task>? onClose = null)
 	{
 		_componentType = typeof(T);
 		_parameters = parameters;
+		_onClose = onClose;
 
 		IsVisible = true;
 		StateHasChanged();
 	}
 
-	public void Hide()
+	public async Task Hide()
 	{
 		IsVisible = false;
 		_componentType = null;
 		_parameters = null;
 		StateHasChanged();
+
+		var onClose = _onClose;
+		_onClose = null;
+		if (onClose is not null)
+			await onClose();
 	}
 
 	public DynamicComponent? Component = null;
 	private Type? _componentType = null;
 	private IDictionary<string, object>? _parameters;
+	private Func<Task>? _onClose;
 }
