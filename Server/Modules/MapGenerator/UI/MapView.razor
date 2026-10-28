@@ -1,5 +1,4 @@
-﻿@using Fracture.Server.Components.Pages
-@using Fracture.Server.Modules.MapGenerator.Models.Map
+﻿@using Fracture.Server.Modules.MapGenerator.Models.Map
 @using Fracture.Server.Modules.MapGenerator.Models.Map.MapObjects
 @using Fracture.Server.Modules.MapGenerator.UI.Models
 @using Fracture.Server.Modules.Pathfinding.Models
@@ -9,71 +8,62 @@
 @inject MovementService MovementService
 
 <div id="map" tabindex="0" @onkeydown="HandleKeyDown">
-    @if (Map != null && MapDisplayOptions != null)
-    {
-       <table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
-          @for (var y = 0; y < Map.Grid.GetLength(1); y++)
-          {
-             <tr>
-                @for (var x = 0; x < Map.Grid.GetLength(0); x++)
-                {
-                   var node = Map.Grid[x, y];
+	@if (Map != null && MapDisplayOptions != null)
+	{
+		<table class="@(IsMiniMap ? "miniMapTable" : "mapTable")">
+			@for (var y = 0; y < Map.Grid.GetLength(1); y++)
+			{
+				<tr>
+					@for (var x = 0; x < Map.Grid.GetLength(0); x++)
+					{
+						var node = Map.Grid[x, y];
 
-                   @if (MapDisplayOptions.ShowPlayer && x == CharacterX && y == CharacterY)
-                   {
-                      <td style='background: @GetTileColor(Map.Grid[x, y]);' class="playerPosition">
-	                      <img src='assets/icons/player.svg' class='playerIcon @(!isActive ? "playerIconAnimate" : "")' />
-                      </td>
-                   }
-                   else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Position)
-                   {
-                      <MapSquare Node="node">
-                         x:@x<br />y:@y
-                      </MapSquare>
-                   }
-                   else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Noise)
-                   {
-                      <MapSquare Node="node">
-                         @Math.Round(node.NoiseValue, 2)
-                      </MapSquare>
-                   }
-                   else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.None)
-                   {
-                      <MapSquare Node="node" IsMiniMap="IsMiniMap">
-                         @if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
-                         {
-                            <span class="map-marker map-marker-item">@((MarkupString)RenderLocation(node))</span>
-                         }
-                         else
-                         {
-                            <span class="map-marker map-marker--location">@((MarkupString)RenderLocation(node))</span>
-                         }
-                      </MapSquare>
-                   }
-                   else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Path)
-                   {
-                      <MapSquare Node="node">
-                         @GetPathForTile(node)
-                      </MapSquare>
-                   }
-                   else
-                   {
-                      <MapSquare Node="node">
-                         @if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
-                         {
-                            <span class="map-marker map-marker-item">@((MarkupString)RenderLocation(node))</span>
-                         }
-                         else
-                         {
-                            <span class="map-marker map-marker--location">@((MarkupString)RenderLocation(node))</span>
-                         }
-                      </MapSquare>
-                   }
-                }
-             </tr>
-          }
-       </table>
-    }
+						@if (MapDisplayOptions.ShowPlayer && x == CharacterX && y == CharacterY)
+						{
+							<td style='background: @GetTileColor(Map.Grid[x, y]);' class="playerPosition">
+								<img src='assets/icons/player.svg' class='playerIcon @(!isActive ? "playerIconAnimate" : "")' />
+							</td>
+						}
+						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Position)
+						{
+							<MapSquare Node="node">
+								x:@x<br />y:@y
+							</MapSquare>
+						}
+						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Noise)
+						{
+							<MapSquare Node="node">
+								@Math.Round(node.NoiseValue, 2)
+							</MapSquare>
+						}
+						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.None)
+						{
+							<MapSquare Node="node" IsMiniMap="IsMiniMap" HasItemDrop="MovementService.HasItemDrop(Map, node.XId, node.YId)">
+								@if (Map != null && MovementService.HasItemDrop(Map, node.XId, node.YId))
+								{
+									<span class="map-marker map-marker-item">@((MarkupString)RenderLocation(node))</span>
+								}
+								else
+								{
+									<span class="map-marker map-marker--location">@((MarkupString)RenderLocation(node))</span>
+								}
+							</MapSquare>
+						}
+						else if (MapDisplayOptions.TileInformationDisplay == TileInformationDisplay.Path)
+						{
+							<MapSquare Node="node">
+								@GetPathForTile(node)
+							</MapSquare>
+						}
+						else
+						{
+							@* this mode should not be available *@
+						}
+					}
+				</tr>
+			}
+		</table>
+	}
 </div>
 
 
@@ -93,9 +83,9 @@
 	
 	private bool isMoving = false;
 	private bool isActive = true;
-	
+
 	private CancellationTokenSource? idleCts;
-	
+
 	private readonly HashSet<string> _blockingColors = new() {
 		"#21618C", "#2E86C1"
 	};
@@ -139,7 +129,7 @@
 	protected override void OnInitialized()
 	{
 		CharacterX = MovementService.CurrentX;
-		CharacterY = MovementService.CurrentY;		
+		CharacterY = MovementService.CurrentY;
 	}
 
 	private string GetArrowForDirection(int xDirection, int yDirection)
@@ -186,22 +176,22 @@
 			if (isMoving) return;
 			isMoving = true;
 			isActive = true;
-			
+
 			var newX = MovementService.CurrentX;
 			var newY = MovementService.CurrentY;
 			switch (e.Key)
 			{
 				case "ArrowUp":
-						newY--;
+					newY--;
 					break;
-				case "ArrowDown":				
-						newY++;
+				case "ArrowDown":
+					newY++;
 					break;
 				case "ArrowLeft":
-						newX--;
+					newX--;
 					break;
 				case "ArrowRight":
-						newX++;
+					newX++;
 					break;
 			}
 
@@ -210,18 +200,18 @@
 				await MovementService.MoveAsync(newX, newY);
 				CharacterX = newX;
 				CharacterY = newY;
-				
+
 				StateHasChanged();
 			}
 
 			await Task.Delay(100).ContinueWith(_ => { isMoving = false; });
-			
+
 			idleCts?.Cancel();
 			idleCts?.Dispose();
 			idleCts = new CancellationTokenSource();
 
 			_ = StartIdleTimer(idleCts.Token);
-			
+
 		}
 	}
 	private async Task StartIdleTimer(CancellationToken token)
@@ -234,7 +224,7 @@
 		}
 		catch (TaskCanceledException)
 		{
-			
+
 		}
 	}
 
