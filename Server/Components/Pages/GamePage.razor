@@ -34,7 +34,7 @@
 		<div class="stats">
 			<div class="info">
 				<div class="info-content">
-					<div @onclick="() => _popup?.ShowComponent<StatsPopup>()" title="Expand Stats">
+					<div @onclick="() => _popup?.ShowComponent<StatsPopup>(preserveCurrent: true)" title="Expand Stats">
 						<img src="assets/icons/infobutton.svg" />
 					</div>
 				</div>
@@ -44,7 +44,7 @@
 		<div class="equipment">
 			<div class="info">
 				<div class="info-content">
-					<div @onclick="() => _popup?.ShowComponent<EquipmentPopup>()" title="Expand Equipment">
+					<div @onclick="() => _popup?.ShowComponent<EquipmentPopup>(preserveCurrent: true)" title="Expand Equipment">
 						<img src="assets/icons/infobutton.svg" />
 					</div>
 				</div>
@@ -105,7 +105,7 @@
 		<div class="miniMap">
 			<div class="info">
 				<div class="info-content">
-					<div @onclick="() => _popup?.ShowComponent<MapPopup>(_mapPopupParameters)" title="Expand Map">
+					<div @onclick="() => _popup?.ShowComponent<MapPopup>(_mapPopupParameters, preserveCurrent: true)" title="Expand Map">
 						<img src="assets/icons/infobutton.svg" />
 					</div>
 				</div>
@@ -115,7 +115,7 @@
 		<div class="settings">
 			<div class="settingsBtn">
 				<div class="settingsBtn-content" title="Settings">
-					<img @onclick="() => _popup?.ShowComponent<SettingsPopup>()" src="assets/icons/settingsbutton.svg" />
+					<img @onclick="() => _popup?.ShowComponent<SettingsPopup>(preserveCurrent: true)" src="assets/icons/settingsbutton.svg" />
 				</div>
 			</div>
 			<div class="settingsBtn">

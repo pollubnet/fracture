@@ -1,20 +1,43 @@
 ﻿@rendermode InteractiveServer
 
 <div class="popup @(IsVisible ? "" : "hidden")">
-	@if (_componentType is not null)
-	{
-		<DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
-	}
-	<div>
-		<button class="closeBtn" @onclick="Hide"><img src="assets/icons/closebutton.svg" /></button>
+	<div class="popup-content">
+		@if (_componentType is not null)
+		{
+			<DynamicComponent Type="@_componentType" Parameters="@_parameters" @ref="Component" />
+		}
 	</div>
+	@if (_previousComponentType is not null)
+	{
+		<div class="actionButton popup-return-button" @onclick="RestorePrevious">
+			<div class="actionButton-content">Back to previous</div>
+		</div>
+	}
+	<button class="closeBtn" @onclick="Hide"><img src="assets/icons/closebutton.svg" /></button>
 </div>
 
 @code {
 	public bool IsVisible { get; set; }
 
-	public void ShowComponent<T>(IDictionary<string, object>? parameters = null, Func<Task>? onClose = null)
+	public bool IsShowing<T>() => _componentType == typeof(T);
+
+	public void ShowComponent<T>(
+		IDictionary<string, object>? parameters = null,
+		Func<Task>? onClose = null,
+		bool preserveCurrent = false
+	)
 	{
+		if (preserveCurrent && _componentType is not null)
+		{
+			_previousComponentType = _componentType;
+			_previousParameters = _parameters;
+			_previousOnClose = _onClose;
+		}
+		else
+		{
+			ClearPrevious();
+		}
+
 		_componentType = typeof(T);
 		_parameters = parameters;
 		_onClose = onClose;
@@ -25,6 +48,12 @@
 
 	public async Task Hide()
 	{
+		if (_previousComponentType is not null)
+		{
+			RestorePrevious();
+			return;
+		}
+
 		IsVisible = false;
 		_componentType = null;
 		_parameters = null;
@@ -36,8 +65,30 @@
 			await onClose();
 	}
 
+	private void RestorePrevious()
+	{
+		if (_previousComponentType is null)
+			return;
+
+		_componentType = _previousComponentType;
+		_parameters = _previousParameters;
+		_onClose = _previousOnClose;
+		ClearPrevious();
+		StateHasChanged();
+	}
+
+	private void ClearPrevious()
+	{
+		_previousComponentType = null;
+		_previousParameters = null;
+		_previousOnClose = null;
+	}
+
 	public DynamicComponent? Component = null;
 	private Type? _componentType = null;
 	private IDictionary<string, object>? _parameters;
 	private Func<Task>? _onClose;
+	private Type? _previousComponentType;
+	private IDictionary<string, object>? _previousParameters;
+	private Func<Task>? _previousOnClose;
 }
