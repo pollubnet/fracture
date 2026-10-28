@@ -11,12 +11,14 @@ namespace Fracture.Server.Modules.Shared.NameGenerators;
 public class MarkovNameGenerator : INameGenerator
 {
     private readonly MarkovChain<char> _chain;
+    private readonly RandomProvider _randomProvider;
 
     /// <summary>
     ///     Initializes a new instance of a generator
     /// </summary>
     /// <param name="options">Name generator options</param>
-    public MarkovNameGenerator(IOptions<NameGeneratorConfig> options)
+    /// <param name="randomProvider">Random number provider</param>
+    public MarkovNameGenerator(IOptions<NameGeneratorConfig> options, RandomProvider randomProvider)
     {
         if (options.Value.DefaultNameBase is null)
             throw new ArgumentNullException(
@@ -25,6 +27,7 @@ public class MarkovNameGenerator : INameGenerator
             );
 
         _chain = new MarkovChain<char>(2);
+        _randomProvider = randomProvider;
 
         foreach (var name in options.Value.DefaultNameBase)
             _chain.Add(name);
@@ -33,6 +36,6 @@ public class MarkovNameGenerator : INameGenerator
     /// <inheritdoc />
     public Task<string> GenerateNameAsync()
     {
-        return Task.FromResult(new string([.. _chain.Chain(Random.Shared)]));
+        return Task.FromResult(new string([.. _chain.Chain(_randomProvider.Random)]));
     }
 }
