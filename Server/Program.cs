@@ -62,6 +62,7 @@ builder.Services.AddScoped<NpcDialogueService>();
 builder.Services.AddSingleton<MapParametersReader>();
 builder.Services.AddSingleton<ILocationGeneratorService, WeightedLocationGeneratorService>();
 builder.Services.AddSingleton<ILocationWeightGeneratorService, LocationBiomeWeightGenService>();
+builder.Services.AddSingleton<WorldKnowledgeService>();
 
 builder.Services.AddSingleton(typeof(IFloodFillService<>), typeof(FloodFillService<>));
 

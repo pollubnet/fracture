@@ -13,7 +13,7 @@ public class WorldGenerationService(
     GameLogService gameLogProvider,
     NpcPlacementService npcPlacementService,
     NpcProviderService npcProviderService,
-    RandomProvider _randomProvider
+    WorldKnowledgeService worldKnowledgeService
 ) : IWorldGenerationService
 {
     public async Task<Map> GenerateWorldMapAsync()
@@ -25,6 +25,10 @@ public class WorldGenerationService(
         var mainParameter = parameterSelector.SelectRandom(parameters, LocationType.MainLocation);
         var map = await mapGenerator.GetMap(mainParameter);
         map.Name = await nameGenerator.GenerateNameAsync();
+
+        worldKnowledgeService.Update(
+            $"World name: {map.Name}, world type: {mainParameter.BiomeCategories.Select(x => x.BiomeType).First()}"
+        );
 
         // generate submaps
         await subMapAssigner.AssignSubMapsAsync(map, parameters);
@@ -45,6 +49,10 @@ public class WorldGenerationService(
                 node.GroupName = item.GroupName;
             }
         }
+
+        worldKnowledgeService.Update(
+            $"Known cities: {string.Join(", ", map.LocationGroups.Where(x => x.LocationType == LocationType.Town).Select(x => x.GroupName))}"
+        );
 
         // initialize and place a few NPCs
         npcProviderService.InitializeNpcs(map);

@@ -1,9 +1,13 @@
+using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.Npc.Models;
 using Microsoft.Extensions.AI;
 
 namespace Fracture.Server.Modules.Npc.Services;
 
-public class NpcDialogueService(IChatClient? chatClient = null)
+public class NpcDialogueService(
+    WorldKnowledgeService worldKnowledgeService,
+    IChatClient? chatClient = null
+)
 {
     public async Task SendMessageAsync(NpcEntity npc, List<string> history)
     {
@@ -14,6 +18,8 @@ public class NpcDialogueService(IChatClient? chatClient = null)
             You are {npc.Name}, {npc.Role} a character in a fantasy role-playing game.
 
             Your history: {npc.History}
+
+            Facts about the world: {worldKnowledgeService.Knowledge}
 
             Reply in character, naturally and concisely. Do not talk about the real world, talk only about the game world.
             """;
