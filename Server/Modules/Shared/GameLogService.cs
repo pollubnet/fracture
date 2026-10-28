@@ -32,6 +32,7 @@ namespace Fracture.Server.Modules.Shared
                 {
                     GameLogType.Born => "Teleported into a new world",
                     GameLogType.NewItem => "Got a new item",
+                    GameLogType.NpcEncounter => "Encountered a new NPC",
                     _ => null,
                 };
             }
@@ -93,5 +94,10 @@ namespace Fracture.Server.Modules.Shared
         /// When the user received a new item
         /// </summary>
         NewItem,
+
+        /// <summary>
+        /// When the user encountered a NPC
+        /// </summary>
+        NpcEncounter,
     }
 }

@@ -1,10 +1,13 @@
 @using Fracture.Server.Modules.Npc.Models
 @using Fracture.Server.Modules.Npc.Services
 @inject NpcDialogueHistoryService DialogueHistoryService
+@inject NpcDialogueService DialogueService
+@inject IJSRuntime JS
+@implements IAsyncDisposable
 
 <section class="dialogue">
-	<h3 class="dialogue-title">NPC Dialogue</h3>
-	<div class="dialogue-messages" role="log" aria-live="polite">
+	<h3 class="dialogue-title">Talking with @Npc.Name</h3>
+	<div class="dialogue-messages" role="log" aria-live="polite" @ref="_messagesElement">
 		@for (var index = 0; index < _messages.Count; index++)
 		{
 			@if (_isReturningEncounter && index == _messagesAtEncounterStart)
@@ -14,8 +17,15 @@
 			var message = _messages[index];
 			var isUserMessage = message.StartsWith("You: ");
 			<div class="dialogue-message @(isUserMessage ? "dialogue-message-user" : "dialogue-message-npc")">
-				<span class="dialogue-sender">@(isUserMessage ? "You" : "NPC")</span>
+				<span class="dialogue-sender">@(isUserMessage ? "You" : Npc.Name)</span>
 				<span>@message[5..]</span>
+			</div>
+		}
+		@if (_isSending)
+		{
+			<div class="dialogue-message dialogue-message-npc" role="status" aria-label="NPC is responding">
+				<span class="dialogue-sender">@(Npc.Name)</span>
+				<span class="dialogue-typing"><span></span><span></span><span></span></span>
 			</div>
 		}
 		@if (_isReturningEncounter && _messagesAtEncounterStart == _messages.Count)
@@ -23,9 +33,13 @@
 			<div class="dialogue-encounter-divider"><span>New encounter</span></div>
 		}
 	</div>
+	@if (_sendError is not null)
+	{
+		<div class="dialogue-error" role="alert">@_sendError</div>
+	}
 	<div class="dialogue-compose">
 		<input aria-label="Message" placeholder="Type a message..." @bind="_draftMessage" @bind:event="oninput" @onkeydown="HandleKeyDown" />
-		<button type="button" @onclick="SendMessage" disabled="@string.IsNullOrWhiteSpace(_draftMessage)">Send</button>
+		<button type="button" @onclick="SendMessageAsync" disabled="@(_isSending || string.IsNullOrWhiteSpace(_draftMessage))">@(_isSending ? "Sending..." : "Send")</button>
 	</div>
 </section>
 
@@ -93,10 +107,48 @@
 		background: #45454d;
 	}
 
+	.dialogue-typing {
+		display: flex;
+		gap: 4px;
+	}
+
+	.dialogue-typing span {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: currentColor;
+		animation: dialogue-typing 1.2s infinite ease-in-out;
+	}
+
+	.dialogue-typing span:nth-child(2) {
+		animation-delay: 0.2s;
+	}
+
+	.dialogue-typing span:nth-child(3) {
+		animation-delay: 0.4s;
+	}
+
+	@@keyframes dialogue-typing {
+		0%, 60%, 100% {
+			transform: translateY(0);
+			opacity: 0.4;
+		}
+
+		30% {
+			transform: translateY(-4px);
+			opacity: 1;
+		}
+	}
+
 	.dialogue-sender {
 		font-size: 0.75rem;
 		font-weight: bold;
 		opacity: 0.8;
+	}
+
+	.dialogue-error {
+		color: #ffb3b3;
+		font-size: 0.9rem;
 	}
 
 	.dialogue-compose {
@@ -132,10 +184,14 @@
 @code {
 	[Parameter] public required NpcEntity Npc { get; set; }
 
+	private ElementReference _messagesElement;
+	private IJSObjectReference? _scrollModule;
 	private List<string> _messages = [];
 	private int _messagesAtEncounterStart;
 	private bool _isReturningEncounter;
 	private string _draftMessage = string.Empty;
+	private bool _isSending;
+	private string? _sendError;
 
 	protected override void OnInitialized()
 	{
@@ -143,19 +199,50 @@
 		_messagesAtEncounterStart = _messages.Count;
 	}
 
-	private void SendMessage()
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		var message = _draftMessage.Trim();
-		if (message.Length == 0)
-			return;
+		if (firstRender)
+			_scrollModule = await JS.InvokeAsync<IJSObjectReference>("import", "./scripts/npc-dialogue.js");
 
-		_messages.Add($"You: {message}");
-		_draftMessage = string.Empty;
+		if (_scrollModule is not null)
+			await _scrollModule.InvokeVoidAsync("scrollToBottom", _messagesElement);
 	}
 
-	private void HandleKeyDown(KeyboardEventArgs args)
+	private async Task SendMessageAsync()
+	{
+		var message = _draftMessage.Trim();
+		if (message.Length == 0 || _isSending)
+			return;
+
+		_draftMessage = string.Empty;
+		_messages.Add($"You: {message}");
+		_isSending = true;
+		_sendError = null;
+		await InvokeAsync(StateHasChanged);
+		await Task.Yield();
+		try
+		{
+			await DialogueService.SendMessageAsync(Npc, _messages);
+		}
+		catch (Exception)
+		{
+			_sendError = "Unable to get a response from the NPC.";
+		}
+		finally
+		{
+			_isSending = false;
+		}
+	}
+
+	public async ValueTask DisposeAsync()
+	{
+		if (_scrollModule is not null)
+			await _scrollModule.DisposeAsync();
+	}
+
+	private async Task HandleKeyDown(KeyboardEventArgs args)
 	{
 		if (args.Key == "Enter")
-			SendMessage();
+			await SendMessageAsync();
 	}
 }
