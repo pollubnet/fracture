@@ -80,8 +80,8 @@ public class MovementService
         if (_userService.User?.PlayerPosition is null)
         {
             // Jeśli nie ma zapisanej pozycji, ustaw pozycję startową
-            CurrentX = CurrentMap?.GetRandomWalkableNode().X ?? 0;
-            CurrentY = CurrentMap?.GetRandomWalkableNode().Y ?? 0;
+            CurrentX = CurrentMap!.GetRandomWalkableNode().X;
+            CurrentY = CurrentMap!.GetRandomWalkableNode().Y;
             return;
         }
 
@@ -103,7 +103,7 @@ public class MovementService
             else
             {
                 // Pozycja nie jest walkable - losuj nową
-                var randomPos = CurrentMap.GetRandomWalkableNode();
+                var randomPos = CurrentMap!.GetRandomWalkableNode();
                 CurrentX = randomPos.X;
                 CurrentY = randomPos.Y;
                 _lastSavedX = randomPos.X;

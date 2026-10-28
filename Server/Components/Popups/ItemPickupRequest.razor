@@ -27,7 +27,7 @@
 </div>
 
 @code {
-    [Parameter] public Item? Item { get; set; }
+    [Parameter] public required Item Item { get; set; }
     [Parameter] public Func<Task>? OnConfirm { get; set; }
     [Parameter] public Func<Task>? OnCancel { get; set; }
 
