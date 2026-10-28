@@ -280,7 +280,7 @@ public class MovementService
             if (CurrentMap.Grid[x, y].MapObject is NpcMapObject npc)
             {
                 await _gameLogService.LogAsync(
-                    $"NPC: {npc.Entity.Name}, {npc.Entity.Role}",
+                    $"{npc.Entity.Name}, {npc.Entity.Role}",
                     GameLogType.NpcEncounter
                 );
                 OnNpcEncountered?.Invoke(this, new NpcEncounter(npc, npc.Entity, position));

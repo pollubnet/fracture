@@ -1,5 +1,6 @@
 @using Fracture.Server.Modules.Shared
 @inject GameLogService GameLogProvider
+@implements IDisposable
 
 <div class="gameLog">
 	<div class="gameLogHeader">
@@ -15,3 +16,20 @@
 		}
 	</div>
 </div>
+
+@code {
+	protected override void OnInitialized()
+	{
+		GameLogProvider.Logs.CollectionChanged += OnLogsChanged;
+	}
+
+	private void OnLogsChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+	{
+		_ = InvokeAsync(StateHasChanged);
+	}
+
+	public void Dispose()
+	{
+		GameLogProvider.Logs.CollectionChanged -= OnLogsChanged;
+	}
+}

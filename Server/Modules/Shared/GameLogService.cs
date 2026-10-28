@@ -32,7 +32,7 @@ namespace Fracture.Server.Modules.Shared
                 {
                     GameLogType.Born => "Teleported into a new world",
                     GameLogType.NewItem => "Got a new item",
-                    GameLogType.NpcEncounter => "Encountered a new NPC",
+                    GameLogType.NpcEncounter => "Encountered another person: ",
                     _ => null,
                 };
             }
