@@ -1,9 +1,10 @@
 ﻿using Fracture.Server.Modules.AI.Models;
+using Fracture.Server.Modules.Shared;
 using Microsoft.Extensions.AI;
 
 namespace Fracture.Server.Modules.AI.Services;
 
-public class SingleResponseProvider(IChatClient _client)
+public class SingleResponseProvider(IChatClient _client, RandomProvider randomProvider)
 {
     /// <summary>
     /// Returns a response generated for a given prompt.
@@ -31,6 +32,7 @@ public class SingleResponseProvider(IChatClient _client)
             MaxOutputTokens = context.MaxTokens,
             StopSequences = context.StopTokens,
             ModelId = context.Model,
+            Seed = RandomProvider.Seed,
         };
 
         var response = await _client.GetResponseAsync(messages, options);
