@@ -52,6 +52,7 @@ public class NpcDialogueService(
                     description: "Controls the color of an LED"
                 ),
             ],
+            Seed = RandomProvider.Seed,
         };
 
         var systemMessage = $"""
