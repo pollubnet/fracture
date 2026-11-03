@@ -42,6 +42,7 @@ public class NpcDialogueService(
                     description: "Creates a new item and gives it to the player, returns its name"
                 ),
             ],
+            Seed = RandomProvider.Seed,
         };
 
         var systemMessage = $"""
