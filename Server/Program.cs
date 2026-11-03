@@ -15,7 +15,6 @@ using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.NameGenerators;
 using Fracture.Server.Modules.UI;
 using Fracture.Server.Modules.Users.Services;
-using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.AI;
@@ -87,7 +86,11 @@ builder.Services.AddSingletonIfFeatureEnabled<IChatClient>(
             Endpoint = new Uri(ai.EndpointUrl ?? string.Empty),
         };
 
-        return new OpenAIClient(credential, options).GetChatClient(ai.Model).AsIChatClient();
+        return new ChatClientBuilder(
+            new OpenAIClient(credential, options).GetChatClient(ai.Model).AsIChatClient()
+        )
+            .UseFunctionInvocation()
+            .Build();
     }
 );
 builder.Services.AddSingletonIfFeatureEnabled<SingleResponseProvider>(FeatureFlags.USE_AI);
