@@ -10,6 +10,7 @@ using Fracture.Server.Modules.MapGenerator;
 using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.MapGenerator.Services.TownGen;
 using Fracture.Server.Modules.Npc.Services;
+using Fracture.Server.Modules.Serial;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Shared.Configuration;
 using Fracture.Server.Modules.Shared.NameGenerators;
@@ -96,6 +97,13 @@ builder.Services.AddSingletonIfFeatureEnabled<IChatClient>(
 builder.Services.AddSingletonIfFeatureEnabled<SingleResponseProvider>(FeatureFlags.USE_AI);
 
 builder.Services.AddSingleton<GameLogService>();
+
+builder.Services.AddSingleton<ISerialCommandService>(sp => new SerialCommandService(
+    builder.Configuration["SerialPort:PortName"] ?? string.Empty,
+    builder.Configuration.GetValue("SerialPort:BaudRate", 115200),
+    builder.Configuration.GetValue("SerialPort:WriteTimeoutMs", 3000),
+    sp.GetRequiredService<ILogger<SerialCommandService>>()
+));
 
 builder
     .Services.AddRazorComponents()

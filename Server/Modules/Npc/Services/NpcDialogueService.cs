@@ -1,6 +1,7 @@
 using Fracture.Server.Modules.Items.Services;
 using Fracture.Server.Modules.MapGenerator.Services;
 using Fracture.Server.Modules.Npc.Models;
+using Fracture.Server.Modules.Serial;
 using Fracture.Server.Modules.Shared;
 using Fracture.Server.Modules.Users.Services;
 using Microsoft.Extensions.AI;
@@ -13,6 +14,7 @@ public class NpcDialogueService(
     UserService userService,
     ILogger<NpcDialogueService> logger,
     GameLogService gameLogService,
+    ISerialCommandService serialCommandService,
     IChatClient? chatClient = null
 )
 {
@@ -40,6 +42,14 @@ public class NpcDialogueService(
                     },
                     name: "generate_item",
                     description: "Creates a new item and gives it to the player, returns its name"
+                ),
+                AIFunctionFactory.Create(
+                    (int r, int g, int b) =>
+                    {
+                        serialCommandService.Send($"{r} {g} {b}\n");
+                    },
+                    name: "color_led",
+                    description: "Controls the color of an LED"
                 ),
             ],
         };
