@@ -1,5 +1,35 @@
-﻿<h3>JournalPopup</h3>
+﻿@using Fracture.Server.Modules.Shared
+@inject GameLogService GameLogProvider
+@implements IDisposable
+
+<div class="gameLog">
+	<div class="gameLogHeader">
+		<h3>Our history so far...</h3>
+	</div>
+	<div class="gameLogContent">
+		@foreach (var log in GameLogProvider.Logs)
+		{
+			<div class="logEntry">
+				<span>@log.Timestamp.ToString("HH:mm:ss")</span>
+				<span>@log.Message</span>
+			</div>
+		}
+	</div>
+</div>
 
 @code {
+	protected override void OnInitialized()
+	{
+		GameLogProvider.Logs.CollectionChanged += OnLogsChanged;
+	}
 
+	private void OnLogsChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+	{
+		_ = InvokeAsync(StateHasChanged);
+	}
+
+	public void Dispose()
+	{
+		GameLogProvider.Logs.CollectionChanged -= OnLogsChanged;
+	}
 }
